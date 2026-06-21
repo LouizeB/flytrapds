@@ -68,7 +68,7 @@ No DTCG, `foundation` reúne primitives não cromáticos para manter o vocabulá
 
 Semantic tokens são aliases de intenção. Eles respondem: **qual função este valor exerce na interface?**
 
-O contrato CSS do shadcn exige nomes compactos como `--background` e `--primary`. No Flytrap, esses nomes são a representação runtime de uma taxonomia lógica mais explícita:
+O contrato CSS de runtime usa nomes compactos como `--background` e `--primary`. No Flytrap, esses nomes representam uma taxonomia lógica mais explícita:
 
 | Família semântica | Pergunta | Runtime atual |
 |--|--|--|

@@ -1,10 +1,12 @@
 # Flytrap DS — Documentação
 
-Design system multibrand (Tailwind v4 + shadcn/ui) com acessibilidade APCA verificada em CI.
+Design system multibrand com arquitetura semântica e acessibilidade APCA verificada em CI.
 
 ## Comece por aqui
 
 Esta documentação usa uma linguagem compartilhada entre design e desenvolvimento. Cada trilha indica uma ordem de leitura; os documentos continuam únicos para evitar versões contraditórias do sistema.
+
+Consulta rápida: [mapa separado da arquitetura semântica](../architecture/README.md).
 
 ### Trilha Product Design
 
@@ -17,8 +19,9 @@ Para entender decisões, criar novas experiências e preparar handoff:
 5. [Inventário e prioridades](04-components.md)
 6. [Multibrand, modes e themes](05-multibrand.md)
 7. [Anatomia e Definition of Done](12-component-anatomy.md)
-8. [Iconografia Lucide](13-iconography.md)
+8. [Iconografia semântica](13-iconography.md)
 9. [Contrato de contexto para IA](14-ai-context-contract.md)
+10. [Experiência pública — Release 1](15-public-experience-release-1.md)
 
 Perguntas que esta trilha responde: qual token representa esta intenção? Quais estados precisam ser desenhados? Como validar contraste? O componente já existe? O que deve constar no handoff?
 
@@ -36,7 +39,7 @@ Para instalar, implementar, validar e publicar:
 8. [Contrato de contexto para agentes](14-ai-context-contract.md)
 9. [Como contribuir](../CONTRIBUTING.md)
 
-Perguntas que esta trilha responde: qual pacote importar? Onde o código deve viver? Como adicionar um componente shadcn? Quais gates precisam passar? Como publicar sem expor secrets?
+Perguntas que esta trilha responde: qual pacote importar? Onde o código deve viver? Como adicionar um componente? Quais gates precisam passar? Como publicar sem expor secrets?
 
 ## Referência completa
 
@@ -53,7 +56,8 @@ Perguntas que esta trilha responde: qual pacote importar? Onde o código deve vi
 11. [Decisões (ADR)](10-decisions.md)
 12. [Roadmap](11-roadmap.md)
 13. [Anatomia e Definition of Done](12-component-anatomy.md)
-14. [Iconografia Lucide](13-iconography.md)
+14. [Iconografia semântica](13-iconography.md)
 15. [Contrato de contexto para IA](14-ai-context-contract.md)
+16. [Experiência pública — Release 1](15-public-experience-release-1.md)
 
 Contribuição: [CONTRIBUTING](../CONTRIBUTING.md) · Histórico: [CHANGELOG](../CHANGELOG.md)

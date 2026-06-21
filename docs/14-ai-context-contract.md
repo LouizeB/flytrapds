@@ -31,7 +31,7 @@ Não injete o repositório inteiro. Contexto compacto, hierárquico e atual redu
 - Reutilizar um componente exportado antes de criar outro.
 - Usar semantic ou component tokens no código de UI.
 - Tratar loading, empty, error, disabled e permission states quando aplicáveis.
-- Usar aliases Lucide do Flytrap para significados já catalogados.
+- Usar aliases iconográficos do Flytrap para significados já catalogados.
 - Preservar elemento HTML nativo, teclado e nome acessível.
 - Declarar quando uma necessidade não possui token ou componente adequado.
 - Rodar os gates do repositório antes de afirmar conclusão.
