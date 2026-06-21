@@ -10,7 +10,7 @@ Design system multibrand e AI-first em React 19, Tailwind CSS v4 e shadcn/ui, co
 [![Pages](https://github.com/LouizeB/flytrapds/actions/workflows/pages.yml/badge.svg)](https://github.com/LouizeB/flytrapds/actions/workflows/pages.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-F10081.svg)](LICENSE)
 
-[Site do design system](https://louizeb.github.io/flytrapds/) · [Documentação](docs/README.md) · [Inventário](docs/04-components.md) · [Roadmap](docs/11-roadmap.md) · [Contribuir](CONTRIBUTING.md)
+[Site do design system](https://louizeb.github.io/flytrapds/) · [Arquitetura](docs/01-architecture-tokens.md) · [Inventário](docs/04-components.md) · [Roadmap](docs/11-roadmap.md) · [Contribuir](CONTRIBUTING.md)
 
 </div>
 
@@ -23,7 +23,7 @@ Flytrap combina a dualidade Vênus + Dionaea: uma superfície orgânica, vibrant
 | Arquitetura | primitive → semantic → component |
 | Dimensões | brand × mode × theme |
 | Aparências | light · dark · vibrant |
-| Tokens | 177 resolvidos · fonte única DTCG |
+| Tokens | 215 resolvidos · fonte única DTCG |
 | Acessibilidade | 54 pares APCA aprovados |
 | Iconografia | Lucide com aliases semânticos Flytrap |
 | UI | React 19 · Tailwind v4 · shadcn/ui |
