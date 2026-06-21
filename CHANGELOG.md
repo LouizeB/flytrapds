@@ -22,6 +22,7 @@ Formato: Keep a Changelog · SemVer.
 ### Fixed
 - Build de tokens volta a criar `dist/` em ambientes limpos.
 - Build e APCA agora consomem a mesma fonte DTCG, eliminando divergência entre arquivos.
+- Preview Vercel gera `@flytrap/tokens` antes de compilar o catálogo em clones limpos.
 
 ## [0.1.0] — 2026-06-21
 ### Added
