@@ -1,0 +1,48 @@
+name: Component or feature request
+description: Proponha uma evolução alinhada ao contexto do Flytrap.
+title: "[proposal]: "
+labels: [proposal, triage]
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: Área
+      options:
+        - Foundation
+        - Component
+        - AI Agents
+        - AI Chat / RAG
+        - Dashboard / Dataviz
+        - Documentation
+        - Tooling
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problema
+      description: Que necessidade de usuário ou produto esta proposta resolve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposta
+      description: Descreva anatomia, estados, variantes e composição esperada.
+    validations:
+      required: true
+  - type: textarea
+    id: tokens
+    attributes:
+      label: Tokens e acessibilidade
+      description: Quais decisões semânticas, pares APCA, teclado e ARIA precisam ser considerados?
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Prioridade sugerida
+      options:
+        - P0 — bloqueia fluxo essencial
+        - P1 — completa fluxo prioritário
+        - P2 — expansão
+    validations:
+      required: true

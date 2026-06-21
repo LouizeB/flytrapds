@@ -1,24 +1,58 @@
-name: CI
+name: Quality
+
 on:
-  pull_request: {}
-  push: { branches: [main] }
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: quality-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
 jobs:
   verify:
+    name: Tokens, code and builds
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
-        with: { node-version: 20, cache: pnpm }
-      - uses: actions/setup-python@v5
-        with: { python-version: "3.12" }
-      - run: pnpm install --frozen-lockfile
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
       - name: Build tokens
-        run: pnpm -F @flytrap/tokens build
-      - name: Token contract
+        run: pnpm tokens
+
+      - name: Validate token contract
         run: pnpm tokens:contract
-      - name: APCA gate
-        run: python3 scripts/apca_gate.py packages/tokens/src/flytrap.tokens.json
-      - run: pnpm lint
-      - run: pnpm typecheck
-      - run: pnpm build
+
+      - name: Run APCA gate
+        run: pnpm apca
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Build workspaces
+        run: pnpm build

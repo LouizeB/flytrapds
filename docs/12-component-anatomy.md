@@ -65,3 +65,4 @@ O foreground sempre usa o par `*-fg` correspondente. O componente não conhece m
 - Há exemplo real em `apps/docs` ou justificativa para não haver.
 - Lint, tipos e build passam.
 - A revisão cobre teclado, foco, ARIA, reduced motion e contraste.
+- Ícones seguem o vocabulário Lucide do Flytrap e não duplicam significados existentes.

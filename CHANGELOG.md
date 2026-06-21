@@ -7,6 +7,7 @@ Formato: Keep a Changelog · SemVer.
 - Migração da UI de Lit Web Components para React 19 + Tailwind v4 + shadcn/ui.
 - Docs e dashboard reescritos como apps React consumidores de `@flytrap/ui`.
 - Configuração shadcn de monorepo adicionada aos workspaces.
+- GitHub Actions separado entre gates de qualidade e publicação do catálogo.
 
 ### Added
 - Fundação base (`Button`, `Badge`, `Card`, `Input`, `Field`, `Progress`).
@@ -14,10 +15,14 @@ Formato: Keep a Changelog · SemVer.
 - Validador estrutural de tokens e matriz APCA light/dark/vibrant.
 - Template de anatomia e Definition of Done para componentes.
 - Inventário priorizado por fluxos reais, com status, estados e ondas P0/P1/P2.
+- Vocabulário iconográfico Lucide com aliases semânticos, tokens de tamanho/traço e wrapper acessível.
+- Homepage pública do design system e README organizada como portal do projeto.
+- GitHub Pages, templates de issue/PR, CODEOWNERS, Dependabot e política de segurança.
 
 ### Fixed
 - Build de tokens volta a criar `dist/` em ambientes limpos.
 - Build e APCA agora consomem a mesma fonte DTCG, eliminando divergência entre arquivos.
+- Preview Vercel gera `@flytrap/tokens` antes de compilar o catálogo em clones limpos.
 
 ## [0.1.0] — 2026-06-21
 ### Added
