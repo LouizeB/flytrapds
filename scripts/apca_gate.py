@@ -54,10 +54,11 @@ def walk(root, node, path=""):
 
 def main(path):
     root=load(path)
+    modes=root.get("$extensions",{}).get("flytrap",{}).get("modes",["light","dark"])
     fails=0; rows=[]
     for p, node, meta in walk(root, root):
         role=meta["role"]; on=meta["on"]; target=TARGETS[role]
-        for mode in ("light","dark"):
+        for mode in modes:
             txt=resolve(root, node, mode)
             bgnode=getnode(root, on)
             bg=resolve(root, bgnode, mode)
@@ -66,7 +67,7 @@ def main(path):
             if not ok: fails+=1
     w=max(len(r[1]) for r in rows)
     for ok,p,mode,role,lc,target,txt,bg in rows:
-        print(f"[{'PASS' if ok else 'FAIL'}] {p:<{w}} {mode:5} {role:7} Lc={lc:7} (>={target}) {txt}/{bg}")
+        print(f"[{'PASS' if ok else 'FAIL'}] {p:<{w}} {mode:7} {role:7} Lc={lc:7} (>={target}) {txt}/{bg}")
     print(f"\n{len(rows)} pairs, {fails} failing")
     sys.exit(1 if fails else 0)
 

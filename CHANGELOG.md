@@ -2,6 +2,23 @@
 
 Formato: Keep a Changelog · SemVer.
 
+## [Unreleased]
+### Changed
+- Migração da UI de Lit Web Components para React 19 + Tailwind v4 + shadcn/ui.
+- Docs e dashboard reescritos como apps React consumidores de `@flytrap/ui`.
+- Configuração shadcn de monorepo adicionada aos workspaces.
+
+### Added
+- Fundação base (`Button`, `Badge`, `Card`, `Input`, `Field`, `Progress`).
+- Composições AI (`AgentCard`, `MessageBubble`, `KpiStatCard`, `InsightCallout`).
+- Validador estrutural de tokens e matriz APCA light/dark/vibrant.
+- Template de anatomia e Definition of Done para componentes.
+- Inventário priorizado por fluxos reais, com status, estados e ondas P0/P1/P2.
+
+### Fixed
+- Build de tokens volta a criar `dist/` em ambientes limpos.
+- Build e APCA agora consomem a mesma fonte DTCG, eliminando divergência entre arquivos.
+
 ## [0.1.0] — 2026-06-21
 ### Added
 - Monorepo (pnpm + Turborepo), config compartilhada, CI com gate APCA.

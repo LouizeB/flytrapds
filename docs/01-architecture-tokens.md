@@ -22,4 +22,8 @@ Combinável: `<html data-brand="flytrap" class="dark vibrant">`. Component herda
 - Todo par texto/fundo passa pelo gate APCA antes do build.
 
 ## Implementação
-`packages/tokens/src/primitives/<brand>.json` (valores) → `build.mjs` (mapeamento) → `dist/flytrap-globals.css`.
+`packages/tokens/src/flytrap.tokens.json` é a única fonte DTCG. O arquivo contém primitives, foundations, semantic, component, modes e o manifesto de pares APCA.
+
+`flytrap.tokens.json` → `build.mjs` (transformação genérica) → `dist/flytrap-globals.css` + `dist/tokens.ts`.
+
+`scripts/token_contract.py` valida referências, ciclos, resolução nos três modos e fronteiras entre camadas. Decisões visuais pertencem ao DTCG, nunca ao gerador.

@@ -8,6 +8,7 @@
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
     "tokens": "pnpm -F @flytrap/tokens build",
+    "tokens:contract": "python3 scripts/token_contract.py packages/tokens/src/flytrap.tokens.json",
     "apca": "python3 scripts/apca_gate.py packages/tokens/src/flytrap.tokens.json"
   },
   "devDependencies": { "turbo": "^2.1.0" }

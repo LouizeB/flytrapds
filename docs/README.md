@@ -15,5 +15,6 @@ Design system multibrand (Tailwind v4 + shadcn/ui) com acessibilidade APCA verif
 10. [Recursos do projeto](09-project-links.md)
 11. [Decisões (ADR)](10-decisions.md)
 12. [Roadmap](11-roadmap.md)
+13. [Anatomia e Definition of Done](12-component-anatomy.md)
 
 Contribuição: [CONTRIBUTING](../CONTRIBUTING.md) · Histórico: [CHANGELOG](../CHANGELOG.md)
