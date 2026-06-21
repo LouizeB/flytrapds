@@ -41,6 +41,24 @@ const semanticIcons = [
   { icon: ApprovalIcon, label: "Approval" },
 ];
 
+const semanticStructures = [
+  ["Surface", "canvas, card, popover e overlay"],
+  ["Content", "texto, ícone e conteúdo inverso"],
+  ["Action", "primary, secondary e destructive por estado"],
+  ["Border & focus", "divisão, input e foco visível"],
+  ["Feedback", "success, warning, error e info"],
+  ["Dataviz", "séries, contraste e leitura de dados"],
+  ["Navigation", "sidebar, item ativo e seleção"],
+  ["AI", "agent, tool, approval e streaming"],
+] as const;
+
+const systemDimensions = [
+  ["Brand", "flytrap", "Identidade e primitives cromáticos"],
+  ["Mode", "light · dark", "Condição luminosa da interface"],
+  ["Theme", "default · vibrant", "Expressão visual dentro da marca"],
+  ["Viewport", "base · sm · md · lg · xl · 2xl", "Adaptação mobile-first"],
+] as const;
+
 function AppearanceControl({ appearance, onChange }: { appearance: Appearance; onChange: (value: Appearance) => void }) {
   return <div aria-label="Aparência" className="flex gap-1 rounded-lg border bg-card p-1" role="group">
     {(["light", "dark", "vibrant"] as const).map(value => <Button
@@ -85,7 +103,7 @@ function App() {
             <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">Uma linguagem visual orgânica sobre tokens rastreáveis, componentes React acessíveis e padrões próprios para agents, chat e inteligência em dashboards.</p>
             <div className="mt-8 flex flex-wrap gap-3"><Button asChild size="lg"><a href="#components">Explorar componentes</a></Button><Button asChild size="lg" variant="outline"><a href="https://github.com/LouizeB/flytrapds">Ver código <FlytrapIcon icon={ExternalLinkIcon} /></a></Button></div>
             <dl className="mt-16 grid gap-4 sm:grid-cols-3">
-              {[['177', 'tokens resolvidos'], ['3', 'aparências combináveis'], ['9', 'famílias implementadas']].map(([value, label]) => <div className="rounded-xl border bg-card/70 p-5 backdrop-blur" key={label}><dt className="text-sm text-muted-foreground">{label}</dt><dd className="mt-1 font-display text-3xl font-bold">{value}</dd></div>)}
+              {[["215", "tokens resolvidos"], ["3", "aparências publicadas"], ["9", "famílias implementadas"]].map(([value, label]) => <div className="rounded-xl border bg-card/70 p-5 backdrop-blur" key={label}><dt className="text-sm text-muted-foreground">{label}</dt><dd className="mt-1 font-display text-3xl font-bold">{value}</dd></div>)}
             </dl>
           </div>
         </section>
@@ -113,6 +131,23 @@ function App() {
           <p className="mt-3 max-w-2xl text-muted-foreground">Primitive entrega valor, semantic entrega intenção e component entrega contexto. Brand, mode e theme mudam sem reescrever componentes.</p>
           <div className="mt-8 grid gap-4 md:grid-cols-3">
             {[['01', 'Primitive', '--magenta-500', 'Valores brutos nunca consumidos diretamente pela UI.'], ['02', 'Semantic', '--primary', 'Contrato compartilhado por superfícies, texto e ações.'], ['03', 'Component', '--button-primary-bg', 'Decisões específicas de anatomia e estado.']].map(([index, title, token, description]) => <Card key={title}><CardHeader><span className="font-mono text-xs text-primary">{index}</span><CardTitle>{title}</CardTitle><CardDescription>{description}</CardDescription></CardHeader><CardContent><code className="rounded-md bg-muted px-2 py-1 font-mono text-xs">{token}</code></CardContent></Card>)}
+          </div>
+          <div className="mt-12 grid gap-8 lg:grid-cols-2">
+            <div>
+              <h3 className="font-display text-2xl font-bold">Estruturas semânticas</h3>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">Um vocabulário orientado à função evita que telas dependam de nomes de cor ou detalhes de implementação.</p>
+              <dl className="mt-5 grid gap-3 sm:grid-cols-2">
+                {semanticStructures.map(([name, description]) => <div className="rounded-xl border bg-card p-4" key={name}><dt className="font-semibold">{name}</dt><dd className="mt-1 text-sm text-muted-foreground">{description}</dd></div>)}
+              </dl>
+            </div>
+            <div>
+              <h3 className="font-display text-2xl font-bold">Dimensões do sistema</h3>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">Brand, mode, theme e viewport têm responsabilidades independentes. Hoje o catálogo publica light, dark e vibrant; a evolução preserva essa separação.</p>
+              <dl className="mt-5 overflow-hidden rounded-xl border bg-card">
+                {systemDimensions.map(([name, values, description]) => <div className="grid gap-1 border-b p-4 last:border-b-0 sm:grid-cols-[88px_1fr]" key={name}><dt className="font-semibold">{name}</dt><dd><code className="font-mono text-xs text-primary">{values}</code><p className="mt-1 text-sm text-muted-foreground">{description}</p></dd></div>)}
+              </dl>
+              <Button asChild className="mt-5" variant="outline"><a href="https://github.com/LouizeB/flytrapds/blob/main/docs/01-architecture-tokens.md">Ler arquitetura completa <FlytrapIcon icon={ExternalLinkIcon} /></a></Button>
+            </div>
           </div>
           <div className="mt-12 grid gap-6">
             {scales.map(scale => <div key={scale}><div className="mb-2 flex items-center justify-between"><h3 className="text-sm font-semibold capitalize">{scale}</h3><span className="font-mono text-xs text-muted-foreground">50—950</span></div><div className="grid grid-cols-6 overflow-hidden rounded-xl border sm:grid-cols-11">{steps.map(step => <div className="aspect-square min-h-10" key={step} style={{ background: `var(--${scale}-${step})` }} title={`--${scale}-${step}`} />)}</div></div>)}

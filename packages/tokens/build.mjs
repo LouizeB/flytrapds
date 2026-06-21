@@ -20,7 +20,7 @@ function leaves(node, path = []) {
 
 function variableName(path) {
   const [group, ...rest] = path;
-  if (group === "foundation" && rest[0] === "radius") return `foundation-${rest.join("-")}`;
+  if (group === "foundation" && ["radius", "breakpoint"].includes(rest[0])) return `foundation-${rest.join("-")}`;
   if (["primitive", "foundation", "semantic", "component"].includes(group)) return rest.join("-");
   return path.join("-");
 }
@@ -79,15 +79,20 @@ const componentTheme = componentEntries
   .map(({ path }) => `  --color-${variableName(path)}:var(--${variableName(path)});`)
   .join("\n");
 
+const breakpointTheme = Object.entries(tokens.foundation.breakpoint)
+  .map(([name, token]) => `  --breakpoint-${name}:${token.$value};`)
+  .join("\n");
+
 const tailwindTheme = `@theme inline {
 ${semanticTheme}
 ${componentTheme}
+${breakpointTheme}
   --radius-lg:var(--foundation-radius-lg);
   --radius-md:var(--foundation-radius-md);
   --radius-sm:var(--foundation-radius-sm);
-  --font-display:"Fira Sans",sans-serif;
-  --font-sans:"Ubuntu Sans",sans-serif;
-  --font-mono:"Roboto Mono",monospace;
+  --font-display:var(--font-family-display),sans-serif;
+  --font-sans:var(--font-family-sans),sans-serif;
+  --font-mono:var(--font-family-mono),monospace;
 }
 
 @layer base {
@@ -102,4 +107,4 @@ writeFileSync(
   join(root, "dist/tokens.ts"),
   `// AUTO-GERADO. Fonte: src/flytrap.tokens.json.\nexport const tokens = ${JSON.stringify(tokens, null, 2)} as const;\nexport const primitives = tokens.primitive;\n`,
 );
-console.log(`built ${brand}: ${primitiveEntries.length} primitives, ${semanticEntries.length} semantic, ${componentEntries.length} component tokens`);
+console.log(`built ${brand}: ${primitiveEntries.length} primitives, ${foundationEntries.length} foundations, ${semanticEntries.length} semantic, ${componentEntries.length} component tokens`);

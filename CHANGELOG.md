@@ -18,6 +18,9 @@ Formato: Keep a Changelog · SemVer.
 - Vocabulário iconográfico Lucide com aliases semânticos, tokens de tamanho/traço e wrapper acessível.
 - Homepage pública do design system e README organizada como portal do projeto.
 - GitHub Pages, templates de issue/PR, CODEOWNERS, Dependabot e política de segurança.
+- Foundations DTCG para spacing, tipografia, bordas e breakpoints mobile-first.
+- Arquitetura explícita de primitives, semantic e component tokens, com taxonomia semântica e dimensões de brand, mode, theme e viewport.
+- Contrato compacto de contexto para agentes de IA consumirem o design system sem inventar tokens ou componentes.
 
 ### Fixed
 - Build de tokens volta a criar `dist/` em ambientes limpos.

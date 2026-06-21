@@ -16,3 +16,4 @@
 | 12 | UI em **React 19 + shadcn/ui + Tailwind v4** | código local, composição flexível e alinhamento com o ecossistema dos produtos |
 | 13 | `@flytrap/ui` como dono dos componentes compartilhados | impede forks divergentes entre docs e dashboard |
 | 14 | **Lucide** com aliases semânticos Flytrap | consistência entre Figma e código, SVG acessível e imports tree-shakable |
+| 15 | Contexto de IA como **contrato compacto** | agentes reutilizam componentes e intenção sem receber o repositório inteiro nem inventar primitives |
