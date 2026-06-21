@@ -161,6 +161,7 @@ Um componente só muda para `✅` quando atende à [Definition of Done](12-compo
 - Usar primitives diretamente é proibido. Componentes estratégicos recebem component tokens; os demais consomem semantic tokens.
 - Instalar primitives shadcn pelo CLI a partir de um app com `components.json`; revisar o código gerado antes de exportar.
 - Não criar um componente AI quando uma composição acessível de primitives resolver o problema.
+- Ícones usam `FlytrapIcon` e o vocabulário semântico Lucide; emojis não fazem parte da UI de produto.
 - Loading, empty e error fazem parte do componente, não são acabamento posterior.
 - Toda API pública deve aparecer no catálogo de `apps/docs`.
 

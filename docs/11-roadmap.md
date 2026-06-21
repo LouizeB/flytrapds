@@ -8,7 +8,7 @@
 | M2a | Fundação `@flytrap/ui` (React, shadcn config, base + composições AI) | ✅ |
 | M2a.1 | Fonte única DTCG, estados de componente e matriz light/dark/vibrant | ✅ |
 | M2b | Executar ondas P0 do inventário: foundation + AI + chart | ⏳ |
-| M4 | Apps docs/dashboard compilando; publicação Vercel | build ✅ · deploy ⏳ |
+| M4 | Docs via GitHub Pages; dashboard/previews via Vercel | workflow ✅ · primeiro deploy ⏳ |
 | — | Ingestão `ds_context` (popular RAG) | ⏳ |
 | — | Telemetria de adesão (loop) · theme vibrant em dashboards | backlog |
 

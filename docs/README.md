@@ -2,7 +2,42 @@
 
 Design system multibrand (Tailwind v4 + shadcn/ui) com acessibilidade APCA verificada em CI.
 
-## Índice
+## Comece por aqui
+
+Esta documentação usa uma linguagem compartilhada entre design e desenvolvimento. Cada trilha indica uma ordem de leitura; os documentos continuam únicos para evitar versões contraditórias do sistema.
+
+### Trilha Product Design
+
+Para entender decisões, criar novas experiências e preparar handoff:
+
+1. [Visão geral e conceito da marca](00-overview.md)
+2. [Arquitetura de tokens](01-architecture-tokens.md)
+3. [Escala e papel das cores](02-color-scale.md)
+4. [Acessibilidade APCA](03-accessibility-apca.md)
+5. [Inventário e prioridades](04-components.md)
+6. [Multibrand, modes e themes](05-multibrand.md)
+7. [Anatomia e Definition of Done](12-component-anatomy.md)
+8. [Iconografia Lucide](13-iconography.md)
+
+Perguntas que esta trilha responde: qual token representa esta intenção? Quais estados precisam ser desenhados? Como validar contraste? O componente já existe? O que deve constar no handoff?
+
+### Trilha Development
+
+Para instalar, implementar, validar e publicar:
+
+1. [README e quick start](../README.md#começar)
+2. [Arquitetura e geração de tokens](01-architecture-tokens.md#implementação)
+3. [Inventário e APIs planejadas](04-components.md)
+4. [Pipeline Figma → Deploy](06-pipeline.md)
+5. [Backend Supabase](07-supabase.md)
+6. [Secrets](08-secrets.md)
+7. [Decisões arquiteturais](10-decisions.md)
+8. [Como contribuir](../CONTRIBUTING.md)
+
+Perguntas que esta trilha responde: qual pacote importar? Onde o código deve viver? Como adicionar um componente shadcn? Quais gates precisam passar? Como publicar sem expor secrets?
+
+## Referência completa
+
 1. [Visão geral](00-overview.md)
 2. [Arquitetura de tokens (3×3)](01-architecture-tokens.md)
 3. [Escala de cores](02-color-scale.md)
@@ -16,5 +51,6 @@ Design system multibrand (Tailwind v4 + shadcn/ui) com acessibilidade APCA verif
 11. [Decisões (ADR)](10-decisions.md)
 12. [Roadmap](11-roadmap.md)
 13. [Anatomia e Definition of Done](12-component-anatomy.md)
+14. [Iconografia Lucide](13-iconography.md)
 
 Contribuição: [CONTRIBUTING](../CONTRIBUTING.md) · Histórico: [CHANGELOG](../CHANGELOG.md)

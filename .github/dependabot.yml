@@ -1,0 +1,24 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      frontend:
+        patterns:
+          - "react*"
+          - "vite*"
+          - "@vitejs/*"
+          - "tailwindcss"
+          - "@tailwindcss/*"
+          - "lucide-react"
+      tooling:
+        patterns:
+          - "eslint*"
+          - "typescript"
+          - "turbo"
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly

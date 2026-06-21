@@ -15,3 +15,4 @@
 | 11 | AI key via **Supabase Edge** (proxy) | nunca expor key no client |
 | 12 | UI em **React 19 + shadcn/ui + Tailwind v4** | código local, composição flexível e alinhamento com o ecossistema dos produtos |
 | 13 | `@flytrap/ui` como dono dos componentes compartilhados | impede forks divergentes entre docs e dashboard |
+| 14 | **Lucide** com aliases semânticos Flytrap | consistência entre Figma e código, SVG acessível e imports tree-shakable |

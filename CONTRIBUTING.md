@@ -1,5 +1,13 @@
 # Contribuição — Flytrap DS
 
+## Documentação para design e desenvolvimento
+
+- Explique primeiro a intenção e depois a implementação.
+- Use os mesmos nomes de tokens, variantes e estados no Figma, na documentação e no código.
+- Toda proposta de componente deve incluir anatomia e comportamento para Product Design, além de API e validação para Development.
+- Prefira linguagem direta, exemplos pequenos e links para aprofundamento; não presuma conhecimento de terminal para leitores de design.
+- Expanda o glossário no próprio documento quando um termo técnico for inevitável.
+
 ## Tokens
 - Editar o contrato: `packages/tokens/src/flytrap.tokens.json`.
 - O DTCG é a única fonte de primitives, foundations, semantic, component, modes e pares APCA.
@@ -33,5 +41,7 @@
 ## Fluxo de PR
 1. Branch a partir de `main`.
 2. `pnpm install && pnpm lint && pnpm typecheck && pnpm apca && pnpm build`.
-3. Abrir PR → CI (lint·typecheck·apca_gate·build·preview Vercel).
+3. Abrir PR → workflow Quality (tokens·APCA·lint·typecheck·build).
 4. Merge após verde + review.
+
+Merges em `main` publicam `apps/docs` no GitHub Pages pelo workflow Pages. Previews e dashboard permanecem no Vercel.
