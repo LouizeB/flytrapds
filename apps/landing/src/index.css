@@ -1,0 +1,70 @@
+/* Tokens do design system (já incluem `@import "tailwindcss"` + @theme inline). */
+@import "@flytrap/tokens/css";
+
+/* Tailwind v4: garante o scan das classes desta app (o CSS-raiz vive em node_modules). */
+@source "../index.html";
+@source "./**/*.{ts,tsx}";
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: var(--magenta-500);
+    color: #fff;
+  }
+}
+
+@layer components {
+  /* Estética "líquida/iridescente" da marca Venus Flytrap. */
+  .ft-gradient-text {
+    background-image: linear-gradient(
+      100deg,
+      var(--magenta-500),
+      var(--magenta-400) 35%,
+      var(--acid-300) 90%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .ft-iridescent {
+    background:
+      radial-gradient(60% 80% at 15% 10%, color-mix(in oklab, var(--magenta-500) 55%, transparent), transparent 60%),
+      radial-gradient(50% 70% at 90% 20%, color-mix(in oklab, var(--acid-300) 45%, transparent), transparent 55%),
+      radial-gradient(70% 90% at 70% 100%, color-mix(in oklab, var(--magenta-700) 50%, transparent), transparent 60%);
+  }
+
+  .ft-grid {
+    background-image:
+      linear-gradient(to right, color-mix(in oklab, var(--border) 60%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in oklab, var(--border) 60%, transparent) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .ft-glow {
+    box-shadow:
+      0 0 0 1px color-mix(in oklab, var(--magenta-500) 25%, transparent),
+      0 24px 70px -28px color-mix(in oklab, var(--magenta-500) 60%, transparent);
+  }
+}
+
+@keyframes ft-float {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-14px) scale(1.04);
+  }
+}
+
+.ft-animate-float {
+  animation: ft-float 9s var(--ease-liquid, ease-in-out) infinite;
+}

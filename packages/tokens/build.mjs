@@ -1,10 +1,11 @@
 // Flytrap tokens build: primitives (50–950, por brand) + semantic/component (estrutural) → globals.css + tokens.ts
-import { readFileSync, writeFileSync, readdirSync } from "node:fs";
+import { readFileSync, writeFileSync, readdirSync, mkdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
 const root = dirname(fileURLToPath(import.meta.url));
 const primDir = join(root, "src/primitives");
+mkdirSync(join(root, "dist"), { recursive: true });
 const brands = readdirSync(primDir).filter(f=>f.endsWith(".json"))
   .map(f=>JSON.parse(readFileSync(join(primDir,f),"utf8")));
 const SCALES = ["magenta","acid","neutral","success","warning","error"];
