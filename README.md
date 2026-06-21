@@ -1,6 +1,6 @@
 # Flytrap DS
 
-Design system multibrand (Tailwind v4 + shadcn/ui) com gate de acessibilidade APCA.
+Design system multibrand com Web Components nativos (Lit) e gate de acessibilidade APCA.
 Arquitetura: **3 camadas (primitive · semantic · component) × 3 dimensões (brand · mode · theme)**.
 
 ## Recursos
@@ -12,8 +12,9 @@ Arquitetura: **3 camadas (primitive · semantic · component) × 3 dimensões (b
 ## Estrutura
 - `packages/tokens` — primitives (HCT) → `flytrap-globals.css` + `tokens.ts` (Style build) + gate APCA
 - `packages/config` — preset compartilhado
-- `packages/ui` — shadcn base + charts + camada AI (M2)
-- `apps/docs`, `apps/dashboard` — Vercel (M4)
+- `packages/ui` — Lit Web Components: base + charts + camada AI + Storybook (M2)
+- `apps/docs` — documentação interativa (Vite) (M4)
+- `apps/dashboard` — dashboard + AI playground (Vite) (M4)
 - `supabase/` — schema + edge functions (M3)
 
 ## Comandos

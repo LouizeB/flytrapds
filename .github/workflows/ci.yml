@@ -18,6 +18,9 @@ jobs:
         run: pnpm -F @flytrap/tokens build
       - name: APCA gate
         run: python3 scripts/apca_gate.py packages/tokens/src/flytrap.tokens.json
+      - name: Build UI
+        run: pnpm -F @flytrap/ui build
+      - name: Build apps
+        run: pnpm build
       - run: pnpm lint
       - run: pnpm typecheck
-      - run: pnpm build
