@@ -4,7 +4,7 @@ Projeto: `flytrapds-br` · ref `uirglklokweglfocftyd` · região **sa-east-1** (
 API: `https://uirglklokweglfocftyd.supabase.co`.
 
 ## Schema (migrations aplicadas)
-- `component_registry` — catálogo de componentes (layer, status, base shadcn, tokens).
+- `component_registry` — catálogo de componentes (layer, status, base técnica, tokens).
 - `component_adoption` — uso por squad/componente, adesão 0–100.
 - `apca_audit` — histórico de contraste (par, mode, role, Lc, target, passed).
 - `ds_context` — chunks + `vector(1024)` (RAG dos AI Context Packs).

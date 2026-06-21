@@ -88,7 +88,7 @@ function App() {
         </nav>
         <div className="mt-8"><AppearanceControl appearance={appearance} onChange={setAppearance} /></div>
         <div className="mt-8 border-t pt-5 text-xs leading-5 text-muted-foreground lg:absolute lg:bottom-6 lg:left-6 lg:right-6">
-          <p>React 19 · Tailwind v4 · shadcn/ui</p>
+          <p>DTCG · React · APCA</p>
           <a className="mt-2 inline-flex items-center gap-1 font-medium text-primary hover:underline" href="https://github.com/LouizeB/flytrapds">GitHub <FlytrapIcon icon={ExternalLinkIcon} size="sm" /></a>
         </div>
       </aside>
@@ -119,7 +119,7 @@ function App() {
             </Card>
             <Card>
               <CardHeader><span className="grid size-10 place-items-center rounded-xl bg-muted text-foreground"><FlytrapIcon icon={ToolIcon} size="lg" /></span><CardTitle>Para Developers</CardTitle><CardDescription>Instale, componha e valide a implementação com contratos verificáveis.</CardDescription></CardHeader>
-              <CardContent className="grid gap-3 text-sm"><ul className="grid list-disc gap-2 pl-5 text-muted-foreground"><li>Setup do monorepo e imports de `@flytrap/ui`</li><li>DTCG, CSS variables e Tailwind v4</li><li>APIs React, aliases Lucide e composições AI</li><li>Quality gates, PRs, Pages e release</li></ul><Button asChild className="mt-2 w-fit" variant="outline"><a href="https://github.com/LouizeB/flytrapds/blob/main/docs/README.md#trilha-development">Abrir trilha de desenvolvimento <FlytrapIcon icon={ExternalLinkIcon} /></a></Button></CardContent>
+              <CardContent className="grid gap-3 text-sm"><ul className="grid list-disc gap-2 pl-5 text-muted-foreground"><li>Setup do monorepo e imports de `@flytrap/ui`</li><li>DTCG, CSS variables e arquitetura responsiva</li><li>APIs React, aliases semânticos e composições AI</li><li>Quality gates, PRs, Pages e release</li></ul><Button asChild className="mt-2 w-fit" variant="outline"><a href="https://github.com/LouizeB/flytrapds/blob/main/docs/README.md#trilha-development">Abrir trilha de desenvolvimento <FlytrapIcon icon={ExternalLinkIcon} /></a></Button></CardContent>
             </Card>
           </div>
         </section>
@@ -146,7 +146,7 @@ function App() {
               <dl className="mt-5 overflow-hidden rounded-xl border bg-card">
                 {systemDimensions.map(([name, values, description]) => <div className="grid gap-1 border-b p-4 last:border-b-0 sm:grid-cols-[88px_1fr]" key={name}><dt className="font-semibold">{name}</dt><dd><code className="font-mono text-xs text-primary">{values}</code><p className="mt-1 text-sm text-muted-foreground">{description}</p></dd></div>)}
               </dl>
-              <Button asChild className="mt-5" variant="outline"><a href="https://github.com/LouizeB/flytrapds/blob/main/docs/01-architecture-tokens.md">Ler arquitetura completa <FlytrapIcon icon={ExternalLinkIcon} /></a></Button>
+              <Button asChild className="mt-5" variant="outline"><a href="https://github.com/LouizeB/flytrapds/blob/main/architecture/README.md">Consultar arquitetura semântica <FlytrapIcon icon={ExternalLinkIcon} /></a></Button>
             </div>
           </div>
           <div className="mt-12 grid gap-6">
@@ -158,7 +158,7 @@ function App() {
         <section className="px-6 py-16 md:px-12" id="components">
           <div className="mx-auto max-w-6xl">
             <p className="text-sm font-semibold uppercase tracking-widest text-primary">Components</p>
-            <h2 className="mt-2 font-display text-3xl font-bold md:text-4xl">shadcn, com identidade Flytrap</h2>
+            <h2 className="mt-2 font-display text-3xl font-bold md:text-4xl">Componentes com identidade Flytrap</h2>
             <div className="mt-8 grid gap-5 md:grid-cols-2">
               <Card><CardHeader><CardTitle>Actions</CardTitle><CardDescription>Estados semânticos, foco visível e pares APCA validados.</CardDescription></CardHeader><CardContent className="flex flex-wrap gap-2"><Button>Default</Button><Button variant="secondary">Secondary</Button><Button variant="outline">Outline</Button><Button variant="destructive">Destructive</Button></CardContent></Card>
               <Card><CardHeader><CardTitle>Field</CardTitle><CardDescription>Label, hint, error e atributos nativos em composição.</CardDescription></CardHeader><CardContent><Field hint="Usaremos apenas para atualizações do DS." label="E-mail"><Input placeholder="voce@exemplo.com" type="email" /></Field></CardContent></Card>
@@ -174,7 +174,7 @@ function App() {
           <p className="mt-3 max-w-2xl text-muted-foreground">Agents, tools, aprovação humana, streaming e custo tratados como padrões de interface — não como exceções improvisadas.</p>
           <div className="mt-8 grid gap-5 md:grid-cols-2">
             <AgentCard model="Claude Sonnet" name="Token validator" status="running" tokens="2.3K">Validando aliases, modos e pares APCA do contrato DTCG.</AgentCard>
-            <Card><CardHeader><CardTitle>Vocabulário AI</CardTitle><CardDescription>Lucide com aliases semânticos estáveis entre design e código.</CardDescription></CardHeader><CardContent className="grid grid-cols-3 gap-4 text-center text-xs text-muted-foreground">{semanticIcons.map(({ icon, label }) => <div className="grid place-items-center gap-2 rounded-lg border bg-background p-4" key={label}><FlytrapIcon icon={icon} size="lg" /><span>{label}</span></div>)}</CardContent></Card>
+            <Card><CardHeader><CardTitle>Vocabulário AI</CardTitle><CardDescription>Aliases semânticos estáveis entre design e código.</CardDescription></CardHeader><CardContent className="grid grid-cols-3 gap-4 text-center text-xs text-muted-foreground">{semanticIcons.map(({ icon, label }) => <div className="grid place-items-center gap-2 rounded-lg border bg-background p-4" key={label}><FlytrapIcon icon={icon} size="lg" /><span>{label}</span></div>)}</CardContent></Card>
           </div>
         </section>
 
