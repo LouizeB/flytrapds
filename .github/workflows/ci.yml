@@ -8,7 +8,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-        with: { version: 9 }
       - uses: actions/setup-node@v4
         with: { node-version: 20, cache: pnpm }
       - uses: actions/setup-python@v5
@@ -18,6 +17,9 @@ jobs:
         run: pnpm -F @flytrap/tokens build
       - name: APCA gate
         run: python3 scripts/apca_gate.py packages/tokens/src/flytrap.tokens.json
+      - name: Build UI
+        run: pnpm -F @flytrap/ui build
+      - name: Build apps
+        run: pnpm build
       - run: pnpm lint
       - run: pnpm typecheck
-      - run: pnpm build

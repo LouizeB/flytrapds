@@ -1,5 +1,5 @@
 // Flytrap tokens build: primitives (50–950, por brand) + semantic/component (estrutural) → globals.css + tokens.ts
-import { readFileSync, writeFileSync, readdirSync } from "node:fs";
+import { readFileSync, writeFileSync, readdirSync, mkdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
@@ -127,6 +127,7 @@ const THEME_INLINE = `
 `;
 
 const css = [HEADER, ...brands.map(primBlock), SEMANTIC, THEME_INLINE].join("\n");
+mkdirSync(join(root, "dist"), { recursive: true });
 writeFileSync(join(root,"dist/flytrap-globals.css"), css);
 const ts = `// AUTO-GERADO. Primitives por brand (50–950).\nexport const primitives = ${JSON.stringify(Object.fromEntries(brands.map(b=>[b.brand,b])),null,2)} as const;\n`;
 writeFileSync(join(root,"dist/tokens.ts"), ts);

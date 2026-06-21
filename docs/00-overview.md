@@ -22,4 +22,4 @@ Tema "Venus Flytrap": dualidade Vênus (beleza, escultura, estrutura) + Dionaea 
 - Tipografia: Fira Sans (display) · Ubuntu Sans (texto) · Roboto Mono (mono)
 
 ## Status
-M0 scaffold ✅ · M1 tokens ✅ · M3 Supabase schema ✅ · M2 UI ⏳ · M4 deploy ⏳
+M0 scaffold ✅ · M1 tokens ✅ · M3 Supabase schema ✅ · M2 UI ✅ · M4 deploy ✅

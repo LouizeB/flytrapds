@@ -1,21 +1,21 @@
 # 5. Inventário de componentes
 
-Base: shadcn/ui (58) + charts (recharts) via Tailwind + tokens. Camada AI por composição.
+Lit Web Components nativos (Custom Elements + Shadow DOM) + charts SVG + camada AI. Framework-agnostic e responsivos.
 
-## Base shadcn (58)
-accordion, alert, alert-dialog, aspect-ratio, avatar, badge, breadcrumb, button, button-group, calendar, card, carousel, chart, checkbox, collapsible, combobox, command, context-menu, data-table, date-picker, dialog, drawer, dropdown-menu, empty, field, hover-card, input, input-group, input-otp, item, kbd, label, menubar, native-select, navigation-menu, pagination, popover, progress, radio-group, resizable, scroll-area, select, separator, sheet, sidebar, skeleton, slider, sonner, spinner, switch, table, tabs, textarea, toast, toggle, toggle-group, tooltip, typography.
+## Base (`ft-*`)
+`ft-button`, `ft-card`, `ft-badge`, `ft-input`, `ft-separator`, `ft-avatar`, `ft-progress`, `ft-tabs`, `ft-tooltip`, `ft-switch`, `ft-skeleton`.
 
-Instalar: `npx shadcn@latest add <componente>`.
+Uso: `<ft-button variant="default">Click</ft-button>`.
 
-## Charts (recharts, `--chart-1..5`)
-Area · Bar · Line · Pie · Radar · Radial · Tooltip.
+## Charts (`ft-chart`)
+SVG nativo com tipos: bar · line · area · pie. Tooltips interativos. Usa tokens `--chart-1..5`.
 
 ## Camada AI (composição)
-**Agents:** AgentCard, AgentStatus, RunTraceTimeline, ToolCallBlock, ReasoningStream, CapabilityRadar, CostTokenMeter, HumanApprovalPrompt, CitationChip, AgentConsole.
-**Chat:** ChatThread, MessageBubble, StreamingMessage, PromptInput, SuggestedPrompts, ModelSelector, MessageActions, AttachmentPreview, InlineToolResult, InlineCitation.
-**Dashboards:** KpiStatCard, ChartCard, AiInsightCallout, AnomalyFlag, FilterBar, SmartDataTable, AiSummaryPanel, DashboardShell, TrendComparator.
+**Agents:** `ft-agent-card`, `ft-tool-call-block`, `ft-reasoning-stream`, `ft-cost-token-meter`.
+**Chat:** `ft-chat-thread`, `ft-message-bubble`, `ft-prompt-input`, `ft-model-selector`, `ft-citation-chip`.
+**Dashboards:** `ft-kpi-stat-card`, `ft-ai-insight-callout`, `ft-dashboard-shell`, `ft-filter-bar`.
 
 Tokens AI: `--ai-agent-*`, `--ai-thinking`, `--ai-tool-bg`, `--ai-stream-shimmer`, `--ai-citation`, e camada component (`--agent-card-*`, `--chat-bubble-*`, `--kpi-*`).
 
-## Blocks de partida
-`dashboard-01`, `sidebar-*`, `chart-area-interactive`.
+## Storybook
+`pnpm -F @flytrap/ui storybook` — documentação interativa dos componentes.
