@@ -16,6 +16,6 @@ Convenção alinhada (claro→escuro). Base da marca no **500**. HCT, APCA-verif
 - `magenta-500` segue `#F10081` (assinatura preservada).
 
 ## APCA
-18 pares semânticos verificados (light+dark), 0 falhas. Alvos: body 75 · ui 60 · nontext 45.
+54 pares semânticos verificados (light+dark+vibrant), 0 falhas. Alvos: body 75 · ui 60 · nontext 45.
 
-Fonte: `packages/tokens/src/primitives/flytrap.json` · build → `dist/flytrap-globals.css` · gate `scripts/apca_gate.py`.
+Fonte única: `packages/tokens/src/flytrap.tokens.json` · build → `dist/flytrap-globals.css` · gates `scripts/token_contract.py` + `scripts/apca_gate.py`.

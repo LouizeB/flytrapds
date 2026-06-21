@@ -2,5 +2,9 @@
   "name": "@flytrap/tokens", "version": "0.1.0", "type": "module",
   "files": ["dist"],
   "exports": { "./css": "./dist/flytrap-globals.css", "./ts": "./dist/tokens.ts" },
-  "scripts": { "build": "node build.mjs", "test:apca": "python3 ../../scripts/apca_gate.py src/flytrap.tokens.json" }
+  "scripts": {
+    "build": "node build.mjs",
+    "test:contract": "python3 ../../scripts/token_contract.py src/flytrap.tokens.json",
+    "test:apca": "python3 ../../scripts/apca_gate.py src/flytrap.tokens.json"
+  }
 }

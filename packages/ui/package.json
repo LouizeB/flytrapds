@@ -1,34 +1,40 @@
 {
   "name": "@flytrap/ui",
-  "version": "0.1.0",
+  "version": "0.2.0",
+  "private": true,
   "type": "module",
-  "files": ["dist"],
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "sideEffects": ["**/*.css"],
   "exports": {
-    ".": "./dist/index.js",
+    ".": "./src/index.ts",
+    "./components/*": "./src/components/*.tsx",
+    "./ai/*": "./src/ai/*.tsx",
+    "./lib/*": "./src/lib/*.ts",
     "./styles": "./src/styles/globals.css"
   },
   "scripts": {
-    "build": "tsup src/index.ts --format esm --dts",
-    "dev": "tsup src/index.ts --format esm --dts --watch",
+    "build": "tsc -p tsconfig.build.json",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "dependencies": {
-    "lit": "^3.2.1"
+    "@radix-ui/react-slot": "^1.2.3",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.468.0",
+    "tailwind-merge": "^3.3.0"
   },
   "devDependencies": {
+    "@flytrap/config": "workspace:*",
     "@flytrap/tokens": "workspace:*",
-    "@storybook/addon-essentials": "^8.4.7",
-    "@storybook/web-components": "^8.4.7",
-    "@storybook/web-components-vite": "^8.4.7",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
     "eslint": "^9.16.0",
-    "storybook": "^8.4.7",
-    "tsup": "^8.3.5",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "typescript": "^5.7.2"
-  },
-  "customElements": "dist/custom-elements.json"
+  }
 }

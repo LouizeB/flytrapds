@@ -13,3 +13,5 @@
 | 09 | Supabase em **sa-east-1** (recriado) | latência BR; projeto antigo era us-west-2 |
 | 10 | Repo **público** | OSS; secrets só em Actions/Edge, RLS estrito |
 | 11 | AI key via **Supabase Edge** (proxy) | nunca expor key no client |
+| 12 | UI em **React 19 + shadcn/ui + Tailwind v4** | código local, composição flexível e alinhamento com o ecossistema dos produtos |
+| 13 | `@flytrap/ui` como dono dos componentes compartilhados | impede forks divergentes entre docs e dashboard |

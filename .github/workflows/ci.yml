@@ -15,11 +15,10 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - name: Build tokens
         run: pnpm -F @flytrap/tokens build
+      - name: Token contract
+        run: pnpm tokens:contract
       - name: APCA gate
         run: python3 scripts/apca_gate.py packages/tokens/src/flytrap.tokens.json
-      - name: Build UI
-        run: pnpm -F @flytrap/ui build
-      - name: Build apps
-        run: pnpm build
       - run: pnpm lint
       - run: pnpm typecheck
+      - run: pnpm build

@@ -1,1 +1,1 @@
-export default [{ ignores: ["**/dist/**"] }];
+export { default } from "@flytrap/config/eslint";

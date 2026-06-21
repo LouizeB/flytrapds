@@ -1,1 +1,1 @@
-export default [{ ignores: ["**/dist/**", "**/storybook-static/**", "stories/**"] }];
+export { default } from "@flytrap/config/eslint";
