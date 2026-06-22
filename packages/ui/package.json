@@ -9,7 +9,10 @@
     "./components/*": "./src/components/*.tsx",
     "./ai/*": "./src/ai/*.tsx",
     "./lib/*": "./src/lib/*.ts",
-    "./styles": "./src/styles/globals.css"
+    "./styles": {
+      "types": "./src/styles/styles.d.ts",
+      "default": "./src/styles/globals.css"
+    }
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
