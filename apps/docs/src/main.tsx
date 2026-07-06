@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import { createRoot } from "react-dom/client";
 import {
   AgentCard,
+  AgentStatusIndicator,
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
   AiAvatar,
   Alert,
   AlertDescription,
@@ -31,6 +36,7 @@ import {
   ChatThread,
   CitationChip,
   CheckboxField,
+  CostTokenMeter,
   Command,
   CommandEmpty,
   CommandGroup,
@@ -47,16 +53,19 @@ import {
   EmptyState,
   ExternalLinkIcon,
   Field,
+  FilterBar,
   FlytrapIcon,
   IconButton,
   Input,
   InsightCallout,
   MessageBubble,
+  MessageActions,
   Progress,
   Popover,
   PopoverContent,
   PopoverTrigger,
   PromptInput,
+  RunTraceTimeline,
   RadioGroup,
   RadioGroupField,
   ReasoningStream,
@@ -85,6 +94,8 @@ import {
   SidebarProvider,
   SidebarTrigger,
   Skeleton,
+  SmartDataTable,
+  SuggestedPrompts,
   SuccessIcon,
   Tabs,
   TabsContent,
@@ -198,7 +209,7 @@ function App() {
             <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">Uma linguagem visual orgânica sobre tokens rastreáveis, componentes React acessíveis e padrões próprios para agents, chat e inteligência em dashboards.</p>
             <div className="mt-8 flex flex-wrap gap-3"><Button asChild size="lg"><a href="#components">Explorar componentes</a></Button><Button asChild size="lg" variant="outline"><a href="https://github.com/LouizeB/flytrapds">Ver código <FlytrapIcon icon={ExternalLinkIcon} /></a></Button></div>
             <dl className="mt-16 grid gap-4 sm:grid-cols-3">
-              {[["221", "tokens resolvidos"], ["3", "aparências publicadas"], ["39", "módulos públicos"]].map(([value, label]) => <div className="rounded-xl border bg-card/70 p-5 backdrop-blur" key={label}><dt className="text-sm text-muted-foreground">{label}</dt><dd className="mt-1 font-display text-3xl font-bold">{value}</dd></div>)}
+              {[["221", "tokens resolvidos"], ["3", "aparências publicadas"], ["51", "módulos públicos"]].map(([value, label]) => <div className="rounded-xl border bg-card/70 p-5 backdrop-blur" key={label}><dt className="text-sm text-muted-foreground">{label}</dt><dd className="mt-1 font-display text-3xl font-bold">{value}</dd></div>)}
             </dl>
           </div>
         </section>
@@ -266,6 +277,7 @@ function App() {
               <Card className="md:col-span-2"><CardHeader><CardTitle>Overlays & feedback</CardTitle><CardDescription>Camadas temporárias preservam foco, contexto e anúncio acessível.</CardDescription></CardHeader><CardContent className="flex flex-wrap gap-2"><Popover><PopoverTrigger asChild><Button variant="outline">Abrir popover</Button></PopoverTrigger><PopoverContent><p className="font-medium">Conteúdo contextual</p><p className="mt-1 text-sm text-muted-foreground">Para ações breves sem bloquear a interface.</p></PopoverContent></Popover><Sheet><SheetTrigger asChild><Button variant="outline">Abrir sheet</Button></SheetTrigger><SheetContent><SheetHeader><SheetTitle>Painel lateral</SheetTitle><SheetDescription>Uma superfície responsiva para tarefas complementares.</SheetDescription></SheetHeader></SheetContent></Sheet><Button onClick={() => setToastOpen(true)}>Mostrar toast</Button><ToastProvider><Toast onOpenChange={setToastOpen} open={toastOpen}><div><ToastTitle>Alterações salvas</ToastTitle><ToastDescription>O catálogo foi atualizado.</ToastDescription></div><ToastClose /></Toast><ToastViewport /></ToastProvider></CardContent></Card>
               <Card className="overflow-hidden md:col-span-2"><CardHeader><CardTitle>Application structure</CardTitle><CardDescription>Header, Sidebar e CommandMenu compõem shells sem carregar decisões de produto.</CardDescription></CardHeader><CardContent><SidebarProvider><div className="flex h-72 overflow-hidden rounded-xl border"><Sidebar className="flex"><SidebarHeader><BrandMark label={null} /><SidebarMenuLabel>Flytrap</SidebarMenuLabel></SidebarHeader><SidebarContent><SidebarGroup><SidebarGroupLabel>Biblioteca</SidebarGroupLabel><SidebarMenu><SidebarMenuItem><SidebarMenuButton active><FlytrapIcon icon={ToolIcon} /><SidebarMenuLabel>Componentes</SidebarMenuLabel></SidebarMenuButton></SidebarMenuItem><SidebarMenuItem><SidebarMenuButton><FlytrapIcon icon={AiAccentIcon} /><SidebarMenuLabel>Tokens</SidebarMenuLabel></SidebarMenuButton></SidebarMenuItem></SidebarMenu></SidebarGroup></SidebarContent></Sidebar><div className="min-w-0 flex-1"><Header><SidebarTrigger /><HeaderBrand><HeaderTitle>Catálogo</HeaderTitle></HeaderBrand><HeaderActions><Badge variant="success">Estável</Badge></HeaderActions></Header><div className="p-4"><Command><CommandInput placeholder="Buscar no design system…" /><CommandList><CommandEmpty>Nenhum resultado.</CommandEmpty><CommandGroup heading="Navegação"><CommandItem>Componentes</CommandItem><CommandItem>Tokens</CommandItem><CommandItem>Acessibilidade</CommandItem></CommandGroup></CommandList></Command></div></div></div></SidebarProvider></CardContent></Card>
               <Chart className="md:col-span-2" data={chartData} description="Visualização com tabela de dados equivalente." series={[{ key: "adoption", label: "Adoção" }, { key: "compliance", label: "Conformidade" }]} title="Evolução do sistema" type="area" valueFormatter={value => `${value}%`} xKey="period" />
+              <Card className="md:col-span-2"><CardHeader><CardTitle>Disclosure & data</CardTitle><CardDescription>Primitives P1 para documentação, filtros e registros operacionais.</CardDescription></CardHeader><CardContent className="grid gap-4"><Accordion><AccordionItem open><AccordionTrigger>O que entrou na release 0.4?</AccordionTrigger><AccordionContent>Observabilidade AI, ações de chat, navegação e dados reutilizáveis.</AccordionContent></AccordionItem></Accordion><FilterBar onValueChange={() => {}} value=""><Badge variant="outline">Todos</Badge></FilterBar><SmartDataTable caption="Componentes P1" columns={[{ key: "name", header: "Componente" }, { key: "area", header: "Área" }]} getRowId={row => row.name} rows={[{ name: "RunTraceTimeline", area: "AI" }, { name: "SmartDataTable", area: "Data" }]} /></CardContent></Card>
             </div>
           </div>
         </section>
@@ -280,7 +292,8 @@ function App() {
             <Card><CardHeader><CardTitle>Brand assets</CardTitle><CardDescription>Marca vetorial e avatar oficial em tamanhos padronizados.</CardDescription></CardHeader><CardContent className="flex items-end gap-6"><BrandMark size={60} /><AiAvatar size="lg" status="processing" /><AiAvatar size="md" /><AiAvatar size="sm" status="offline" /></CardContent></Card>
             <Card><CardHeader><CardTitle>Streaming & citations</CardTitle><CardDescription>Atualizações progressivas sem reanunciar todo o conteúdo.</CardDescription></CardHeader><CardContent className="grid gap-3"><StreamingMessage status="streaming">Construindo uma resposta com contexto verificável…</StreamingMessage><div className="flex flex-wrap gap-2"><CitationChip href="https://github.com/LouizeB/flytrapds" index={1} source="Flytrap DS" /><CitationChip index={2} missing source="Fonte indisponível" /></div></CardContent></Card>
             <Card><CardHeader><CardTitle>Tools & approval</CardTitle><CardDescription>Execução inspecionável e interrupção humana antes de ações críticas.</CardDescription></CardHeader><CardContent className="grid gap-3"><ToolCallBlock input="scope: packages/ui" name="validate_components" output="95 testes aprovados" status="success" /><HumanApprovalPrompt description="A ação publicará uma nova versão do pacote compartilhado." title="Publicar componentes?" /></CardContent></Card>
-            <Card className="md:col-span-2"><CardHeader><CardTitle>Chat composition</CardTitle><CardDescription>Thread, resumo seguro de análise e entrada de prompt permanecem componentes independentes.</CardDescription></CardHeader><CardContent className="grid gap-3"><ChatThread state="ready"><MessageBubble role="user">Quais componentes ainda faltam?</MessageBubble><MessageBubble role="assistant">Vou confrontar o inventário com os exports públicos.</MessageBubble><ReasoningStream status="completed" summary="Inventário e API pública foram comparados; os próximos gaps estão documentados." /></ChatThread><PromptInput onSubmitPrompt={() => setPrompt("")} onValueChange={setPrompt} value={prompt} /></CardContent></Card>
+            <Card className="md:col-span-2"><CardHeader><CardTitle>Agent observability</CardTitle><CardDescription>Status, sequência operacional e consumo permanecem legíveis sem expor raciocínio interno.</CardDescription></CardHeader><CardContent className="grid gap-5"><div><AgentStatusIndicator status="running" /></div><RunTraceTimeline steps={[{ id: "plan", title: "Planejamento", description: "Escopo e ferramentas definidos.", status: "completed", duration: "180 ms" }, { id: "execute", title: "Execução", status: "running" }]} /><CostTokenMeter cost="R$ 0,08" limit={4000} used={2300} /></CardContent></Card>
+            <Card className="md:col-span-2"><CardHeader><CardTitle>Chat composition</CardTitle><CardDescription>Thread, resumo seguro de análise e entrada de prompt permanecem componentes independentes.</CardDescription></CardHeader><CardContent className="grid gap-3"><ChatThread state="ready"><MessageBubble role="user">Quais componentes ainda faltam?</MessageBubble><MessageBubble role="assistant">Vou confrontar o inventário com os exports públicos.</MessageBubble><ReasoningStream status="completed" summary="Inventário e API pública foram comparados; os próximos gaps estão documentados." /></ChatThread><SuggestedPrompts onSelect={setPrompt} prompts={["Resumir mudanças", "Ver riscos da release"]} /><MessageActions content="Inventário e API pública foram comparados." onRetry={() => {}} /><PromptInput onSubmitPrompt={() => setPrompt("")} onValueChange={setPrompt} value={prompt} /></CardContent></Card>
           </div>
         </section>
 

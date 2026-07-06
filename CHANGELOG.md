@@ -4,6 +4,22 @@ Formato: Keep a Changelog · SemVer.
 
 ## [Unreleased]
 
+## [0.4.0] — 2026-07-06
+### Added
+- Navegação e disclosure com Accordion, ScrollArea, Breadcrumb e Pagination.
+- Utilitário CopyButton com adaptador de clipboard injetável.
+- Observabilidade AI com AgentStatusIndicator, RunTraceTimeline e CostTokenMeter.
+- Conversa assistida com SuggestedPrompts e MessageActions.
+- Dados operacionais com FilterBar e SmartDataTable.
+
+### Changed
+- `@flytrap/ui` atualizado para 0.4.0.
+- Progress passa a aceitar atributos HTML/ARIA para composições acessíveis.
+- Catálogo e inventário passam a documentar a onda P1.
+
+### Quality
+- 122 testes com 100% de cobertura em statements, branches, functions e lines.
+
 ## [0.3.0] — 2026-07-06
 ### Added
 - Onda foundation com Select, Checkbox, Tabs, Tooltip, Alert, Skeleton, EmptyState, Dialog, AlertDialog, Textarea, RadioGroup, Switch e Separator.

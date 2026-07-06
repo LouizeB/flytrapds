@@ -4,7 +4,12 @@ import userEvent from "@testing-library/user-event";
 import { axe } from "vitest-axe";
 import { describe, expect, it, vi } from "vitest";
 import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
   AgentCard,
+  AgentStatusIndicator,
   Alert,
   AlertDescription,
   AlertDialog,
@@ -23,6 +28,12 @@ import {
   Button,
   BrandLockup,
   BrandMark,
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
   Card,
   CardContent,
   CardDescription,
@@ -32,6 +43,8 @@ import {
   ChatThread,
   CheckboxField,
   CitationChip,
+  CopyButton,
+  CostTokenMeter,
   Command,
   CommandDialog,
   CommandEmpty,
@@ -50,6 +63,7 @@ import {
   DialogTrigger,
   EmptyState,
   Field,
+  FilterBar,
   FlytrapIcon,
   Header,
   HeaderActions,
@@ -62,6 +76,11 @@ import {
   InsightCallout,
   KpiStatCard,
   MessageBubble,
+  MessageActions,
+  Pagination,
+  PaginationNext,
+  PaginationPage,
+  PaginationPrevious,
   Progress,
   RadioGroup,
   RadioGroupField,
@@ -79,6 +98,7 @@ import {
   SelectTrigger,
   SelectValue,
   Separator,
+  ScrollArea,
   Sheet,
   SheetContent,
   SheetDescription,
@@ -116,11 +136,14 @@ import {
   ToastTitle,
   ToastViewport,
   StreamingMessage,
+  SuggestedPrompts,
+  SmartDataTable,
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
   ToolCallBlock,
+  RunTraceTimeline,
   useSidebar,
 } from "../src";
 
@@ -465,6 +488,21 @@ describe("Button asChild e IconButton", () => {
     expect(screen.getByRole("link", { name: "Ir" })).not.toHaveAttribute("aria-disabled");
   });
 
+  it("bloqueia clique e ativação por teclado quando asChild e desabilitado", () => {
+    const onClick = vi.fn();
+    const onKeyDown = vi.fn();
+    render(<Button asChild disabled onClick={onClick} onKeyDown={onKeyDown}><a href="/destino">Ir</a></Button>);
+    const link = screen.getByRole("link", { name: "Ir" });
+
+    expect(link).toHaveAttribute("tabIndex", "-1");
+    fireEvent.click(link);
+    fireEvent.keyDown(link, { key: "Enter" });
+    fireEvent.keyDown(link, { key: " " });
+    fireEvent.keyDown(link, { key: "Escape" });
+    expect(onClick).not.toHaveBeenCalled();
+    expect(onKeyDown).toHaveBeenCalledOnce();
+  });
+
   it("expõe rótulo acessível em IconButton", () => {
     render(<IconButton icon={SuccessIcon} label="Confirmar" />);
     expect(screen.getByRole("button", { name: "Confirmar" })).toBeVisible();
@@ -772,5 +810,106 @@ describe("ToolCallBlock extras", () => {
   it("exibe a duração quando informada", () => {
     render(<ToolCallBlock duration="1.2s" name="fetch_data" status="success" />);
     expect(screen.getByText("1.2s")).toBeVisible();
+  });
+});
+
+describe("componentes P1", () => {
+  it("compõe accordion, scroll area e breadcrumb acessíveis", async () => {
+    const { container } = render(<>
+      <Accordion><AccordionItem open><AccordionTrigger>Contrato</AccordionTrigger><AccordionContent>Detalhes</AccordionContent></AccordionItem></Accordion>
+      <ScrollArea className="h-20"><p>Conteúdo rolável</p></ScrollArea>
+      <Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbLink href="/">Início</BreadcrumbLink><BreadcrumbSeparator /><BreadcrumbPage>Agentes</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>
+    </>);
+    expect(screen.getByText("Detalhes")).toBeVisible();
+    expect(screen.getByText("Agentes")).toHaveAttribute("aria-current", "page");
+    expect(container.querySelector("[tabindex='0']")).toBeInTheDocument();
+    expect((await axe(container)).violations).toHaveLength(0);
+  });
+
+  it("permite navegar entre páginas", async () => {
+    const user = userEvent.setup();
+    const next = vi.fn();
+    render(<Pagination><PaginationPrevious disabled /><PaginationPage current>1</PaginationPage><PaginationPage>2</PaginationPage><PaginationNext onClick={next} /></Pagination>);
+    expect(screen.getByRole("button", { name: "Página 1" })).toHaveAttribute("aria-current", "page");
+    await user.click(screen.getByRole("button", { name: "Próxima" }));
+    expect(next).toHaveBeenCalledOnce();
+  });
+
+  it("copia conteúdo com adaptador injetado", async () => {
+    const user = userEvent.setup();
+    const copy = vi.fn().mockResolvedValue(undefined);
+    render(<CopyButton copy={copy} value="token-123" />);
+    await user.click(screen.getByRole("button", { name: /copiar/i }));
+    expect(copy).toHaveBeenCalledWith("token-123");
+    expect(screen.getByText("Copiado")).toBeVisible();
+  });
+
+  it.each([
+    ["idle", "Inativo"],
+    ["queued", "Na fila"],
+    ["running", "Executando"],
+    ["completed", "Concluído"],
+    ["error", "Erro"],
+  ] as const)("apresenta o status de agente %s", (status, label) => {
+    render(<AgentStatusIndicator status={status} />);
+    expect(screen.getByRole("status")).toHaveTextContent(label);
+  });
+
+  it("apresenta rastreamento e consumo da execução", () => {
+    render(<>
+      <RunTraceTimeline steps={[
+        { id: "1", title: "Planejamento", description: "Definiu a estratégia", duration: "120 ms", status: "completed" },
+        { id: "2", title: "Resposta", status: "running" },
+      ]} />
+      <CostTokenMeter cost="R$ 0,08" limit={1000} used={1200} />
+    </>);
+    expect(screen.getByText("Definiu a estratégia")).toBeVisible();
+    expect(screen.getByText("120 ms")).toBeVisible();
+    expect(screen.getByRole("progressbar")).toHaveAttribute("aria-label", "100% dos tokens utilizados");
+    expect(screen.getByText(/R\$ 0,08/)).toBeVisible();
+  });
+
+  it("seleciona prompts sugeridos e oferece ações de mensagem", async () => {
+    const user = userEvent.setup();
+    const onSelect = vi.fn();
+    const onRetry = vi.fn();
+    const copy = vi.spyOn(navigator.clipboard, "writeText").mockResolvedValue();
+    render(<>
+      <SuggestedPrompts onSelect={onSelect} prompts={["Resumir contexto"]} />
+      <MessageActions content="Resposta" feedback={<button>Útil</button>} onRetry={onRetry} />
+    </>);
+    await user.click(screen.getByRole("button", { name: "Resumir contexto" }));
+    await user.click(screen.getByRole("button", { name: "Copiar" }));
+    await user.click(screen.getByRole("button", { name: "Tentar novamente" }));
+    expect(onSelect).toHaveBeenCalledWith("Resumir contexto");
+    expect(copy).toHaveBeenCalledWith("Resposta");
+    expect(onRetry).toHaveBeenCalledOnce();
+  });
+
+  it("filtra e renderiza tabela com célula customizada", async () => {
+    const user = userEvent.setup();
+    const onValueChange = vi.fn();
+    const rows = [{ id: "1", name: "Curadoria", state: "Ativo" }];
+    render(<>
+      <FilterBar onValueChange={onValueChange} value=""><button>Estado</button></FilterBar>
+      <SmartDataTable
+        caption="Agentes"
+        columns={[
+          { key: "name", header: "Nome" },
+          { key: "state", header: "Estado", render: value => <strong>{value}</strong> },
+        ]}
+        getRowId={row => row.id}
+        rows={rows}
+      />
+    </>);
+    await user.type(screen.getByRole("searchbox", { name: "Filtrar resultados" }), "cura");
+    expect(onValueChange).toHaveBeenCalled();
+    expect(screen.getByRole("table", { name: "Agentes" })).toBeVisible();
+    expect(screen.getByText("Ativo").tagName).toBe("STRONG");
+  });
+
+  it("apresenta estado vazio da tabela", () => {
+    render(<SmartDataTable caption="Sem dados" columns={[{ key: "name", header: "Nome" }]} getRowId={row => String(row.name)} rows={[]} />);
+    expect(screen.getByText("Nenhum resultado.")).toBeVisible();
   });
 });
