@@ -356,7 +356,10 @@
     "ai-thinking": { "$value": "{semantic.muted-foreground}" },
     "ai-tool-bg": { "$value": "{semantic.muted}" },
     "ai-stream-shimmer": { "$value": "{primitive.neutral.200}", "$extensions": { "modes": { "dark": "{primitive.neutral.700}", "vibrant": "{primitive.magenta.700}" } } },
-    "ai-citation": { "$value": "{primitive.magenta.600}", "$extensions": { "modes": { "dark": "{primitive.magenta.300}", "vibrant": "{primitive.acid.200}" } } }
+    "ai-citation": { "$value": "{primitive.magenta.600}", "$extensions": { "modes": { "dark": "{primitive.magenta.300}", "vibrant": "{primitive.acid.200}" } } },
+    "opacity-disabled-strong": { "$type": "number", "$value": 0.7 },
+    "opacity-disabled-default": { "$type": "number", "$value": 0.6 },
+    "opacity-disabled-subtle": { "$type": "number", "$value": 0.5 }
   },
   "component": {
     "button-primary-bg": { "$value": "{semantic.primary}" },
@@ -370,6 +373,10 @@
     "button-destructive-bg-hover": { "$value": "{semantic.destructive-hover}" },
     "button-destructive-fg": { "$value": "{semantic.destructive-foreground}" },
     "button-outline": { "$value": "{semantic.primary}" },
+    "button-primary-opacity-disabled": { "$value": "{semantic.opacity-disabled-strong}" },
+    "button-secondary-opacity-disabled": { "$value": "{semantic.opacity-disabled-default}" },
+    "button-destructive-opacity-disabled": { "$value": "{semantic.opacity-disabled-default}" },
+    "button-outline-opacity-disabled": { "$value": "{semantic.opacity-disabled-subtle}" },
     "button-radius": { "$value": "{foundation.radius.lg}" },
     "input-bg": { "$value": "{semantic.background}" },
     "input-border": { "$value": "{semantic.input}" },

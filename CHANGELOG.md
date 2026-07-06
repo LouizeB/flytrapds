@@ -4,6 +4,9 @@ Formato: Keep a Changelog · SemVer.
 
 ## [Unreleased]
 
+### Changed
+- Estados disabled do Button agora usam tokens de opacidade rastreáveis em vez de valores utilitários fixos.
+
 ## [0.4.0] — 2026-07-06
 ### Added
 - Navegação e disclosure com Accordion, ScrollArea, Breadcrumb e Pagination.
