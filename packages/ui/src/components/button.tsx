@@ -9,10 +9,10 @@ export const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-button-primary-bg text-button-primary-fg hover:bg-button-primary-bg-hover disabled:bg-button-primary-bg-disabled disabled:opacity-70",
-        secondary: "bg-button-secondary-bg text-button-secondary-fg hover:bg-button-secondary-bg-hover disabled:opacity-60",
-        destructive: "bg-button-destructive-bg text-button-destructive-fg hover:bg-button-destructive-bg-hover disabled:opacity-60",
-        outline: "border border-button-outline bg-transparent text-button-outline hover:bg-accent hover:text-accent-foreground disabled:opacity-50",
+        default: "bg-button-primary-bg text-button-primary-fg hover:bg-button-primary-bg-hover disabled:bg-button-primary-bg-disabled disabled:opacity-(--button-primary-opacity-disabled)",
+        secondary: "bg-button-secondary-bg text-button-secondary-fg hover:bg-button-secondary-bg-hover disabled:opacity-(--button-secondary-opacity-disabled)",
+        destructive: "bg-button-destructive-bg text-button-destructive-fg hover:bg-button-destructive-bg-hover disabled:opacity-(--button-destructive-opacity-disabled)",
+        outline: "border border-button-outline bg-transparent text-button-outline hover:bg-accent hover:text-accent-foreground disabled:opacity-(--button-outline-opacity-disabled)",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline"
       },

@@ -209,7 +209,7 @@ function App() {
             <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">Uma linguagem visual orgânica sobre tokens rastreáveis, componentes React acessíveis e padrões próprios para agents, chat e inteligência em dashboards.</p>
             <div className="mt-8 flex flex-wrap gap-3"><Button asChild size="lg"><a href="#components">Explorar componentes</a></Button><Button asChild size="lg" variant="outline"><a href="https://github.com/LouizeB/flytrapds">Ver código <FlytrapIcon icon={ExternalLinkIcon} /></a></Button></div>
             <dl className="mt-16 grid gap-4 sm:grid-cols-3">
-              {[["221", "tokens resolvidos"], ["3", "aparências publicadas"], ["51", "módulos públicos"]].map(([value, label]) => <div className="rounded-xl border bg-card/70 p-5 backdrop-blur" key={label}><dt className="text-sm text-muted-foreground">{label}</dt><dd className="mt-1 font-display text-3xl font-bold">{value}</dd></div>)}
+              {[["228", "tokens resolvidos"], ["3", "aparências publicadas"], ["51", "módulos públicos"]].map(([value, label]) => <div className="rounded-xl border bg-card/70 p-5 backdrop-blur" key={label}><dt className="text-sm text-muted-foreground">{label}</dt><dd className="mt-1 font-display text-3xl font-bold">{value}</dd></div>)}
             </dl>
           </div>
         </section>

@@ -23,7 +23,7 @@ Flytrap combina a dualidade Vênus + Dionaea: uma superfície orgânica, vibrant
 | Arquitetura | primitive → semantic → component |
 | Dimensões | brand × mode × theme |
 | Aparências | light · dark · vibrant |
-| Tokens | 221 resolvidos · fonte única DTCG |
+| Tokens | 228 resolvidos · fonte única DTCG |
 | Acessibilidade | 54 pares APCA aprovados |
 | Iconografia | Aliases semânticos Flytrap |
 | UI | Componentes React orientados por tokens |
