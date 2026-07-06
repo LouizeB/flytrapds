@@ -385,7 +385,13 @@
     "chat-bubble-assistant-fg": { "$value": "{semantic.card-foreground}" },
     "kpi-card-bg": { "$value": "{semantic.card}" },
     "insight-bg": { "$value": "{semantic.accent}" },
-    "insight-fg": { "$value": "{semantic.accent-foreground}" }
+    "insight-fg": { "$value": "{semantic.accent-foreground}" },
+    "chart-grid": { "$value": "{semantic.border}" },
+    "chart-axis": { "$value": "{semantic.muted-foreground}" },
+    "chart-tooltip-bg": { "$value": "{semantic.popover}" },
+    "chart-tooltip-fg": { "$value": "{semantic.popover-foreground}" },
+    "chart-tooltip-border": { "$value": "{semantic.border}" },
+    "chart-radius": { "$value": "{foundation.radius.md}" }
   },
   "color": {
     "surface": {

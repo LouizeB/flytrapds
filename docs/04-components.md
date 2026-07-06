@@ -20,21 +20,21 @@ Um componente só muda para `✅` quando atende à [Definition of Done](12-compo
 | Componente | Variantes e estados | Prioridade | Status | Notas Flytrap |
 |--|--|--:|:--:|--|
 | Input + Field | Default, focus, error, disabled, hint | P0 | ✅ | Usa tokens próprios de background, border, focus, error e placeholder |
-| Textarea | Default, focus, error, disabled, limite | P1 | ⬜ | Necessário para prompts longos e formulários |
-| Select | Default, open, selected, disabled, error | P0 | ⬜ | Filtros e seleção de contexto; usar Radix Select |
-| Checkbox | Default, checked, indeterminate, disabled | P0 | ⬜ | Seleção em tabelas e preferências |
-| RadioGroup | Default, selected, disabled | P2 | ⬜ | Usar quando opções forem mutuamente exclusivas e visíveis |
-| Switch | On, off, disabled | P1 | ⬜ | Preferências e alternância de recursos; tema continua sendo ação explícita |
+| Textarea | Default, focus, error, disabled, limite | P1 | ✅ | Compartilha contrato visual de Input e controla resize |
+| Select | Default, open, selected, disabled, error | P0 | ✅ | Primitive Radix com composição Trigger, Content, Group e Item |
+| Checkbox | Default, checked, indeterminate, disabled | P0 | ✅ | Primitive e composição CheckboxField com descrição |
+| RadioGroup | Default, selected, disabled | P2 | ✅ | Primitive e composição RadioGroupField com descrição |
+| Switch | On, off, disabled | P1 | ✅ | Primitive e composição SwitchField; tema continua sendo ação explícita |
 | SearchInput | Idle, typing, loading, results, empty | P1 | ⬜ | Busca de componentes e contexto do DS |
-| PromptInput | Empty, typing, multiline, submitting, disabled, attachment | P0 | ⬜ | Composição AI; não deve ser apenas um Input genérico |
+| PromptInput | Empty, typing, multiline, submitting, disabled, attachment | P0 | ✅ | Enter envia, Shift+Enter quebra linha e composição permanece extensível |
 
 ## Botões e ações
 
 | Componente | Variantes e estados | Prioridade | Status | Notas Flytrap |
 |--|--|--:|:--:|--|
 | Button | Default, secondary, destructive, outline, ghost, link; hover, focus, active, disabled | P0 | ✅ | Estados principais conectados a component tokens e APCA |
-| Button loading | Loading, label preservado, progress announcement | P0 | 🟡 | API e comportamento ainda não implementados |
-| IconButton | Default, hover, focus, disabled | P0 | 🟡 | Existe via `Button size="icon"`; falta contrato/documentação próprios |
+| Button loading | Loading, label preservado, progress announcement | P0 | ✅ | `loading` bloqueia interação, mantém o label e anuncia progresso |
+| IconButton | Default, hover, focus, disabled | P0 | ✅ | API própria exige `label` e aplica `size="icon"` |
 | ButtonGroup | Horizontal, segmented, responsive | P2 | ⬜ | Útil para filtros compactos |
 | CopyButton | Idle, copied, error | P1 | ⬜ | Código, tokens e snippets da documentação |
 | HumanApprovalAction | Approve, reject, pending, expired | P1 | ⬜ | Ação crítica de agentes; exige confirmação e rastreabilidade |
@@ -47,8 +47,8 @@ Um componente só muda para `✅` quando atende à [Definition of Done](12-compo
 | InteractiveCard | Default, hover, focus, selected, disabled | P1 | ⬜ | Não transformar Card estático em botão sem semântica correta |
 | KpiStatCard | Delta up, down, neutral; loading | P0 | ✅ | Dashboard e telemetria de adoção |
 | Accordion | Closed, open, disabled | P2 | ⬜ | Documentação técnica extensa |
-| Tabs | Active, inactive, focus, disabled | P0 | ⬜ | Navegação do catálogo e painéis de código/preview |
-| Separator | Horizontal, vertical | P2 | ⬜ | Preferir bordas de layout quando não houver significado estrutural |
+| Tabs | Active, inactive, focus, disabled | P0 | ✅ | Navegação por teclado via Radix |
+| Separator | Horizontal, vertical | P2 | ✅ | Decorativo por padrão; aceita semântica quando necessária |
 | ScrollArea | Vertical, horizontal, overflow indicators | P2 | ⬜ | Trace, logs e listas extensas |
 
 ## Feedback e estado
@@ -58,30 +58,30 @@ Um componente só muda para `✅` quando atende à [Definition of Done](12-compo
 | Badge | Default, secondary, outline, success, warning, destructive | P0 | ✅ | Falta avaliar variantes numérica e dot |
 | Progress | Determinate, zero, complete | P0 | ✅ | Indeterminate fica para Skeleton/Spinner |
 | InsightCallout | Info, success, warning | P0 | ✅ | Composição AI para recomendações contextuais |
-| Alert | Info, success, warning, error; dismissible | P0 | ⬜ | Feedback de sistema, distinto de insight gerado por AI |
-| Skeleton | Text, avatar, card, chart | P0 | ⬜ | Evita layout shift nos fluxos RAG e dashboard |
-| EmptyState | No data, no results, first use, action | P0 | ⬜ | Obrigatório para listas, busca e agentes |
-| Toast / Sonner | Success, error, warning, info, action | P1 | ⬜ | Eventos transitórios; não usar para erros que exigem correção no contexto |
-| Tooltip | Default, delayed, side variants | P0 | ⬜ | Obrigatório para icon-only quando o contexto não é evidente |
+| Alert | Info, success, warning, error; dismissible | P0 | ✅ | Feedback persistente com papéis semânticos |
+| Skeleton | Text, avatar, card, chart | P0 | ✅ | Shapes reutilizáveis e respeito a reduced motion |
+| EmptyState | No data, no results, first use, action | P0 | ✅ | Composição genérica com ícone, descrição e ação |
+| Toast | Success, error, warning, info, action | P1 | ✅ | Primitive Radix; não usar para erros que exigem correção no contexto |
+| Tooltip | Default, delayed, side variants | P0 | ✅ | Provider, Trigger e Content via Radix |
 
 ## Navegação e estrutura
 
 | Componente | Variantes e estados | Prioridade | Status | Notas Flytrap |
 |--|--|--:|:--:|--|
-| Sidebar | Expanded, collapsed, mobile, active item | P0 | 🟡 | Existe duplicada nos apps; deve virar componente compartilhado |
-| Header | Desktop, mobile, actions | P1 | 🟡 | Implementação específica no dashboard |
+| Sidebar | Expanded, collapsed, mobile, active item | P0 | ✅ | Provider, desktop colapsável, Sheet mobile e menu compartilhados |
+| Header | Desktop, mobile, actions | P1 | ✅ | Estrutura composável com Brand, Title e Actions |
 | Breadcrumb | Two levels, overflow | P2 | ⬜ | Navegação profunda da documentação |
 | Pagination | First, previous, next, last, disabled | P2 | ⬜ | Registry, tabelas e logs |
-| CommandMenu | Closed, search, groups, empty | P1 | ⬜ | Navegação rápida por componentes e tokens |
+| CommandMenu | Closed, search, groups, empty | P1 | ✅ | Busca, grupos, atalhos e dialog acessível via cmdk |
 
 ## Overlays
 
 | Componente | Variantes e estados | Prioridade | Status | Notas Flytrap |
 |--|--|--:|:--:|--|
-| Dialog | Default, loading, scrollable | P0 | ⬜ | Base de overlays e formulários focados |
-| AlertDialog | Default, destructive, pending | P0 | ⬜ | Confirmação de ações irreversíveis |
-| Sheet / Drawer | Right, left, bottom/mobile | P1 | ⬜ | Sidebar mobile e detalhes de agentes |
-| Popover | Default, action, controlled | P2 | ⬜ | Conteúdo breve sem bloquear contexto |
+| Dialog | Default, loading, scrollable | P0 | ✅ | Focus trap, fechamento e composição acessível via Radix |
+| AlertDialog | Default, destructive, pending | P0 | ✅ | Confirmação dedicada com Action e Cancel |
+| Sheet / Drawer | Right, left, bottom/mobile | P1 | ✅ | Dialog responsivo com quatro direções |
+| Popover | Default, action, controlled | P2 | ✅ | Conteúdo breve sem bloquear contexto |
 
 ## AI — Agents
 
@@ -89,11 +89,11 @@ Um componente só muda para `✅` quando atende à [Definition of Done](12-compo
 |--|--|--:|:--:|--|
 | AgentCard | Idle, running, completed, error | P0 | ✅ | Nome, status, modelo, tokens e descrição |
 | AgentStatus | Idle, queued, running, paused, completed, error | P1 | 🟡 | Parte interna do AgentCard; falta API independente |
-| ToolCallBlock | Pending, running, success, error, collapsed | P0 | ⬜ | Nome da tool, input/output, duração e erro seguro |
-| ReasoningStream | Streaming, completed, interrupted, collapsed | P0 | ⬜ | Deve evitar expor conteúdo sensível de raciocínio interno |
+| ToolCallBlock | Pending, running, success, error, collapsed | P0 | ✅ | Disclosure acessível com entrada, saída, duração e erro seguro |
+| ReasoningStream | Streaming, completed, interrupted, collapsed | P0 | ✅ | Expõe resumo operacional seguro, nunca cadeia interna do modelo |
 | RunTraceTimeline | Queued, active, success, error, skipped | P1 | ⬜ | Sequência de eventos e tools |
 | CostTokenMeter | Input, output, cached, cost, budget warning | P1 | ⬜ | Telemetria clara, nunca falsa precisão |
-| HumanApprovalPrompt | Pending, approved, rejected, expired | P0 | ⬜ | Interrupção segura antes de ações críticas |
+| HumanApprovalPrompt | Pending, approved, rejected, expired | P0 | ✅ | Decisão explícita, detalhes e expiração antes de ações críticas |
 | AgentConsole | Empty, running, paused, completed, error | P1 | ⬜ | Composição de status, trace, tools, custo e aprovação |
 
 ## AI — Chat e RAG
@@ -101,10 +101,10 @@ Um componente só muda para `✅` quando atende à [Definition of Done](12-compo
 | Componente | Variantes e estados | Prioridade | Status | Notas Flytrap |
 |--|--|--:|:--:|--|
 | MessageBubble | User, assistant | P0 | ✅ | Tokens próprios por papel |
-| StreamingMessage | Streaming, completed, interrupted, retry | P0 | ⬜ | Anúncios acessíveis sem reanunciar toda a mensagem |
-| ChatThread | Empty, loading history, populated, error | P0 | 🟡 | Composição existe no app, ainda não no pacote UI |
-| PromptInput | Ver seção Inputs | P0 | ⬜ | Entrada central do AI playground |
-| CitationChip | Default, hover, missing source | P0 | ⬜ | Fonte, índice, link e título acessível |
+| StreamingMessage | Streaming, completed, interrupted, retry | P0 | ✅ | Live region anuncia somente o estado, preservando conteúdo parcial |
+| ChatThread | Empty, loading history, populated, error | P0 | ✅ | Log composável com estados assíncronos e skeleton |
+| PromptInput | Ver seção Inputs | P0 | ✅ | Entrada central exportada pelo pacote UI |
+| CitationChip | Default, hover, missing source | P0 | ✅ | Fonte, índice, link externo e estado indisponível acessível |
 | InlineToolResult | Loading, success, error, collapsed | P1 | ⬜ | Resultado breve dentro da conversa |
 | SuggestedPrompts | Default, selected, hidden | P1 | ⬜ | Onboarding e empty state do chat |
 | MessageActions | Copy, retry, feedback | P1 | ⬜ | Ações só aparecem quando disponíveis por mensagem |
@@ -115,7 +115,7 @@ Um componente só muda para `✅` quando atende à [Definition of Done](12-compo
 
 | Componente | Variantes e estados | Prioridade | Status | Notas Flytrap |
 |--|--|--:|:--:|--|
-| Chart | Area, bar, line; loading, empty, error | P0 | 🟡 | Protótipo existe no app; falta Recharts compartilhado e API acessível |
+| Chart | Area, bar, line; loading, empty, error | P0 | ✅ | Recharts compartilhado com tabela equivalente e tokens próprios |
 | ChartTooltip | Keyboard/pointer, series comparison | P1 | ⬜ | Precisa alternativa textual aos dados |
 | FilterBar | Default, active filters, clear all, mobile | P1 | ⬜ | Período, squad, produto e componente |
 | DashboardShell | Header, filters, content, sidebar | P1 | 🟡 | Estrutura existe no app; ainda específica |
@@ -123,6 +123,15 @@ Um componente só muda para `✅` quando atende à [Definition of Done](12-compo
 | AnomalyFlag | Info, warning, critical, acknowledged | P1 | ⬜ | Sinalização de regressões e hardcoded values |
 | TrendComparator | Up, down, stable, insufficient data | P2 | ⬜ | Comparação entre períodos |
 | AiSummaryPanel | Loading, insight, no insight, error | P1 | 🟡 | InsightCallout cobre parte da necessidade |
+
+## Identidade
+
+| Componente | Variantes e estados | Prioridade | Status | Notas Flytrap |
+|--|--|--:|:--:|--|
+| BrandMark | 32, 48, 60; informativo ou decorativo | P0 | ✅ | SVG oficial sem recoloração por CSS |
+| BrandLockup | Nome e descritor opcional | P0 | ✅ | Evita duplicar o nome acessível do símbolo |
+| Avatar | sm, md, lg; image e fallback | P0 | ✅ | Primitive genérica baseada em Radix |
+| AiAvatar | online, processing, offline | P0 | ✅ | Avatar oficial com status textual |
 
 ## Resumo do MVP
 
@@ -140,20 +149,21 @@ Um componente só muda para `✅` quando atende à [Definition of Done](12-compo
 
 ### Próxima onda P0 — foundation
 
-- [ ] Button loading e contrato de IconButton
-- [ ] Select e Checkbox
-- [ ] Tabs e Tooltip
-- [ ] Alert, Skeleton e EmptyState
-- [ ] Sidebar compartilhada
-- [ ] Dialog e AlertDialog
+- [x] Button loading e contrato de IconButton
+- [x] Select e Checkbox
+- [x] Tabs e Tooltip
+- [x] Alert, Skeleton e EmptyState
+- [x] Sidebar compartilhada
+- [x] Dialog e AlertDialog
 
 ### Próxima onda P0 — diferencial Flytrap
 
-- [ ] PromptInput e ChatThread
-- [ ] StreamingMessage e CitationChip
-- [ ] ToolCallBlock e ReasoningStream
-- [ ] HumanApprovalPrompt
-- [ ] Chart compartilhado com estados loading/empty/error
+- [x] PromptInput e ChatThread
+- [x] StreamingMessage e CitationChip
+- [x] ReasoningStream
+- [x] ToolCallBlock
+- [x] HumanApprovalPrompt
+- [x] Chart compartilhado com estados loading/empty/error
 
 ## Regras de implementação
 

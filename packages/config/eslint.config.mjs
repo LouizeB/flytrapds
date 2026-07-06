@@ -1,1 +1,1 @@
-export default [{ ignores: ["**/dist/**", "**/.next/**", "**/storybook-static/**"] }];
+export default [{ ignores: ["**/coverage/**", "**/dist/**", "**/.next/**", "**/storybook-static/**"] }];
