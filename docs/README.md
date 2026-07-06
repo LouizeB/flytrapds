@@ -59,5 +59,7 @@ Perguntas que esta trilha responde: qual pacote importar? Onde o código deve vi
 14. [Iconografia semântica](13-iconography.md)
 15. [Contrato de contexto para IA](14-ai-context-contract.md)
 16. [Experiência pública — Release 1](15-public-experience-release-1.md)
+17. [Assets de marca e avatar](16-brand-assets.md)
+18. [API e qualidade dos componentes](17-component-api-quality.md)
 
 Contribuição: [CONTRIBUTING](../CONTRIBUTING.md) · Histórico: [CHANGELOG](../CHANGELOG.md)

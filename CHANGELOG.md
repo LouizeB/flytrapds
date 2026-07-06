@@ -3,6 +3,30 @@
 Formato: Keep a Changelog · SemVer.
 
 ## [Unreleased]
+
+## [0.3.0] — 2026-07-06
+### Added
+- Onda foundation com Select, Checkbox, Tabs, Tooltip, Alert, Skeleton, EmptyState, Dialog, AlertDialog, Textarea, RadioGroup, Switch e Separator.
+- Overlays e estrutura reutilizável com Popover, Sheet, Toast, Sidebar, Header e CommandMenu.
+- Camada AI com StreamingMessage, CitationChip, ToolCallBlock, HumanApprovalPrompt, ReasoningStream, PromptInput e ChatThread.
+- Chart compartilhado em line, area e bar, com estados assíncronos e tabela equivalente.
+- BrandMark, BrandLockup, Avatar e AiAvatar com os assets oficiais.
+- Suíte Vitest, Testing Library e axe, incluindo matriz light, dark e vibrant.
+- Tokens de componente para grid, eixos e tooltip de dataviz.
+
+### Changed
+- `@flytrap/ui` atualizado para 0.3.0.
+- Catálogo e dashboard passam a consumir marca e avatar pelo pacote compartilhado.
+- Inventário, roadmap e documentação passam a refletir os componentes públicos reais.
+
+### Accessibility
+- IconButton exige nome acessível e Button loading anuncia progresso.
+- Overlays preservam foco e fechamento por teclado.
+- Streaming anuncia somente mudanças de estado.
+- ReasoningStream expõe resumo operacional, não cadeia interna do modelo.
+- Chart sempre oferece representação tabular dos dados.
+
+## [0.2.0] — 2026-06-22
 ### Changed
 - Migração da UI de Lit Web Components para React 19 e componentes locais orientados por tokens.
 - Docs e dashboard reescritos como apps React consumidores de `@flytrap/ui`.

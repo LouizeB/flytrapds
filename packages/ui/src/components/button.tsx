@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
+import { AgentRunningIcon, FlytrapIcon, type FlytrapIconComponent } from "../icons";
 import { cn } from "../lib/utils";
 
 export const buttonVariants = cva(
@@ -28,9 +29,48 @@ export const buttonVariants = cva(
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
   asChild?: boolean;
+  loading?: boolean;
+  loadingAnnouncement?: string;
 }
 
-export function Button({ className, variant, size, asChild = false, ...props }: ButtonProps) {
-  const Comp = asChild ? Slot : "button";
-  return <Comp data-slot="button" className={cn(buttonVariants({ variant, size, className }))} {...props} />;
+export function Button({
+  children,
+  className,
+  variant,
+  size,
+  asChild = false,
+  disabled,
+  loading = false,
+  loadingAnnouncement = "Carregando",
+  ...props
+}: ButtonProps) {
+  const isDisabled = disabled || loading;
+  const sharedProps = {
+    "aria-busy": loading || undefined,
+    "aria-disabled": asChild && isDisabled ? true : undefined,
+    className: cn(buttonVariants({ variant, size, className }), asChild && isDisabled && "pointer-events-none"),
+    "data-loading": loading || undefined,
+    "data-slot": "button",
+  } as const;
+
+  if (asChild) {
+    return <Slot {...sharedProps} {...props}>{children}</Slot>;
+  }
+
+  return <button disabled={isDisabled} {...sharedProps} {...props}>
+    {loading && <FlytrapIcon className="animate-spin motion-reduce:animate-none" icon={AgentRunningIcon} />}
+    {children}
+    {loading && <span className="sr-only" role="status">{loadingAnnouncement}</span>}
+  </button>;
+}
+
+export interface IconButtonProps extends Omit<ButtonProps, "aria-label" | "children" | "loading" | "size"> {
+  icon: FlytrapIconComponent;
+  label: string;
+}
+
+export function IconButton({ icon, label, ...props }: IconButtonProps) {
+  return <Button aria-label={label} size="icon" {...props}>
+    <FlytrapIcon icon={icon} />
+  </Button>;
 }

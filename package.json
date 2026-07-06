@@ -6,6 +6,8 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
+    "test": "turbo run test",
+    "test:coverage": "turbo run test:coverage",
     "typecheck": "turbo run typecheck",
     "tokens": "pnpm -F @flytrap/tokens build",
     "tokens:contract": "python3 scripts/token_contract.py packages/tokens/src/flytrap.tokens.json",
