@@ -54,7 +54,26 @@ export function Button({
   } as const;
 
   if (asChild) {
-    return <Slot {...sharedProps} {...props}>{children}</Slot>;
+    const { onClick, onKeyDown, tabIndex, ...restProps } = props;
+    const blockClick = (event: React.MouseEvent) => {
+      event.preventDefault();
+      event.stopPropagation();
+    };
+    const blockActivationKeys: React.KeyboardEventHandler<HTMLButtonElement> = (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        event.stopPropagation();
+        return;
+      }
+      onKeyDown?.(event);
+    };
+    return <Slot
+      {...sharedProps}
+      {...restProps}
+      onClick={isDisabled ? blockClick : onClick}
+      onKeyDown={isDisabled ? blockActivationKeys : onKeyDown}
+      tabIndex={isDisabled ? -1 : tabIndex}
+    >{children}</Slot>;
   }
 
   return <button disabled={isDisabled} {...sharedProps} {...props}>
