@@ -76,10 +76,10 @@ export function Hero() {
       </p>
       <div className="mt-8 flex flex-wrap gap-3">
         <Button asChild className="rounded-full bg-[#F10081] px-6 text-white shadow-[0_0_28px_rgba(241,0,129,.45)] hover:bg-[#CF006A]" size="lg">
-          <a href="#foundations">Get started <span aria-hidden="true">→</span></a>
+          <a href="#foundations">Get Started <span aria-hidden="true">→</span></a>
         </Button>
         <Button asChild className="rounded-full border-white/25 bg-white/5 px-6 text-white hover:bg-white/10" size="lg" variant="outline">
-          <a href="#tokens">Explore tokens</a>
+          <a href="#tokens">Explore Tokens <span aria-hidden="true" className="ml-1 grid size-5 place-items-center rounded-full border border-white/30 text-[0.6rem]">→</span></a>
         </Button>
       </div>
       <a
@@ -92,21 +92,32 @@ export function Hero() {
 
     <div className="relative z-10 mt-10 hidden w-64 flex-col gap-4 xl:absolute xl:right-10 xl:top-16 xl:flex">
       <FloatingPanel title="System synchronization">
-        <ul className="grid gap-2">
-          {syncRows.map(row => <li className="flex items-center justify-between font-mono text-[0.68rem] uppercase tracking-[0.14em] text-white/70" key={row}>
-            {row}
-            <span className="size-1.5 rounded-full bg-[#b8ff35] shadow-[0_0_8px_rgba(184,255,53,.8)]" />
-          </li>)}
-        </ul>
+        <div className="flex items-start gap-3">
+          <ul className="grid flex-1 gap-2">
+            {syncRows.map(row => <li className="flex items-center justify-between font-mono text-[0.68rem] uppercase tracking-[0.14em] text-white/70" key={row}>
+              {row}
+              <span className="size-1.5 rounded-full bg-[#00c970] shadow-[0_0_8px_rgba(0,201,112,.8)]" />
+            </li>)}
+          </ul>
+          <svg aria-hidden="true" className="flytrap-motion mt-1 w-14 shrink-0 animate-[flytrap-pulse_6s_ease-in-out_infinite]" viewBox="0 0 56 40">
+            <defs>
+              <linearGradient id="flytrap-torus" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0%" stopColor="#7cecff" />
+                <stop offset="50%" stopColor="#8b5cf6" />
+                <stop offset="100%" stopColor="#ff4fbd" />
+              </linearGradient>
+            </defs>
+            <ellipse cx="28" cy="20" fill="none" rx="22" ry="12" stroke="url(#flytrap-torus)" strokeWidth="5" transform="rotate(-18 28 20)" />
+            <ellipse cx="28" cy="20" fill="none" opacity="0.5" rx="14" ry="7" stroke="url(#flytrap-torus)" strokeWidth="1.5" transform="rotate(-18 28 20)" />
+          </svg>
+        </div>
       </FloatingPanel>
       <FloatingPanel delay={-2.4} title="Bio-signal feed">
-        <div className="flex items-center justify-between">
-          <div aria-hidden="true" className="flytrap-motion flytrap-organic size-16 animate-[flytrap-pulse_4.6s_ease-in-out_infinite] bg-[radial-gradient(circle_at_40%_40%,rgba(255,79,189,.85),rgba(241,0,129,.35)_60%,transparent_78%)] blur-[1px]" style={{ borderRadius: "42% 58% 65% 35% / 45% 40% 60% 55%" }} />
-          <p className="font-display text-2xl font-bold text-white/90">98%</p>
-        </div>
+        <p className="absolute right-4 top-4 font-mono text-xs text-white/70">96%</p>
+        <div aria-hidden="true" className="flytrap-motion flytrap-organic mx-auto h-16 w-32 animate-[flytrap-pulse_4.6s_ease-in-out_infinite] bg-[radial-gradient(ellipse_at_50%_45%,rgba(255,79,189,.9),rgba(241,0,129,.4)_55%,rgba(139,92,246,.18)_75%,transparent_85%)] blur-[1px]" style={{ borderRadius: "48% 52% 60% 40% / 62% 58% 42% 38%" }} />
         <div className="mt-3 flex items-center justify-between font-mono text-[0.62rem] uppercase tracking-[0.16em]">
           <span className="text-white/50">Stable</span>
-          <span className="text-[#b8ff35]">Estável</span>
+          <span className="text-[#00c970]">Enable</span>
         </div>
       </FloatingPanel>
     </div>

@@ -192,6 +192,23 @@ export function OrganicBackground() {
     <div className="flytrap-motion flytrap-organic absolute right-[-12rem] top-[52%] size-[38rem] animate-[flytrap-pulse_6.2s_ease-in-out_infinite] border border-[#b8ff35]/12 bg-[conic-gradient(from_120deg,transparent,rgba(184,255,53,.12),transparent,rgba(255,79,189,.14),transparent)] blur-[.5px]" style={{ rotate: `${progress * -42}deg`, animationDelay: "-3s" }} />
     <div className="flytrap-motion absolute left-[8vw] top-[38%] size-40 animate-[flytrap-pulse_5.2s_ease-in-out_infinite] rounded-full bg-[#b8ff35]/18 blur-3xl" style={{ translate: `0px ${Math.sin(progress * Math.PI * 2) * 30}px` }} />
     <div className="flytrap-motion absolute right-[12vw] top-[72%] size-48 animate-[flytrap-pulse_6.6s_ease-in-out_infinite] rounded-full bg-[#ff4fbd]/18 blur-3xl" style={{ translate: `0px ${Math.cos(progress * Math.PI * 2) * 26}px` }} />
-    <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_10%,rgba(255,79,189,.16),transparent_30rem),radial-gradient(circle_at_10%_48%,rgba(184,255,53,.09),transparent_24rem),radial-gradient(circle_at_60%_88%,rgba(124,236,255,.07),transparent_26rem),linear-gradient(180deg,rgba(5,6,10,.25),rgba(5,6,10,.78))]" />
+    <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_10%,rgba(255,79,189,.16),transparent_30rem),radial-gradient(circle_at_10%_48%,rgba(139,92,246,.12),transparent_26rem),radial-gradient(circle_at_28%_82%,rgba(139,92,246,.1),transparent_24rem),radial-gradient(circle_at_60%_88%,rgba(124,236,255,.07),transparent_26rem),linear-gradient(180deg,rgba(5,6,10,.25),rgba(5,6,10,.78))]" />
+    <div className="absolute inset-0 opacity-[.05] bg-[linear-gradient(rgba(255,255,255,.6)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.6)_1px,transparent_1px)] bg-[size:72px_72px]" />
+    <div
+      className="absolute inset-0 opacity-[.045] mix-blend-overlay"
+      style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E")` }}
+    />
+  </div>;
+}
+
+export function TechFrame() {
+  return <div aria-hidden="true" className="pointer-events-none fixed inset-2 z-50 hidden rounded-2xl border border-white/8 md:block">
+    <svg className="absolute left-2 top-2 w-10 text-white/25" viewBox="0 0 40 40">
+      <circle cx="12" cy="12" fill="none" r="7" stroke="currentColor" strokeWidth="1.4" />
+      <circle cx="12" cy="12" fill="#ff4fbd" fillOpacity="0.7" r="2.4" />
+      <path d="M19 12h14M12 19v14" fill="none" stroke="currentColor" strokeWidth="1.2" />
+    </svg>
+    <span className="absolute right-4 top-0 h-px w-24 bg-gradient-to-r from-transparent via-[#ff4fbd]/70 to-transparent" />
+    <span className="absolute bottom-0 left-8 h-px w-32 bg-gradient-to-r from-transparent via-[#8b5cf6]/60 to-transparent" />
   </div>;
 }

@@ -119,7 +119,7 @@ export function CodeBlock({ lines, copyText }: { lines: CodeToken[][]; copyText:
         {line.map((token, tokenIndex) => <span className={codeTokenStyles[token.kind ?? "plain"]} key={tokenIndex}>{token.text}</span>)}
       </div>)}
     </pre>
-    <Button className="absolute right-3 top-12 border-[#ff4fbd]/40 bg-[#ff4fbd]/10 text-[#ff9bdd] hover:bg-[#ff4fbd]/20" onClick={copy} size="sm" variant="outline">
+    <Button className="absolute bottom-3 right-3 border-[#ff4fbd]/40 bg-[#ff4fbd]/10 text-[#ff9bdd] hover:bg-[#ff4fbd]/20" onClick={copy} size="sm" variant="outline">
       <FlytrapIcon icon={copied ? ConfirmIcon : CopyIcon} size="sm" />
       {copied ? "Copiado" : "Copy"}
     </Button>
