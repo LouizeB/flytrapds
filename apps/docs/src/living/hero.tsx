@@ -57,11 +57,11 @@ export function Hero() {
     <WireframeMoon className="pointer-events-none absolute left-[38%] top-[-15rem] z-0 hidden size-[34rem] opacity-80 blur-[0.5px] md:block" />
     <OrbitalSystem className="flytrap-motion pointer-events-none absolute right-[23rem] top-[2.5rem] z-0 hidden w-64 animate-[flytrap-panel-float_9s_ease-in-out_infinite] opacity-80 xl:block" />
 
-    <img aria-hidden="true" className="pointer-events-none absolute right-[-2rem] top-[-2.5rem] z-0 hidden w-60 -scale-x-100 rotate-12 opacity-75 mix-blend-screen saturate-125 md:block" draggable={false} src={plantA} />
+    <img aria-hidden="true" className="pointer-events-none absolute right-[-2rem] top-[-2.5rem] z-0 hidden w-60 -scale-x-100 rotate-12 opacity-80 mix-blend-screen saturate-125 md:block" draggable={false} src={plantA} />
 
     <CharacterLayer
       alt="Alienígena Flytrap em pé sobre uma plataforma holográfica, consultando um painel translúcido do Design System."
-      className="absolute right-[-16vw] top-[-2%] z-0 hidden h-[min(92vh,920px)] w-[min(92vh,920px)] sm:block lg:right-[-4vw] xl:right-[13rem]"
+      className="absolute right-[-18vw] top-[-3%] z-0 hidden h-[min(102vh,1020px)] w-[min(102vh,1020px)] sm:block lg:right-[-5vw] xl:right-[11rem]"
       pose="standing"
     />
 
@@ -112,7 +112,7 @@ export function Hero() {
           </svg>
         </div>
       </FloatingPanel>
-      <FloatingPanel delay={-2.4} title="Bio-signal feed">
+      <FloatingPanel className="relative" delay={-2.4} title="Bio-signal feed">
         <p className="absolute right-4 top-4 font-mono text-xs text-white/70">96%</p>
         <div aria-hidden="true" className="flytrap-motion flytrap-organic mx-auto h-16 w-32 animate-[flytrap-pulse_4.6s_ease-in-out_infinite] bg-[radial-gradient(ellipse_at_50%_45%,rgba(255,79,189,.9),rgba(241,0,129,.4)_55%,rgba(139,92,246,.18)_75%,transparent_85%)] blur-[1px]" style={{ borderRadius: "48% 52% 60% 40% / 62% 58% 42% 38%" }} />
         <div className="mt-3 flex items-center justify-between font-mono text-[0.62rem] uppercase tracking-[0.16em]">

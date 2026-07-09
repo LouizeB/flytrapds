@@ -42,6 +42,7 @@ import plantB from "./assets/flytrap-plant-b.webp";
 import tendrilRight from "./assets/flytrap-tendril-right.webp";
 import tangleLeft from "./assets/flytrap-tangle-left.webp";
 import organismBr from "./assets/flytrap-organism-br.webp";
+import vinesMidright from "./assets/flytrap-vines-midright.webp";
 import { CharacterLayer } from "./living/character";
 import { Sidebar, type Appearance } from "./living/sidebar";
 import { Hero } from "./living/hero";
@@ -222,9 +223,10 @@ function App() {
           <section aria-label="Components" className="relative border-b border-white/8 px-6 py-14 md:px-10">
             <CharacterLayer
               alt="Alienígena Flytrap deitada sobre uma placa de circuito holográfica, inspecionando o repositório de componentes."
-              className="absolute right-[-8vw] top-[34%] z-30 hidden h-[min(42vw,730px)] w-[min(42vw,730px)] lg:block xl:right-[-5vw]"
+              className="absolute right-[-8vw] top-[30%] z-30 hidden h-[min(46vw,800px)] w-[min(46vw,800px)] lg:block xl:right-[-4vw]"
               pose="lying"
             />
+            <img aria-hidden="true" className="pointer-events-none absolute bottom-[-6rem] right-[-0.5rem] z-0 hidden w-24 opacity-85 mix-blend-screen saturate-125 lg:block" draggable={false} src={vinesMidright} />
             <FloatingPanel className="absolute right-8 top-14 z-40 hidden w-56 xl:block" title="Component anatomy">
               <div aria-hidden="true" className="relative mx-auto h-28 w-36 [perspective:600px]">
                 {anatomyLayers.map((_, index) => <span

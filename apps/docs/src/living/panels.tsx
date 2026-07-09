@@ -8,7 +8,7 @@ export function FloatingPanel({ title, className, children, delay = 0 }: {
   delay?: number;
 }) {
   return <div
-    className={["flytrap-motion animate-[flytrap-panel-float_6.8s_ease-in-out_infinite] rounded-2xl border border-white/12 bg-black/40 p-4 text-white shadow-2xl shadow-black/40 backdrop-blur-xl", className].filter(Boolean).join(" ")}
+    className={["flytrap-motion animate-[flytrap-panel-float_6.8s_ease-in-out_infinite] rounded-2xl border border-[rgba(241,0,129,.18)] bg-[rgba(14,15,24,.78)] p-4 text-white shadow-[0_20px_50px_rgba(0,0,0,.55),0_0_30px_rgba(139,92,246,.12)] backdrop-blur-[18px]", className].filter(Boolean).join(" ")}
     style={{ animationDelay: `${delay}s` }}
   >
     {title && <p className="mb-3 font-mono text-[0.6rem] uppercase tracking-[0.24em] text-white/45">{title}</p>}
@@ -41,7 +41,8 @@ export function SectionCard({ title, meta, className, children }: {
   className?: string;
   children: React.ReactNode;
 }) {
-  return <article className={["rounded-2xl border border-white/10 bg-white/[.045] p-5 shadow-2xl shadow-black/25 backdrop-blur-xl transition-colors hover:border-[#ff4fbd]/35", className].filter(Boolean).join(" ")}>
+  return <article className={["relative overflow-hidden rounded-2xl border border-white/10 bg-[rgba(16,18,28,.72)] p-5 shadow-[0_18px_50px_rgba(0,0,0,.5),0_0_34px_rgba(241,0,129,.07)] backdrop-blur-[18px] transition-all hover:border-[rgba(241,0,129,.35)] hover:shadow-[0_18px_50px_rgba(0,0,0,.5),0_0_40px_rgba(241,0,129,.18)]", className].filter(Boolean).join(" ")}>
+    <span aria-hidden="true" className="pointer-events-none absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-[#ff4fbd]/45 to-transparent" />
     <div className="flex items-baseline justify-between gap-3">
       <h3 className="font-display text-lg font-bold text-white/90">{title}</h3>
       {meta && <p className="font-mono text-[0.6rem] uppercase tracking-[0.18em] text-white/40">{meta}</p>}
@@ -69,7 +70,8 @@ export function ComponentPreview({ title, className, children }: {
   className?: string;
   children: React.ReactNode;
 }) {
-  return <article className={["rounded-2xl border border-white/10 bg-black/35 p-4 shadow-2xl shadow-black/30 backdrop-blur-xl transition-colors hover:border-[#b8ff35]/35", className].filter(Boolean).join(" ")}>
+  return <article className={["relative overflow-hidden rounded-2xl border border-white/10 bg-[rgba(14,15,24,.7)] p-4 shadow-[0_14px_40px_rgba(0,0,0,.5),0_0_26px_rgba(139,92,246,.08)] backdrop-blur-[18px] transition-all hover:border-[rgba(241,0,129,.35)] hover:shadow-[0_14px_40px_rgba(0,0,0,.5),0_0_32px_rgba(241,0,129,.16)]", className].filter(Boolean).join(" ")}>
+    <span aria-hidden="true" className="pointer-events-none absolute inset-x-3 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
     <p className="font-mono text-[0.6rem] uppercase tracking-[0.2em] text-white/45">{title}</p>
     <div className="mt-3 grid gap-3">{children}</div>
   </article>;

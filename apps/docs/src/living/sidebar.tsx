@@ -89,7 +89,8 @@ export function Sidebar({ appearance, onAppearanceChange }: {
       })}
     </nav>
 
-    <div className="rounded-xl border border-white/10 bg-black/30 p-3">
+    <div className="relative rounded-xl border border-[rgba(241,0,129,.18)] bg-[rgba(10,11,18,.8)] p-3 shadow-[0_0_22px_rgba(241,0,129,.08)]">
+      <span aria-hidden="true" className="absolute right-2.5 top-2.5 font-mono text-[0.6rem] text-white/30">×</span>
       <p className="font-mono text-[0.58rem] uppercase tracking-[0.22em] text-white/40">System status</p>
       <p className="mt-2 flex items-center gap-2 text-xs text-white/75">
         <span className="size-1.5 rounded-full bg-[#00c970] shadow-[0_0_8px_rgba(0,201,112,.8)]" />
@@ -106,7 +107,7 @@ export function Sidebar({ appearance, onAppearanceChange }: {
       <StatusWave />
     </div>
 
-    <div className="rounded-xl border border-white/10 bg-black/30 p-3">
+    <div className="rounded-xl border border-[rgba(241,0,129,.18)] bg-[rgba(10,11,18,.8)] p-3 shadow-[0_0_22px_rgba(241,0,129,.08)]">
       <p className="font-mono text-[0.58rem] uppercase tracking-[0.22em] text-white/40">Theme</p>
       <label className="mt-2 flex items-center justify-between gap-3 text-xs text-white/75">
         Bio-Cyber
@@ -135,7 +136,7 @@ export function Sidebar({ appearance, onAppearanceChange }: {
       </div>
     </div>
 
-    <div className="rounded-xl border border-white/10 bg-black/30 p-3 lg:mt-auto">
+    <div className="rounded-xl border border-[rgba(241,0,129,.18)] bg-[rgba(10,11,18,.8)] p-3 shadow-[0_0_22px_rgba(241,0,129,.08)] lg:mt-auto">
       <p className="font-mono text-[0.58rem] uppercase tracking-[0.22em] text-white/40">Version 1.0.0</p>
       <p className="mt-0.5 font-mono text-[0.55rem] text-white/35">Updated: 03.14.2025</p>
       <p className="mt-1 text-xs text-white/55">DTCG · React · APCA</p>
