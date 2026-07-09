@@ -105,14 +105,18 @@ export function Sidebar({ appearance, onAppearanceChange }: {
       </label>
       <p className="mt-3 font-mono text-[0.58rem] uppercase tracking-[0.22em] text-white/40">Mode</p>
       <div aria-label="Modo de cor" className="mt-2 flex gap-1 rounded-lg border border-white/10 bg-black/40 p-1" role="group">
-        {(["light", "dark"] as const).map(value => <button
-          aria-pressed={!vibrant && mode === value}
+        {(["light", "dark", "auto"] as const).map(value => <button
+          aria-pressed={!vibrant && value !== "auto" && mode === value}
           className={[
             "flex-1 rounded-md px-2 py-1 text-xs capitalize transition-colors",
-            !vibrant && mode === value ? "bg-[#ff4fbd]/20 text-[#ffd7ee]" : "text-white/50 hover:text-white/80",
+            !vibrant && value !== "auto" && mode === value ? "bg-[#ff4fbd]/20 text-[#ffd7ee]" : "text-white/50 hover:text-white/80",
           ].join(" ")}
           key={value}
-          onClick={() => onAppearanceChange(value)}
+          onClick={() => onAppearanceChange(
+            value === "auto"
+              ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
+              : value,
+          )}
           type="button"
         >{value}</button>)}
       </div>
@@ -120,6 +124,7 @@ export function Sidebar({ appearance, onAppearanceChange }: {
 
     <div className="rounded-xl border border-white/10 bg-black/30 p-3 lg:mt-auto">
       <p className="font-mono text-[0.58rem] uppercase tracking-[0.22em] text-white/40">Version 1.0.0</p>
+      <p className="mt-0.5 font-mono text-[0.55rem] text-white/35">Updated 07.09.2026</p>
       <p className="mt-1 text-xs text-white/55">DTCG · React · APCA</p>
       <a
         className="mt-3 inline-flex rounded-full border border-[#ff4fbd]/45 bg-[#ff4fbd]/10 px-3 py-1 font-mono text-[0.6rem] uppercase tracking-[0.16em] text-[#ff9bdd] transition-colors hover:bg-[#ff4fbd]/20"

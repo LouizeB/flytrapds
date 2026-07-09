@@ -13,10 +13,49 @@ const heroStrip: readonly [string, string, FlytrapIconComponent | null][] = [
   ["System health", "All systems nominal", null],
 ] as const;
 
+function WireframeMoon({ className }: { className?: string }) {
+  const parallels = [-72, -44, 0, 44, 72];
+  const meridians = [88, 62, 34, 0];
+  return <svg aria-hidden="true" className={className} viewBox="-100 -100 200 200">
+    <defs>
+      <radialGradient cx="42%" cy="38%" id="flytrap-moon-glow" r="72%">
+        <stop offset="0%" stopColor="#ff5a3c" stopOpacity="0.55" />
+        <stop offset="55%" stopColor="#c22c1e" stopOpacity="0.34" />
+        <stop offset="100%" stopColor="#3a0d0a" stopOpacity="0.12" />
+      </radialGradient>
+    </defs>
+    <circle fill="url(#flytrap-moon-glow)" r="97" stroke="rgba(255,110,80,.45)" strokeWidth="0.7" />
+    {parallels.map(y => <ellipse cx="0" cy={y} fill="none" key={y} rx={Math.sqrt(97 * 97 - y * y)} ry={Math.max(6, Math.abs(y) * 0.22)} stroke="rgba(255,110,80,.3)" strokeWidth="0.6" />)}
+    {meridians.map(rx => <ellipse cx="0" cy="0" fill="none" key={rx} rx={rx || 0.5} ry="97" stroke="rgba(255,110,80,.28)" strokeWidth="0.6" />)}
+  </svg>;
+}
+
+function OrbitalSystem({ className }: { className?: string }) {
+  const orbits = [26, 42, 58, 74, 90];
+  const planets = [
+    { r: 26, angle: 40, size: 3, color: "#ff9b6a" },
+    { r: 42, angle: 160, size: 4, color: "#b8ff35" },
+    { r: 58, angle: 300, size: 3.4, color: "#7cecff" },
+    { r: 74, angle: 210, size: 5, color: "#ff4fbd" },
+    { r: 90, angle: 80, size: 3, color: "#e8d8ff" },
+  ];
+  return <svg aria-hidden="true" className={className} viewBox="-100 -100 200 200">
+    <circle fill="#ffb35c" opacity="0.9" r="9" />
+    <circle fill="none" r="14" stroke="rgba(255,179,92,.5)" strokeWidth="0.8" />
+    {orbits.map(radius => <circle fill="none" key={radius} r={radius} stroke="rgba(255,255,255,.22)" strokeWidth="0.7" />)}
+    {planets.map(({ r, angle, size, color }) => {
+      const rad = (angle * Math.PI) / 180;
+      return <circle cx={Math.cos(rad) * r} cy={Math.sin(rad) * r} fill={color} key={r} r={size} />;
+    })}
+  </svg>;
+}
+
 export function Hero() {
   return <section aria-labelledby="living-hero-title" className="relative isolate overflow-hidden border-b border-white/10 px-6 pb-10 pt-14 text-white md:px-10 lg:min-h-[92vh]" id="overview">
     <div aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#ff4fbd]/60 to-transparent" />
     <div aria-hidden="true" className="flytrap-motion absolute right-[4vw] top-[6%] hidden h-[80vh] w-px animate-[flytrap-scan_5.2s_linear_infinite] bg-gradient-to-b from-transparent via-[#b8ff35]/70 to-transparent md:block" />
+    <WireframeMoon className="pointer-events-none absolute left-[38%] top-[-15rem] z-0 hidden size-[34rem] opacity-80 blur-[0.5px] md:block" />
+    <OrbitalSystem className="flytrap-motion pointer-events-none absolute right-[23rem] top-[2.5rem] z-0 hidden w-64 animate-[flytrap-panel-float_9s_ease-in-out_infinite] opacity-80 xl:block" />
 
     <img aria-hidden="true" className="pointer-events-none absolute right-[-2rem] top-[-2.5rem] z-0 hidden w-60 -scale-x-100 rotate-12 opacity-75 mix-blend-screen saturate-125 md:block" draggable={false} src={plantA} />
 

@@ -271,25 +271,28 @@ function App() {
                       rows={[{ name: "Item 1", status: "Active" }, { name: "Item 2", status: "Pending" }, { name: "Item 3", status: "Inactive" }]}
                     />
                   </ComponentPreview>
-                  <ComponentPreview title="Tag & Progress">
-                    <div className="flex flex-wrap gap-2">
+                </div>
+                <div className="mt-3 grid grid-cols-2 gap-3 xl:grid-cols-4">
+                  <ComponentPreview title="Tag">
+                    <div className="flex flex-wrap gap-1.5">
                       <Badge variant="outline">Default</Badge>
                       <Badge variant="success">Success</Badge>
-                      <Badge variant="destructive">Error</Badge>
-                    </div>
-                    <div>
-                      <div className="mb-1.5 flex justify-between text-xs text-white/60"><span>Adoption</span><span>72%</span></div>
-                      <Progress value={72} />
                     </div>
                   </ComponentPreview>
-                  <ComponentPreview title="Toggle & Modal">
-                    <SwitchField description="Sinal vital ativo." label="Bio-feedback" switchProps={{ defaultChecked: true }} />
+                  <ComponentPreview title="Progress">
+                    <div className="mb-1.5 flex justify-between text-xs text-white/60"><span>72%</span></div>
+                    <Progress value={72} />
+                  </ComponentPreview>
+                  <ComponentPreview title="Toggle">
+                    <SwitchField label="On" switchProps={{ defaultChecked: true }} />
+                  </ComponentPreview>
+                  <ComponentPreview title="Modal">
                     <Dialog>
-                      <DialogTrigger asChild><Button size="sm" variant="outline">Abrir modal</Button></DialogTrigger>
+                      <DialogTrigger asChild><Button size="sm" variant="outline">Modal title</Button></DialogTrigger>
                       <DialogContent>
                         <DialogHeader>
                           <DialogTitle>Modal title</DialogTitle>
-                          <DialogDescription>Overlays preservam foco, contexto e fechamento acessível.</DialogDescription>
+                          <DialogDescription>This is a modal. Overlays preservam foco e contexto.</DialogDescription>
                         </DialogHeader>
                         <DialogFooter><Button>Confirm</Button></DialogFooter>
                       </DialogContent>
