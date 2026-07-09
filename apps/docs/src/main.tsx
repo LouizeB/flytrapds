@@ -37,6 +37,8 @@ import {
 } from "@flytrap/ui";
 import "@flytrap/ui/styles";
 import { OrganicBackground } from "./living/organic-background";
+import plantA from "./assets/flytrap-plant-a.webp";
+import plantB from "./assets/flytrap-plant-b.webp";
 import { CharacterLayer } from "./living/character";
 import { Sidebar, type Appearance } from "./living/sidebar";
 import { Hero } from "./living/hero";
@@ -133,7 +135,8 @@ function App() {
 
           {/* 02 · Tokens */}
           <section aria-label="Tokens" className="relative border-b border-white/8 px-6 py-14 md:px-10">
-            <div className="flex flex-col gap-8 lg:flex-row lg:gap-12">
+            <img aria-hidden="true" className="pointer-events-none absolute left-[-4rem] top-[-3rem] z-0 hidden w-72 -rotate-6 opacity-80 mix-blend-screen saturate-125 lg:block" draggable={false} src={plantA} />
+            <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:gap-12">
               <SectionHeader
                 id="tokens"
                 index="02"
@@ -209,9 +212,23 @@ function App() {
           <section aria-label="Components" className="relative border-b border-white/8 px-6 py-14 md:px-10">
             <CharacterLayer
               alt="Alienígena Flytrap deitada sobre uma placa de circuito holográfica, inspecionando o repositório de componentes."
-              className="absolute right-[-14vw] top-[8%] z-0 hidden h-[min(66vw,880px)] w-[min(66vw,880px)] xl:block"
+              className="absolute right-[-5vw] top-[32%] z-30 hidden h-[min(44vw,760px)] w-[min(44vw,760px)] lg:block xl:right-[-2vw]"
               pose="lying"
             />
+            <FloatingPanel className="absolute right-8 top-14 z-40 hidden w-56 xl:block" title="Component anatomy">
+              <div aria-hidden="true" className="relative mx-auto h-28 w-36 [perspective:600px]">
+                {anatomyLayers.map((_, index) => <span
+                  className="absolute inset-x-2 h-10 rounded-lg border border-[#ff4fbd]/45 bg-[#ff4fbd]/10 backdrop-blur-sm"
+                  key={index}
+                  style={{ top: `${index * 13}px`, transform: "rotateX(58deg) rotateZ(-38deg)", opacity: 1 - index * 0.12 }}
+                />)}
+              </div>
+              <ul className="mt-3 grid gap-1.5">
+                {anatomyLayers.map(layer => <li className="flex items-center gap-2 font-mono text-[0.62rem] uppercase tracking-[0.14em] text-white/60" key={layer}>
+                  <span className="size-1 rounded-full bg-[#ff4fbd]" />{layer}
+                </li>)}
+              </ul>
+            </FloatingPanel>
             <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:gap-12">
               <SectionHeader
                 id="components"
@@ -221,7 +238,7 @@ function App() {
                 linkLabel="Browse components"
                 title="Components"
               />
-              <div className="min-w-0 flex-1 xl:max-w-[58%]">
+              <div className="min-w-0 flex-1 lg:max-w-[48%]">
                 <PillTabs active={0} items={["All", "Inputs", "Navigation", "Feedback", "Data display", "Surfaces", "Overlays"]} label="Categorias de componentes" />
                 <div className="mt-4 grid gap-4 sm:grid-cols-2">
                   <ComponentPreview title="Button">
@@ -280,25 +297,11 @@ function App() {
                   </ComponentPreview>
                 </div>
               </div>
-              <FloatingPanel className="hidden w-56 self-start 2xl:block" title="Component anatomy">
-                <div aria-hidden="true" className="relative mx-auto h-28 w-36 [perspective:600px]">
-                  {anatomyLayers.map((_, index) => <span
-                    className="absolute inset-x-2 h-10 rounded-lg border border-[#ff4fbd]/45 bg-[#ff4fbd]/10 backdrop-blur-sm"
-                    key={index}
-                    style={{ top: `${index * 13}px`, transform: "rotateX(58deg) rotateZ(-38deg)", opacity: 1 - index * 0.12 }}
-                  />)}
-                </div>
-                <ul className="mt-3 grid gap-1.5">
-                  {anatomyLayers.map(layer => <li className="flex items-center gap-2 font-mono text-[0.62rem] uppercase tracking-[0.14em] text-white/60" key={layer}>
-                    <span className="size-1 rounded-full bg-[#ff4fbd]" />{layer}
-                  </li>)}
-                </ul>
-              </FloatingPanel>
             </div>
           </section>
 
           {/* 04 · Patterns */}
-          <section aria-label="Patterns" className="relative border-b border-white/8 px-6 py-12 md:px-10">
+          <section aria-label="Patterns" className="relative border-b border-white/8 px-6 py-12 md:px-10 lg:pr-[30vw] xl:pr-[26vw]">
             <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-12">
               <SectionHeader
                 id="patterns"
@@ -325,7 +328,7 @@ function App() {
           </section>
 
           {/* 05 · Accessibility */}
-          <section aria-label="Accessibility" className="relative border-b border-white/8 px-6 py-12 md:px-10">
+          <section aria-label="Accessibility" className="relative border-b border-white/8 px-6 py-12 md:px-10 lg:pr-[24vw] xl:pr-[20vw]">
             <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-12">
               <SectionHeader
                 id="accessibility"
@@ -418,7 +421,9 @@ function App() {
 
           {/* 08 · AI Workflows */}
           <section aria-label="AI Workflows" className="relative px-6 py-12 md:px-10">
-            <div className="flex flex-col gap-8 lg:flex-row lg:gap-12">
+            <img aria-hidden="true" className="pointer-events-none absolute bottom-[-1.5rem] right-[-1rem] z-0 hidden w-52 opacity-80 mix-blend-screen saturate-125 lg:block" draggable={false} src={plantB} />
+            <img aria-hidden="true" className="pointer-events-none absolute left-[-3rem] top-[-5rem] z-0 hidden w-56 -scale-x-100 rotate-[24deg] opacity-60 mix-blend-screen saturate-125 lg:block" draggable={false} src={plantA} />
+            <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:gap-12">
               <SectionHeader
                 id="ai-workflows"
                 index="08"

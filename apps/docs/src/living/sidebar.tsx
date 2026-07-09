@@ -1,18 +1,32 @@
 import * as React from "react";
-import { BrandMark, Switch } from "@flytrap/ui";
+import {
+  AgentIcon,
+  AiAccentIcon,
+  ApprovalIcon,
+  BrandIcon,
+  BrandMark,
+  ChartIcon,
+  DashboardIcon,
+  FlytrapIcon,
+  InfoIcon,
+  InsightIcon,
+  Switch,
+  ToolIcon,
+  type FlytrapIconComponent,
+} from "@flytrap/ui";
 
 export type Appearance = "light" | "dark" | "vibrant";
 
-export const navSections = [
-  ["Overview", "overview"],
-  ["Foundations", "foundations"],
-  ["Tokens", "tokens"],
-  ["Components", "components"],
-  ["Patterns", "patterns"],
-  ["Accessibility", "accessibility"],
-  ["Guidelines", "guidelines"],
-  ["Code / Develop", "code"],
-  ["AI Workflows", "ai-workflows"],
+export const navSections: readonly [string, string, FlytrapIconComponent][] = [
+  ["Overview", "overview", DashboardIcon],
+  ["Foundations", "foundations", BrandIcon],
+  ["Tokens", "tokens", AiAccentIcon],
+  ["Components", "components", ToolIcon],
+  ["Patterns", "patterns", InsightIcon],
+  ["Accessibility", "accessibility", ApprovalIcon],
+  ["Guidelines", "guidelines", InfoIcon],
+  ["Code / Develop", "code", ChartIcon],
+  ["AI Workflows", "ai-workflows", AgentIcon],
 ] as const;
 
 function StatusWave() {
@@ -46,11 +60,11 @@ export function Sidebar({ appearance, onAppearanceChange }: {
     </a>
 
     <nav aria-label="Seções" className="grid gap-1 text-sm">
-      {navSections.map(([label, id]) => {
+      {navSections.map(([label, id, icon]) => {
         const isActive = active === id;
         return <a
           className={[
-            "group flex items-center justify-between rounded-lg border px-3 py-2 font-medium transition-colors",
+            "group flex items-center gap-2.5 rounded-lg border px-3 py-2 font-medium transition-colors",
             isActive
               ? "border-[#ff4fbd]/50 bg-[#ff4fbd]/15 text-[#ffd7ee] shadow-[0_0_18px_rgba(255,79,189,.25)]"
               : "border-transparent text-white/65 hover:border-white/10 hover:bg-white/5 hover:text-white",
@@ -59,7 +73,8 @@ export function Sidebar({ appearance, onAppearanceChange }: {
           key={id}
           onClick={() => setActive(id)}
         >
-          {label}
+          <span className={isActive ? "text-[#ff4fbd]" : "text-white/35"}><FlytrapIcon icon={icon} size="sm" /></span>
+          <span className="flex-1">{label}</span>
           <span aria-hidden="true" className={["font-mono text-xs transition-transform", isActive ? "text-[#ff4fbd]" : "text-white/25 group-hover:translate-x-0.5"].join(" ")}>›</span>
         </a>;
       })}

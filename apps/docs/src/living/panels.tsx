@@ -25,8 +25,8 @@ export function SectionHeader({ index, id, title, lead, linkLabel, linkHref }: {
   linkHref: string;
 }) {
   return <div className="max-w-xs shrink-0" id={id}>
-    <p className="font-mono text-sm text-white/35">{index}</p>
-    <h2 className="mt-1 font-display text-2xl font-bold uppercase tracking-[0.08em] text-[#ff4fbd]">{title}</h2>
+    <span className="grid size-9 place-items-center rounded-full border border-white/20 bg-black/40 font-mono text-xs text-white/70">{index}</span>
+    <h2 className="mt-3 font-display text-2xl font-bold uppercase tracking-[0.08em] text-[#ff4fbd]">{title}</h2>
     <p className="mt-3 text-sm leading-6 text-white/60">{lead}</p>
     <a className="group mt-4 inline-flex items-center gap-2 text-sm font-medium text-[#ff4fbd] underline-offset-4 hover:underline" href={linkHref}>
       {linkLabel}
@@ -55,7 +55,7 @@ export function PillTabs({ items, active = 0, label }: { items: readonly string[
     {items.map((item, index) => <span
       aria-selected={index === active}
       className={[
-        "rounded-lg px-3 py-1.5 font-mono text-[0.68rem] uppercase tracking-[0.12em]",
+        "whitespace-nowrap rounded-lg px-2.5 py-1.5 font-mono text-[0.62rem] uppercase tracking-[0.1em]",
         index === active ? "bg-[#ff4fbd] text-[#1c0313] shadow-[0_0_18px_rgba(255,79,189,.45)]" : "text-white/55",
       ].join(" ")}
       key={item}
