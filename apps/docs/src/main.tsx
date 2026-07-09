@@ -41,6 +41,7 @@ import organismBr from "./assets/flytrap-organism-br.webp";
 import spriteVertical from "./assets/flytrap-sprite-vertical.webp";
 import spriteWideB from "./assets/flytrap-sprite-wide-b.webp";
 import spriteCorner from "./assets/flytrap-sprite-corner.webp";
+import spritePlatform from "./assets/flytrap-sprite-platform.webp";
 import { CharacterLayer } from "./living/character";
 import { Sidebar, type Appearance } from "./living/sidebar";
 import { Hero } from "./living/hero";
@@ -223,6 +224,13 @@ function App() {
               alt="Alienígena Flytrap deitada sobre uma placa de circuito holográfica, inspecionando o repositório de componentes."
               className="absolute right-[-8vw] top-[30%] z-30 hidden h-[min(46vw,800px)] w-[min(46vw,800px)] lg:block xl:right-[-4vw]"
               pose="lying"
+            />
+            <img
+              alt=""
+              aria-hidden="true"
+              className="flytrap-motion pointer-events-none absolute right-[-9vw] top-[46%] z-20 hidden w-[min(52vw,880px)] animate-[flytrap-panel-float_8.4s_ease-in-out_infinite] opacity-95 drop-shadow-[0_30px_60px_rgba(139,92,246,.35)] lg:block xl:right-[-5vw]"
+              draggable={false}
+              src={spritePlatform}
             />
             <img aria-hidden="true" className="pointer-events-none absolute bottom-[-7rem] right-[-8rem] z-20 hidden w-[52rem] opacity-90 lg:block" draggable={false} src={spriteWideB} />
             <FloatingPanel className="absolute right-8 top-14 z-40 hidden w-56 xl:block" title="Component anatomy">
