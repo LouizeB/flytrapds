@@ -1,48 +1,19 @@
 import React, { useState } from "react";
 import { createRoot } from "react-dom/client";
 import {
-  AgentCard,
-  AgentStatusIndicator,
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-  AiAvatar,
-  Alert,
-  AlertDescription,
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-  AlertTitle,
+  AgentIcon,
   AiAccentIcon,
   ApprovalIcon,
   Badge,
   BrandIcon,
-  BrandLockup,
-  BrandMark,
   Button,
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-  Chart,
-  ChatThread,
-  CitationChip,
-  CheckboxField,
-  CostTokenMeter,
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
+  ChartIcon,
+  DashboardIcon,
   Dialog,
   DialogContent,
   DialogDescription,
@@ -50,260 +21,429 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  EmptyState,
-  ExternalLinkIcon,
+  ErrorIcon,
   Field,
-  FilterBar,
   FlytrapIcon,
-  IconButton,
   Input,
-  InsightCallout,
-  MessageBubble,
-  MessageActions,
+  InsightIcon,
+  MenuIcon,
   Progress,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-  PromptInput,
-  RunTraceTimeline,
-  RadioGroup,
-  RadioGroupField,
-  ReasoningStream,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+  SearchIcon,
   SendIcon,
-  Separator,
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-  Sidebar,
-  SidebarContent,
-  SidebarGroup,
-  SidebarGroupLabel,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarMenuLabel,
-  SidebarProvider,
-  SidebarTrigger,
-  Skeleton,
   SmartDataTable,
-  SuggestedPrompts,
   SuccessIcon,
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-  Textarea,
-  ToolIcon,
-  Toast,
-  ToastClose,
-  ToastDescription,
-  ToastProvider,
-  ToastTitle,
-  ToastViewport,
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
   SwitchField,
-  Header,
-  HeaderActions,
-  HeaderBrand,
-  HeaderTitle,
-  HumanApprovalPrompt,
-  StreamingMessage,
-  ToolCallBlock,
+  ToolIcon,
 } from "@flytrap/ui";
 import "@flytrap/ui/styles";
-import { ExperientialHero, OrganismAnatomy, PageAtmosphere } from "./experiential-hero";
+import { OrganicBackground } from "./living/organic-background";
+import { CharacterLayer } from "./living/character";
+import { Sidebar, type Appearance } from "./living/sidebar";
+import { Hero } from "./living/hero";
+import {
+  CodeBlock,
+  ComponentPreview,
+  FloatingPanel,
+  PillTabs,
+  SectionCard,
+  SectionHeader,
+  TokenRow,
+  WorkflowCard,
+} from "./living/panels";
 
-const scales = ["magenta", "acid", "neutral", "success", "warning", "error"];
-const steps = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
-const chartData = [
-  { period: "Sem 1", adoption: 54, compliance: 78 },
-  { period: "Sem 2", adoption: 68, compliance: 84 },
-  { period: "Sem 3", adoption: 81, compliance: 92 },
-  { period: "Sem 4", adoption: 87, compliance: 100 },
-];
-type Appearance = "light" | "dark" | "vibrant";
+const magentaSteps = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
+const spaceSteps = [4, 8, 12, 16, 24, 32, 48, 64, 96, 128];
+const radiusSteps = [0, 4, 8, 12, 16, 24, 32];
+const elevationSteps = [0, 1, 2, 3, 4, 5];
 
-const navItems = [
-  ["Visão geral", "overview"],
-  ["Organismo", "organism"],
-  ["Trilhas", "start"],
-  ["Fundamentos", "foundations"],
-  ["Componentes", "components"],
-  ["AI layer", "ai-layer"],
+const semanticTokens = [
+  ["--color-primary", "#F10081", "var(--magenta-500)"],
+  ["--color-secondary", "#009200", "var(--acid-500)"],
+  ["--color-background", "#F7F6F6", "var(--neutral-50)"],
+  ["--color-surface", "#FFFFFF", "#fff"],
+  ["--color-text", "#1C1A1A", "var(--neutral-900)"],
+  ["--color-disabled", "#B7AFB0", "var(--neutral-300)"],
 ] as const;
 
-const semanticIcons = [
-  { icon: AiAccentIcon, label: "AI" },
-  { icon: ToolIcon, label: "Tool call" },
-  { icon: ApprovalIcon, label: "Approval" },
-];
+const anatomyLayers = ["Surface", "Content", "Container", "State layer", "Motion layer", "Bio-field"] as const;
 
-const semanticStructures = [
-  ["Surface", "canvas, card, popover e overlay"],
-  ["Content", "texto, ícone e conteúdo inverso"],
-  ["Action", "primary, secondary e destructive por estado"],
-  ["Border & focus", "divisão, input e foco visível"],
-  ["Feedback", "success, warning, error e info"],
-  ["Dataviz", "séries, contraste e leitura de dados"],
-  ["Navigation", "sidebar, item ativo e seleção"],
-  ["AI", "agent, tool, approval e streaming"],
+const iconographySet = [AiAccentIcon, ToolIcon, ApprovalIcon, AgentIcon, ChartIcon, DashboardIcon, SearchIcon, MenuIcon] as const;
+
+const workflowCards = [
+  { icon: AiAccentIcon, title: "Generate UI", description: "Descreva a intenção e gere composições com os componentes do organismo." },
+  { icon: ApprovalIcon, title: "Audit", description: "Analise acessibilidade, contraste APCA e consistência de tokens." },
+  { icon: ToolIcon, title: "Refactor", description: "Melhore a estrutura automaticamente sem quebrar o contrato semântico." },
+  { icon: BrandIcon, title: "Document", description: "Gere documentação viva instantaneamente a partir do código." },
 ] as const;
-
-const systemDimensions = [
-  ["Brand", "flytrap", "Identidade e primitives cromáticos"],
-  ["Mode", "light · dark", "Condição luminosa da interface"],
-  ["Theme", "default · vibrant", "Expressão visual dentro da marca"],
-  ["Viewport", "base · sm · md · lg · xl · 2xl", "Adaptação mobile-first"],
-] as const;
-
-function AppearanceControl({ appearance, onChange }: { appearance: Appearance; onChange: (value: Appearance) => void }) {
-  return <div aria-label="Aparência" className="flex gap-1 rounded-lg border bg-card p-1" role="group">
-    {(["light", "dark", "vibrant"] as const).map(value => <Button
-      aria-pressed={appearance === value}
-      className="h-8 px-2.5 capitalize"
-      key={value}
-      onClick={() => onChange(value)}
-      size="sm"
-      variant={appearance === value ? "default" : "ghost"}
-    >{value}</Button>)}
-  </div>;
-}
 
 function App() {
-  const [appearance, setAppearance] = useState<Appearance>("light");
-  const [toastOpen, setToastOpen] = useState(false);
-  const [prompt, setPrompt] = useState("");
+  const [appearance, setAppearance] = useState<Appearance>("dark");
   const appearanceClass = appearance === "light" ? "" : appearance;
 
   return <div className={appearanceClass}>
-    <div className="min-h-screen bg-[#05060a] text-foreground lg:grid lg:grid-cols-[248px_1fr]">
-      <aside className="relative z-30 border-b bg-sidebar/95 p-6 backdrop-blur lg:sticky lg:top-0 lg:h-screen lg:border-b-0 lg:border-r">
-        <a className="text-sidebar-primary" href="#overview"><BrandLockup descriptor="Design System" markSize={48} /></a>
-        <nav aria-label="Seções" className="mt-8 grid gap-1 text-sm">
-          {navItems.map(([label, id]) => <a className="rounded-md px-3 py-2 font-medium hover:bg-sidebar-accent" href={`#${id}`} key={id}>{label}</a>)}
-        </nav>
-        <div className="mt-8"><AppearanceControl appearance={appearance} onChange={setAppearance} /></div>
-        <div className="mt-8 border-t pt-5 text-xs leading-5 text-muted-foreground lg:absolute lg:bottom-6 lg:left-6 lg:right-6">
-          <p>DTCG · React · APCA</p>
-          <a className="mt-2 inline-flex items-center gap-1 font-medium text-primary hover:underline" href="https://github.com/LouizeB/flytrapds">GitHub <FlytrapIcon icon={ExternalLinkIcon} size="sm" /></a>
-        </div>
-      </aside>
+    <div className="min-h-screen bg-[#05060a] text-white lg:grid lg:grid-cols-[248px_1fr]">
+      <Sidebar appearance={appearance} onAppearanceChange={setAppearance} />
 
-      <main className="relative min-w-0 overflow-hidden bg-transparent">
-        <PageAtmosphere />
-        <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(circle_at_85%_18%,rgba(255,79,189,.08),transparent_24rem),radial-gradient(circle_at_8%_45%,rgba(184,255,53,.08),transparent_20rem),linear-gradient(180deg,transparent,#05060a0d_42%,transparent)]" />
+      <main className="relative min-w-0 overflow-hidden">
+        <OrganicBackground />
         <div className="relative z-10">
-        <ExperientialHero />
-        <OrganismAnatomy />
+          <Hero />
 
-        <section className="relative mx-4 my-8 overflow-hidden rounded-[2.5rem] border border-white/12 bg-background/82 px-6 py-16 shadow-[0_28px_100px_rgba(0,0,0,.42)] backdrop-blur-2xl md:mx-8 md:px-12 lg:mr-[18vw]" id="start">
-          <div aria-hidden="true" className="absolute -right-28 -top-28 size-72 rounded-full bg-primary/10 blur-3xl" />
-          <div aria-hidden="true" className="absolute right-6 top-6 hidden rounded-full border border-primary/20 bg-primary/10 px-3 py-1 font-mono text-[0.62rem] uppercase tracking-[0.22em] text-primary md:block">organ pathway · entry</div>
-          <div className="relative mx-auto max-w-6xl">
-          <p className="text-sm font-semibold uppercase tracking-widest text-primary">Comece pelo seu contexto</p>
-          <h2 className="mt-2 font-display text-3xl font-bold md:text-4xl">Um sistema, duas trilhas</h2>
-          <p className="mt-3 max-w-2xl text-muted-foreground">Design e desenvolvimento compartilham os mesmos nomes, estados e critérios de qualidade. Escolha a trilha que responde primeiro às suas perguntas.</p>
-          <div className="mt-8 grid gap-5 md:grid-cols-2">
-            <Card>
-              <CardHeader><span className="grid size-10 place-items-center rounded-xl bg-accent text-accent-foreground"><FlytrapIcon icon={AiAccentIcon} size="lg" /></span><CardTitle>Para Product Designers</CardTitle><CardDescription>Entenda intenção, linguagem visual e como especificar sem quebrar o contrato.</CardDescription></CardHeader>
-              <CardContent className="grid gap-3 text-sm"><ul className="grid list-disc gap-2 pl-5 text-muted-foreground"><li>Foundations, semantic e component tokens</li><li>Light, dark, vibrant e futuras marcas</li><li>Anatomia, estados, conteúdo e acessibilidade</li><li>Inventário, prioridade e handoff para código</li></ul><Button asChild className="mt-2 w-fit" variant="outline"><a href="https://github.com/LouizeB/flytrapds/blob/main/docs/README.md#trilha-product-design">Abrir trilha de design <FlytrapIcon icon={ExternalLinkIcon} /></a></Button></CardContent>
-            </Card>
-            <Card>
-              <CardHeader><span className="grid size-10 place-items-center rounded-xl bg-muted text-foreground"><FlytrapIcon icon={ToolIcon} size="lg" /></span><CardTitle>Para Developers</CardTitle><CardDescription>Instale, componha e valide a implementação com contratos verificáveis.</CardDescription></CardHeader>
-              <CardContent className="grid gap-3 text-sm"><ul className="grid list-disc gap-2 pl-5 text-muted-foreground"><li>Setup do monorepo e imports de `@flytrap/ui`</li><li>DTCG, CSS variables e arquitetura responsiva</li><li>APIs React, aliases semânticos e composições AI</li><li>Quality gates, PRs, Pages e release</li></ul><Button asChild className="mt-2 w-fit" variant="outline"><a href="https://github.com/LouizeB/flytrapds/blob/main/docs/README.md#trilha-development">Abrir trilha de desenvolvimento <FlytrapIcon icon={ExternalLinkIcon} /></a></Button></CardContent>
-            </Card>
-          </div>
-          </div>
-        </section>
-
-        <section className="relative mx-4 my-8 overflow-hidden rounded-[2.5rem] border border-white/12 bg-muted/70 px-6 py-16 shadow-[0_28px_100px_rgba(0,0,0,.42)] backdrop-blur-2xl md:mx-8 md:px-12 lg:mr-[12vw]" id="foundations">
-          <div aria-hidden="true" className="absolute -left-20 top-1/3 size-64 rounded-full bg-secondary/20 blur-3xl" />
-          <div aria-hidden="true" className="absolute right-6 top-6 hidden rounded-full border border-primary/20 bg-primary/10 px-3 py-1 font-mono text-[0.62rem] uppercase tracking-[0.22em] text-primary md:block">organ layer · dna</div>
-          <div className="relative mx-auto max-w-6xl">
-          <p className="text-sm font-semibold uppercase tracking-widest text-primary">Foundations</p>
-          <h2 className="mt-2 font-display text-3xl font-bold md:text-4xl">Uma fonte, três camadas</h2>
-          <p className="mt-3 max-w-2xl text-muted-foreground">Primitive entrega valor, semantic entrega intenção e component entrega contexto. Brand, mode e theme mudam sem reescrever componentes.</p>
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
-            {[['01', 'Primitive', '--magenta-500', 'Valores brutos nunca consumidos diretamente pela UI.'], ['02', 'Semantic', '--primary', 'Contrato compartilhado por superfícies, texto e ações.'], ['03', 'Component', '--button-primary-bg', 'Decisões específicas de anatomia e estado.']].map(([index, title, token, description]) => <Card key={title}><CardHeader><span className="font-mono text-xs text-primary">{index}</span><CardTitle>{title}</CardTitle><CardDescription>{description}</CardDescription></CardHeader><CardContent><code className="rounded-md bg-muted px-2 py-1 font-mono text-xs">{token}</code></CardContent></Card>)}
-          </div>
-          <div className="mt-12 grid gap-8 lg:grid-cols-2">
-            <div>
-              <h3 className="font-display text-2xl font-bold">Estruturas semânticas</h3>
-              <p className="mt-2 text-sm leading-6 text-muted-foreground">Um vocabulário orientado à função evita que telas dependam de nomes de cor ou detalhes de implementação.</p>
-              <dl className="mt-5 grid gap-3 sm:grid-cols-2">
-                {semanticStructures.map(([name, description]) => <div className="rounded-xl border bg-card p-4" key={name}><dt className="font-semibold">{name}</dt><dd className="mt-1 text-sm text-muted-foreground">{description}</dd></div>)}
-              </dl>
+          {/* 01 · Foundations */}
+          <section aria-label="Foundations" className="relative border-b border-white/8 px-6 py-14 md:px-10">
+            <div className="flex flex-col gap-8 lg:flex-row lg:gap-12">
+              <SectionHeader
+                id="foundations"
+                index="01"
+                lead="Os princípios atômicos que moldam nosso organismo digital."
+                linkHref="https://github.com/LouizeB/flytrapds/blob/main/docs/README.md"
+                linkLabel="View foundations"
+                title="Foundations"
+              />
+              <div className="grid flex-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+                <SectionCard meta="6 escalas" title="Color">
+                  <div className="flex gap-1.5">
+                    {["#F10081", "#FF64A4", "#009200", "#89E289", "#B7AFB0", "#1C1A1A"].map(color => <span className="h-14 flex-1 rounded-md border border-white/15" key={color} style={{ background: color }} />)}
+                  </div>
+                  <p className="mt-3 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-white/40">Magenta · Acid · Neutral</p>
+                </SectionCard>
+                <SectionCard meta="fluid" title="Typography">
+                  <p className="font-display text-6xl font-bold text-[#ff4fbd]">Ag</p>
+                  <p className="mt-2 text-sm text-white/70">Space Grotesk · Inter</p>
+                  <p className="mt-1 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-white/40">Fluid · Humanist · Technical</p>
+                </SectionCard>
+                <SectionCard meta="8pt" title="Grid & Layout">
+                  <div aria-hidden="true" className="grid h-20 grid-cols-12 gap-1">
+                    {Array.from({ length: 12 }, (_, index) => <span className="rounded-sm bg-[#ff4fbd]/18" key={index} />)}
+                  </div>
+                  <p className="mt-3 text-sm text-white/70">12 column grid</p>
+                  <p className="mt-1 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-white/40">8pt baseline</p>
+                </SectionCard>
+                <SectionCard meta="semantic" title="Iconography">
+                  <div className="grid grid-cols-4 gap-2 text-white/70">
+                    {iconographySet.map((icon, index) => <span className="grid aspect-square place-items-center rounded-lg border border-white/10 bg-black/30" key={index}>
+                      <FlytrapIcon icon={icon} />
+                    </span>)}
+                  </div>
+                  <p className="mt-3 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-white/40">2px line · Rounded</p>
+                </SectionCard>
+              </div>
             </div>
-            <div>
-              <h3 className="font-display text-2xl font-bold">Dimensões do sistema</h3>
-              <p className="mt-2 text-sm leading-6 text-muted-foreground">Brand, mode, theme e viewport têm responsabilidades independentes. Hoje o catálogo publica light, dark e vibrant; a evolução preserva essa separação.</p>
-              <dl className="mt-5 overflow-hidden rounded-xl border bg-card">
-                {systemDimensions.map(([name, values, description]) => <div className="grid gap-1 border-b p-4 last:border-b-0 sm:grid-cols-[88px_1fr]" key={name}><dt className="font-semibold">{name}</dt><dd><code className="font-mono text-xs text-primary">{values}</code><p className="mt-1 text-sm text-muted-foreground">{description}</p></dd></div>)}
-              </dl>
-              <Button asChild className="mt-5" variant="outline"><a href="https://github.com/LouizeB/flytrapds/blob/main/architecture/README.md">Consultar arquitetura semântica <FlytrapIcon icon={ExternalLinkIcon} /></a></Button>
+          </section>
+
+          {/* 02 · Tokens */}
+          <section aria-label="Tokens" className="relative border-b border-white/8 px-6 py-14 md:px-10">
+            <div className="flex flex-col gap-8 lg:flex-row lg:gap-12">
+              <SectionHeader
+                id="tokens"
+                index="02"
+                lead="As variáveis vivas que alimentam nosso sistema. Primitive entrega valor, semantic entrega intenção."
+                linkHref="https://github.com/LouizeB/flytrapds/blob/main/packages/tokens/src/flytrap.tokens.json"
+                linkLabel="Explore tokens"
+                title="Tokens"
+              />
+              <div className="min-w-0 flex-1">
+                <PillTabs active={0} items={["All tokens", "Color", "Type", "Space", "Border", "Motion", "Elevation"]} label="Categorias de tokens" />
+                <div className="mt-4 grid gap-4 xl:grid-cols-[1.05fr_1.4fr]">
+                  <SectionCard meta="DTCG" title="Semantic">
+                    {semanticTokens.map(([name, hex, swatch]) => <TokenRow key={name} name={name} swatch={swatch} value={hex} />)}
+                  </SectionCard>
+                  <div className="grid gap-4">
+                    <SectionCard meta="11 steps" title="Scale · Magenta">
+                      <div className="grid grid-cols-11 overflow-hidden rounded-lg border border-white/15">
+                        {magentaSteps.map(step => <span
+                          className={["aspect-square", step === 500 ? "ring-2 ring-inset ring-white" : ""].join(" ")}
+                          key={step}
+                          style={{ background: `var(--magenta-${step})` }}
+                          title={`--magenta-${step}`}
+                        />)}
+                      </div>
+                      <div className="mt-2 grid grid-cols-11 text-center font-mono text-[0.55rem] text-white/40">
+                        {magentaSteps.map(step => <span key={step}>{step}</span>)}
+                      </div>
+                    </SectionCard>
+                    <SectionCard meta="8pt" title="Space scale">
+                      <div className="flex items-end gap-1.5">
+                        {spaceSteps.map(step => <span
+                          className="rounded-sm bg-[#009200] shadow-[0_0_10px_rgba(0,146,0,.4)]"
+                          key={step}
+                          style={{ height: `${Math.min(step, 64)}px`, width: "100%" }}
+                          title={`${step}px`}
+                        />)}
+                      </div>
+                      <div className="mt-2 flex justify-between font-mono text-[0.55rem] text-white/40">
+                        {spaceSteps.map(step => <span key={step}>{step}</span>)}
+                      </div>
+                    </SectionCard>
+                    <div className="grid gap-4 sm:grid-cols-2">
+                      <SectionCard title="Border radius">
+                        <div className="flex items-end justify-between gap-2">
+                          {radiusSteps.map(radius => <span className="grid flex-1 place-items-center" key={radius}>
+                            <span
+                              className={["block size-9 border-2", radius === 16 ? "border-[#ff4fbd] shadow-[0_0_14px_rgba(255,79,189,.5)]" : "border-white/30"].join(" ")}
+                              style={{ borderRadius: radius }}
+                            />
+                            <span className="mt-1.5 font-mono text-[0.55rem] text-white/40">{radius}</span>
+                          </span>)}
+                        </div>
+                      </SectionCard>
+                      <SectionCard title="Elevation">
+                        <div className="flex items-end justify-between gap-2">
+                          {elevationSteps.map(level => <span className="grid flex-1 place-items-center" key={level}>
+                            <span
+                              className="block size-9 rounded-md bg-white/12"
+                              style={{ boxShadow: `0 ${level * 4}px ${level * 9}px rgba(0,0,0,.55), 0 0 ${level * 3}px rgba(255,79,189,${level * 0.05})` }}
+                            />
+                            <span className="mt-1.5 font-mono text-[0.55rem] text-white/40">{level}</span>
+                          </span>)}
+                        </div>
+                      </SectionCard>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="mt-12 grid gap-6">
-            {scales.map(scale => <div key={scale}><div className="mb-2 flex items-center justify-between"><h3 className="text-sm font-semibold capitalize">{scale}</h3><span className="font-mono text-xs text-muted-foreground">50—950</span></div><div className="grid grid-cols-6 overflow-hidden rounded-xl border sm:grid-cols-11">{steps.map(step => <div className="aspect-square min-h-10" key={step} style={{ background: `var(--${scale}-${step})` }} title={`--${scale}-${step}`} />)}</div></div>)}
-          </div>
-          </div>
-        </section>
+          </section>
 
-        <section className="relative mx-4 my-8 overflow-hidden rounded-[2.5rem] border border-white/12 bg-background/82 px-6 py-16 shadow-[0_28px_100px_rgba(0,0,0,.42)] backdrop-blur-2xl md:mx-8 md:px-12 lg:mr-[20vw]" id="components">
-          <div aria-hidden="true" className="absolute right-0 top-0 size-80 rounded-full bg-primary/10 blur-3xl" />
-          <div aria-hidden="true" className="absolute right-6 top-6 hidden rounded-full border border-primary/20 bg-primary/10 px-3 py-1 font-mono text-[0.62rem] uppercase tracking-[0.22em] text-primary md:block">organ layer · tissue</div>
-          <div className="relative mx-auto max-w-6xl">
-            <p className="text-sm font-semibold uppercase tracking-widest text-primary">Components</p>
-            <h2 className="mt-2 font-display text-3xl font-bold md:text-4xl">Componentes com identidade Flytrap</h2>
-            <div className="mt-8 grid gap-5 md:grid-cols-2">
-              <Card><CardHeader><CardTitle>Actions</CardTitle><CardDescription>Estados semânticos, loading acessível, icon-only com nome obrigatório e pares APCA validados.</CardDescription></CardHeader><CardContent className="flex flex-wrap gap-2"><Button>Default</Button><Button variant="secondary">Secondary</Button><Button variant="outline">Outline</Button><Button variant="destructive">Destructive</Button><Button loading loadingAnnouncement="Salvando alterações">Salvando</Button><IconButton icon={SendIcon} label="Enviar mensagem" variant="secondary" /></CardContent></Card>
-              <Card><CardHeader><CardTitle>Field</CardTitle><CardDescription>Label, hint, error e atributos nativos em composição.</CardDescription></CardHeader><CardContent><Field hint="Usaremos apenas para atualizações do DS." label="E-mail"><Input placeholder="voce@exemplo.com" type="email" /></Field></CardContent></Card>
-              <Card><CardHeader><CardTitle>Adoption</CardTitle><CardDescription>Telemetria conectada ao contrato visual.</CardDescription></CardHeader><CardContent><div className="mb-2 flex justify-between text-sm"><span>87%</span><span className="inline-flex items-center gap-1 text-success"><FlytrapIcon icon={SuccessIcon} size="sm" />+12%</span></div><Progress value={87} /></CardContent></Card>
-              <InsightCallout title="APCA como contrato">Contraste é validado sobre conteúdo, ações, foco e dataviz em light, dark e vibrant.</InsightCallout>
-              <Card><CardHeader><CardTitle>Selection</CardTitle><CardDescription>Primitives acessíveis e independentes de domínio.</CardDescription></CardHeader><CardContent className="grid gap-5"><Select defaultValue="semantic"><SelectTrigger aria-label="Camada"><SelectValue placeholder="Selecione uma camada" /></SelectTrigger><SelectContent><SelectItem value="primitive">Primitive</SelectItem><SelectItem value="semantic">Semantic</SelectItem><SelectItem value="component">Component</SelectItem></SelectContent></Select><CheckboxField label="Validar contraste APCA" description="Executa a matriz dos modos publicados." /></CardContent></Card>
-              <Card><CardHeader><CardTitle>Navigation & disclosure</CardTitle><CardDescription>Teclado, foco e overlays tratados pela biblioteca.</CardDescription></CardHeader><CardContent><Tabs defaultValue="preview"><TabsList><TabsTrigger value="preview">Preview</TabsTrigger><TabsTrigger value="code">Código</TabsTrigger></TabsList><TabsContent value="preview"><Alert><AlertTitle>Componente pronto</AlertTitle><AlertDescription>API pública, estados e acessibilidade documentados.</AlertDescription></Alert></TabsContent><TabsContent value="code"><Skeleton className="h-20" /></TabsContent></Tabs><div className="mt-4 flex flex-wrap gap-2"><Dialog><DialogTrigger asChild><Button variant="outline">Abrir dialog</Button></DialogTrigger><DialogContent><DialogHeader><DialogTitle>Novo componente</DialogTitle><DialogDescription>Dialogs preservam foco, contexto e fechamento acessível.</DialogDescription></DialogHeader><DialogFooter><Button>Continuar</Button></DialogFooter></DialogContent></Dialog><AlertDialog><AlertDialogTrigger asChild><Button variant="destructive">Remover</Button></AlertDialogTrigger><AlertDialogContent><AlertDialogHeader><AlertDialogTitle>Remover componente?</AlertDialogTitle><AlertDialogDescription>Esta ação não pode ser desfeita.</AlertDialogDescription></AlertDialogHeader><AlertDialogFooter><AlertDialogCancel>Cancelar</AlertDialogCancel><AlertDialogAction>Remover</AlertDialogAction></AlertDialogFooter></AlertDialogContent></AlertDialog><TooltipProvider><Tooltip><TooltipTrigger asChild><IconButton icon={SendIcon} label="Detalhes da ação" variant="ghost" /></TooltipTrigger><TooltipContent>Tooltip com atraso e navegação acessível</TooltipContent></Tooltip></TooltipProvider></div></CardContent></Card>
-              <EmptyState action={<Button variant="outline">Criar componente</Button>} className="md:col-span-2" description="Use estados vazios para orientar a próxima ação sem inventar conteúdo de produto." icon={BrandIcon} title="Nenhum componente nesta coleção" />
-              <Card className="md:col-span-2"><CardHeader><CardTitle>Form controls</CardTitle><CardDescription>Controles reutilizáveis com label, descrição, teclado e estados nativos.</CardDescription></CardHeader><CardContent className="grid gap-5 md:grid-cols-2"><div className="grid gap-2"><label className="text-sm font-medium" htmlFor="catalog-notes">Notas</label><Textarea id="catalog-notes" placeholder="Contexto para a decisão…" /></div><div className="grid gap-5"><RadioGroup aria-label="Densidade" defaultValue="comfortable"><RadioGroupField description="Mais espaço entre elementos." label="Confortável" value="comfortable" /><RadioGroupField label="Compacta" value="compact" /></RadioGroup><Separator /><SwitchField description="Mantém avisos relevantes visíveis." label="Notificações" /></div></CardContent></Card>
-              <Card className="md:col-span-2"><CardHeader><CardTitle>Overlays & feedback</CardTitle><CardDescription>Camadas temporárias preservam foco, contexto e anúncio acessível.</CardDescription></CardHeader><CardContent className="flex flex-wrap gap-2"><Popover><PopoverTrigger asChild><Button variant="outline">Abrir popover</Button></PopoverTrigger><PopoverContent><p className="font-medium">Conteúdo contextual</p><p className="mt-1 text-sm text-muted-foreground">Para ações breves sem bloquear a interface.</p></PopoverContent></Popover><Sheet><SheetTrigger asChild><Button variant="outline">Abrir sheet</Button></SheetTrigger><SheetContent><SheetHeader><SheetTitle>Painel lateral</SheetTitle><SheetDescription>Uma superfície responsiva para tarefas complementares.</SheetDescription></SheetHeader></SheetContent></Sheet><Button onClick={() => setToastOpen(true)}>Mostrar toast</Button><ToastProvider><Toast onOpenChange={setToastOpen} open={toastOpen}><div><ToastTitle>Alterações salvas</ToastTitle><ToastDescription>O catálogo foi atualizado.</ToastDescription></div><ToastClose /></Toast><ToastViewport /></ToastProvider></CardContent></Card>
-              <Card className="overflow-hidden md:col-span-2"><CardHeader><CardTitle>Application structure</CardTitle><CardDescription>Header, Sidebar e CommandMenu compõem shells sem carregar decisões de produto.</CardDescription></CardHeader><CardContent><SidebarProvider><div className="flex h-72 overflow-hidden rounded-xl border"><Sidebar className="flex"><SidebarHeader><BrandMark label={null} /><SidebarMenuLabel>Flytrap</SidebarMenuLabel></SidebarHeader><SidebarContent><SidebarGroup><SidebarGroupLabel>Biblioteca</SidebarGroupLabel><SidebarMenu><SidebarMenuItem><SidebarMenuButton active><FlytrapIcon icon={ToolIcon} /><SidebarMenuLabel>Componentes</SidebarMenuLabel></SidebarMenuButton></SidebarMenuItem><SidebarMenuItem><SidebarMenuButton><FlytrapIcon icon={AiAccentIcon} /><SidebarMenuLabel>Tokens</SidebarMenuLabel></SidebarMenuButton></SidebarMenuItem></SidebarMenu></SidebarGroup></SidebarContent></Sidebar><div className="min-w-0 flex-1"><Header><SidebarTrigger /><HeaderBrand><HeaderTitle>Catálogo</HeaderTitle></HeaderBrand><HeaderActions><Badge variant="success">Estável</Badge></HeaderActions></Header><div className="p-4"><Command><CommandInput placeholder="Buscar no design system…" /><CommandList><CommandEmpty>Nenhum resultado.</CommandEmpty><CommandGroup heading="Navegação"><CommandItem>Componentes</CommandItem><CommandItem>Tokens</CommandItem><CommandItem>Acessibilidade</CommandItem></CommandGroup></CommandList></Command></div></div></div></SidebarProvider></CardContent></Card>
-              <Chart className="md:col-span-2" data={chartData} description="Visualização com tabela de dados equivalente." series={[{ key: "adoption", label: "Adoção" }, { key: "compliance", label: "Conformidade" }]} title="Evolução do sistema" type="area" valueFormatter={value => `${value}%`} xKey="period" />
-              <Card className="md:col-span-2"><CardHeader><CardTitle>Disclosure & data</CardTitle><CardDescription>Primitives P1 para documentação, filtros e registros operacionais.</CardDescription></CardHeader><CardContent className="grid gap-4"><Accordion><AccordionItem open><AccordionTrigger>O que entrou na release 0.4?</AccordionTrigger><AccordionContent>Observabilidade AI, ações de chat, navegação e dados reutilizáveis.</AccordionContent></AccordionItem></Accordion><FilterBar onValueChange={() => {}} value=""><Badge variant="outline">Todos</Badge></FilterBar><SmartDataTable caption="Componentes P1" columns={[{ key: "name", header: "Componente" }, { key: "area", header: "Área" }]} getRowId={row => row.name} rows={[{ name: "RunTraceTimeline", area: "AI" }, { name: "SmartDataTable", area: "Data" }]} /></CardContent></Card>
+          {/* 03 · Components */}
+          <section aria-label="Components" className="relative border-b border-white/8 px-6 py-14 md:px-10">
+            <CharacterLayer
+              alt="Alienígena Flytrap deitada sobre uma placa de circuito holográfica, inspecionando o repositório de componentes."
+              className="absolute right-[-14vw] top-[8%] z-0 hidden h-[min(66vw,880px)] w-[min(66vw,880px)] xl:block"
+              pose="lying"
+            />
+            <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:gap-12">
+              <SectionHeader
+                id="components"
+                index="03"
+                lead="Organismos reutilizáveis que compõem experiências com significado."
+                linkHref="https://github.com/LouizeB/flytrapds/tree/main/packages/ui"
+                linkLabel="Browse components"
+                title="Components"
+              />
+              <div className="min-w-0 flex-1 xl:max-w-[58%]">
+                <PillTabs active={0} items={["All", "Inputs", "Navigation", "Feedback", "Data display", "Surfaces", "Overlays"]} label="Categorias de componentes" />
+                <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                  <ComponentPreview title="Button">
+                    <div className="flex flex-wrap gap-2">
+                      <Button>Primary</Button>
+                      <Button variant="outline">Secondary</Button>
+                    </div>
+                  </ComponentPreview>
+                  <ComponentPreview title="Input field">
+                    <Field label="Type something...">
+                      <Input placeholder="Active" />
+                    </Field>
+                  </ComponentPreview>
+                  <ComponentPreview title="Card">
+                    <Card>
+                      <CardHeader>
+                        <CardTitle>Title</CardTitle>
+                        <CardDescription>Supporting text</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <Badge variant="success"><FlytrapIcon icon={SuccessIcon} size="sm" /> Action</Badge>
+                      </CardContent>
+                    </Card>
+                  </ComponentPreview>
+                  <ComponentPreview title="Data table">
+                    <SmartDataTable
+                      caption="Registros do organismo"
+                      columns={[{ key: "name", header: "Name" }, { key: "status", header: "Status" }]}
+                      getRowId={row => row.name}
+                      rows={[{ name: "Item 1", status: "Active" }, { name: "Item 2", status: "Pending" }, { name: "Item 3", status: "Inactive" }]}
+                    />
+                  </ComponentPreview>
+                  <ComponentPreview title="Tag & Progress">
+                    <div className="flex flex-wrap gap-2">
+                      <Badge variant="outline">Default</Badge>
+                      <Badge variant="success">Success</Badge>
+                      <Badge variant="destructive">Error</Badge>
+                    </div>
+                    <div>
+                      <div className="mb-1.5 flex justify-between text-xs text-white/60"><span>Adoption</span><span>72%</span></div>
+                      <Progress value={72} />
+                    </div>
+                  </ComponentPreview>
+                  <ComponentPreview title="Toggle & Modal">
+                    <SwitchField description="Sinal vital ativo." label="Bio-feedback" switchProps={{ defaultChecked: true }} />
+                    <Dialog>
+                      <DialogTrigger asChild><Button size="sm" variant="outline">Abrir modal</Button></DialogTrigger>
+                      <DialogContent>
+                        <DialogHeader>
+                          <DialogTitle>Modal title</DialogTitle>
+                          <DialogDescription>Overlays preservam foco, contexto e fechamento acessível.</DialogDescription>
+                        </DialogHeader>
+                        <DialogFooter><Button>Confirm</Button></DialogFooter>
+                      </DialogContent>
+                    </Dialog>
+                  </ComponentPreview>
+                </div>
+              </div>
+              <FloatingPanel className="hidden w-56 self-start 2xl:block" title="Component anatomy">
+                <div aria-hidden="true" className="relative mx-auto h-28 w-36 [perspective:600px]">
+                  {anatomyLayers.map((_, index) => <span
+                    className="absolute inset-x-2 h-10 rounded-lg border border-[#ff4fbd]/45 bg-[#ff4fbd]/10 backdrop-blur-sm"
+                    key={index}
+                    style={{ top: `${index * 13}px`, transform: "rotateX(58deg) rotateZ(-38deg)", opacity: 1 - index * 0.12 }}
+                  />)}
+                </div>
+                <ul className="mt-3 grid gap-1.5">
+                  {anatomyLayers.map(layer => <li className="flex items-center gap-2 font-mono text-[0.62rem] uppercase tracking-[0.14em] text-white/60" key={layer}>
+                    <span className="size-1 rounded-full bg-[#ff4fbd]" />{layer}
+                  </li>)}
+                </ul>
+              </FloatingPanel>
             </div>
-          </div>
-        </section>
+          </section>
 
-        <section className="relative mx-4 my-8 overflow-hidden rounded-[2.5rem] border border-white/12 bg-background/82 px-6 py-16 shadow-[0_28px_100px_rgba(0,0,0,.42)] backdrop-blur-2xl md:mx-8 md:px-12 lg:mr-[16vw]" id="ai-layer">
-          <div aria-hidden="true" className="absolute -right-24 bottom-0 size-80 rounded-full bg-primary/10 blur-3xl" />
-          <div aria-hidden="true" className="absolute right-6 top-6 hidden rounded-full border border-primary/20 bg-primary/10 px-3 py-1 font-mono text-[0.62rem] uppercase tracking-[0.22em] text-primary md:block">organ layer · nervous system</div>
-          <div className="relative mx-auto max-w-6xl">
-          <p className="text-sm font-semibold uppercase tracking-widest text-primary">AI layer</p>
-          <h2 className="mt-2 font-display text-3xl font-bold md:text-4xl">Inteligência com estados legíveis</h2>
-          <p className="mt-3 max-w-2xl text-muted-foreground">Agents, tools, aprovação humana, streaming e custo tratados como padrões de interface — não como exceções improvisadas.</p>
-          <div className="mt-8 grid gap-5 md:grid-cols-2">
-            <AgentCard model="Claude Sonnet" name="Token validator" status="running" tokens="2.3K">Validando aliases, modos e pares APCA do contrato DTCG.</AgentCard>
-            <Card><CardHeader><CardTitle>Vocabulário AI</CardTitle><CardDescription>Aliases semânticos estáveis entre design e código.</CardDescription></CardHeader><CardContent className="grid grid-cols-3 gap-4 text-center text-xs text-muted-foreground">{semanticIcons.map(({ icon, label }) => <div className="grid place-items-center gap-2 rounded-lg border bg-background p-4" key={label}><FlytrapIcon icon={icon} size="lg" /><span>{label}</span></div>)}</CardContent></Card>
-            <Card><CardHeader><CardTitle>Brand assets</CardTitle><CardDescription>Marca vetorial e avatar oficial em tamanhos padronizados.</CardDescription></CardHeader><CardContent className="flex items-end gap-6"><BrandMark size={60} /><AiAvatar size="lg" status="processing" /><AiAvatar size="md" /><AiAvatar size="sm" status="offline" /></CardContent></Card>
-            <Card><CardHeader><CardTitle>Streaming & citations</CardTitle><CardDescription>Atualizações progressivas sem reanunciar todo o conteúdo.</CardDescription></CardHeader><CardContent className="grid gap-3"><StreamingMessage status="streaming">Construindo uma resposta com contexto verificável…</StreamingMessage><div className="flex flex-wrap gap-2"><CitationChip href="https://github.com/LouizeB/flytrapds" index={1} source="Flytrap DS" /><CitationChip index={2} missing source="Fonte indisponível" /></div></CardContent></Card>
-            <Card><CardHeader><CardTitle>Tools & approval</CardTitle><CardDescription>Execução inspecionável e interrupção humana antes de ações críticas.</CardDescription></CardHeader><CardContent className="grid gap-3"><ToolCallBlock input="scope: packages/ui" name="validate_components" output="95 testes aprovados" status="success" /><HumanApprovalPrompt description="A ação publicará uma nova versão do pacote compartilhado." title="Publicar componentes?" /></CardContent></Card>
-            <Card className="md:col-span-2"><CardHeader><CardTitle>Agent observability</CardTitle><CardDescription>Status, sequência operacional e consumo permanecem legíveis sem expor raciocínio interno.</CardDescription></CardHeader><CardContent className="grid gap-5"><div><AgentStatusIndicator status="running" /></div><RunTraceTimeline steps={[{ id: "plan", title: "Planejamento", description: "Escopo e ferramentas definidos.", status: "completed", duration: "180 ms" }, { id: "execute", title: "Execução", status: "running" }]} /><CostTokenMeter cost="R$ 0,08" limit={4000} used={2300} /></CardContent></Card>
-            <Card className="md:col-span-2"><CardHeader><CardTitle>Chat composition</CardTitle><CardDescription>Thread, resumo seguro de análise e entrada de prompt permanecem componentes independentes.</CardDescription></CardHeader><CardContent className="grid gap-3"><ChatThread state="ready"><MessageBubble role="user">Quais componentes ainda faltam?</MessageBubble><MessageBubble role="assistant">Vou confrontar o inventário com os exports públicos.</MessageBubble><ReasoningStream status="completed" summary="Inventário e API pública foram comparados; os próximos gaps estão documentados." /></ChatThread><SuggestedPrompts onSelect={setPrompt} prompts={["Resumir mudanças", "Ver riscos da release"]} /><MessageActions content="Inventário e API pública foram comparados." onRetry={() => {}} /><PromptInput onSubmitPrompt={() => setPrompt("")} onValueChange={setPrompt} value={prompt} /></CardContent></Card>
-          </div>
-          </div>
-        </section>
+          {/* 04 · Patterns */}
+          <section aria-label="Patterns" className="relative border-b border-white/8 px-6 py-12 md:px-10">
+            <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-12">
+              <SectionHeader
+                id="patterns"
+                index="04"
+                lead="Combinações comprovadas que resolvem problemas complexos."
+                linkHref="https://github.com/LouizeB/flytrapds/blob/main/docs/README.md"
+                linkLabel="Explore patterns"
+                title="Patterns"
+              />
+              <SectionCard className="flex-1" meta="Example pattern" title="Dashboard layout">
+                <div aria-hidden="true" className="grid h-36 grid-cols-[64px_1fr] gap-2 rounded-xl border border-white/10 bg-black/40 p-2">
+                  <span className="rounded-md bg-[#ff4fbd]/20" />
+                  <span className="grid grid-rows-[24px_1fr] gap-2">
+                    <span className="rounded-md bg-white/10" />
+                    <span className="grid grid-cols-3 gap-2">
+                      <span className="rounded-md bg-[#b8ff35]/15" />
+                      <span className="rounded-md bg-white/8" />
+                      <span className="rounded-md bg-[#ff4fbd]/12" />
+                    </span>
+                  </span>
+                </div>
+              </SectionCard>
+            </div>
+          </section>
 
-        <footer className="relative border-t border-white/10 px-6 py-8 text-center text-sm text-white/55">Flytrap DS · React, tokens e acessibilidade trabalhando como um só sistema.</footer>
+          {/* 05 · Accessibility */}
+          <section aria-label="Accessibility" className="relative border-b border-white/8 px-6 py-12 md:px-10">
+            <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-12">
+              <SectionHeader
+                id="accessibility"
+                index="05"
+                lead="Inclusivo por design. Usável por qualquer pessoa."
+                linkHref="https://github.com/LouizeB/flytrapds/blob/main/docs/README.md"
+                linkLabel="View guidelines"
+                title="Accessibility"
+              />
+              <div className="grid flex-1 gap-4 sm:grid-cols-2">
+                <SectionCard meta="APCA" title="Contrast">
+                  <p className="font-display text-3xl font-bold text-white/90">54 <span className="text-base font-medium text-white/50">pares aprovados</span></p>
+                  <p className="mt-2 text-sm text-white/60">Conteúdo, ações, foco e dataviz validados em light, dark e vibrant.</p>
+                </SectionCard>
+                <SectionCard meta="focus" title="Visible focus">
+                  <span className="inline-grid size-14 place-items-center rounded-lg border border-white/20 bg-black/40 font-display text-xl font-bold text-white outline outline-2 outline-offset-2 outline-[#ff4fbd]">Aa</span>
+                  <p className="mt-3 text-sm text-white/60">Anel de foco visível e navegação por teclado em todos os componentes.</p>
+                </SectionCard>
+              </div>
+            </div>
+          </section>
+
+          {/* 06 · Guidelines */}
+          <section aria-label="Guidelines" className="relative border-b border-white/8 px-6 py-12 md:px-10">
+            <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-12">
+              <SectionHeader
+                id="guidelines"
+                index="06"
+                lead="Regras de engajamento para uma experiência consistente."
+                linkHref="https://github.com/LouizeB/flytrapds/blob/main/CONTRIBUTING.md"
+                linkLabel="Read guidelines"
+                title="Guidelines"
+              />
+              <div className="grid flex-1 gap-4 sm:grid-cols-2">
+                <SectionCard meta="Do" title="Use clear hierarchy">
+                  <span className="inline-flex items-center gap-2 text-sm text-[#b8ff35]">
+                    <FlytrapIcon icon={SuccessIcon} /> Hierarquia tipográfica orienta a leitura sem esforço.
+                  </span>
+                </SectionCard>
+                <SectionCard meta="Don't" title="Overuse accents">
+                  <span className="inline-flex items-center gap-2 text-sm text-[#ff4fbd]">
+                    <FlytrapIcon icon={ErrorIcon} /> Acentos em excesso disputam atenção e quebram o foco.
+                  </span>
+                  <div aria-hidden="true" className="mt-3 h-1.5 overflow-hidden rounded-full bg-white/10">
+                    <div className="h-full w-3/4 rounded-full bg-gradient-to-r from-[#ff4fbd] to-[#F10081]" />
+                  </div>
+                </SectionCard>
+              </div>
+            </div>
+          </section>
+
+          {/* 07 · Code / Develop */}
+          <section aria-label="Code / Develop" className="relative border-b border-white/8 px-6 py-12 md:px-10">
+            <div className="flex flex-col gap-8 lg:flex-row lg:gap-12">
+              <SectionHeader
+                id="code"
+                index="07"
+                lead="Construa com o nosso sistema em qualquer ambiente."
+                linkHref="https://github.com/LouizeB/flytrapds/blob/main/docs/README.md#trilha-development"
+                linkLabel="View documentation"
+                title="Code / Develop"
+              />
+              <div className="grid min-w-0 flex-1 gap-4 xl:grid-cols-[1.5fr_1fr]">
+                <div className="min-w-0">
+                  <PillTabs active={0} items={["React", "Vue", "Web components", "CSS"]} label="Plataformas" />
+                  <div className="mt-3">
+                    <CodeBlock
+                      copyText={`import { Button } from "@flytrap/ui";\n\n<Button variant="default" size="md">\n  Engage\n</Button>`}
+                      lines={[
+                        [{ text: "import", kind: "keyword" }, { text: " { " }, { text: "Button", kind: "component" }, { text: " } " }, { text: "from", kind: "keyword" }, { text: " " }, { text: "'@flytrap/ui'", kind: "string" }, { text: ";" }],
+                        [{ text: "" }],
+                        [{ text: "<" }, { text: "Button", kind: "component" }, { text: " variant=" }, { text: "'default'", kind: "string" }, { text: " size=" }, { text: "'md'", kind: "string" }, { text: ">" }],
+                        [{ text: "  Engage" }],
+                        [{ text: "</" }, { text: "Button", kind: "component" }, { text: ">" }],
+                      ]}
+                    />
+                  </div>
+                </div>
+                <FloatingPanel className="self-start" title="NPM package">
+                  <p className="flex items-baseline justify-between">
+                    <span className="font-display text-lg font-bold text-white/90">@flytrap/ui</span>
+                    <span className="font-mono text-xs text-white/45">0.4.0</span>
+                  </p>
+                  <p className="mt-3 font-mono text-[0.6rem] uppercase tracking-[0.18em] text-white/40">Install</p>
+                  <code className="mt-1.5 block rounded-lg border border-[#b8ff35]/25 bg-black/50 px-3 py-2 font-mono text-xs text-[#d9ff92]">pnpm add @flytrap/ui</code>
+                </FloatingPanel>
+              </div>
+            </div>
+          </section>
+
+          {/* 08 · AI Workflows */}
+          <section aria-label="AI Workflows" className="relative px-6 py-12 md:px-10">
+            <div className="flex flex-col gap-8 lg:flex-row lg:gap-12">
+              <SectionHeader
+                id="ai-workflows"
+                index="08"
+                lead="Design na velocidade da inteligência: o metabolismo do organismo."
+                linkHref="https://github.com/LouizeB/flytrapds/blob/main/docs/README.md"
+                linkLabel="Explore workflows"
+                title="AI Workflows"
+              />
+              <div className="grid flex-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+                {workflowCards.map(card => <WorkflowCard description={card.description} icon={card.icon} key={card.title} title={card.title} />)}
+              </div>
+            </div>
+          </section>
+
+          <footer className="relative border-t border-white/10 px-6 py-8 text-white/50 md:px-10">
+            <div className="flex flex-wrap items-center justify-between gap-4 text-sm">
+              <p className="inline-flex items-center gap-2">
+                <FlytrapIcon icon={InsightIcon} size="sm" />
+                Flytrap DS · Um organismo vivo de tokens, componentes e acessibilidade.
+              </p>
+              <a className="inline-flex items-center gap-1 font-medium text-[#ff9bdd] hover:underline" href="https://github.com/LouizeB/flytrapds">
+                GitHub <FlytrapIcon icon={SendIcon} size="sm" />
+              </a>
+            </div>
+          </footer>
         </div>
       </main>
     </div>

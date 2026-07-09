@@ -19,9 +19,9 @@ body {
 
 button, input, textarea, select { font: inherit; }
 
-@keyframes flytrap-breathe {
-  0%, 100% { transform: translate3d(var(--flytrap-character-x, 0vw), calc(var(--flytrap-character-y, -50%) - 1.2%), 0) scale(var(--flytrap-character-scale, 1)) rotate(calc(var(--flytrap-character-rotate, 0deg) - 0.7deg)); }
-  50% { transform: translate3d(calc(var(--flytrap-character-x, 0vw) + var(--flytrap-gaze-x, 0px)), calc(var(--flytrap-character-y, -50%) + var(--flytrap-gaze-y, 0px) + 1.8%), 0) scale(calc(var(--flytrap-character-scale, 1) + 0.035)) rotate(calc(var(--flytrap-character-rotate, 0deg) + 0.9deg)); }
+@keyframes flytrap-float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -18px; }
 }
 
 @keyframes flytrap-pulse {
@@ -50,44 +50,10 @@ button, input, textarea, select { font: inherit; }
   animation: flytrap-blob 14s ease-in-out infinite;
 }
 
-@keyframes flytrap-pose-a {
-  0% { opacity: 1; filter: blur(0px) brightness(1) drop-shadow(0 40px 100px rgba(0,0,0,.7)); }
-  22% { opacity: .55; filter: blur(3px) brightness(1.25) drop-shadow(0 20px 60px rgba(0,0,0,.4)); }
-  28% { opacity: .06; filter: blur(6px) brightness(1.55) drop-shadow(0 0px 0px rgba(0,0,0,0)); }
-  50% { opacity: 0; filter: blur(0px) brightness(1) drop-shadow(0 0px 0px rgba(0,0,0,0)); }
-  72% { opacity: .06; filter: blur(6px) brightness(1.55) drop-shadow(0 0px 0px rgba(0,0,0,0)); }
-  78% { opacity: .55; filter: blur(3px) brightness(1.25) drop-shadow(0 20px 60px rgba(0,0,0,.4)); }
-  100% { opacity: 1; filter: blur(0px) brightness(1) drop-shadow(0 40px 100px rgba(0,0,0,.7)); }
-}
-
-@keyframes flytrap-pose-b {
-  0% { opacity: 0; filter: blur(0px) brightness(1) drop-shadow(0 0px 0px rgba(0,0,0,0)); }
-  22% { opacity: .45; filter: blur(3px) brightness(1.25) drop-shadow(0 20px 60px rgba(0,0,0,.4)); }
-  28% { opacity: .9; filter: blur(6px) brightness(1.55) drop-shadow(0 30px 80px rgba(0,0,0,.55)); }
-  50% { opacity: 1; filter: blur(0px) brightness(1) drop-shadow(0 40px 100px rgba(0,0,0,.7)); }
-  72% { opacity: .9; filter: blur(6px) brightness(1.55) drop-shadow(0 30px 80px rgba(0,0,0,.55)); }
-  78% { opacity: .45; filter: blur(3px) brightness(1.25) drop-shadow(0 20px 60px rgba(0,0,0,.4)); }
-  100% { opacity: 0; filter: blur(0px) brightness(1) drop-shadow(0 0px 0px rgba(0,0,0,0)); }
-}
-
-.flytrap-pose-a {
-  opacity: 1;
-  animation: flytrap-pose-a 18s ease-in-out infinite;
-}
-
-.flytrap-pose-b {
-  opacity: 0;
-  animation: flytrap-pose-b 18s ease-in-out infinite;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .flytrap-motion,
-  .flytrap-organic,
-  .flytrap-pose-a,
-  .flytrap-pose-b {
+  .flytrap-organic {
     animation: none !important;
     transition: none !important;
   }
-
-  .flytrap-pose-b { opacity: 0 !important; }
 }
