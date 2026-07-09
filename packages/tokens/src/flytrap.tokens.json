@@ -377,6 +377,8 @@
     "button-secondary-opacity-disabled": { "$value": "{semantic.opacity-disabled-default}" },
     "button-destructive-opacity-disabled": { "$value": "{semantic.opacity-disabled-default}" },
     "button-outline-opacity-disabled": { "$value": "{semantic.opacity-disabled-subtle}" },
+    "button-ghost-opacity-disabled": { "$value": "{semantic.opacity-disabled-subtle}" },
+    "button-link-opacity-disabled": { "$value": "{semantic.opacity-disabled-subtle}" },
     "button-radius": { "$value": "{foundation.radius.lg}" },
     "input-bg": { "$value": "{semantic.background}" },
     "input-border": { "$value": "{semantic.input}" },

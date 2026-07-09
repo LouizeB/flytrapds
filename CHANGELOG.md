@@ -6,6 +6,8 @@ Formato: Keep a Changelog · SemVer.
 
 ### Changed
 - Estados disabled do Button agora usam tokens de opacidade rastreáveis em vez de valores utilitários fixos.
+- Variantes `ghost` e `link` do Button passam a ter tokens próprios de opacidade disabled.
+- CheckboxField, RadioGroupField e SwitchField reforçam alvo efetivo mínimo e estado disabled visual.
 
 ## [0.4.0] — 2026-07-06
 ### Added

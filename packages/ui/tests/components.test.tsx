@@ -507,6 +507,11 @@ describe("Button asChild e IconButton", () => {
     render(<IconButton icon={SuccessIcon} label="Confirmar" />);
     expect(screen.getByRole("button", { name: "Confirmar" })).toBeVisible();
   });
+
+  it.each(["ghost", "link"] as const)("usa token disabled na variante %s", (variant) => {
+    render(<Button disabled variant={variant}>Ação {variant}</Button>);
+    expect(screen.getByRole("button", { name: `Ação ${variant}` })).toHaveClass(`disabled:opacity-(--button-${variant}-opacity-disabled)`);
+  });
 });
 
 describe("Checkbox", () => {
@@ -521,6 +526,20 @@ describe("Checkbox", () => {
     expect(checkbox).toHaveAttribute("id", "aceite");
     expect(checkbox).toHaveAttribute("aria-describedby", "aceite-description");
     expect(screen.getByText("Necessário para prosseguir")).toBeVisible();
+  });
+
+  it("propaga estado disabled para o field", () => {
+    render(<CheckboxField checkboxProps={{ disabled: true }} label="Desativado" />);
+    expect(screen.getByLabelText("Desativado")).toBeDisabled();
+    expect(screen.getByText("Desativado").closest("div.flex")).toHaveClass("min-h-11", "opacity-70");
+  });
+});
+
+describe("RadioGroup", () => {
+  it("propaga estado disabled para o field", () => {
+    render(<RadioGroup aria-label="Densidade"><RadioGroupField disabled label="Desativado" value="off" /></RadioGroup>);
+    expect(screen.getByLabelText("Desativado")).toBeDisabled();
+    expect(screen.getByText("Desativado").closest("div.flex")).toHaveClass("min-h-11", "opacity-70");
   });
 });
 
@@ -664,6 +683,12 @@ describe("Switch", () => {
     render(<SwitchField description="Recebe notificações por e-mail" label="Notificações" />);
     expect(screen.getByLabelText("Notificações")).toHaveAttribute("aria-describedby");
     expect(screen.getByText("Recebe notificações por e-mail")).toBeVisible();
+  });
+
+  it("propaga estado disabled para o field", () => {
+    render(<SwitchField label="Desativado" switchProps={{ disabled: true }} />);
+    expect(screen.getByLabelText("Desativado")).toBeDisabled();
+    expect(screen.getByText("Desativado").closest("div.flex")).toHaveClass("min-h-11", "opacity-70");
   });
 });
 
