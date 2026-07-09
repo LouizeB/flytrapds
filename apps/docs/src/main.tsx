@@ -123,6 +123,7 @@ import {
   ToolCallBlock,
 } from "@flytrap/ui";
 import "@flytrap/ui/styles";
+import { ExperientialHero, OrganismAnatomy, PageAtmosphere } from "./experiential-hero";
 
 const scales = ["magenta", "acid", "neutral", "success", "warning", "error"];
 const steps = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
@@ -136,7 +137,8 @@ type Appearance = "light" | "dark" | "vibrant";
 
 const navItems = [
   ["Visão geral", "overview"],
-  ["Comece aqui", "start"],
+  ["Organismo", "organism"],
+  ["Trilhas", "start"],
   ["Fundamentos", "foundations"],
   ["Componentes", "components"],
   ["AI layer", "ai-layer"],
@@ -186,8 +188,8 @@ function App() {
   const appearanceClass = appearance === "light" ? "" : appearance;
 
   return <div className={appearanceClass}>
-    <div className="min-h-screen bg-background text-foreground lg:grid lg:grid-cols-[248px_1fr]">
-      <aside className="border-b bg-sidebar p-6 lg:sticky lg:top-0 lg:h-screen lg:border-b-0 lg:border-r">
+    <div className="min-h-screen bg-[#05060a] text-foreground lg:grid lg:grid-cols-[248px_1fr]">
+      <aside className="relative z-30 border-b bg-sidebar/95 p-6 backdrop-blur lg:sticky lg:top-0 lg:h-screen lg:border-b-0 lg:border-r">
         <a className="text-sidebar-primary" href="#overview"><BrandLockup descriptor="Design System" markSize={48} /></a>
         <nav aria-label="Seções" className="mt-8 grid gap-1 text-sm">
           {navItems.map(([label, id]) => <a className="rounded-md px-3 py-2 font-medium hover:bg-sidebar-accent" href={`#${id}`} key={id}>{label}</a>)}
@@ -199,22 +201,17 @@ function App() {
         </div>
       </aside>
 
-      <main className="min-w-0">
-        <section className="relative overflow-hidden border-b px-6 py-20 md:px-12 md:py-28" id="overview">
-          <div aria-hidden="true" className="absolute -right-24 -top-24 size-80 rounded-full bg-primary/15 blur-3xl" />
-          <div aria-hidden="true" className="absolute bottom-0 right-1/3 size-48 rounded-full bg-secondary/20 blur-3xl" />
-          <div className="relative mx-auto max-w-6xl">
-            <div className="flex flex-wrap gap-2"><Badge variant="secondary">AI-first</Badge><Badge variant="outline">Multibrand</Badge><Badge variant="success">54 pares APCA</Badge></div>
-            <h1 className="mt-6 max-w-4xl font-display text-5xl font-bold tracking-tight md:text-7xl">Bonito por instinto.<br /><span className="text-primary">Rigoroso por sistema.</span></h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">Uma linguagem visual orgânica sobre tokens rastreáveis, componentes React acessíveis e padrões próprios para agents, chat e inteligência em dashboards.</p>
-            <div className="mt-8 flex flex-wrap gap-3"><Button asChild size="lg"><a href="#components">Explorar componentes</a></Button><Button asChild size="lg" variant="outline"><a href="https://github.com/LouizeB/flytrapds">Ver código <FlytrapIcon icon={ExternalLinkIcon} /></a></Button></div>
-            <dl className="mt-16 grid gap-4 sm:grid-cols-3">
-              {[["228", "tokens resolvidos"], ["3", "aparências publicadas"], ["51", "módulos públicos"]].map(([value, label]) => <div className="rounded-xl border bg-card/70 p-5 backdrop-blur" key={label}><dt className="text-sm text-muted-foreground">{label}</dt><dd className="mt-1 font-display text-3xl font-bold">{value}</dd></div>)}
-            </dl>
-          </div>
-        </section>
+      <main className="relative min-w-0 overflow-hidden bg-transparent">
+        <PageAtmosphere />
+        <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(circle_at_85%_18%,rgba(255,79,189,.08),transparent_24rem),radial-gradient(circle_at_8%_45%,rgba(184,255,53,.08),transparent_20rem),linear-gradient(180deg,transparent,#05060a0d_42%,transparent)]" />
+        <div className="relative z-10">
+        <ExperientialHero />
+        <OrganismAnatomy />
 
-        <section className="mx-auto max-w-6xl px-6 py-16 md:px-12" id="start">
+        <section className="relative mx-4 my-8 overflow-hidden rounded-[2.5rem] border border-white/12 bg-background/82 px-6 py-16 shadow-[0_28px_100px_rgba(0,0,0,.42)] backdrop-blur-2xl md:mx-8 md:px-12 lg:mr-[18vw]" id="start">
+          <div aria-hidden="true" className="absolute -right-28 -top-28 size-72 rounded-full bg-primary/10 blur-3xl" />
+          <div aria-hidden="true" className="absolute right-6 top-6 hidden rounded-full border border-primary/20 bg-primary/10 px-3 py-1 font-mono text-[0.62rem] uppercase tracking-[0.22em] text-primary md:block">organ pathway · entry</div>
+          <div className="relative mx-auto max-w-6xl">
           <p className="text-sm font-semibold uppercase tracking-widest text-primary">Comece pelo seu contexto</p>
           <h2 className="mt-2 font-display text-3xl font-bold md:text-4xl">Um sistema, duas trilhas</h2>
           <p className="mt-3 max-w-2xl text-muted-foreground">Design e desenvolvimento compartilham os mesmos nomes, estados e critérios de qualidade. Escolha a trilha que responde primeiro às suas perguntas.</p>
@@ -228,10 +225,13 @@ function App() {
               <CardContent className="grid gap-3 text-sm"><ul className="grid list-disc gap-2 pl-5 text-muted-foreground"><li>Setup do monorepo e imports de `@flytrap/ui`</li><li>DTCG, CSS variables e arquitetura responsiva</li><li>APIs React, aliases semânticos e composições AI</li><li>Quality gates, PRs, Pages e release</li></ul><Button asChild className="mt-2 w-fit" variant="outline"><a href="https://github.com/LouizeB/flytrapds/blob/main/docs/README.md#trilha-development">Abrir trilha de desenvolvimento <FlytrapIcon icon={ExternalLinkIcon} /></a></Button></CardContent>
             </Card>
           </div>
+          </div>
         </section>
 
-        <section className="border-y bg-muted/30 px-6 py-16 md:px-12" id="foundations">
-          <div className="mx-auto max-w-6xl">
+        <section className="relative mx-4 my-8 overflow-hidden rounded-[2.5rem] border border-white/12 bg-muted/70 px-6 py-16 shadow-[0_28px_100px_rgba(0,0,0,.42)] backdrop-blur-2xl md:mx-8 md:px-12 lg:mr-[12vw]" id="foundations">
+          <div aria-hidden="true" className="absolute -left-20 top-1/3 size-64 rounded-full bg-secondary/20 blur-3xl" />
+          <div aria-hidden="true" className="absolute right-6 top-6 hidden rounded-full border border-primary/20 bg-primary/10 px-3 py-1 font-mono text-[0.62rem] uppercase tracking-[0.22em] text-primary md:block">organ layer · dna</div>
+          <div className="relative mx-auto max-w-6xl">
           <p className="text-sm font-semibold uppercase tracking-widest text-primary">Foundations</p>
           <h2 className="mt-2 font-display text-3xl font-bold md:text-4xl">Uma fonte, três camadas</h2>
           <p className="mt-3 max-w-2xl text-muted-foreground">Primitive entrega valor, semantic entrega intenção e component entrega contexto. Brand, mode e theme mudam sem reescrever componentes.</p>
@@ -261,8 +261,10 @@ function App() {
           </div>
         </section>
 
-        <section className="px-6 py-16 md:px-12" id="components">
-          <div className="mx-auto max-w-6xl">
+        <section className="relative mx-4 my-8 overflow-hidden rounded-[2.5rem] border border-white/12 bg-background/82 px-6 py-16 shadow-[0_28px_100px_rgba(0,0,0,.42)] backdrop-blur-2xl md:mx-8 md:px-12 lg:mr-[20vw]" id="components">
+          <div aria-hidden="true" className="absolute right-0 top-0 size-80 rounded-full bg-primary/10 blur-3xl" />
+          <div aria-hidden="true" className="absolute right-6 top-6 hidden rounded-full border border-primary/20 bg-primary/10 px-3 py-1 font-mono text-[0.62rem] uppercase tracking-[0.22em] text-primary md:block">organ layer · tissue</div>
+          <div className="relative mx-auto max-w-6xl">
             <p className="text-sm font-semibold uppercase tracking-widest text-primary">Components</p>
             <h2 className="mt-2 font-display text-3xl font-bold md:text-4xl">Componentes com identidade Flytrap</h2>
             <div className="mt-8 grid gap-5 md:grid-cols-2">
@@ -282,7 +284,10 @@ function App() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-6xl px-6 py-16 md:px-12" id="ai-layer">
+        <section className="relative mx-4 my-8 overflow-hidden rounded-[2.5rem] border border-white/12 bg-background/82 px-6 py-16 shadow-[0_28px_100px_rgba(0,0,0,.42)] backdrop-blur-2xl md:mx-8 md:px-12 lg:mr-[16vw]" id="ai-layer">
+          <div aria-hidden="true" className="absolute -right-24 bottom-0 size-80 rounded-full bg-primary/10 blur-3xl" />
+          <div aria-hidden="true" className="absolute right-6 top-6 hidden rounded-full border border-primary/20 bg-primary/10 px-3 py-1 font-mono text-[0.62rem] uppercase tracking-[0.22em] text-primary md:block">organ layer · nervous system</div>
+          <div className="relative mx-auto max-w-6xl">
           <p className="text-sm font-semibold uppercase tracking-widest text-primary">AI layer</p>
           <h2 className="mt-2 font-display text-3xl font-bold md:text-4xl">Inteligência com estados legíveis</h2>
           <p className="mt-3 max-w-2xl text-muted-foreground">Agents, tools, aprovação humana, streaming e custo tratados como padrões de interface — não como exceções improvisadas.</p>
@@ -295,9 +300,11 @@ function App() {
             <Card className="md:col-span-2"><CardHeader><CardTitle>Agent observability</CardTitle><CardDescription>Status, sequência operacional e consumo permanecem legíveis sem expor raciocínio interno.</CardDescription></CardHeader><CardContent className="grid gap-5"><div><AgentStatusIndicator status="running" /></div><RunTraceTimeline steps={[{ id: "plan", title: "Planejamento", description: "Escopo e ferramentas definidos.", status: "completed", duration: "180 ms" }, { id: "execute", title: "Execução", status: "running" }]} /><CostTokenMeter cost="R$ 0,08" limit={4000} used={2300} /></CardContent></Card>
             <Card className="md:col-span-2"><CardHeader><CardTitle>Chat composition</CardTitle><CardDescription>Thread, resumo seguro de análise e entrada de prompt permanecem componentes independentes.</CardDescription></CardHeader><CardContent className="grid gap-3"><ChatThread state="ready"><MessageBubble role="user">Quais componentes ainda faltam?</MessageBubble><MessageBubble role="assistant">Vou confrontar o inventário com os exports públicos.</MessageBubble><ReasoningStream status="completed" summary="Inventário e API pública foram comparados; os próximos gaps estão documentados." /></ChatThread><SuggestedPrompts onSelect={setPrompt} prompts={["Resumir mudanças", "Ver riscos da release"]} /><MessageActions content="Inventário e API pública foram comparados." onRetry={() => {}} /><PromptInput onSubmitPrompt={() => setPrompt("")} onValueChange={setPrompt} value={prompt} /></CardContent></Card>
           </div>
+          </div>
         </section>
 
-        <footer className="border-t px-6 py-8 text-center text-sm text-muted-foreground">Flytrap DS · React, tokens e acessibilidade trabalhando como um só sistema.</footer>
+        <footer className="relative border-t border-white/10 px-6 py-8 text-center text-sm text-white/55">Flytrap DS · React, tokens e acessibilidade trabalhando como um só sistema.</footer>
+        </div>
       </main>
     </div>
   </div>;
