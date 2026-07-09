@@ -2,7 +2,8 @@ import * as React from "react";
 import { AiAccentIcon, BrandIcon, Button, ExternalLinkIcon, FlytrapIcon, SendIcon, type FlytrapIconComponent } from "@flytrap/ui";
 import { CharacterLayer } from "./character";
 import { FloatingPanel } from "./panels";
-import plantA from "../assets/flytrap-plant-a.webp";
+import spriteCorner from "../assets/flytrap-sprite-corner.webp";
+import spriteWideA from "../assets/flytrap-sprite-wide-a.webp";
 
 const syncRows = ["Tokens", "Components", "Patterns", "Documentation"] as const;
 
@@ -57,7 +58,8 @@ export function Hero() {
     <WireframeMoon className="pointer-events-none absolute left-[38%] top-[-15rem] z-0 hidden size-[34rem] opacity-80 blur-[0.5px] md:block" />
     <OrbitalSystem className="flytrap-motion pointer-events-none absolute right-[23rem] top-[2.5rem] z-0 hidden w-64 animate-[flytrap-panel-float_9s_ease-in-out_infinite] opacity-80 xl:block" />
 
-    <img aria-hidden="true" className="pointer-events-none absolute right-[-2rem] top-[-2.5rem] z-0 hidden w-60 -scale-x-100 rotate-12 opacity-80 mix-blend-screen saturate-125 md:block" draggable={false} src={plantA} />
+    <img aria-hidden="true" className="pointer-events-none absolute right-[-6rem] top-[-4rem] z-0 hidden w-[26rem] -scale-x-100 opacity-95 md:block" draggable={false} src={spriteCorner} />
+    <img aria-hidden="true" className="pointer-events-none absolute bottom-[-5rem] left-[-4rem] z-0 hidden w-[70%] opacity-90 lg:block" draggable={false} src={spriteWideA} />
 
     <CharacterLayer
       alt="Alienígena Flytrap em pé sobre uma plataforma holográfica, consultando um painel translúcido do Design System."

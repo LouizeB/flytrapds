@@ -37,12 +37,10 @@ import {
 } from "@flytrap/ui";
 import "@flytrap/ui/styles";
 import { AtmosphereLayer, OrganicBackground, TechFrame } from "./living/organic-background";
-import plantA from "./assets/flytrap-plant-a.webp";
-import plantB from "./assets/flytrap-plant-b.webp";
-import tendrilRight from "./assets/flytrap-tendril-right.webp";
-import tangleLeft from "./assets/flytrap-tangle-left.webp";
 import organismBr from "./assets/flytrap-organism-br.webp";
-import vinesMidright from "./assets/flytrap-vines-midright.webp";
+import spriteVertical from "./assets/flytrap-sprite-vertical.webp";
+import spriteWideB from "./assets/flytrap-sprite-wide-b.webp";
+import spriteCorner from "./assets/flytrap-sprite-corner.webp";
 import { CharacterLayer } from "./living/character";
 import { Sidebar, type Appearance } from "./living/sidebar";
 import { Hero } from "./living/hero";
@@ -146,8 +144,7 @@ function App() {
 
           {/* 02 · Tokens */}
           <section aria-label="Tokens" className="relative border-b border-white/8 px-6 py-14 md:px-10">
-            <img aria-hidden="true" className="pointer-events-none absolute left-[-7rem] top-[-2rem] z-0 hidden w-56 -rotate-6 opacity-65 mix-blend-screen saturate-125 lg:block" draggable={false} src={plantA} />
-            <img aria-hidden="true" className="pointer-events-none absolute right-[-1rem] top-[10%] z-0 hidden h-[85%] w-auto opacity-90 mix-blend-screen saturate-125 lg:block" draggable={false} src={tendrilRight} />
+            <img aria-hidden="true" className="pointer-events-none absolute left-[-9rem] top-[-6rem] z-0 hidden w-64 opacity-90 lg:block" draggable={false} src={spriteVertical} />
             <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:gap-12">
               <SectionHeader
                 id="tokens"
@@ -227,7 +224,7 @@ function App() {
               className="absolute right-[-8vw] top-[30%] z-30 hidden h-[min(46vw,800px)] w-[min(46vw,800px)] lg:block xl:right-[-4vw]"
               pose="lying"
             />
-            <img aria-hidden="true" className="pointer-events-none absolute bottom-[-6rem] right-[-0.5rem] z-0 hidden w-24 opacity-85 mix-blend-screen saturate-125 lg:block" draggable={false} src={vinesMidright} />
+            <img aria-hidden="true" className="pointer-events-none absolute bottom-[-7rem] right-[-8rem] z-20 hidden w-[52rem] opacity-90 lg:block" draggable={false} src={spriteWideB} />
             <FloatingPanel className="absolute right-8 top-14 z-40 hidden w-56 xl:block" title="Component anatomy">
               <div aria-hidden="true" className="relative mx-auto h-28 w-36 [perspective:600px]">
                 {anatomyLayers.map((_, index) => <span
@@ -334,7 +331,6 @@ function App() {
 
           {/* 04 · Patterns */}
           <section aria-label="Patterns" className="relative border-b border-white/8 px-6 py-12 md:px-10 lg:pr-[30vw] xl:pr-[26vw]">
-            <img aria-hidden="true" className="pointer-events-none absolute left-[-4rem] top-[-3rem] z-0 hidden w-64 opacity-80 mix-blend-screen saturate-125 lg:block" draggable={false} src={tangleLeft} />
             <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-12">
               <SectionHeader
                 id="patterns"
@@ -455,8 +451,7 @@ function App() {
           {/* 08 · AI Workflows */}
           <section aria-label="AI Workflows" className="relative px-6 py-12 md:px-10">
             <img aria-hidden="true" className="pointer-events-none absolute bottom-[-2rem] right-[-1rem] z-0 hidden w-72 opacity-95 mix-blend-screen saturate-125 lg:block" draggable={false} src={organismBr} />
-            <img aria-hidden="true" className="pointer-events-none absolute bottom-[10rem] right-[2rem] z-0 hidden w-44 opacity-75 mix-blend-screen saturate-125 xl:block" draggable={false} src={plantB} />
-            <img aria-hidden="true" className="pointer-events-none absolute left-[-3rem] top-[-5rem] z-0 hidden w-56 -scale-x-100 rotate-[24deg] opacity-60 mix-blend-screen saturate-125 lg:block" draggable={false} src={plantA} />
+            <img aria-hidden="true" className="pointer-events-none absolute left-[-5rem] top-[-6rem] z-0 hidden w-72 rotate-[160deg] opacity-70 lg:block" draggable={false} src={spriteCorner} />
             <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:gap-12">
               <SectionHeader
                 id="ai-workflows"

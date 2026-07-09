@@ -1,5 +1,6 @@
 import * as React from "react";
 import * as THREE from "three";
+import plate from "../assets/flytrap-plate.webp";
 
 type ScrollState = {
   progress: number;
@@ -198,7 +199,15 @@ export function OrganicBackground() {
 
 export function AtmosphereLayer() {
   return <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-    <div className="absolute inset-0 bg-[radial-gradient(ellipse_60rem_34rem_at_74%_3%,rgba(255,79,189,.15),transparent),radial-gradient(ellipse_40rem_28rem_at_0%_16%,rgba(139,92,246,.1),transparent),radial-gradient(ellipse_36rem_30rem_at_100%_34%,rgba(139,92,246,.09),transparent),radial-gradient(ellipse_44rem_30rem_at_8%_56%,rgba(241,0,129,.06),transparent),radial-gradient(ellipse_40rem_28rem_at_96%_72%,rgba(139,92,246,.08),transparent),radial-gradient(ellipse_50rem_32rem_at_88%_98%,rgba(139,92,246,.11),transparent)]" />
+    <div className="absolute inset-x-0 top-0 flex flex-col">
+      {[0, 1, 2, 3].map(index => <img
+        className={["w-full", index % 2 === 1 ? "-scale-y-100" : ""].join(" ")}
+        draggable={false}
+        key={index}
+        src={plate}
+      />)}
+    </div>
+    <div className="absolute inset-0 bg-[rgba(5,6,10,.3)]" />
     <div className="absolute inset-0 opacity-[.04] bg-[linear-gradient(rgba(255,255,255,.6)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.6)_1px,transparent_1px)] bg-[size:72px_72px]" />
     <div
       className="absolute inset-0 opacity-[.05] mix-blend-overlay"
