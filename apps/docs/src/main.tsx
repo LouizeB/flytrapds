@@ -36,7 +36,7 @@ import {
   ToolIcon,
 } from "@flytrap/ui";
 import "@flytrap/ui/styles";
-import { OrganicBackground, TechFrame } from "./living/organic-background";
+import { AtmosphereLayer, OrganicBackground, TechFrame } from "./living/organic-background";
 import plantA from "./assets/flytrap-plant-a.webp";
 import plantB from "./assets/flytrap-plant-b.webp";
 import tendrilRight from "./assets/flytrap-tendril-right.webp";
@@ -92,6 +92,7 @@ function App() {
 
       <main className="relative min-w-0 overflow-hidden">
         <OrganicBackground />
+        <AtmosphereLayer />
         <TechFrame />
         <div className="relative z-10">
           <Hero />
