@@ -18,6 +18,14 @@ export function BootLoader({ onComplete }: { onComplete: () => void }) {
   const [exiting, setExiting] = React.useState(false);
   const completedRef = React.useRef(false);
 
+  const complete = React.useCallback(() => {
+    if (completedRef.current) return;
+    completedRef.current = true;
+    setProgress(100);
+    setExiting(true);
+    window.setTimeout(onComplete, 120);
+  }, [onComplete]);
+
   React.useEffect(() => {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const duration = reduceMotion ? 650 : 1900;
@@ -26,6 +34,8 @@ export function BootLoader({ onComplete }: { onComplete: () => void }) {
     let exitTimer = 0;
 
     const tick = (now: number) => {
+      if (completedRef.current) return;
+
       const raw = Math.min(1, (now - startedAt) / duration);
       const eased = 1 - Math.pow(1 - raw, 3);
       const nextProgress = Math.min(100, Math.round(eased * 100));
@@ -53,12 +63,10 @@ export function BootLoader({ onComplete }: { onComplete: () => void }) {
 
   return <div
     aria-label="Carregando Flytrap Design System"
-    aria-live="polite"
     className={[
       "fixed inset-0 z-[100] grid place-items-center overflow-hidden bg-[#05060a] text-white transition-[opacity,transform,filter] duration-500",
       exiting ? "pointer-events-none opacity-0 blur-sm scale-[1.015]" : "opacity-100",
     ].join(" ")}
-    role="status"
   >
     <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(circle_at_50%_34%,rgba(241,0,129,.28),transparent_28rem),radial-gradient(circle_at_78%_72%,rgba(184,255,53,.12),transparent_24rem),linear-gradient(180deg,#05060a,#08040d)]" />
     <div aria-hidden="true" className="absolute inset-0 opacity-[.08] bg-[linear-gradient(rgba(255,255,255,.8)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.8)_1px,transparent_1px)] bg-[size:48px_48px]" />
@@ -84,7 +92,14 @@ export function BootLoader({ onComplete }: { onComplete: () => void }) {
           <span className="text-white/58">{getBootStep(progress)}</span>
           <span className="text-[#ff4fbd]">{progress}%</span>
         </div>
-        <div className="relative h-3 overflow-hidden rounded-full border border-white/10 bg-white/[.06]">
+        <div
+          aria-label="Progresso do carregamento"
+          aria-valuemax={100}
+          aria-valuemin={0}
+          aria-valuenow={progress}
+          className="relative h-3 overflow-hidden rounded-full border border-white/10 bg-white/[.06]"
+          role="progressbar"
+        >
           <div
             className="h-full rounded-full bg-[linear-gradient(90deg,#f10081,#ff64c1,#b8ff35)] shadow-[0_0_22px_rgba(255,79,189,.62)] transition-[width] duration-150 ease-out"
             style={{ width: `${progress}%` }}
@@ -98,6 +113,13 @@ export function BootLoader({ onComplete }: { onComplete: () => void }) {
         <span className="rounded-xl border border-white/10 bg-black/30 px-3 py-2">3D: deferred</span>
         <span className="rounded-xl border border-white/10 bg-black/30 px-3 py-2">A11y: active</span>
       </div>
+      <button
+        className="mt-5 rounded-full border border-[#b8ff35]/45 bg-[#b8ff35]/10 px-4 py-2 font-mono text-[0.68rem] uppercase tracking-[0.18em] text-[#d8ff91] transition-colors hover:bg-[#b8ff35]/18 focus-visible:ring-2 focus-visible:ring-[#b8ff35]"
+        onClick={complete}
+        type="button"
+      >
+        Entrar agora
+      </button>
     </div>
   </div>;
 }

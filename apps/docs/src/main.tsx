@@ -57,6 +57,8 @@ import {
   WorkflowCard,
 } from "./living/panels";
 
+const appearanceStorageKey = "flytrap:appearance";
+
 const magentaSteps = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
 const spaceSteps = [4, 8, 12, 16, 24, 32, 48, 64, 96, 128];
 const radiusSteps = [0, 4, 8, 12, 16, 24, 32];
@@ -82,12 +84,28 @@ const workflowCards = [
   { icon: BrandIcon, title: "Document", description: "Gere documentação viva instantaneamente a partir do código." },
 ] as const;
 
+function getInitialAppearance(): Appearance {
+  if (typeof window === "undefined") return "dark";
+
+  const saved = window.localStorage.getItem(appearanceStorageKey);
+  if (saved === "light" || saved === "dark" || saved === "vibrant") return saved;
+
+  return window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+}
+
 function App() {
-  const [appearance, setAppearance] = useState<Appearance>("dark");
+  const [appearance, setAppearance] = useState<Appearance>(getInitialAppearance);
   const [bootComplete, setBootComplete] = useState(false);
   const appearanceClass = appearance === "light" ? "flytrap-light" : appearance;
   const lightMode = appearance === "light";
   const handleBootComplete = React.useCallback(() => setBootComplete(true), []);
+
+  React.useEffect(() => {
+    document.documentElement.dataset.theme = appearance;
+    document.documentElement.classList.toggle("dark", appearance !== "light");
+    document.body.style.background = lightMode ? "#fff7fb" : "#05060a";
+    window.localStorage.setItem(appearanceStorageKey, appearance);
+  }, [appearance, lightMode]);
 
   React.useEffect(() => {
     document.documentElement.style.overflow = bootComplete ? "" : "hidden";
@@ -108,7 +126,7 @@ function App() {
     <div className={["min-h-screen text-white lg:grid lg:grid-cols-[268px_1fr]", lightMode ? "bg-[#fff7fb]" : "bg-[#05060a]"].join(" ")}>
       <Sidebar appearance={appearance} onAppearanceChange={setAppearance} />
 
-      <main className="relative min-w-0 overflow-hidden" id="main-content">
+      <main aria-label="Flytrap Design System documentation" className="relative min-w-0 overflow-hidden" id="main-content" tabIndex={-1}>
         <OrganicBackground enable3D={bootComplete} light={lightMode} />
         <AtmosphereLayer />
         <TechFrame />
@@ -498,7 +516,7 @@ function App() {
             </div>
           </section>
 
-          <footer className="relative border-t border-white/10 px-6 py-8 text-white/65 md:px-10">
+          <footer aria-label="Informações finais do Flytrap Design System" className="relative border-t border-white/10 px-6 py-8 text-white/65 md:px-10">
             <div className="flex flex-wrap items-center justify-between gap-4 text-sm">
               <p className="inline-flex items-center gap-2">
                 <FlytrapIcon icon={InsightIcon} size="sm" />
