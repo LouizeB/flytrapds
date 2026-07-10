@@ -1,17 +1,10 @@
 import * as React from "react";
-import standingArt from "../assets/ladyflytrap-standing-cutout.webp";
-import lyingArt from "../assets/ladyflytrap-lying-cutout.webp";
-import standingEcho from "../assets/flytrap-alien-standing-3d.webp";
-import lyingEcho from "../assets/flytrap-alien-lying-3d.webp";
+import standingArt from "../assets/flytrap-alien-standing-3d.webp";
+import lyingArt from "../assets/flytrap-alien-lying-3d.webp";
 
 const poses = {
   standing: standingArt,
   lying: lyingArt,
-} as const;
-
-const poseEchoes = {
-  standing: standingEcho,
-  lying: lyingEcho,
 } as const;
 
 type CharacterPose = keyof typeof poses;
@@ -81,13 +74,6 @@ export function CharacterLayer({
         draggable={false}
         src={poses[pose]}
         style={{ transform: "translateZ(-120px) scale(1.08)" }}
-      />
-      <img
-        aria-hidden="true"
-        className="flytrap-motion absolute inset-0 size-full animate-[flytrap-pulse_8.2s_ease-in-out_infinite] object-contain opacity-20 mix-blend-screen blur-sm saturate-150"
-        draggable={false}
-        src={poseEchoes[pose]}
-        style={{ transform: "translate3d(2.4%, -1.5%, -80px) scale(1.04)" }}
       />
       <img
         alt={alt ?? ""}

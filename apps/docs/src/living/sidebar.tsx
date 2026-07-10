@@ -56,33 +56,37 @@ export function Sidebar({ appearance, onAppearanceChange }: {
   const vibrant = appearance === "vibrant";
   const mode = appearance === "light" ? "light" : "dark";
 
-  return <aside className="relative z-30 flex flex-col gap-5 border-b border-[#F10081]/15 bg-[rgba(8,10,16,.92)] p-5 text-white shadow-[1px_0_24px_rgba(241,0,129,.12)] backdrop-blur-xl lg:sticky lg:top-0 lg:h-screen lg:overflow-y-auto lg:border-b-0 lg:border-r">
-    <a className="flex items-center gap-3" href="#overview" onClick={() => setActive("overview")}>
-      <span className="relative grid size-11 place-items-center rounded-full border-2 border-[#F10081]/70 bg-black/60 shadow-[0_0_22px_rgba(241,0,129,.5)]">
+  return <aside className="relative z-30 flex flex-col gap-3 border-b border-[#F10081]/24 bg-[linear-gradient(180deg,rgba(8,10,16,.97),rgba(4,5,10,.94))] p-3 text-white shadow-[1px_0_36px_rgba(241,0,129,.22),inset_-1px_0_0_rgba(255,255,255,.06)] backdrop-blur-2xl lg:sticky lg:top-0 lg:h-screen lg:min-h-0 lg:overflow-y-auto lg:border-b-0 lg:border-r">
+    <span aria-hidden="true" className="pointer-events-none absolute inset-y-4 right-0 w-px bg-gradient-to-b from-transparent via-[#ff4fbd]/70 to-transparent" />
+    <span aria-hidden="true" className="pointer-events-none absolute left-0 top-0 h-28 w-px bg-gradient-to-b from-[#8b5cf6] to-transparent" />
+    <a className="flex items-center gap-2.5 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-[#b8ff35] focus-visible:ring-offset-2 focus-visible:ring-offset-[#05060a]" href="#overview" onClick={() => setActive("overview")}>
+      <span className="relative grid size-12 shrink-0 place-items-center rounded-full border-2 border-[#F10081]/70 bg-black/70 shadow-[0_0_28px_rgba(241,0,129,.65),inset_0_0_18px_rgba(139,92,246,.28)]">
         <span className="absolute inset-1.5 rounded-full border border-[#8b5cf6]/50" />
-        <BrandMark className="relative scale-[.55]" label={null} size={32} />
+        <span className="absolute inset-3 rounded-full bg-[#ff4fbd]/20 blur-md" />
+        <BrandMark className="relative scale-[.64]" label={null} size={32} />
       </span>
-      <span>
-        <span className="block font-display text-sm font-bold uppercase tracking-[0.14em]">Living System</span>
-        <span className="block font-mono text-[0.58rem] uppercase tracking-[0.22em] text-white/40">Design · 1.0</span>
+      <span className="min-w-0">
+        <span className="block font-display text-[0.72rem] font-bold uppercase leading-tight tracking-[0.12em]">Flytrap Design System</span>
+        <span className="block font-mono text-[0.58rem] uppercase tracking-[0.22em] text-white/60">Design · 1.0</span>
       </span>
     </a>
 
-    <nav aria-label="Seções" className="grid gap-1 text-sm">
+    <nav aria-label="Seções" className="grid overflow-visible rounded-xl border border-white/10 bg-black/25 text-[0.82rem] shadow-[inset_0_0_24px_rgba(139,92,246,.08)]">
       {navSections.map(([label, id, icon]) => {
         const isActive = active === id;
         return <a
           className={[
-            "group flex items-center gap-2.5 rounded-lg border px-3 py-2 font-medium transition-colors",
+            "group flex items-center gap-2.5 border-b border-white/7 px-3 py-2 font-medium outline-none transition-colors last:border-b-0 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#b8ff35]",
             isActive
-              ? "border-[#ff64b4]/60 bg-gradient-to-r from-[#F10081] to-[#c2006a] text-white shadow-[0_0_22px_rgba(241,0,129,.45)]"
-              : "border-transparent text-white/65 hover:border-white/10 hover:bg-white/5 hover:text-white",
+              ? "border-[#ff64b4]/60 bg-gradient-to-r from-[#F10081] to-[#9b0059] text-white shadow-[0_0_26px_rgba(241,0,129,.55)]"
+              : "text-white/68 hover:bg-white/6 hover:text-white",
           ].join(" ")}
+          aria-current={isActive ? "page" : undefined}
           href={`#${id}`}
           key={id}
           onClick={() => setActive(id)}
         >
-          <span className={isActive ? "text-white" : "text-white/35"}><FlytrapIcon icon={icon} size="sm" /></span>
+          <span className={isActive ? "text-white" : "text-white/70"}><FlytrapIcon icon={icon} size="sm" /></span>
           <span className="flex-1">{label}</span>
           <span aria-hidden="true" className={["font-mono text-xs transition-transform", isActive ? "text-white" : "text-white/25 group-hover:translate-x-0.5"].join(" ")}>›</span>
         </a>;
@@ -91,16 +95,16 @@ export function Sidebar({ appearance, onAppearanceChange }: {
 
     <div className="relative rounded-xl border border-[rgba(241,0,129,.18)] bg-[rgba(10,11,18,.8)] p-3 shadow-[0_0_22px_rgba(241,0,129,.08)]">
       <span aria-hidden="true" className="absolute right-2.5 top-2.5 font-mono text-[0.6rem] text-white/30">×</span>
-      <p className="font-mono text-[0.58rem] uppercase tracking-[0.22em] text-white/40">System status</p>
-      <p className="mt-2 flex items-center gap-2 text-xs text-white/75">
+      <p className="font-mono text-[0.58rem] uppercase tracking-[0.22em] text-white/60">System status</p>
+      <p className="mt-2 flex items-center gap-2 text-[0.68rem] text-white/75">
         <span className="size-1.5 rounded-full bg-[#00c970] shadow-[0_0_8px_rgba(0,201,112,.8)]" />
-        All systems organic
+        Flytrap system organic
       </p>
-      <p className="mt-1 flex items-center gap-2 text-xs text-white/55">
+      <p className="mt-1 flex items-center gap-2 text-[0.68rem] text-white/70">
         <span className="size-1.5 rounded-full bg-[#F10081]/90 shadow-[0_0_8px_rgba(241,0,129,.7)]" />
         Synced · 230 tokens
       </p>
-      <p className="mt-1 flex items-center gap-2 text-xs text-white/45">
+      <p className="mt-1 flex items-center gap-2 text-[0.68rem] text-white/60">
         <span className="size-1.5 rounded-full bg-[#8b5cf6]/90" />
         v1.0.0
       </p>
@@ -108,7 +112,7 @@ export function Sidebar({ appearance, onAppearanceChange }: {
     </div>
 
     <div className="rounded-xl border border-[rgba(241,0,129,.18)] bg-[rgba(10,11,18,.8)] p-3 shadow-[0_0_22px_rgba(241,0,129,.08)]">
-      <p className="font-mono text-[0.58rem] uppercase tracking-[0.22em] text-white/40">Theme</p>
+      <p className="font-mono text-[0.58rem] uppercase tracking-[0.22em] text-white/60">Theme</p>
       <label className="mt-2 flex items-center justify-between gap-3 text-xs text-white/75">
         Bio-Cyber
         <Switch
@@ -117,13 +121,13 @@ export function Sidebar({ appearance, onAppearanceChange }: {
           onCheckedChange={checked => onAppearanceChange(checked ? "vibrant" : mode)}
         />
       </label>
-      <p className="mt-3 font-mono text-[0.58rem] uppercase tracking-[0.22em] text-white/40">Mode</p>
+      <p className="mt-3 font-mono text-[0.58rem] uppercase tracking-[0.22em] text-white/60">Mode</p>
       <div aria-label="Modo de cor" className="mt-2 flex gap-1 rounded-lg border border-white/10 bg-black/40 p-1" role="group">
         {(["light", "dark", "auto"] as const).map(value => <button
           aria-pressed={!vibrant && value !== "auto" && mode === value}
           className={[
             "flex-1 rounded-md px-2 py-1 text-xs capitalize transition-colors",
-            !vibrant && value !== "auto" && mode === value ? "bg-[#ff4fbd]/20 text-[#ffd7ee]" : "text-white/50 hover:text-white/80",
+            !vibrant && value !== "auto" && mode === value ? "bg-[#ff4fbd]/20 text-[#ffd7ee]" : "text-white/65 hover:text-white/80",
           ].join(" ")}
           key={value}
           onClick={() => onAppearanceChange(
@@ -137,9 +141,9 @@ export function Sidebar({ appearance, onAppearanceChange }: {
     </div>
 
     <div className="rounded-xl border border-[rgba(241,0,129,.18)] bg-[rgba(10,11,18,.8)] p-3 shadow-[0_0_22px_rgba(241,0,129,.08)] lg:mt-auto">
-      <p className="font-mono text-[0.58rem] uppercase tracking-[0.22em] text-white/40">Version 1.0.0</p>
-      <p className="mt-0.5 font-mono text-[0.55rem] text-white/35">Updated: 03.14.2025</p>
-      <p className="mt-1 text-xs text-white/55">DTCG · React · APCA</p>
+      <p className="font-mono text-[0.58rem] uppercase tracking-[0.22em] text-white/60">Version 1.0.0</p>
+      <p className="mt-0.5 font-mono text-[0.55rem] text-white/70">Updated: 03.14.2025</p>
+      <p className="mt-1 text-xs text-white/70">DTCG · React · APCA</p>
       <a
         className="mt-3 inline-flex rounded-full border border-[#ff4fbd]/45 bg-[#ff4fbd]/10 px-3 py-1 font-mono text-[0.6rem] uppercase tracking-[0.16em] text-[#ff9bdd] transition-colors hover:bg-[#ff4fbd]/20"
         href="https://github.com/LouizeB/flytrapds/blob/main/CHANGELOG.md"

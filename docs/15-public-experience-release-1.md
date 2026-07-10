@@ -1,7 +1,8 @@
 # 16. Experiência pública — Release 1
 
 Status: **briefing aprovado para implementação**  
-Nome narrativo: **A Living System for an Artificial Future**
+Nome oficial: **Flytrap Design System**  
+Conceito narrativo: **A living organism for artificial futures**
 
 ## Objetivo
 

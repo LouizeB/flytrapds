@@ -31,45 +31,25 @@ function WireframeMoon({ className }: { className?: string }) {
   </svg>;
 }
 
-function OrbitalSystem({ className }: { className?: string }) {
-  const orbits = [26, 42, 58, 74, 90];
-  const planets = [
-    { r: 26, angle: 40, size: 3, color: "#ff9b6a" },
-    { r: 42, angle: 160, size: 4, color: "#b8ff35" },
-    { r: 58, angle: 300, size: 3.4, color: "#7cecff" },
-    { r: 74, angle: 210, size: 5, color: "#ff4fbd" },
-    { r: 90, angle: 80, size: 3, color: "#e8d8ff" },
-  ];
-  return <svg aria-hidden="true" className={className} viewBox="-100 -100 200 200">
-    <circle fill="#ffb35c" opacity="0.9" r="9" />
-    <circle fill="none" r="14" stroke="rgba(255,179,92,.5)" strokeWidth="0.8" />
-    {orbits.map(radius => <circle fill="none" key={radius} r={radius} stroke="rgba(255,255,255,.22)" strokeWidth="0.7" />)}
-    {planets.map(({ r, angle, size, color }) => {
-      const rad = (angle * Math.PI) / 180;
-      return <circle cx={Math.cos(rad) * r} cy={Math.sin(rad) * r} fill={color} key={r} r={size} />;
-    })}
-  </svg>;
-}
-
 export function Hero() {
-  return <section aria-labelledby="living-hero-title" className="relative isolate overflow-hidden border-b border-white/10 px-6 pb-10 pt-14 text-white md:px-10 lg:min-h-[92vh]" id="overview">
+  return <section aria-labelledby="living-hero-title" className="relative isolate overflow-hidden border-b border-[#ff4fbd]/20 px-6 pb-9 pt-12 text-white md:px-10 lg:min-h-[510px] xl:min-h-[560px]" id="overview">
     <div aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#ff4fbd]/60 to-transparent" />
     <div aria-hidden="true" className="flytrap-motion absolute right-[4vw] top-[6%] hidden h-[80vh] w-px animate-[flytrap-scan_5.2s_linear_infinite] bg-gradient-to-b from-transparent via-[#b8ff35]/70 to-transparent md:block" />
-    <WireframeMoon className="pointer-events-none absolute left-[38%] top-[-15rem] z-0 hidden size-[34rem] opacity-80 blur-[0.5px] md:block" />
-    <OrbitalSystem className="flytrap-motion pointer-events-none absolute right-[23rem] top-[2.5rem] z-0 hidden w-64 animate-[flytrap-panel-float_9s_ease-in-out_infinite] opacity-80 xl:block" />
+    <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(circle_at_63%_24%,rgba(241,0,129,.2),transparent_24rem),radial-gradient(circle_at_80%_4%,rgba(139,92,246,.2),transparent_18rem)]" />
+    <WireframeMoon className="pointer-events-none absolute left-[37%] top-[-16rem] z-0 hidden size-[36rem] opacity-85 blur-[0.5px] md:block" />
 
     <img aria-hidden="true" className="pointer-events-none absolute right-[-6rem] top-[-4rem] z-0 hidden w-[26rem] -scale-x-100 opacity-95 md:block" draggable={false} src={spriteCorner} />
     <img aria-hidden="true" className="pointer-events-none absolute bottom-[-5rem] left-[-4rem] z-0 hidden w-[70%] opacity-90 lg:block" draggable={false} src={spriteWideA} />
 
     <CharacterLayer
       alt="Alienígena Flytrap em pé sobre uma plataforma holográfica, consultando um painel translúcido do Design System."
-      className="absolute right-[-18vw] top-[-3%] z-0 hidden h-[min(102vh,1020px)] w-[min(102vh,1020px)] sm:block lg:right-[-5vw] xl:right-[11rem]"
+      className="absolute right-[-35vw] top-2 z-10 hidden h-[min(78vw,800px)] w-[min(78vw,800px)] sm:block lg:right-[-18vw] xl:right-[3rem] 2xl:right-[10rem]"
       pose="standing"
     />
 
-    <div className="relative z-10 max-w-xl">
+    <div className="relative z-30 max-w-[30rem]">
       <p className="font-mono text-xs uppercase tracking-[0.34em] text-[#ff4fbd]">Design System</p>
-      <h1 className="mt-5 font-display text-4xl font-bold leading-[1.08] tracking-tight md:text-5xl xl:text-6xl" id="living-hero-title">
+      <h1 className="mt-5 font-display text-4xl font-bold leading-[1.08] tracking-tight md:text-5xl xl:text-[4.65rem]" id="living-hero-title">
         A living language
         <span className="block">for <span className="text-[#ff4fbd] drop-shadow-[0_0_24px_rgba(255,79,189,.5)]">future</span> interfaces.</span>
       </h1>
@@ -92,7 +72,7 @@ export function Hero() {
       </a>
     </div>
 
-    <div className="relative z-10 mt-10 hidden w-64 flex-col gap-4 xl:absolute xl:right-10 xl:top-16 xl:flex">
+    <div className="relative z-40 mt-10 hidden w-64 flex-col gap-4 xl:absolute xl:right-10 xl:top-16 xl:flex">
       <FloatingPanel title="System synchronization">
         <div className="flex items-start gap-3">
           <ul className="grid flex-1 gap-2">
@@ -118,13 +98,13 @@ export function Hero() {
         <p className="absolute right-4 top-4 font-mono text-xs text-white/70">96%</p>
         <div aria-hidden="true" className="flytrap-motion flytrap-organic mx-auto h-16 w-32 animate-[flytrap-pulse_4.6s_ease-in-out_infinite] bg-[radial-gradient(ellipse_at_50%_45%,rgba(255,79,189,.9),rgba(241,0,129,.4)_55%,rgba(139,92,246,.18)_75%,transparent_85%)] blur-[1px]" style={{ borderRadius: "48% 52% 60% 40% / 62% 58% 42% 38%" }} />
         <div className="mt-3 flex items-center justify-between font-mono text-[0.62rem] uppercase tracking-[0.16em]">
-          <span className="text-white/50">Stable</span>
+          <span className="text-white/65">Stable</span>
           <span className="text-[#00c970]">Enable</span>
         </div>
       </FloatingPanel>
     </div>
 
-    <div className="relative z-10 mt-12 grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/8 backdrop-blur-xl sm:grid-cols-2 lg:mt-16 lg:max-w-4xl xl:grid-cols-4">
+    <div className="relative z-40 mt-10 grid gap-px overflow-hidden rounded-2xl border border-[#ff4fbd]/20 bg-white/8 shadow-[0_0_38px_rgba(241,0,129,.15)] backdrop-blur-xl sm:grid-cols-2 lg:mt-12 lg:max-w-4xl xl:grid-cols-4">
       {heroStrip.map(([title, detail, icon]) => <div className="flex items-center gap-3 bg-[#0a0c14]/85 px-4 py-3" key={title}>
         <span className="grid size-8 shrink-0 place-items-center rounded-full border border-white/15 bg-white/5 text-white/60">
           {icon
@@ -133,7 +113,7 @@ export function Hero() {
         </span>
         <span>
           <span className="block text-sm font-medium text-white/85">{title}</span>
-          <span className="block text-xs text-white/45">{detail}</span>
+          <span className="block text-xs text-white/60">{detail}</span>
         </span>
       </div>)}
     </div>

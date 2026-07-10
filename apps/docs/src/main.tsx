@@ -37,6 +37,7 @@ import {
 } from "@flytrap/ui";
 import "@flytrap/ui/styles";
 import { AtmosphereLayer, OrganicBackground, TechFrame } from "./living/organic-background";
+import { BootLoader } from "./living/boot-loader";
 import organismBr from "./assets/flytrap-organism-br.webp";
 import spriteVertical from "./assets/flytrap-sprite-vertical.webp";
 import spriteWideB from "./assets/flytrap-sprite-wide-b.webp";
@@ -83,21 +84,39 @@ const workflowCards = [
 
 function App() {
   const [appearance, setAppearance] = useState<Appearance>("dark");
-  const appearanceClass = appearance === "light" ? "" : appearance;
+  const [bootComplete, setBootComplete] = useState(false);
+  const appearanceClass = appearance === "light" ? "flytrap-light" : appearance;
+  const lightMode = appearance === "light";
+  const handleBootComplete = React.useCallback(() => setBootComplete(true), []);
+
+  React.useEffect(() => {
+    document.documentElement.style.overflow = bootComplete ? "" : "hidden";
+
+    return () => {
+      document.documentElement.style.overflow = "";
+    };
+  }, [bootComplete]);
 
   return <div className={appearanceClass}>
-    <div className="min-h-screen bg-[#05060a] text-white lg:grid lg:grid-cols-[248px_1fr]">
+    <a
+      className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[120] focus:rounded-full focus:bg-[#b8ff35] focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-[#071006] focus:shadow-[0_0_24px_rgba(184,255,53,.45)]"
+      href="#main-content"
+    >
+      Pular para o conteúdo principal
+    </a>
+    {!bootComplete && <BootLoader onComplete={handleBootComplete} />}
+    <div className={["min-h-screen text-white lg:grid lg:grid-cols-[268px_1fr]", lightMode ? "bg-[#fff7fb]" : "bg-[#05060a]"].join(" ")}>
       <Sidebar appearance={appearance} onAppearanceChange={setAppearance} />
 
-      <main className="relative min-w-0 overflow-hidden">
-        <OrganicBackground />
+      <main className="relative min-w-0 overflow-hidden" id="main-content">
+        <OrganicBackground enable3D={bootComplete} light={lightMode} />
         <AtmosphereLayer />
         <TechFrame />
-        <div className="relative z-10">
+        <div className="relative z-10 mx-auto max-w-[1440px] border-x border-white/6 bg-black/[.08] shadow-[0_0_80px_rgba(0,0,0,.45)]">
           <Hero />
 
           {/* 01 · Foundations */}
-          <section aria-label="Foundations" className="relative border-b border-white/8 px-6 py-14 md:px-10">
+          <section aria-label="Foundations" className="relative border-b border-[#ff4fbd]/14 px-6 py-9 md:px-8">
             <div className="flex flex-col gap-8 lg:flex-row lg:gap-12">
               <SectionHeader
                 id="foundations"
@@ -107,7 +126,7 @@ function App() {
                 linkLabel="View foundations"
                 title="Foundations"
               />
-              <div className="grid flex-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+              <div className="grid flex-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
                 <SectionCard meta="8 escalas" title="Color">
                   <div className="flex gap-1.5">
                     {["#F10081", "#FF64A4", "#8B5CF6", "#00C970", "#C9C2C4", "#837A7B", "#3A3540", "#16141A"].map(color => <span className="h-14 flex-1 rounded-md border border-white/15" key={color} style={{ background: color }} />)}
@@ -119,7 +138,7 @@ function App() {
                 <SectionCard meta="fluid" title="Typography">
                   <p className="font-display text-6xl font-bold text-[#ff4fbd]">Ag</p>
                   <p className="mt-2 text-sm text-white/70">Satoshi Variable</p>
-                  <p className="mt-1 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-white/40">Fluid · Humanist · Technical</p>
+                  <p className="mt-1 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-white/60">Fluid · Humanist · Technical</p>
                 </SectionCard>
                 <SectionCard meta="8pt" title="Grid & Layout">
                   <div aria-hidden="true" className="grid h-20 grid-cols-12 gap-1">
@@ -129,7 +148,7 @@ function App() {
                     />)}
                   </div>
                   <p className="mt-3 text-sm text-white/70">12 Column Grid</p>
-                  <p className="mt-1 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-white/40">8pt Baseline</p>
+                  <p className="mt-1 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-white/60">8pt Baseline</p>
                 </SectionCard>
                 <SectionCard meta="semantic" title="Iconography">
                   <div className="grid grid-cols-4 gap-2 text-white/70">
@@ -137,14 +156,14 @@ function App() {
                       <FlytrapIcon icon={icon} />
                     </span>)}
                   </div>
-                  <p className="mt-3 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-white/40">2px line · Rounded</p>
+                  <p className="mt-3 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-white/60">2px line · Rounded</p>
                 </SectionCard>
               </div>
             </div>
           </section>
 
           {/* 02 · Tokens */}
-          <section aria-label="Tokens" className="relative border-b border-white/8 px-6 py-14 md:px-10">
+          <section aria-label="Tokens" className="relative border-b border-[#ff4fbd]/14 px-6 py-9 md:px-8">
             <img aria-hidden="true" className="pointer-events-none absolute left-[-9rem] top-[-6rem] z-0 hidden w-64 opacity-90 lg:block" draggable={false} src={spriteVertical} />
             <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:gap-12">
               <SectionHeader
@@ -157,7 +176,7 @@ function App() {
               />
               <div className="min-w-0 flex-1">
                 <PillTabs active={0} items={["All tokens", "Color", "Type", "Space", "Border", "Motion", "Elevation"]} label="Categorias de tokens" />
-                <div className="mt-4 grid gap-4 xl:grid-cols-[1.05fr_1.4fr]">
+                <div className="mt-3 grid gap-3 xl:grid-cols-[1.05fr_1.4fr]">
                   <SectionCard meta="DTCG" title="Semantic">
                     {semanticTokens.map(([name, hex, swatch]) => <TokenRow key={name} name={name} swatch={swatch} value={hex} />)}
                   </SectionCard>
@@ -171,7 +190,7 @@ function App() {
                           title={`--magenta-${step}`}
                         />)}
                       </div>
-                      <div className="mt-2 grid grid-cols-11 text-center font-mono text-[0.55rem] text-white/40">
+                      <div className="mt-2 grid grid-cols-11 text-center font-mono text-[0.55rem] text-white/60">
                         {magentaSteps.map(step => <span key={step}>{step}</span>)}
                       </div>
                     </SectionCard>
@@ -184,7 +203,7 @@ function App() {
                           title={`${step}px`}
                         />)}
                       </div>
-                      <div className="mt-2 flex justify-between font-mono text-[0.55rem] text-white/40">
+                      <div className="mt-2 flex justify-between font-mono text-[0.55rem] text-white/60">
                         {spaceSteps.map(step => <span key={step}>{step}</span>)}
                       </div>
                     </SectionCard>
@@ -196,7 +215,7 @@ function App() {
                               className={["block size-9 border-2", radius === 16 ? "border-[#ff4fbd] shadow-[0_0_14px_rgba(255,79,189,.5)]" : "border-white/30"].join(" ")}
                               style={{ borderRadius: radius }}
                             />
-                            <span className="mt-1.5 font-mono text-[0.55rem] text-white/40">{radius}</span>
+                            <span className="mt-1.5 font-mono text-[0.55rem] text-white/60">{radius}</span>
                           </span>)}
                         </div>
                       </SectionCard>
@@ -207,7 +226,7 @@ function App() {
                               className={["block size-9 rounded-md bg-white/12", level === 3 ? "ring-2 ring-[#F10081] shadow-[0_0_14px_rgba(241,0,129,.45)]" : ""].join(" ")}
                               style={{ boxShadow: `0 ${level * 4}px ${level * 9}px rgba(0,0,0,.55), 0 0 ${level * 3}px rgba(255,79,189,${level * 0.05})` }}
                             />
-                            <span className={["mt-1.5 font-mono text-[0.55rem]", level === 3 ? "text-[#ff4fbd]" : "text-white/40"].join(" ")}>{level}</span>
+                            <span className={["mt-1.5 font-mono text-[0.55rem]", level === 3 ? "text-[#ff4fbd]" : "text-white/60"].join(" ")}>{level}</span>
                           </span>)}
                         </div>
                       </SectionCard>
@@ -219,20 +238,20 @@ function App() {
           </section>
 
           {/* 03 · Components */}
-          <section aria-label="Components" className="relative border-b border-white/8 px-6 py-14 md:px-10">
+          <section aria-label="Components" className="relative min-h-[420px] border-b border-[#ff4fbd]/14 px-6 py-9 md:px-8">
             <CharacterLayer
               alt="Alienígena Flytrap deitada sobre uma placa de circuito holográfica, inspecionando o repositório de componentes."
-              className="absolute right-[-8vw] top-[30%] z-30 hidden h-[min(46vw,800px)] w-[min(46vw,800px)] lg:block xl:right-[-4vw]"
+              className="absolute right-[-25vw] top-[8%] z-0 hidden h-[min(54vw,780px)] w-[min(66vw,980px)] lg:block xl:right-[-14vw]"
               pose="lying"
             />
             <img
               alt=""
               aria-hidden="true"
-              className="flytrap-motion pointer-events-none absolute right-[-9vw] top-[46%] z-20 hidden w-[min(52vw,880px)] animate-[flytrap-panel-float_8.4s_ease-in-out_infinite] opacity-95 drop-shadow-[0_30px_60px_rgba(139,92,246,.35)] lg:block xl:right-[-5vw]"
+              className="flytrap-motion pointer-events-none absolute right-[-22vw] top-[38%] z-0 hidden w-[min(58vw,940px)] animate-[flytrap-panel-float_8.4s_ease-in-out_infinite] opacity-95 drop-shadow-[0_30px_80px_rgba(139,92,246,.48)] lg:block xl:right-[-13vw]"
               draggable={false}
               src={spritePlatform}
             />
-            <img aria-hidden="true" className="pointer-events-none absolute bottom-[-7rem] right-[-8rem] z-20 hidden w-[52rem] opacity-90 lg:block" draggable={false} src={spriteWideB} />
+            <img aria-hidden="true" className="pointer-events-none absolute bottom-[-5rem] right-[-12rem] z-0 hidden w-[62rem] opacity-95 lg:block" draggable={false} src={spriteWideB} />
             <FloatingPanel className="absolute right-8 top-14 z-40 hidden w-56 xl:block" title="Component anatomy">
               <div aria-hidden="true" className="relative mx-auto h-28 w-36 [perspective:600px]">
                 {anatomyLayers.map((_, index) => <span
@@ -247,7 +266,7 @@ function App() {
                 </li>)}
               </ul>
             </FloatingPanel>
-            <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:gap-12">
+            <div className="relative z-20 flex flex-col gap-8 lg:flex-row lg:gap-12">
               <SectionHeader
                 id="components"
                 index="03"
@@ -256,9 +275,9 @@ function App() {
                 linkLabel="Browse components"
                 title="Components"
               />
-              <div className="min-w-0 flex-1 lg:max-w-[52%]">
+              <div className="min-w-0 flex-1 lg:max-w-[54%] xl:max-w-[58%]">
                 <PillTabs active={0} items={["All", "Inputs", "Navigation", "Feedback", "Data display", "Surfaces", "Overlays"]} label="Categorias de componentes" />
-                <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                <div className="mt-3 grid gap-3 sm:grid-cols-2">
                   <ComponentPreview title="Button">
                     <div className="grid justify-items-start gap-2">
                       <Button className="rounded-full bg-[#F10081] px-5 shadow-[0_0_18px_rgba(241,0,129,.4)] hover:bg-[#CF006A]">Primary</Button>
@@ -314,9 +333,9 @@ function App() {
                         <button className="w-full rounded-xl border border-white/12 bg-black/50 p-3 text-left transition-colors hover:border-[#ff4fbd]/40" type="button">
                           <span className="flex items-center justify-between">
                             <span className="text-sm font-semibold text-white/90">Modal Title</span>
-                            <span aria-hidden="true" className="text-white/40">×</span>
+                            <span aria-hidden="true" className="text-white/60">×</span>
                           </span>
-                          <span className="mt-1 block text-xs text-white/50">This is a modal.</span>
+                          <span className="mt-1 block text-xs text-white/65">This is a modal.</span>
                           <span className="mt-3 flex justify-end gap-2">
                             <span className="rounded-full border border-white/15 px-3 py-1 text-xs text-white/70">Cancel</span>
                             <span className="rounded-full bg-[#F10081] px-3 py-1 text-xs font-medium text-white shadow-[0_0_12px_rgba(241,0,129,.45)]">Confirm</span>
@@ -338,7 +357,8 @@ function App() {
           </section>
 
           {/* 04 · Patterns */}
-          <section aria-label="Patterns" className="relative border-b border-white/8 px-6 py-12 md:px-10 lg:pr-[30vw] xl:pr-[26vw]">
+          <section aria-label="Patterns" className="relative border-b border-[#ff4fbd]/14 px-6 py-8 md:px-8 lg:pr-[30vw] xl:pr-[26vw]">
+            <img aria-hidden="true" className="pointer-events-none absolute bottom-[-5rem] left-[-8rem] z-0 hidden w-[38rem] opacity-90 mix-blend-screen saturate-150 lg:block" draggable={false} src={spriteWideB} />
             <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-12">
               <SectionHeader
                 id="patterns"
@@ -365,8 +385,9 @@ function App() {
           </section>
 
           {/* 05 · Accessibility */}
-          <section aria-label="Accessibility" className="relative border-b border-white/8 px-6 py-12 md:px-10 lg:pr-[24vw] xl:pr-[20vw]">
-            <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-12">
+          <section aria-label="Accessibility" className="relative border-b border-[#ff4fbd]/14 px-6 py-8 md:px-8 lg:pr-[24vw] xl:pr-[20vw]">
+            <img aria-hidden="true" className="pointer-events-none absolute right-[-6rem] top-[-8rem] z-0 hidden w-72 -scale-x-100 rotate-12 opacity-80 mix-blend-screen lg:block" draggable={false} src={spriteCorner} />
+            <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-12">
               <SectionHeader
                 id="accessibility"
                 index="05"
@@ -377,7 +398,7 @@ function App() {
               />
               <div className="grid flex-1 gap-4 sm:grid-cols-2">
                 <SectionCard meta="APCA" title="Contrast">
-                  <p className="font-display text-3xl font-bold text-white/90">54 <span className="text-base font-medium text-white/50">pares aprovados</span></p>
+                  <p className="font-display text-3xl font-bold text-white/90">54 <span className="text-base font-medium text-white/65">pares aprovados</span></p>
                   <p className="mt-2 text-sm text-white/60">Conteúdo, ações, foco e dataviz validados em light, dark e vibrant.</p>
                 </SectionCard>
                 <SectionCard meta="focus" title="Visible focus">
@@ -389,8 +410,9 @@ function App() {
           </section>
 
           {/* 06 · Guidelines */}
-          <section aria-label="Guidelines" className="relative border-b border-white/8 px-6 py-12 md:px-10">
-            <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-12">
+          <section aria-label="Guidelines" className="relative border-b border-[#ff4fbd]/14 px-6 py-8 md:px-8">
+            <div aria-hidden="true" className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-[#b8ff35]/40 to-transparent" />
+            <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-12">
               <SectionHeader
                 id="guidelines"
                 index="06"
@@ -418,8 +440,9 @@ function App() {
           </section>
 
           {/* 07 · Code / Develop */}
-          <section aria-label="Code / Develop" className="relative border-b border-white/8 px-6 py-12 md:px-10">
-            <div className="flex flex-col gap-8 lg:flex-row lg:gap-12">
+          <section aria-label="Code / Develop" className="relative border-b border-[#ff4fbd]/14 px-6 py-8 md:px-8">
+            <img aria-hidden="true" className="pointer-events-none absolute bottom-[-7rem] right-[8rem] z-0 hidden w-80 opacity-70 mix-blend-screen saturate-150 lg:block" draggable={false} src={organismBr} />
+            <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:gap-12">
               <SectionHeader
                 id="code"
                 index="07"
@@ -433,9 +456,9 @@ function App() {
                   <PillTabs active={0} items={["React", "Vue", "Web components", "CSS"]} label="Plataformas" />
                   <div className="mt-3">
                     <CodeBlock
-                      copyText={`import { Button } from 'living-system';\n\n<Button variant="primary" size="md">\n  Engage\n</Button>`}
+                      copyText={`import { Button } from '@flytrap/ui';\n\n<Button variant="primary" size="md">\n  Engage\n</Button>`}
                       lines={[
-                        [{ text: "import", kind: "keyword" }, { text: " { " }, { text: "Button", kind: "component" }, { text: " } " }, { text: "from", kind: "keyword" }, { text: " " }, { text: "'living-system'", kind: "string" }, { text: ";" }],
+                        [{ text: "import", kind: "keyword" }, { text: " { " }, { text: "Button", kind: "component" }, { text: " } " }, { text: "from", kind: "keyword" }, { text: " " }, { text: "'@flytrap/ui'", kind: "string" }, { text: ";" }],
                         [{ text: "" }],
                         [{ text: "<" }, { text: "Button", kind: "component" }, { text: " variant=" }, { text: "\"primary\"", kind: "string" }, { text: " size=" }, { text: "\"md\"", kind: "string" }, { text: ">" }],
                         [{ text: "  Engage" }],
@@ -446,18 +469,18 @@ function App() {
                 </div>
                 <FloatingPanel className="self-start" title="NPM package">
                   <p className="flex items-baseline justify-between">
-                    <span className="font-display text-lg font-bold text-white/90">living-system</span>
-                    <span className="font-mono text-xs text-white/45">1.0.0</span>
+                    <span className="font-display text-lg font-bold text-white/90">@flytrap/ui</span>
+                    <span className="font-mono text-xs text-white/60">1.0.0</span>
                   </p>
-                  <p className="mt-3 font-mono text-[0.6rem] uppercase tracking-[0.18em] text-white/40">Install</p>
-                  <code className="mt-1.5 block rounded-lg border border-[#00c970]/30 bg-black/50 px-3 py-2 font-mono text-xs text-[#7de8b4]">npm i living-system</code>
+                  <p className="mt-3 font-mono text-[0.6rem] uppercase tracking-[0.18em] text-white/60">Install</p>
+                  <code className="mt-1.5 block rounded-lg border border-[#00c970]/30 bg-black/50 px-3 py-2 font-mono text-xs text-[#7de8b4]">pnpm add @flytrap/ui</code>
                 </FloatingPanel>
               </div>
             </div>
           </section>
 
           {/* 08 · AI Workflows */}
-          <section aria-label="AI Workflows" className="relative px-6 py-12 md:px-10">
+          <section aria-label="AI Workflows" className="relative px-6 py-8 md:px-8">
             <img aria-hidden="true" className="pointer-events-none absolute bottom-[-2rem] right-[-1rem] z-0 hidden w-72 opacity-95 mix-blend-screen saturate-125 lg:block" draggable={false} src={organismBr} />
             <img aria-hidden="true" className="pointer-events-none absolute left-[-5rem] top-[-6rem] z-0 hidden w-72 rotate-[160deg] opacity-70 lg:block" draggable={false} src={spriteCorner} />
             <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:gap-12">
@@ -475,7 +498,7 @@ function App() {
             </div>
           </section>
 
-          <footer className="relative border-t border-white/10 px-6 py-8 text-white/50 md:px-10">
+          <footer className="relative border-t border-white/10 px-6 py-8 text-white/65 md:px-10">
             <div className="flex flex-wrap items-center justify-between gap-4 text-sm">
               <p className="inline-flex items-center gap-2">
                 <FlytrapIcon icon={InsightIcon} size="sm" />

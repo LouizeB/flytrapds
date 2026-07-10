@@ -1,154 +1,12 @@
 import * as React from "react";
-import * as THREE from "three";
 import plate from "../assets/flytrap-plate.webp";
 
-type ScrollState = {
-  progress: number;
-};
-
-function disposeObject(object: THREE.Object3D) {
-  if ("geometry" in object && object.geometry instanceof THREE.BufferGeometry) {
-    object.geometry.dispose();
-  }
-
-  if ("material" in object) {
-    const material = object.material;
-    if (Array.isArray(material)) {
-      material.forEach(item => item.dispose());
-    } else if (material instanceof THREE.Material) {
-      material.dispose();
-    }
-  }
-}
-
-function useOrganicScene(canvasRef: React.RefObject<HTMLCanvasElement | null>, scrollRef: React.RefObject<ScrollState>) {
-  React.useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, canvas });
-    renderer.setClearColor(0x000000, 0);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
-
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(48, 1, 0.1, 120);
-    camera.position.set(0, 0, 9.5);
-
-    const organism = new THREE.Group();
-    scene.add(organism);
-
-    const nodeGeometry = new THREE.IcosahedronGeometry(0.075, 1);
-    const nodeMaterials = [
-      new THREE.MeshBasicMaterial({ color: "#ff4fbd", opacity: 0.3, transparent: true }),
-      new THREE.MeshBasicMaterial({ color: "#b8ff35", opacity: 0.24, transparent: true }),
-      new THREE.MeshBasicMaterial({ color: "#7cecff", opacity: 0.2, transparent: true }),
-    ];
-
-    const nodes = Array.from({ length: 72 }, (_, index) => {
-      const mesh = new THREE.Mesh(nodeGeometry, nodeMaterials[index % nodeMaterials.length]);
-      const column = index % 12;
-      const row = Math.floor(index / 12);
-      const x = (column - 5.5) * 0.78 + Math.sin(row) * 0.25;
-      const y = 3.4 - row * 1.15;
-      const z = -2.8 + (index % 6) * 0.42;
-      mesh.position.set(x, y, z);
-      mesh.userData.offset = index * 0.37;
-      mesh.userData.baseY = y;
-      organism.add(mesh);
-      return mesh;
-    });
-
-    const lineMaterial = new THREE.LineBasicMaterial({ color: "#ffffff", opacity: 0.08, transparent: true });
-    const lineGeometry = new THREE.BufferGeometry();
-    const linePositions: number[] = [];
-    nodes.forEach((node, index) => {
-      const next = nodes[index + 1];
-      const below = nodes[index + 12];
-      [next, below].forEach(target => {
-        if (!target) return;
-        linePositions.push(node.position.x, node.position.y, node.position.z);
-        linePositions.push(target.position.x, target.position.y, target.position.z);
-      });
-    });
-    lineGeometry.setAttribute("position", new THREE.Float32BufferAttribute(linePositions, 3));
-    const network = new THREE.LineSegments(lineGeometry, lineMaterial);
-    organism.add(network);
-
-    const ringGeometry = new THREE.TorusGeometry(1.2, 0.006, 8, 96);
-    const rings = Array.from({ length: 5 }, (_, index) => {
-      const material = new THREE.MeshBasicMaterial({
-        color: index % 2 === 0 ? "#ff4fbd" : "#b8ff35",
-        opacity: 0.12,
-        transparent: true,
-      });
-      const ring = new THREE.Mesh(ringGeometry, material);
-      ring.position.set(index % 2 === 0 ? -3.6 : 3.6, 2.6 - index * 1.45, -1.6);
-      ring.scale.setScalar(0.8 + index * 0.18);
-      ring.rotation.set(1.15, 0.3 + index * 0.2, 0.4);
-      ring.userData.speed = 0.06 + index * 0.012;
-      organism.add(ring);
-      return ring;
-    });
-
-    const resize = () => {
-      const width = window.innerWidth;
-      const height = window.innerHeight;
-      renderer.setSize(width, height, false);
-      camera.aspect = width / height;
-      camera.updateProjectionMatrix();
-    };
-
-    resize();
-    window.addEventListener("resize", resize);
-
-    const clock = new THREE.Clock();
-    let frame = 0;
-
-    const render = () => {
-      const elapsed = clock.getElapsedTime();
-      const progress = scrollRef.current?.progress ?? 0;
-      const scrollY = (progress - 0.5) * 4;
-
-      organism.position.y += ((scrollY * 1.1) - organism.position.y) * 0.035;
-      organism.rotation.y += ((progress - 0.5) * 0.72 - organism.rotation.y) * 0.025;
-      organism.rotation.x += (Math.sin(progress * Math.PI) * 0.13 - organism.rotation.x) * 0.025;
-
-      if (!reduceMotion) {
-        nodes.forEach(node => {
-          node.position.y = node.userData.baseY + Math.sin(elapsed * 0.5 + node.userData.offset) * 0.08;
-          node.rotation.x = elapsed * 0.15;
-          node.rotation.y = elapsed * 0.18;
-        });
-
-        rings.forEach(ring => {
-          ring.rotation.z += ring.userData.speed * 0.01;
-          ring.rotation.x += ring.userData.speed * 0.006;
-        });
-      }
-
-      renderer.render(scene, camera);
-      frame = window.requestAnimationFrame(render);
-    };
-
-    render();
-
-    return () => {
-      window.cancelAnimationFrame(frame);
-      window.removeEventListener("resize", resize);
-      scene.traverse(disposeObject);
-      nodeGeometry.dispose();
-      nodeMaterials.forEach(material => material.dispose());
-      lineGeometry.dispose();
-      lineMaterial.dispose();
-      ringGeometry.dispose();
-      renderer.dispose();
-    };
-  }, [canvasRef, scrollRef]);
-}
+const LivingScene3D = React.lazy(async () => {
+  const module = await import("./living-scene-3d");
+  return { default: module.LivingScene3D };
+});
 
 export function useScrollProgress() {
-  const scrollRef = React.useRef<ScrollState>({ progress: 0 });
   const [progress, setProgress] = React.useState(0);
 
   React.useEffect(() => {
@@ -157,7 +15,6 @@ export function useScrollProgress() {
     const update = () => {
       const maxScroll = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
       const nextProgress = Math.min(1, Math.max(0, window.scrollY / maxScroll));
-      scrollRef.current.progress = nextProgress;
       setProgress(nextProgress);
       frame = 0;
     };
@@ -178,22 +35,30 @@ export function useScrollProgress() {
     };
   }, []);
 
-  return { scrollRef, progress };
+  return { progress };
 }
 
-export function OrganicBackground() {
-  const canvasRef = React.useRef<HTMLCanvasElement>(null);
-  const { scrollRef, progress } = useScrollProgress();
+export function OrganicBackground({ enable3D = true, light = false }: { enable3D?: boolean; light?: boolean }) {
+  const { progress } = useScrollProgress();
 
-  useOrganicScene(canvasRef, scrollRef);
-
-  return <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-[#05060a]">
-    <canvas className="absolute inset-0 size-full opacity-60" ref={canvasRef} />
-    <div className="flytrap-motion flytrap-organic absolute left-[-14rem] top-[16%] size-[42rem] animate-[flytrap-pulse_7.4s_ease-in-out_infinite] border border-[#ff4fbd]/12 bg-[#ff4fbd]/6 blur-[1px]" style={{ rotate: `${progress * 30}deg` }} />
-    <div className="flytrap-motion flytrap-organic absolute right-[-12rem] top-[52%] size-[38rem] animate-[flytrap-pulse_6.2s_ease-in-out_infinite] border border-[#b8ff35]/12 bg-[conic-gradient(from_120deg,transparent,rgba(184,255,53,.12),transparent,rgba(255,79,189,.14),transparent)] blur-[.5px]" style={{ rotate: `${progress * -42}deg`, animationDelay: "-3s" }} />
-    <div className="flytrap-motion absolute left-[8vw] top-[38%] size-40 animate-[flytrap-pulse_5.2s_ease-in-out_infinite] rounded-full bg-[#b8ff35]/18 blur-3xl" style={{ translate: `0px ${Math.sin(progress * Math.PI * 2) * 30}px` }} />
-    <div className="flytrap-motion absolute right-[12vw] top-[72%] size-48 animate-[flytrap-pulse_6.6s_ease-in-out_infinite] rounded-full bg-[#ff4fbd]/18 blur-3xl" style={{ translate: `0px ${Math.cos(progress * Math.PI * 2) * 26}px` }} />
-    <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,6,10,.2),rgba(7,5,12,.6))]" />
+  return <div aria-hidden="true" className={["pointer-events-none fixed inset-0 z-0 overflow-hidden flytrap-reference-density", light ? "bg-[#fff7fb] opacity-80" : "bg-[#05060a]"].join(" ")}>
+    {enable3D && !light && <React.Suspense fallback={null}>
+      <LivingScene3D />
+    </React.Suspense>}
+    <div className="flytrap-motion absolute left-[-8rem] top-[8%] h-8 w-[70vw] animate-[flytrap-neon-crawl_9s_ease-in-out_infinite] rounded-full bg-[linear-gradient(90deg,transparent,rgba(255,79,189,.72),rgba(139,92,246,.58),transparent)] bg-[length:240%_100%] blur-[10px] rotate-[-11deg]" />
+    <div className="flytrap-motion absolute right-[-9rem] top-[33%] h-10 w-[68vw] animate-[flytrap-neon-crawl_10s_ease-in-out_infinite] rounded-full bg-[linear-gradient(90deg,transparent,rgba(184,255,53,.36),rgba(255,79,189,.64),transparent)] bg-[length:240%_100%] blur-[12px] rotate-[18deg]" />
+    <div className="flytrap-motion absolute bottom-[10%] left-[-6rem] h-12 w-[78vw] animate-[flytrap-neon-crawl_8s_ease-in-out_infinite] rounded-full bg-[linear-gradient(90deg,transparent,rgba(255,79,189,.7),rgba(124,236,255,.26),transparent)] bg-[length:240%_100%] blur-[14px] rotate-[6deg]" />
+    <div className="flytrap-motion flytrap-organic absolute left-[-14rem] top-[16%] size-[48rem] animate-[flytrap-pulse_7.4s_ease-in-out_infinite] border border-[#ff4fbd]/18 bg-[#ff4fbd]/8 blur-[1px]" style={{ rotate: `${progress * 30}deg` }} />
+    <div className="flytrap-motion flytrap-organic absolute right-[-12rem] top-[52%] size-[44rem] animate-[flytrap-pulse_6.2s_ease-in-out_infinite] border border-[#b8ff35]/18 bg-[conic-gradient(from_120deg,transparent,rgba(184,255,53,.16),transparent,rgba(255,79,189,.2),transparent)] blur-[.5px]" style={{ rotate: `${progress * -42}deg`, animationDelay: "-3s" }} />
+    <div
+      className="flytrap-motion absolute left-[-12vw] top-[39%] h-5 w-[46vw] animate-[flytrap-neon-crawl_7.6s_ease-in-out_infinite] rounded-full bg-[linear-gradient(90deg,transparent,rgba(184,255,53,.18),rgba(255,79,189,.34),rgba(124,236,255,.14),transparent)] bg-[length:240%_100%] blur-[18px] rotate-[22deg]"
+      style={{ translate: `0px ${Math.sin(progress * Math.PI * 2) * 22}px` }}
+    />
+    <div
+      className="flytrap-motion absolute right-[-14vw] top-[73%] h-6 w-[54vw] animate-[flytrap-neon-crawl_8.8s_ease-in-out_infinite] rounded-full bg-[linear-gradient(90deg,transparent,rgba(255,79,189,.38),rgba(139,92,246,.26),rgba(184,255,53,.12),transparent)] bg-[length:240%_100%] blur-[20px] rotate-[-14deg]"
+      style={{ translate: `0px ${Math.cos(progress * Math.PI * 2) * 20}px` }}
+    />
+    <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,6,10,.08),rgba(7,5,12,.58))]" />
   </div>;
 }
 
@@ -201,16 +66,18 @@ export function AtmosphereLayer() {
   return <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
     <div className="absolute inset-x-0 top-0 flex flex-col">
       {[0, 1, 2, 3].map(index => <img
+        alt=""
+        aria-hidden="true"
         className={["w-full", index % 2 === 1 ? "-scale-y-100" : ""].join(" ")}
         draggable={false}
         key={index}
         src={plate}
       />)}
     </div>
-    <div className="absolute inset-0 bg-[rgba(5,6,10,.3)]" />
-    <div className="absolute inset-0 opacity-[.04] bg-[linear-gradient(rgba(255,255,255,.6)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.6)_1px,transparent_1px)] bg-[size:72px_72px]" />
+    <div className="absolute inset-0 bg-[rgba(5,6,10,.2)]" />
+    <div className="absolute inset-0 opacity-[.07] bg-[linear-gradient(rgba(255,255,255,.6)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.6)_1px,transparent_1px)] bg-[size:40px_40px]" />
     <div
-      className="absolute inset-0 opacity-[.05] mix-blend-overlay"
+      className="flytrap-motion absolute inset-0 animate-[flytrap-noise-drift_7s_steps(2,end)_infinite] opacity-[.1] mix-blend-overlay"
       style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E")` }}
     />
   </div>;
