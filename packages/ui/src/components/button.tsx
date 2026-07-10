@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
+import { AgentRunningIcon, FlytrapIcon, type FlytrapIconComponent } from "../icons";
 import { cn } from "../lib/utils";
 
 export const buttonVariants = cva(
@@ -8,12 +9,12 @@ export const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-button-primary-bg text-button-primary-fg hover:bg-button-primary-bg-hover disabled:bg-button-primary-bg-disabled disabled:opacity-70",
-        secondary: "bg-button-secondary-bg text-button-secondary-fg hover:bg-button-secondary-bg-hover disabled:opacity-60",
-        destructive: "bg-button-destructive-bg text-button-destructive-fg hover:bg-button-destructive-bg-hover disabled:opacity-60",
-        outline: "border border-button-outline bg-transparent text-button-outline hover:bg-accent hover:text-accent-foreground disabled:opacity-50",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline"
+        default: "bg-button-primary-bg text-button-primary-fg hover:bg-button-primary-bg-hover disabled:bg-button-primary-bg-disabled disabled:opacity-(--button-primary-opacity-disabled)",
+        secondary: "bg-button-secondary-bg text-button-secondary-fg hover:bg-button-secondary-bg-hover disabled:opacity-(--button-secondary-opacity-disabled)",
+        destructive: "bg-button-destructive-bg text-button-destructive-fg hover:bg-button-destructive-bg-hover disabled:opacity-(--button-destructive-opacity-disabled)",
+        outline: "border border-button-outline bg-transparent text-button-outline hover:bg-accent hover:text-accent-foreground disabled:opacity-(--button-outline-opacity-disabled)",
+        ghost: "hover:bg-accent hover:text-accent-foreground disabled:opacity-(--button-ghost-opacity-disabled)",
+        link: "text-primary underline-offset-4 hover:underline disabled:opacity-(--button-link-opacity-disabled)"
       },
       size: {
         default: "h-10 px-4 py-2",
@@ -28,9 +29,67 @@ export const buttonVariants = cva(
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
   asChild?: boolean;
+  loading?: boolean;
+  loadingAnnouncement?: string;
 }
 
-export function Button({ className, variant, size, asChild = false, ...props }: ButtonProps) {
-  const Comp = asChild ? Slot : "button";
-  return <Comp data-slot="button" className={cn(buttonVariants({ variant, size, className }))} {...props} />;
+export function Button({
+  children,
+  className,
+  variant,
+  size,
+  asChild = false,
+  disabled,
+  loading = false,
+  loadingAnnouncement = "Carregando",
+  ...props
+}: ButtonProps) {
+  const isDisabled = disabled || loading;
+  const sharedProps = {
+    "aria-busy": loading || undefined,
+    "aria-disabled": asChild && isDisabled ? true : undefined,
+    className: cn(buttonVariants({ variant, size, className }), asChild && isDisabled && "pointer-events-none"),
+    "data-loading": loading || undefined,
+    "data-slot": "button",
+  } as const;
+
+  if (asChild) {
+    const { onClick, onKeyDown, tabIndex, ...restProps } = props;
+    const blockClick = (event: React.MouseEvent) => {
+      event.preventDefault();
+      event.stopPropagation();
+    };
+    const blockActivationKeys: React.KeyboardEventHandler<HTMLButtonElement> = (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        event.stopPropagation();
+        return;
+      }
+      onKeyDown?.(event);
+    };
+    return <Slot
+      {...sharedProps}
+      {...restProps}
+      onClick={isDisabled ? blockClick : onClick}
+      onKeyDown={isDisabled ? blockActivationKeys : onKeyDown}
+      tabIndex={isDisabled ? -1 : tabIndex}
+    >{children}</Slot>;
+  }
+
+  return <button disabled={isDisabled} {...sharedProps} {...props}>
+    {loading && <FlytrapIcon className="animate-spin motion-reduce:animate-none" icon={AgentRunningIcon} />}
+    {children}
+    {loading && <span className="sr-only" role="status">{loadingAnnouncement}</span>}
+  </button>;
+}
+
+export interface IconButtonProps extends Omit<ButtonProps, "aria-label" | "children" | "loading" | "size"> {
+  icon: FlytrapIconComponent;
+  label: string;
+}
+
+export function IconButton({ icon, label, ...props }: IconButtonProps) {
+  return <Button aria-label={label} size="icon" {...props}>
+    <FlytrapIcon icon={icon} />
+  </Button>;
 }

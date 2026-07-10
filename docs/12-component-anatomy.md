@@ -9,6 +9,7 @@ Este template transforma a disciplina de tokens em uma interface verificável. U
 ```text
 Button
 ├── container: background, border, radius, focus ring
+├── loading indicator: ícone semântico e anúncio de progresso
 ├── leading icon: color e size herdados
 ├── label: foreground e typography
 └── trailing icon: color e size herdados
@@ -30,8 +31,10 @@ O foreground sempre usa o par `*-fg` correspondente. O componente não conhece m
 - Elemento nativo `button` por padrão; `asChild` preserva composição com Radix Slot.
 - Foco visível por teclado.
 - `disabled` bloqueia interação e comunica o estado nativamente.
+- `loading` preserva o label, define `aria-busy`, bloqueia interação e anuncia progresso.
 - Ícones decorativos internos não recebem eventos de ponteiro.
 - Sizes: `sm`, `default`, `lg`, `icon`.
+- `IconButton` exige `label`; o nome acessível nunca depende apenas do ícone.
 
 ### Matriz mínima
 
@@ -65,4 +68,4 @@ O foreground sempre usa o par `*-fg` correspondente. O componente não conhece m
 - Há exemplo real em `apps/docs` ou justificativa para não haver.
 - Lint, tipos e build passam.
 - A revisão cobre teclado, foco, ARIA, reduced motion e contraste.
-- Ícones seguem o vocabulário Lucide do Flytrap e não duplicam significados existentes.
+- Ícones seguem o vocabulário semântico do Flytrap e não duplicam significados existentes.

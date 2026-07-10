@@ -23,7 +23,7 @@
 ## Componentes
 - Componentes compartilhados vivem em `packages/ui/src/components` e composições AI em `packages/ui/src/ai`.
 - Use tokens semânticos (`bg-primary`, `text-muted-foreground`), nunca primitives diretamente.
-- Rode o CLI shadcn a partir de um app que contenha `components.json`.
+- Rode o gerador de componentes a partir de um app que contenha `components.json`.
 - Exporte componentes públicos em `packages/ui/src/index.ts` e demonstre o uso em `apps/docs`.
 
 ### Definition of Done

@@ -5,7 +5,7 @@
 ```mermaid
 flowchart LR
   A[Figma Variables+Components] -->|Tokens Studio| B[(GitHub *.tokens.json)]
-  B --> C[build.mjs] --> D[globals.css+ts] --> E[packages/ui React+shadcn+AI] --> F[apps/docs]
+  B --> C[build.mjs] --> D[globals.css+ts] --> E[packages/ui React+AI] --> F[apps/docs]
   B --> G[CI: lint·typecheck·apca_gate·build·visual]
   G --> H[Changesets → GitHub Packages]
   F --> P[GitHub Pages: site público]
@@ -19,7 +19,7 @@ flowchart LR
 - **F1 Design** (Figma): Variables (primitive/semantic, modes por brand) + componentes.
 - **F2 Tokenização**: Tokens Studio → DTCG no repo.
 - **F3 Build tokens**: gerador `build.mjs` → `flytrap-globals.css` + `tokens.ts`.
-- **F4 Componentes**: `@flytrap/ui` (shadcn + charts + AI).
+- **F4 Componentes**: `@flytrap/ui` (base, charts e AI).
 - **F5 Qualidade**: lint · typecheck · **apca_gate** · visual · a11y.
 - **F6 Release**: Changesets → SemVer → GitHub Packages.
 - **F7 Docs**: catálogo React + Vite publicado por GitHub Pages.
