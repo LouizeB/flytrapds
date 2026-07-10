@@ -18,8 +18,11 @@ export function SwitchField({ label, description, switchProps, className, ...pro
   const generatedId = React.useId();
   const id = switchProps?.id ?? generatedId;
   const descriptionId = description ? `${id}-description` : undefined;
-  return <div className={cn("flex items-start justify-between gap-4", className)} {...props}>
-    <div className="grid gap-1"><label className="text-sm font-medium" htmlFor={id}>{label}</label>{description && <p className="text-xs leading-5 text-muted-foreground" id={descriptionId}>{description}</p>}</div>
-    <Switch aria-describedby={descriptionId} {...switchProps} id={id} />
+  const disabled = switchProps?.disabled;
+  return <div className={cn("flex min-h-11 items-start justify-between gap-4", disabled && "cursor-not-allowed opacity-70", className)} {...props}>
+    <div className="grid gap-1 py-0.5"><label className={cn("text-sm font-medium", disabled && "cursor-not-allowed")} htmlFor={id}>{label}</label>{description && <p className="text-xs leading-5 text-muted-foreground" id={descriptionId}>{description}</p>}</div>
+    <div className="grid min-h-11 place-items-start pt-0.5">
+      <Switch aria-describedby={descriptionId} {...switchProps} id={id} />
+    </div>
   </div>;
 }

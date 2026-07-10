@@ -13,8 +13,8 @@ export const buttonVariants = cva(
         secondary: "bg-button-secondary-bg text-button-secondary-fg hover:bg-button-secondary-bg-hover disabled:opacity-(--button-secondary-opacity-disabled)",
         destructive: "bg-button-destructive-bg text-button-destructive-fg hover:bg-button-destructive-bg-hover disabled:opacity-(--button-destructive-opacity-disabled)",
         outline: "border border-button-outline bg-transparent text-button-outline hover:bg-accent hover:text-accent-foreground disabled:opacity-(--button-outline-opacity-disabled)",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline"
+        ghost: "hover:bg-accent hover:text-accent-foreground disabled:opacity-(--button-ghost-opacity-disabled)",
+        link: "text-primary underline-offset-4 hover:underline disabled:opacity-(--button-link-opacity-disabled)"
       },
       size: {
         default: "h-10 px-4 py-2",

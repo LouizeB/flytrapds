@@ -15,6 +15,8 @@ REQUIRED_COMPONENT_STATES = {
     "button-secondary-opacity-disabled",
     "button-destructive-opacity-disabled",
     "button-outline-opacity-disabled",
+    "button-ghost-opacity-disabled",
+    "button-link-opacity-disabled",
     "input-bg",
     "input-border",
     "input-border-focus",

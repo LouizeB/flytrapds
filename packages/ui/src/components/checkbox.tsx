@@ -30,10 +30,13 @@ export function CheckboxField({ label, description, checkboxProps, className, ..
   const generatedId = React.useId();
   const id = checkboxProps?.id ?? generatedId;
   const descriptionId = description ? `${id}-description` : undefined;
-  return <div className={cn("flex items-start gap-3", className)} {...props}>
-    <Checkbox aria-describedby={descriptionId} {...checkboxProps} id={id} />
-    <div className="grid gap-1 leading-none">
-      <label className="text-sm font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70" htmlFor={id}>{label}</label>
+  const disabled = checkboxProps?.disabled;
+  return <div className={cn("flex min-h-11 items-start gap-3", disabled && "cursor-not-allowed opacity-70", className)} {...props}>
+    <div className="grid min-h-11 min-w-6 place-items-start pt-1">
+      <Checkbox aria-describedby={descriptionId} {...checkboxProps} id={id} />
+    </div>
+    <div className="grid gap-1 py-0.5 leading-none">
+      <label className={cn("text-sm font-medium", disabled && "cursor-not-allowed")} htmlFor={id}>{label}</label>
       {description && <p className="text-xs leading-5 text-muted-foreground" id={descriptionId}>{description}</p>}
     </div>
   </div>;
