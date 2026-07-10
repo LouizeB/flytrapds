@@ -9,12 +9,99 @@
 
 .dark { color-scheme: dark; }
 
+.flytrap-light {
+  color-scheme: light;
+}
+
+.flytrap-light .flytrap-reference-density {
+  background-image:
+    radial-gradient(circle at 72% 18%, rgba(241, 0, 129, .14), transparent 24rem),
+    radial-gradient(circle at 86% 58%, rgba(139, 92, 246, .12), transparent 30rem),
+    linear-gradient(rgba(12, 12, 20, .055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(12, 12, 20, .04) 1px, transparent 1px);
+}
+
 html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  background: #05060a;
 }
 
 button, input, textarea, select { font: inherit; }
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid #b8ff35;
+  outline-offset: 3px;
+}
+
+@keyframes flytrap-float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -18px; }
+}
+
+@keyframes flytrap-pulse {
+  0%, 100% { opacity: .42; transform: scale(.94) rotate(0deg); }
+  50% { opacity: .78; transform: scale(1.08) rotate(12deg); }
+}
+
+@keyframes flytrap-panel-float {
+  0%, 100% { transform: translate3d(0, var(--flytrap-panel-y, 0px), 0) rotate(-.8deg); }
+  50% { transform: translate3d(var(--flytrap-panel-x, 0px), calc(var(--flytrap-panel-y, 0px) - 18px), 0) rotate(.9deg); }
+}
+
+@keyframes flytrap-scan {
+  0% { transform: translateY(-120%); opacity: 0; }
+  18%, 72% { opacity: .75; }
+  100% { transform: translateY(420%); opacity: 0; }
+}
+
+@keyframes flytrap-neon-crawl {
+  0% { background-position: 0% 50%; opacity: .32; }
+  50% { background-position: 100% 50%; opacity: .82; }
+  100% { background-position: 0% 50%; opacity: .32; }
+}
+
+@keyframes flytrap-noise-drift {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(-1.5%, 1%, 0); }
+}
+
+@keyframes flytrap-glitch-breathe {
+  0%, 100% { filter: saturate(1.2) contrast(1.05); opacity: .82; }
+  50% { filter: saturate(1.7) contrast(1.18) hue-rotate(9deg); opacity: 1; }
+}
+
+@keyframes flytrap-blob {
+  0%, 100% { border-radius: 42% 58% 65% 35% / 45% 40% 60% 55%; }
+  34% { border-radius: 62% 38% 30% 70% / 50% 62% 38% 50%; }
+  67% { border-radius: 38% 62% 55% 45% / 35% 55% 45% 65%; }
+}
+
+.flytrap-organic {
+  animation: flytrap-blob 14s ease-in-out infinite;
+}
+
+.flytrap-reference-density {
+  background-image:
+    radial-gradient(circle at 76% 18%, rgba(241, 0, 129, .18), transparent 28rem),
+    radial-gradient(circle at 88% 52%, rgba(139, 92, 246, .2), transparent 34rem),
+    linear-gradient(rgba(255, 255, 255, .025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, .018) 1px, transparent 1px);
+  background-size: auto, auto, 32px 32px, 32px 32px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flytrap-motion,
+  .flytrap-organic {
+    animation: none !important;
+    transition: none !important;
+  }
+}
