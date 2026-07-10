@@ -8,7 +8,7 @@ export function FloatingPanel({ title, className, children, delay = 0 }: {
   delay?: number;
 }) {
   return <div
-    className={["flytrap-motion relative overflow-hidden animate-[flytrap-panel-float_6.8s_ease-in-out_infinite] rounded-2xl border border-[rgba(241,0,129,.34)] bg-[linear-gradient(145deg,rgba(16,18,30,.9),rgba(3,5,10,.74))] p-4 text-white shadow-[0_22px_65px_rgba(0,0,0,.72),0_0_36px_rgba(241,0,129,.18),inset_0_0_24px_rgba(139,92,246,.08)] backdrop-blur-[22px]", className].filter(Boolean).join(" ")}
+    className={["flytrap-panel flytrap-motion relative overflow-hidden animate-[flytrap-panel-float_6.8s_ease-in-out_infinite] rounded-2xl border border-[rgba(241,0,129,.34)] bg-[linear-gradient(145deg,rgba(16,18,30,.9),rgba(3,5,10,.74))] p-4 text-white shadow-[0_22px_65px_rgba(0,0,0,.72),0_0_36px_rgba(241,0,129,.18),inset_0_0_24px_rgba(139,92,246,.08)] backdrop-blur-[22px]", className].filter(Boolean).join(" ")}
     style={{ animationDelay: `${delay}s` }}
   >
     <span aria-hidden="true" className="pointer-events-none absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-[#ff4fbd]/70 to-transparent" />
@@ -43,7 +43,7 @@ export function SectionCard({ title, meta, className, children }: {
   className?: string;
   children: React.ReactNode;
 }) {
-  return <article className={["relative overflow-hidden rounded-[1.15rem] border border-[rgba(241,0,129,.22)] bg-[linear-gradient(145deg,rgba(14,18,28,.84),rgba(2,5,10,.72))] p-4 shadow-[0_18px_52px_rgba(0,0,0,.62),0_0_30px_rgba(139,92,246,.1),inset_0_0_18px_rgba(255,255,255,.025)] backdrop-blur-[20px] transition-all hover:border-[rgba(241,0,129,.48)] hover:shadow-[0_18px_52px_rgba(0,0,0,.62),0_0_46px_rgba(241,0,129,.22)]", className].filter(Boolean).join(" ")}>
+  return <article className={["flytrap-card relative overflow-hidden rounded-[1.15rem] border border-[rgba(241,0,129,.22)] bg-[linear-gradient(145deg,rgba(14,18,28,.84),rgba(2,5,10,.72))] p-4 shadow-[0_18px_52px_rgba(0,0,0,.62),0_0_30px_rgba(139,92,246,.1),inset_0_0_18px_rgba(255,255,255,.025)] backdrop-blur-[20px] transition-all hover:border-[rgba(241,0,129,.48)] hover:shadow-[0_18px_52px_rgba(0,0,0,.62),0_0_46px_rgba(241,0,129,.22)]", className].filter(Boolean).join(" ")}>
     <span aria-hidden="true" className="pointer-events-none absolute inset-x-3 top-0 h-px bg-gradient-to-r from-transparent via-[#ff4fbd]/65 to-transparent" />
     <span aria-hidden="true" className="pointer-events-none absolute left-0 top-0 h-full w-px bg-gradient-to-b from-[#ff4fbd]/50 via-transparent to-[#8b5cf6]/40" />
     <span aria-hidden="true" className="pointer-events-none absolute -right-8 -top-8 size-24 rounded-full bg-[#ff4fbd]/8 blur-2xl" />
@@ -74,7 +74,7 @@ export function ComponentPreview({ title, className, children }: {
   className?: string;
   children: React.ReactNode;
 }) {
-  return <article className={["relative overflow-hidden rounded-[1rem] border border-[rgba(241,0,129,.2)] bg-[rgba(5,8,14,.78)] p-3 shadow-[0_14px_38px_rgba(0,0,0,.62),0_0_24px_rgba(139,92,246,.11)] backdrop-blur-[18px] transition-all hover:border-[rgba(241,0,129,.45)] hover:shadow-[0_14px_40px_rgba(0,0,0,.62),0_0_34px_rgba(241,0,129,.2)]", className].filter(Boolean).join(" ")}>
+  return <article className={["flytrap-preview relative overflow-hidden rounded-[1rem] border border-[rgba(241,0,129,.2)] bg-[rgba(5,8,14,.78)] p-3 shadow-[0_14px_38px_rgba(0,0,0,.62),0_0_24px_rgba(139,92,246,.11)] backdrop-blur-[18px] transition-all hover:border-[rgba(241,0,129,.45)] hover:shadow-[0_14px_40px_rgba(0,0,0,.62),0_0_34px_rgba(241,0,129,.2)]", className].filter(Boolean).join(" ")}>
     <span aria-hidden="true" className="pointer-events-none absolute inset-x-3 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
     <p className="font-mono text-[0.6rem] uppercase tracking-[0.2em] text-white/60">{title}</p>
     <div className="mt-3 grid gap-3">{children}</div>
@@ -114,7 +114,7 @@ export function CodeBlock({ lines, copyText }: { lines: CodeToken[][]; copyText:
     }
   };
 
-  return <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#0a0c14] shadow-2xl shadow-black/40">
+  return <div className="flytrap-codeblock relative overflow-hidden rounded-2xl border border-white/10 bg-[#0a0c14] shadow-2xl shadow-black/40">
     <div className="flex items-center gap-1.5 border-b border-white/8 px-4 py-2.5">
       <span className="size-2 rounded-full bg-[#ff4fbd]/60" />
       <span className="size-2 rounded-full bg-[#b8ff35]/50" />
@@ -137,7 +137,7 @@ export function WorkflowCard({ icon, title, description }: {
   title: string;
   description: string;
 }) {
-  return <article className="group rounded-2xl border border-white/10 bg-white/[.04] p-5 text-center shadow-2xl shadow-black/25 backdrop-blur-xl transition-colors hover:border-[#ff4fbd]/40">
+  return <article className="flytrap-workflow-card group rounded-2xl border border-white/10 bg-white/[.04] p-5 text-center shadow-2xl shadow-black/25 backdrop-blur-xl transition-colors hover:border-[#ff4fbd]/40">
     <h3 className="font-display text-base font-bold text-white/90">{title}</h3>
     <p className="mt-2 text-xs leading-5 text-white/70">{description}</p>
     <span className="mx-auto mt-5 grid size-12 place-items-center rounded-xl border border-[#ff4fbd]/30 bg-[#ff4fbd]/10 text-[#ff9bdd] shadow-[0_0_22px_rgba(255,79,189,.25)] transition-transform group-hover:scale-110">

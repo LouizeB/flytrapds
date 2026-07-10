@@ -56,6 +56,29 @@ export function Sidebar({ appearance, onAppearanceChange }: {
   const vibrant = appearance === "vibrant";
   const mode = appearance === "light" ? "light" : "dark";
 
+  React.useEffect(() => {
+    const elements = navSections
+      .map(([, id]) => document.getElementById(id))
+      .filter((element): element is HTMLElement => Boolean(element));
+
+    if (!elements.length) return;
+
+    const observer = new IntersectionObserver(
+      entries => {
+        const visible = entries
+          .filter(entry => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (visible?.target.id) setActive(visible.target.id);
+      },
+      { rootMargin: "-28% 0px -58% 0px", threshold: [0.08, 0.2, 0.45] },
+    );
+
+    elements.forEach(element => observer.observe(element));
+
+    return () => observer.disconnect();
+  }, []);
+
   return <aside className="relative z-30 flex flex-col gap-3 border-b border-[#F10081]/24 bg-[linear-gradient(180deg,rgba(8,10,16,.97),rgba(4,5,10,.94))] p-3 text-white shadow-[1px_0_36px_rgba(241,0,129,.22),inset_-1px_0_0_rgba(255,255,255,.06)] backdrop-blur-2xl lg:sticky lg:top-0 lg:h-screen lg:min-h-0 lg:overflow-y-auto lg:border-b-0 lg:border-r">
     <span aria-hidden="true" className="pointer-events-none absolute inset-y-4 right-0 w-px bg-gradient-to-b from-transparent via-[#ff4fbd]/70 to-transparent" />
     <span aria-hidden="true" className="pointer-events-none absolute left-0 top-0 h-28 w-px bg-gradient-to-b from-[#8b5cf6] to-transparent" />
@@ -124,6 +147,7 @@ export function Sidebar({ appearance, onAppearanceChange }: {
       <p className="mt-3 font-mono text-[0.58rem] uppercase tracking-[0.22em] text-white/60">Mode</p>
       <div aria-label="Modo de cor" className="mt-2 flex gap-1 rounded-lg border border-white/10 bg-black/40 p-1" role="group">
         {(["light", "dark", "auto"] as const).map(value => <button
+          aria-label={value === "auto" ? "Usar preferência do sistema" : `Ativar modo ${value}`}
           aria-pressed={!vibrant && value !== "auto" && mode === value}
           className={[
             "flex-1 rounded-md px-2 py-1 text-xs capitalize transition-colors",
@@ -142,9 +166,10 @@ export function Sidebar({ appearance, onAppearanceChange }: {
 
     <div className="rounded-xl border border-[rgba(241,0,129,.18)] bg-[rgba(10,11,18,.8)] p-3 shadow-[0_0_22px_rgba(241,0,129,.08)] lg:mt-auto">
       <p className="font-mono text-[0.58rem] uppercase tracking-[0.22em] text-white/60">Version 1.0.0</p>
-      <p className="mt-0.5 font-mono text-[0.55rem] text-white/70">Updated: 03.14.2025</p>
+      <p className="mt-0.5 font-mono text-[0.55rem] text-white/70">Updated: 07.10.2026</p>
       <p className="mt-1 text-xs text-white/70">DTCG · React · APCA</p>
       <a
+        aria-label="Ver changelog no GitHub"
         className="mt-3 inline-flex rounded-full border border-[#ff4fbd]/45 bg-[#ff4fbd]/10 px-3 py-1 font-mono text-[0.6rem] uppercase tracking-[0.16em] text-[#ff9bdd] transition-colors hover:bg-[#ff4fbd]/20"
         href="https://github.com/LouizeB/flytrapds/blob/main/CHANGELOG.md"
       >View changelog</a>

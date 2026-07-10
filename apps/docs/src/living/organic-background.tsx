@@ -38,11 +38,59 @@ export function useScrollProgress() {
   return { progress };
 }
 
+function useReducedMotionPreference() {
+  const [reducedMotion, setReducedMotion] = React.useState(false);
+
+  React.useEffect(() => {
+    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReducedMotion(query.matches);
+
+    update();
+    query.addEventListener("change", update);
+
+    return () => query.removeEventListener("change", update);
+  }, []);
+
+  return reducedMotion;
+}
+
+function useDeferredSceneMount(enabled: boolean) {
+  const [ready, setReady] = React.useState(false);
+
+  React.useEffect(() => {
+    if (!enabled) {
+      setReady(false);
+      return undefined;
+    }
+
+    let timeoutHandle = 0;
+    let idleHandle = 0;
+
+    const mount = () => setReady(true);
+
+    if ("requestIdleCallback" in window) {
+      idleHandle = window.requestIdleCallback(mount, { timeout: 1400 });
+    } else {
+      timeoutHandle = globalThis.setTimeout(mount, 720);
+    }
+
+    return () => {
+      if (idleHandle && "cancelIdleCallback" in window) window.cancelIdleCallback(idleHandle);
+      if (timeoutHandle) globalThis.clearTimeout(timeoutHandle);
+    };
+  }, [enabled]);
+
+  return ready;
+}
+
 export function OrganicBackground({ enable3D = true, light = false }: { enable3D?: boolean; light?: boolean }) {
   const { progress } = useScrollProgress();
+  const reducedMotion = useReducedMotionPreference();
+  const shouldPrepare3D = enable3D && !light && !reducedMotion;
+  const shouldMount3D = useDeferredSceneMount(shouldPrepare3D);
 
   return <div aria-hidden="true" className={["pointer-events-none fixed inset-0 z-0 overflow-hidden flytrap-reference-density", light ? "bg-[#fff7fb] opacity-80" : "bg-[#05060a]"].join(" ")}>
-    {enable3D && !light && <React.Suspense fallback={null}>
+    {shouldMount3D && <React.Suspense fallback={null}>
       <LivingScene3D />
     </React.Suspense>}
     <div className="flytrap-motion absolute left-[-8rem] top-[8%] h-8 w-[70vw] animate-[flytrap-neon-crawl_9s_ease-in-out_infinite] rounded-full bg-[linear-gradient(90deg,transparent,rgba(255,79,189,.72),rgba(139,92,246,.58),transparent)] bg-[length:240%_100%] blur-[10px] rotate-[-11deg]" />

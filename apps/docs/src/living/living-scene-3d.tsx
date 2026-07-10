@@ -15,6 +15,7 @@ type LivingSceneSignal = {
 };
 
 type LivingSceneRef = React.MutableRefObject<LivingSceneSignal>;
+type SceneQuality = "rich" | "low";
 
 function canUseWebGL() {
   try {
@@ -23,6 +24,46 @@ function canUseWebGL() {
   } catch {
     return false;
   }
+}
+
+function useReducedMotion() {
+  const [reduceMotion, setReduceMotion] = React.useState(false);
+
+  React.useEffect(() => {
+    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReduceMotion(query.matches);
+
+    update();
+    query.addEventListener("change", update);
+
+    return () => query.removeEventListener("change", update);
+  }, []);
+
+  return reduceMotion;
+}
+
+function getSceneQuality(): SceneQuality {
+  const nav = navigator as Navigator & { deviceMemory?: number };
+  const lowMemory = typeof nav.deviceMemory === "number" && nav.deviceMemory <= 4;
+  const lowCores = navigator.hardwareConcurrency > 0 && navigator.hardwareConcurrency <= 4;
+  const compactViewport = window.matchMedia("(max-width: 900px)").matches;
+
+  return lowMemory || lowCores || compactViewport ? "low" : "rich";
+}
+
+function useSceneQuality() {
+  const [quality, setQuality] = React.useState<SceneQuality>("rich");
+
+  React.useEffect(() => {
+    const update = () => setQuality(getSceneQuality());
+
+    update();
+    window.addEventListener("resize", update);
+
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  return quality;
 }
 
 function useLivingSceneSignal() {
@@ -94,9 +135,10 @@ function Rig({ signalRef }: { signalRef: LivingSceneRef }) {
   return null;
 }
 
-function BioField({ signalRef }: { signalRef: LivingSceneRef }) {
+function BioField({ signalRef, quality }: { signalRef: LivingSceneRef; quality: SceneQuality }) {
   const groupRef = React.useRef<THREE.Group>(null);
-  const nodes = React.useMemo(() => Array.from({ length: 64 }, (_, index) => {
+  const nodeCount = quality === "low" ? 38 : 64;
+  const nodes = React.useMemo(() => Array.from({ length: nodeCount }, (_, index) => {
     const ring = index % 16;
     const layer = Math.floor(index / 16);
     const angle = (ring / 16) * Math.PI * 2 + layer * 0.32;
@@ -107,7 +149,7 @@ function BioField({ signalRef }: { signalRef: LivingSceneRef }) {
       position: new THREE.Vector3(Math.cos(angle) * radius, 2.6 - layer * 1.4, Math.sin(angle) * radius * 0.42 - 1.8),
       scale: 0.035 + (index % 5) * 0.007,
     };
-  }), []);
+  }), [nodeCount]);
 
   useFrame(({ clock }, delta) => {
     const group = groupRef.current;
@@ -133,7 +175,7 @@ function BioField({ signalRef }: { signalRef: LivingSceneRef }) {
         <meshBasicMaterial color={node.color} depthWrite={false} opacity={0.45} transparent />
       </mesh>
     </Float>)}
-    {nodes.slice(0, 42).map((node, index) => {
+    {nodes.slice(0, quality === "low" ? 22 : 42).map((node, index) => {
       const target = nodes[(index + 17) % nodes.length];
       return <Line
         color={index % 2 === 0 ? "#ff4fbd" : "#7cecff"}
@@ -148,13 +190,15 @@ function BioField({ signalRef }: { signalRef: LivingSceneRef }) {
   </group>;
 }
 
-function TentacleStrands({ signalRef }: { signalRef: LivingSceneRef }) {
+function TentacleStrands({ signalRef, quality }: { signalRef: LivingSceneRef; quality: SceneQuality }) {
   const groupRef = React.useRef<THREE.Group>(null);
-  const strands = React.useMemo(() => Array.from({ length: 9 }, (_, index) => {
+  const strandCount = quality === "low" ? 5 : 9;
+  const pointCount = quality === "low" ? 24 : 34;
+  const strands = React.useMemo(() => Array.from({ length: strandCount }, (_, index) => {
     const y = 2.9 - index * 0.74;
     const side = index % 2 === 0 ? -1 : 1;
-    const points = Array.from({ length: 34 }, (_point, pointIndex) => {
-      const t = pointIndex / 33;
+    const points = Array.from({ length: pointCount }, (_point, pointIndex) => {
+      const t = pointIndex / (pointCount - 1);
       const wave = Math.sin(t * Math.PI * 2.2 + index * 0.72);
       return new THREE.Vector3(
         side * (5.4 - t * 10.8),
@@ -167,7 +211,7 @@ function TentacleStrands({ signalRef }: { signalRef: LivingSceneRef }) {
       color: index % 3 === 0 ? "#ff4fbd" : index % 3 === 1 ? "#b8ff35" : "#8b5cf6",
       points,
     };
-  }), []);
+  }), [pointCount, strandCount]);
 
   useFrame(({ clock }, delta) => {
     const group = groupRef.current;
@@ -254,18 +298,20 @@ function SignalRings({ signalRef }: { signalRef: LivingSceneRef }) {
   </group>;
 }
 
-function LivingWorld({ signalRef }: { signalRef: LivingSceneRef }) {
+function LivingWorld({ signalRef, quality }: { signalRef: LivingSceneRef; quality: SceneQuality }) {
+  const rich = quality === "rich";
+
   return <>
     <Rig signalRef={signalRef} />
-    <ambientLight intensity={0.35} />
-    <BioField signalRef={signalRef} />
-    <TentacleStrands signalRef={signalRef} />
+    <ambientLight intensity={rich ? 0.35 : 0.28} />
+    <BioField quality={quality} signalRef={signalRef} />
+    <TentacleStrands quality={quality} signalRef={signalRef} />
     <SignalRings signalRef={signalRef} />
     <TexturePlanes signalRef={signalRef} />
     <EffectComposer multisampling={0}>
-      <Bloom intensity={0.82} luminanceSmoothing={0.35} luminanceThreshold={0.08} mipmapBlur radius={0.55} />
-      <ChromaticAberration offset={[0.0007, 0.0009]} />
-      <Vignette darkness={0.58} eskil={false} offset={0.2} />
+      <Bloom intensity={rich ? 0.82 : 0.42} luminanceSmoothing={0.35} luminanceThreshold={0.08} mipmapBlur radius={rich ? 0.55 : 0.28} />
+      <ChromaticAberration offset={rich ? [0.0007, 0.0009] : [0, 0]} />
+      <Vignette darkness={rich ? 0.58 : 0.38} eskil={false} offset={0.2} />
     </EffectComposer>
   </>;
 }
@@ -273,21 +319,24 @@ function LivingWorld({ signalRef }: { signalRef: LivingSceneRef }) {
 export function LivingScene3D() {
   const signalRef = useLivingSceneSignal();
   const [webglReady, setWebglReady] = React.useState(false);
+  const reduceMotion = useReducedMotion();
+  const quality = useSceneQuality();
+  const dpr: [number, number] = quality === "low" ? [0.75, 1] : [1, 1.5];
 
   React.useEffect(() => {
     setWebglReady(canUseWebGL());
   }, []);
 
-  if (!webglReady) return null;
+  if (!webglReady || reduceMotion) return null;
 
   return <Canvas
     camera={{ fov: 42, position: [0, 0.2, 8.5] }}
     className="absolute inset-0 size-full opacity-90 mix-blend-screen"
-    dpr={[1, 1.5]}
-    gl={{ alpha: true, antialias: true, powerPreference: "high-performance" }}
+    dpr={dpr}
+    gl={{ alpha: true, antialias: quality === "rich", powerPreference: quality === "rich" ? "high-performance" : "low-power" }}
   >
     <React.Suspense fallback={null}>
-      <LivingWorld signalRef={signalRef} />
+      <LivingWorld quality={quality} signalRef={signalRef} />
     </React.Suspense>
   </Canvas>;
 }
