@@ -1,66 +1,46 @@
-# 14. Iconografia
+# 14. Iconografia semântica
 
-O Flytrap usa exclusivamente `lucide-react` para ícones de interface. Lucide fornece SVGs consistentes, customizáveis e tree-shakable; o pacote `@flytrap/ui` adiciona uma camada semântica para evitar escolhas diferentes para o mesmo significado.
+O Flytrap trata ícones como linguagem, não como catálogo visual. Produto, design e código usam aliases próprios para que o significado permaneça estável mesmo quando a implementação interna evolui.
 
-## Princípios
+## Contrato
 
-- Escolher pelo significado, não pela aparência.
-- Um significado recorrente tem um único alias no sistema.
-- Ícones de interface são outline, com stroke `1.75`.
-- Cor é herdada de `currentColor`; feedback usa tokens semânticos.
-- Não misturar emojis, outra biblioteca ou SVG copiado nos componentes.
-- Logos de marcas não pertencem à biblioteca de ícones; devem usar assets próprios e aprovados.
+- `FlytrapIcon` é o único wrapper de renderização da UI.
+- Aliases de domínio são importados de `@flytrap/ui`.
+- O nome descreve intenção: `ApprovalIcon`, não forma ou fornecedor.
+- Ícone decorativo recebe `aria-hidden`.
+- Ícone que comunica sozinho exige `label` acessível.
+- Cor nunca é o único meio de distinguir um estado.
 
 ## Tamanhos
 
-| Tamanho | Token | Uso |
-|--|--|--|
-| `sm` | `--icon-size-sm` · 14px | status, metadata, badges |
-| `md` | `--icon-size-md` · 16px | controles, navegação e botões |
-| `lg` | `--icon-size-lg` · 20px | callouts e destaques |
+| Token | Uso |
+|--|--|
+| `foundation.icon.size.sm` | controles compactos e metadata |
+| `foundation.icon.size.md` | tamanho padrão de interface |
+| `foundation.icon.size.lg` | destaques e cabeçalhos |
+| `foundation.icon.size.xl` | estados vazios e ilustrações funcionais |
 
-Use `FlytrapIcon` para aplicar tamanho, stroke e acessibilidade:
+O traço é controlado por `foundation.icon.stroke`.
 
-```tsx
-import { FlytrapIcon, SendIcon } from "@flytrap/ui";
+## Vocabulário inicial
 
-<Button aria-label="Enviar" size="icon">
-  <FlytrapIcon icon={SendIcon} />
-</Button>
-```
+| Significado Flytrap | Alias |
+|--|--|
+| marca | `BrandIcon` |
+| inteligência | `AiAccentIcon` |
+| agente em execução | `AgentRunningIcon` |
+| chamada de ferramenta | `ToolIcon` |
+| aprovação humana | `ApprovalIcon` |
+| sucesso | `SuccessIcon` |
+| alerta | `WarningIcon` |
+| erro | `ErrorIcon` |
+| informação | `InfoIcon` |
+| envio | `SendIcon` |
+| anexo | `AttachmentIcon` |
+| link externo | `ExternalLinkIcon` |
 
-## Vocabulário semântico
+Novos aliases entram quando o significado for reutilizado ou pertencer ao domínio Flytrap. Uma tela não deve redefinir significados já registrados.
 
-| Significado Flytrap | Alias | Lucide |
-|--|--|--|
-| Marca conceitual/orgânico | `BrandIcon` | `Sprout` |
-| Agent | `AgentIcon` | `Bot` |
-| Agent executando | `AgentRunningIcon` | `LoaderCircle` |
-| Agent pausado/idle | `AgentIdleIcon` | `CirclePause` |
-| Sucesso | `SuccessIcon` | `CircleCheck` |
-| Erro | `ErrorIcon` | `CircleX` |
-| Aviso | `WarningIcon` | `TriangleAlert` |
-| Informação | `InfoIcon` | `CircleHelp` |
-| Insight AI | `InsightIcon` | `Lightbulb` |
-| Tool call | `ToolIcon` | `Wrench` |
-| Aprovação humana | `ApprovalIcon` | `ShieldCheck` |
-| Dashboard | `DashboardIcon` | `LayoutDashboard` |
-| Playground | `PlaygroundIcon` | `Activity` |
-| Enviar | `SendIcon` | `Send` |
-| Copiar | `CopyIcon` | `Clipboard` |
-| Tendência | `TrendUpIcon`, `TrendDownIcon`, `TrendNeutralIcon` | setas/minus |
-| Tema | `ThemeLightIcon`, `ThemeDarkIcon` | `Sun`, `Moon` |
+## Design e handoff
 
-Novos aliases entram apenas quando o significado for reutilizado ou fizer parte do domínio Flytrap. Ícones específicos de uma única tela podem usar import explícito do Lucide no app, mas não devem redefinir significados da tabela.
-
-## Acessibilidade
-
-- Ícone acompanhado de texto ou dentro de controle com nome acessível é decorativo; `FlytrapIcon` aplica `aria-hidden` por padrão.
-- Ícone standalone que comunica informação recebe `label`, tornando-se `role="img"`.
-- Botão apenas com ícone sempre recebe `aria-label` no `Button`, não no SVG.
-- Não comunicar success, warning ou error apenas por cor ou ícone; sempre incluir texto.
-- Animação de loading deve respeitar `prefers-reduced-motion` quando virar comportamento persistente.
-
-## Figma e código
-
-Use o plugin oficial Lucide no Figma e mantenha o nome original do ícone na layer. Na especificação, registre também o alias semântico Flytrap. Exemplo: `AgentRunningIcon / LoaderCircle`.
+No Figma, nomeie a layer pelo alias Flytrap e registre estado, tamanho e nome acessível. O handoff descreve a intenção; a biblioteca visual usada internamente não faz parte do contrato de produto.
