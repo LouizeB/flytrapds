@@ -4,19 +4,24 @@ import {
   ArrowDownRight,
   ArrowUpRight,
   Bot,
+  ChartNoAxesCombined,
   Check,
+  ChevronDown,
   CircleCheck,
   CircleHelp,
   CirclePause,
   CircleX,
   Clipboard,
+  X,
   ExternalLink,
   LayoutDashboard,
   Lightbulb,
   LoaderCircle,
+  Menu,
   Minus,
   Moon,
   Send,
+  Search,
   ShieldCheck,
   Sparkles,
   Sprout,
@@ -39,10 +44,15 @@ export const InsightIcon = Lightbulb;
 export const ToolIcon = Wrench;
 export const ApprovalIcon = ShieldCheck;
 export const DashboardIcon = LayoutDashboard;
+export const ChartIcon = ChartNoAxesCombined;
+export const MenuIcon = Menu;
+export const SearchIcon = Search;
 export const PlaygroundIcon = Activity;
 export const SendIcon = Send;
 export const CopyIcon = Clipboard;
 export const ConfirmIcon = Check;
+export const ChevronDownIcon = ChevronDown;
+export const CloseIcon = X;
 export const ExternalLinkIcon = ExternalLink;
 export const TrendUpIcon = ArrowUpRight;
 export const TrendDownIcon = ArrowDownRight;

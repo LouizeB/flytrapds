@@ -4,13 +4,13 @@
 
 **Bonito por instinto. Rigoroso por sistema.**
 
-Design system multibrand e AI-first em React 19, Tailwind CSS v4 e shadcn/ui, com acessibilidade APCA incorporada ao pipeline.
+Design system multibrand e AI-first com arquitetura semântica, componentes React e acessibilidade APCA incorporada ao pipeline.
 
 [![Quality](https://github.com/LouizeB/flytrapds/actions/workflows/ci.yml/badge.svg)](https://github.com/LouizeB/flytrapds/actions/workflows/ci.yml)
 [![Pages](https://github.com/LouizeB/flytrapds/actions/workflows/pages.yml/badge.svg)](https://github.com/LouizeB/flytrapds/actions/workflows/pages.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-F10081.svg)](LICENSE)
 
-[Site do design system](https://louizeb.github.io/flytrapds/) · [Documentação](docs/README.md) · [Inventário](docs/04-components.md) · [Roadmap](docs/11-roadmap.md) · [Contribuir](CONTRIBUTING.md)
+[Site do design system](https://louizeb.github.io/flytrapds/) · [Arquitetura semântica](architecture/README.md) · [Inventário](docs/04-components.md) · [Roadmap](docs/11-roadmap.md) · [Contribuir](CONTRIBUTING.md)
 
 </div>
 
@@ -23,17 +23,17 @@ Flytrap combina a dualidade Vênus + Dionaea: uma superfície orgânica, vibrant
 | Arquitetura | primitive → semantic → component |
 | Dimensões | brand × mode × theme |
 | Aparências | light · dark · vibrant |
-| Tokens | 177 resolvidos · fonte única DTCG |
+| Tokens | 230 resolvidos · fonte única DTCG |
 | Acessibilidade | 54 pares APCA aprovados |
-| Iconografia | Lucide com aliases semânticos Flytrap |
-| UI | React 19 · Tailwind v4 · shadcn/ui |
+| Iconografia | Aliases semânticos Flytrap |
+| UI | Componentes React orientados por tokens |
 
 ## Escolha sua trilha
 
 | Product Designers | Developers |
 |--|--|
 | Conceito, foundations e intenção semântica | Setup, pacotes e APIs React |
-| Modos, temas, anatomia e estados | DTCG, Tailwind e composição shadcn |
+| Modos, temas, anatomia e estados | DTCG, CSS e composição React |
 | Acessibilidade, inventário e handoff | Quality gates, CI/CD e deploy |
 | [Começar pela trilha de design](docs/README.md#trilha-product-design) | [Começar pela trilha de desenvolvimento](docs/README.md#trilha-development) |
 
@@ -62,6 +62,7 @@ import "@flytrap/ui/styles";
 ## Estrutura
 
 ```text
+architecture/       mapa consultivo das camadas e dimensões
 apps/
 ├── docs/          catálogo e site público
 └── dashboard/     analytics, agents e AI playground

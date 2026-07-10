@@ -1,6 +1,6 @@
 # 1. Visão geral
 
-**Flytrap** é um design system multibrand, AI-first, construído sobre React 19 + Tailwind v4 + shadcn/ui.
+**Flytrap** é um design system multibrand, AI-first, construído sobre tokens semânticos e componentes React.
 
 ## Conceito
 Tema "Venus Flytrap": dualidade Vênus (beleza, escultura, estrutura) + Dionaea (orgânico, vibrante, predatório). Estética líquida/iridescente/alien traduzida em superfície expressiva sobre arquitetura atômica rígida de tokens.
@@ -12,7 +12,7 @@ Tema "Venus Flytrap": dualidade Vênus (beleza, escultura, estrutura) + Dionaea 
 - Pipeline completo Figma → Deploy documentado.
 
 ## Stack
-- Tailwind v4 (CSS variables) + shadcn/ui
+- CSS variables geradas do contrato DTCG
 - Monorepo pnpm + Turborepo
 - Figma (design) · GitHub (source/CI) · Vercel (deploy) · Supabase (backend/RAG)
 

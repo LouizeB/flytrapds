@@ -2,7 +2,15 @@
   "$extensions": {
     "flytrap": {
       "brand": "flytrap",
-      "modes": ["light", "dark", "vibrant"]
+      "modes": ["light", "dark", "vibrant"],
+      "appearances": ["light", "dark", "vibrant"],
+      "dimensions": {
+        "brand": ["flytrap"],
+        "mode": ["light", "dark"],
+        "theme": ["default", "vibrant"],
+        "viewport": ["base", "sm", "md", "lg", "xl", "2xl"]
+      },
+      "note": "modes preserva as aparências do gerador atual; dimensions é o contrato conceitual para a evolução independente de mode e theme"
     }
   },
   "primitive": {
@@ -224,6 +232,47 @@
     }
   },
   "foundation": {
+    "breakpoint": {
+      "sm": { "$type": "dimension", "$value": "640px" },
+      "md": { "$type": "dimension", "$value": "768px" },
+      "lg": { "$type": "dimension", "$value": "1024px" },
+      "xl": { "$type": "dimension", "$value": "1280px" },
+      "2xl": { "$type": "dimension", "$value": "1536px" }
+    },
+    "border": {
+      "width": {
+        "default": { "$type": "dimension", "$value": "1px" },
+        "strong": { "$type": "dimension", "$value": "2px" }
+      }
+    },
+    "font": {
+      "family": {
+        "display": { "$type": "fontFamily", "$value": "Fira Sans" },
+        "sans": { "$type": "fontFamily", "$value": "Ubuntu Sans" },
+        "mono": { "$type": "fontFamily", "$value": "Roboto Mono" }
+      },
+      "size": {
+        "xs": { "$type": "dimension", "$value": "0.75rem" },
+        "sm": { "$type": "dimension", "$value": "0.875rem" },
+        "md": { "$type": "dimension", "$value": "1rem" },
+        "lg": { "$type": "dimension", "$value": "1.125rem" },
+        "xl": { "$type": "dimension", "$value": "1.25rem" },
+        "2xl": { "$type": "dimension", "$value": "1.5rem" },
+        "3xl": { "$type": "dimension", "$value": "1.875rem" },
+        "4xl": { "$type": "dimension", "$value": "2.25rem" }
+      },
+      "weight": {
+        "regular": { "$type": "fontWeight", "$value": 400 },
+        "medium": { "$type": "fontWeight", "$value": 500 },
+        "semibold": { "$type": "fontWeight", "$value": 600 },
+        "bold": { "$type": "fontWeight", "$value": 700 }
+      },
+      "line-height": {
+        "tight": { "$type": "number", "$value": 1.2 },
+        "normal": { "$type": "number", "$value": 1.5 },
+        "relaxed": { "$type": "number", "$value": 1.75 }
+      }
+    },
     "icon": {
       "size": {
         "sm": { "$type": "dimension", "$value": "0.875rem" },
@@ -244,6 +293,21 @@
       "fluid": { "$type": "duration", "$value": "480ms" },
       "ease-organic": { "$type": "cubicBezier", "$value": "cubic-bezier(.34,1.56,.64,1)" },
       "ease-liquid": { "$type": "cubicBezier", "$value": "cubic-bezier(.65,0,.35,1)" }
+    },
+    "space": {
+      "0": { "$type": "dimension", "$value": "0px" },
+      "1": { "$type": "dimension", "$value": "0.25rem" },
+      "2": { "$type": "dimension", "$value": "0.5rem" },
+      "3": { "$type": "dimension", "$value": "0.75rem" },
+      "4": { "$type": "dimension", "$value": "1rem" },
+      "5": { "$type": "dimension", "$value": "1.25rem" },
+      "6": { "$type": "dimension", "$value": "1.5rem" },
+      "8": { "$type": "dimension", "$value": "2rem" },
+      "10": { "$type": "dimension", "$value": "2.5rem" },
+      "12": { "$type": "dimension", "$value": "3rem" },
+      "16": { "$type": "dimension", "$value": "4rem" },
+      "20": { "$type": "dimension", "$value": "5rem" },
+      "24": { "$type": "dimension", "$value": "6rem" }
     }
   },
   "semantic": {
@@ -292,7 +356,10 @@
     "ai-thinking": { "$value": "{semantic.muted-foreground}" },
     "ai-tool-bg": { "$value": "{semantic.muted}" },
     "ai-stream-shimmer": { "$value": "{primitive.neutral.200}", "$extensions": { "modes": { "dark": "{primitive.neutral.700}", "vibrant": "{primitive.magenta.700}" } } },
-    "ai-citation": { "$value": "{primitive.magenta.600}", "$extensions": { "modes": { "dark": "{primitive.magenta.300}", "vibrant": "{primitive.acid.200}" } } }
+    "ai-citation": { "$value": "{primitive.magenta.600}", "$extensions": { "modes": { "dark": "{primitive.magenta.300}", "vibrant": "{primitive.acid.200}" } } },
+    "opacity-disabled-strong": { "$type": "number", "$value": 0.7 },
+    "opacity-disabled-default": { "$type": "number", "$value": 0.6 },
+    "opacity-disabled-subtle": { "$type": "number", "$value": 0.5 }
   },
   "component": {
     "button-primary-bg": { "$value": "{semantic.primary}" },
@@ -306,6 +373,12 @@
     "button-destructive-bg-hover": { "$value": "{semantic.destructive-hover}" },
     "button-destructive-fg": { "$value": "{semantic.destructive-foreground}" },
     "button-outline": { "$value": "{semantic.primary}" },
+    "button-primary-opacity-disabled": { "$value": "{semantic.opacity-disabled-strong}" },
+    "button-secondary-opacity-disabled": { "$value": "{semantic.opacity-disabled-default}" },
+    "button-destructive-opacity-disabled": { "$value": "{semantic.opacity-disabled-default}" },
+    "button-outline-opacity-disabled": { "$value": "{semantic.opacity-disabled-subtle}" },
+    "button-ghost-opacity-disabled": { "$value": "{semantic.opacity-disabled-subtle}" },
+    "button-link-opacity-disabled": { "$value": "{semantic.opacity-disabled-subtle}" },
     "button-radius": { "$value": "{foundation.radius.lg}" },
     "input-bg": { "$value": "{semantic.background}" },
     "input-border": { "$value": "{semantic.input}" },
@@ -321,7 +394,13 @@
     "chat-bubble-assistant-fg": { "$value": "{semantic.card-foreground}" },
     "kpi-card-bg": { "$value": "{semantic.card}" },
     "insight-bg": { "$value": "{semantic.accent}" },
-    "insight-fg": { "$value": "{semantic.accent-foreground}" }
+    "insight-fg": { "$value": "{semantic.accent-foreground}" },
+    "chart-grid": { "$value": "{semantic.border}" },
+    "chart-axis": { "$value": "{semantic.muted-foreground}" },
+    "chart-tooltip-bg": { "$value": "{semantic.popover}" },
+    "chart-tooltip-fg": { "$value": "{semantic.popover-foreground}" },
+    "chart-tooltip-border": { "$value": "{semantic.border}" },
+    "chart-radius": { "$value": "{foundation.radius.md}" }
   },
   "color": {
     "surface": {
