@@ -21,7 +21,7 @@ Fonte de verdade para retomar a evolução pós-auditoria.
 
 - [x] Decidir com design se o lima entra na escala oficial HCT ou continua exclusivamente como arte pública. Decisão: manter como arte pública; `#b8ff35` passa em dark/vibrant, mas falha no light (`Lc=0` contra superfícies claras), então não entra como token oficial do DS agora.
 - [x] Rodar uma publicação dry-run quando houver conta npm/release owner definido. Validado com `npm pack --dry-run` em `packages/ui`; pacote contém `dist`, CSS e assets, sem publicação real.
-- [ ] Capturar screenshot/auditoria visual da página pública após merge.
+- [x] Capturar screenshot/auditoria visual da página pública após merge. Validado por `pnpm visual:audit` em desktop 1440×1200 e mobile 390×1200 contra `https://louizeb.github.io/flytrapds/`; screenshots gerados localmente em `.planning/screenshots/` e relatório em `.planning/visual-audit.md`.
 
 ## Fase 3 — Próxima onda
 
