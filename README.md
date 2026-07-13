@@ -80,6 +80,8 @@ docs/               arquitetura, decisões, inventário e roadmap
 pnpm tokens:contract  # aliases, ciclos, modos e fronteiras de camada
 pnpm apca             # contraste em light, dark e vibrant
 pnpm art:contract     # cores cruas confinadas à camada artística pública
+pnpm adoption:report  # snapshot estático de adoção de componentes nos apps
+pnpm adoption:check   # garante que o snapshot versionado está atualizado
 pnpm lint
 pnpm typecheck
 pnpm test:coverage

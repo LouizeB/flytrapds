@@ -16,6 +16,8 @@
     "tokens": "pnpm -F @flytrap/tokens build",
     "tokens:contract": "python3 scripts/token_contract.py packages/tokens/src/flytrap.tokens.json",
     "art:contract": "python3 scripts/art_color_contract.py",
+    "adoption:report": "python3 scripts/component_adoption.py --output .planning/component-adoption.md",
+    "adoption:check": "python3 scripts/component_adoption.py --output .planning/component-adoption.md --check",
     "apca": "python3 scripts/apca_gate.py packages/tokens/src/flytrap.tokens.json"
   },
   "devDependencies": {
