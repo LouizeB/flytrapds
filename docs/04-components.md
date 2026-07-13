@@ -24,9 +24,12 @@ Um componente só muda para `✅` quando atende à [Definition of Done](12-compo
 | Input + Field | Default, focus, error, disabled, hint | P0 | ✅ | Usa tokens próprios de background, border, focus, error e placeholder |
 | Textarea | Default, focus, error, disabled, limite | P1 | ✅ | Compartilha contrato visual de Input e controla resize |
 | Select | Default, open, selected, disabled, error | P0 | ✅ | Primitive Radix com composição Trigger, Content, Group e Item |
+| Combobox | Search, empty, controlled, uncontrolled, disabled option | P1 | ✅ | Seleção pesquisável para listas moderadas; mantém `role="combobox"` e listbox associado |
 | Checkbox | Default, checked, indeterminate, disabled | P0 | ✅ | Primitive e composição CheckboxField com descrição |
 | RadioGroup | Default, selected, disabled | P2 | ✅ | Primitive e composição RadioGroupField com descrição |
 | Switch | On, off, disabled | P1 | ✅ | Primitive e composição SwitchField; tema continua sendo ação explícita |
+| DatePicker + DatePickerField | Native date, disabled, hint | P1 | ✅ | Controle nativo para datas sem adicionar calendário pesado prematuramente |
+| FileUpload | Single, multiple, selected files, description | P1 | ✅ | Entrada de anexos com `input[type=file]` real e anúncio dos arquivos escolhidos |
 | SearchField | Idle, typing, clearable, controlled, uncontrolled | P1 | ✅ | Busca de componentes, tokens e contexto com `role="searchbox"` e ação explícita de limpar |
 | Slider + SliderField | Range, disabled, value label, hint | P1 | ✅ | Controle nativo para densidade, intensidade, humor e preferências adaptativas |
 | PromptInput | Empty, typing, multiline, submitting, disabled, attachment | P0 | ✅ | Enter envia, Shift+Enter quebra linha e composição permanece extensível |
@@ -75,6 +78,9 @@ Um componente só muda para `✅` quando atende à [Definition of Done](12-compo
 |--|--|--:|:--:|--|
 | Sidebar | Expanded, collapsed, mobile, active item | P0 | ✅ | Provider, desktop colapsável, Sheet mobile e menu compartilhados |
 | Header | Desktop, mobile, actions | P1 | ✅ | Estrutura composável com Brand, Title e Actions |
+| Page + PageHeader | Main, title, description, constrained width | P1 | ✅ | Esqueleto semântico para páginas de produto, docs e dashboards |
+| Section + SectionHeader | Landmark section, title, description | P1 | ✅ | Bloco repetível para conteúdo documentado e telas densas |
+| Toolbar | Responsive actions, filters, search | P1 | ✅ | Barra de ações com `role="toolbar"` para filtros e comandos de página |
 | Breadcrumb | Levels, current page, custom separator | P2 | ✅ | Navegação profunda com semântica nativa |
 | Pagination | Previous, pages, next, disabled | P2 | ✅ | Registry, tabelas e logs |
 | CommandMenu | Closed, search, groups, empty | P1 | ✅ | Busca, grupos, atalhos e dialog acessível via cmdk |
@@ -87,6 +93,7 @@ Um componente só muda para `✅` quando atende à [Definition of Done](12-compo
 | AlertDialog | Default, destructive, pending | P0 | ✅ | Confirmação dedicada com Action e Cancel |
 | Sheet / Drawer | Right, left, bottom/mobile | P1 | ✅ | Dialog responsivo com quatro direções |
 | Popover | Default, action, controlled | P2 | ✅ | Conteúdo breve sem bloquear contexto |
+| DropdownMenu | Item, checkbox, radio, label, shortcut | P1 | ✅ | Menu de ações via Radix para comandos contextuais e preferências rápidas |
 
 ## Documentação e componentes do próprio DS
 

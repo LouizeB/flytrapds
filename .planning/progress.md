@@ -27,5 +27,6 @@ Fonte de verdade para retomar a evolução pós-auditoria.
 
 - [x] Ajustar a documentação Figma → DTCG para refletir o processo manual real.
 - [x] Iniciar onda de robustez Carbon/ShadCN com `Label`, `Form`, `FormField`, `FormMessage`, `SearchField`, `Slider`, `Spinner`, `InlineNotification`, `CodeBlock`, `TokenSwatch` e `ComponentPreview` em `@flytrap/ui`.
+- [x] Seguir onda de robustez com `DropdownMenu`, `Combobox`, `DatePicker`, `FileUpload`, `Page`, `Section` e `Toolbar` em `@flytrap/ui`.
 - [ ] Conectar o primeiro consumidor real do DS.
 - [x] Criar telemetria estática de adoção por componente com `pnpm adoption:report`.

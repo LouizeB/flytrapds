@@ -4,6 +4,7 @@ import {
   ArrowDownRight,
   ArrowUpRight,
   Bot,
+  Calendar,
   ChartNoAxesCombined,
   Check,
   ChevronDown,
@@ -27,6 +28,7 @@ import {
   Sprout,
   Sun,
   TriangleAlert,
+  Upload,
   Wrench,
   type LucideIcon,
   type LucideProps,
@@ -47,6 +49,8 @@ export const DashboardIcon = LayoutDashboard;
 export const ChartIcon = ChartNoAxesCombined;
 export const MenuIcon = Menu;
 export const SearchIcon = Search;
+export const CalendarIcon = Calendar;
+export const UploadIcon = Upload;
 export const PlaygroundIcon = Activity;
 export const SendIcon = Send;
 export const CopyIcon = Clipboard;
