@@ -44,6 +44,7 @@ import {
   CheckboxField,
   CitationChip,
   CodeBlock,
+  Combobox,
   ComponentPreview,
   CopyButton,
   CostTokenMeter,
@@ -63,8 +64,21 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DatePicker,
+  DatePickerField,
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuTrigger,
   EmptyState,
   Field,
+  FileUpload,
   FilterBar,
   FlytrapIcon,
   Form,
@@ -84,6 +98,10 @@ import {
   Label,
   MessageBubble,
   MessageActions,
+  Page,
+  PageDescription,
+  PageHeader,
+  PageTitle,
   Pagination,
   PaginationNext,
   PaginationPage,
@@ -97,6 +115,10 @@ import {
   PromptInput,
   ReasoningStream,
   SearchField,
+  Section,
+  SectionDescription,
+  SectionHeader,
+  SectionTitle,
   Select,
   SelectContent,
   SelectGroup,
@@ -156,6 +178,7 @@ import {
   TooltipTrigger,
   ToolCallBlock,
   RunTraceTimeline,
+  Toolbar,
   useSidebar,
 } from "../src";
 
@@ -344,6 +367,149 @@ describe("componentes Onda 1", () => {
 
     rerender(<SliderField label="Humor" />);
     expect(screen.getByRole("slider", { name: "Humor" })).toBeVisible();
+  });
+});
+
+describe("componentes Onda 2", () => {
+  const moodOptions = [
+    { value: "focus", label: "Foco" },
+    { value: "calm", label: "Calmo" },
+    { value: "energy", label: "Energia", disabled: true },
+  ];
+
+  it("seleciona Combobox por clique e anuncia a opção atual", async () => {
+    const user = userEvent.setup();
+    const onValueChange = vi.fn();
+    const { container } = render(<Combobox aria-label="Humor" defaultValue="focus" onValueChange={onValueChange} options={moodOptions} />);
+
+    expect(screen.getByRole("combobox", { name: "Humor" })).toHaveValue("Foco");
+    await user.click(screen.getByRole("button", { name: "Abrir opções" }));
+    await user.click(screen.getByRole("option", { name: "Calmo" }));
+    expect(onValueChange).toHaveBeenCalledWith("calm");
+    expect(screen.getByRole("combobox", { name: "Humor" })).toHaveValue("Calmo");
+    expect((await axe(container, { rules: { "color-contrast": { enabled: false } } })).violations).toHaveLength(0);
+  });
+
+  it("filtra Combobox, escolhe por Enter e fecha com Escape", async () => {
+    const user = userEvent.setup();
+    const onValueChange = vi.fn();
+    render(<Combobox aria-label="Modo" onValueChange={onValueChange} options={moodOptions} placeholder="Escolha um modo" />);
+    const input = screen.getByRole("combobox", { name: "Modo" });
+
+    await user.type(input, "cal");
+    expect(screen.getByRole("option", { name: "Calmo" })).toBeVisible();
+    await user.keyboard("{Enter}");
+    expect(onValueChange).toHaveBeenCalledWith("calm");
+
+    input.focus();
+    await user.keyboard("{ArrowDown}{Escape}");
+    expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+  });
+
+  it("representa Combobox vazio e modo controlado", async () => {
+    const user = userEvent.setup();
+    const { unmount } = render(<Combobox aria-label="Busca vazia" emptyMessage="Sem resultados" options={moodOptions} />);
+    await user.type(screen.getByRole("combobox", { name: "Busca vazia" }), "zzz");
+    expect(screen.getByText("Sem resultados")).toBeVisible();
+
+    unmount();
+    render(<Combobox aria-label="Controlado" onValueChange={() => {}} options={moodOptions} value="focus" />);
+    expect(screen.getByRole("combobox", { name: "Controlado" })).toHaveValue("Foco");
+  });
+
+  it("mantém Combobox controlado ao selecionar e ignora Enter sem lista disponível", async () => {
+    const user = userEvent.setup();
+    const onValueChange = vi.fn();
+    const { rerender } = render(<Combobox aria-label="Controlado" onValueChange={onValueChange} options={moodOptions} value="focus" />);
+
+    await user.click(screen.getByRole("button", { name: "Abrir opções" }));
+    await user.click(screen.getByRole("option", { name: "Calmo" }));
+    expect(onValueChange).toHaveBeenCalledWith("calm");
+    expect(screen.getByRole("combobox", { name: "Controlado" })).toHaveValue("Foco");
+
+    rerender(<Combobox aria-label="Sem disponível" options={[{ disabled: true, label: "Bloqueado", value: "blocked" }]} />);
+    const input = screen.getByRole("combobox", { name: "Sem disponível" });
+    await user.type(input, "Bloq");
+    await user.keyboard("{Enter}");
+    expect(screen.getByRole("listbox")).toBeVisible();
+  });
+
+  it("compõe DropdownMenu com item, checkbox, radio, label e atalho", async () => {
+    const user = userEvent.setup();
+    const onSelect = vi.fn();
+    const onCheckedChange = vi.fn();
+    render(<DropdownMenu>
+      <DropdownMenuTrigger asChild><Button>Menu</Button></DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuLabel>Ações</DropdownMenuLabel>
+        <DropdownMenuItem onSelect={onSelect}>Novo projeto<DropdownMenuShortcut>⌘N</DropdownMenuShortcut></DropdownMenuItem>
+        <DropdownMenuCheckboxItem checked onCheckedChange={onCheckedChange}>Mostrar grid</DropdownMenuCheckboxItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuRadioGroup value="dark">
+          <DropdownMenuRadioItem value="light">Light</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="dark">Dark</DropdownMenuRadioItem>
+        </DropdownMenuRadioGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>);
+
+    await user.click(screen.getByRole("button", { name: "Menu" }));
+    expect(screen.getByText("Ações")).toBeVisible();
+    expect(screen.getByText("⌘N")).toBeVisible();
+    expect(screen.getByRole("menuitemcheckbox", { name: "Mostrar grid" })).toHaveAttribute("aria-checked", "true");
+    expect(screen.getByRole("menuitemradio", { name: "Dark" })).toHaveAttribute("aria-checked", "true");
+    await user.click(screen.getByRole("menuitem", { name: /Novo projeto/ }));
+    expect(onSelect).toHaveBeenCalledOnce();
+  });
+
+  it("renderiza DatePicker simples e DatePickerField com descrição", () => {
+    const { rerender } = render(<DatePicker aria-label="Data" defaultValue="2026-07-13" />);
+    expect(screen.getByLabelText("Data")).toHaveValue("2026-07-13");
+
+    rerender(<DatePickerField hint="Use a data de publicação" label="Publicação" />);
+    expect(screen.getByLabelText("Publicação")).toHaveAccessibleDescription("Use a data de publicação");
+
+    rerender(<DatePickerField label="Sem dica" />);
+    expect(screen.getByLabelText("Sem dica")).not.toHaveAttribute("aria-describedby");
+  });
+
+  it("seleciona arquivos no FileUpload e suporta modo mínimo", async () => {
+    const user = userEvent.setup();
+    const onFilesChange = vi.fn();
+    const file = new File(["flytrap"], "flytrap.txt", { type: "text/plain" });
+    const { rerender } = render(<FileUpload multiple onFilesChange={onFilesChange} />);
+
+    await user.upload(screen.getByLabelText(/Selecionar arquivos/), file);
+    expect(onFilesChange).toHaveBeenCalledWith([file]);
+    expect(screen.getByText("flytrap.txt")).toBeVisible();
+
+    rerender(<FileUpload description={null} label="Anexar referência" />);
+    expect(screen.getByLabelText(/Anexar referência/)).toBeInTheDocument();
+    expect(screen.queryByText("Arraste ou selecione arquivos.")).not.toBeInTheDocument();
+
+    fireEvent.change(screen.getByLabelText(/Anexar referência/), { target: { files: null } });
+    expect(screen.queryByText("flytrap.txt")).not.toBeInTheDocument();
+  });
+
+  it("compõe Page, Section e Toolbar com hierarquia semântica", async () => {
+    const { container } = render(<Page>
+      <PageHeader>
+        <PageTitle>Componentes</PageTitle>
+        <PageDescription>Biblioteca Flytrap.</PageDescription>
+      </PageHeader>
+      <Toolbar aria-label="Ações da página"><Button>Adicionar</Button><SearchField aria-label="Buscar componente" /></Toolbar>
+      <Section aria-labelledby="section-title">
+        <SectionHeader>
+          <SectionTitle id="section-title">Inputs</SectionTitle>
+          <SectionDescription>Controles de entrada.</SectionDescription>
+        </SectionHeader>
+      </Section>
+    </Page>);
+
+    expect(screen.getByRole("main")).toBeVisible();
+    expect(screen.getByRole("heading", { level: 1, name: "Componentes" })).toBeVisible();
+    expect(screen.getByRole("toolbar", { name: "Ações da página" })).toBeVisible();
+    expect(screen.getByRole("heading", { level: 2, name: "Inputs" })).toBeVisible();
+    expect((await axe(container, { rules: { "color-contrast": { enabled: false } } })).violations).toHaveLength(0);
   });
 });
 
