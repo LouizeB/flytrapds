@@ -19,13 +19,16 @@ Um componente só muda para `✅` quando atende à [Definition of Done](12-compo
 
 | Componente | Variantes e estados | Prioridade | Status | Notas Flytrap |
 |--|--|--:|:--:|--|
+| Label | Required, optional, disabled por peer | P0 | ✅ | Rótulo base para formulários, preserva semântica nativa e marcador obrigatório visual |
+| Form + FormField + FormMessage | Hint, error, success, required, ids automáticos | P0 | ✅ | Composição acessível que associa label, mensagens e `aria-invalid` ao controle |
 | Input + Field | Default, focus, error, disabled, hint | P0 | ✅ | Usa tokens próprios de background, border, focus, error e placeholder |
 | Textarea | Default, focus, error, disabled, limite | P1 | ✅ | Compartilha contrato visual de Input e controla resize |
 | Select | Default, open, selected, disabled, error | P0 | ✅ | Primitive Radix com composição Trigger, Content, Group e Item |
 | Checkbox | Default, checked, indeterminate, disabled | P0 | ✅ | Primitive e composição CheckboxField com descrição |
 | RadioGroup | Default, selected, disabled | P2 | ✅ | Primitive e composição RadioGroupField com descrição |
 | Switch | On, off, disabled | P1 | ✅ | Primitive e composição SwitchField; tema continua sendo ação explícita |
-| SearchInput | Idle, typing, loading, results, empty | P1 | ⬜ | Busca de componentes e contexto do DS |
+| SearchField | Idle, typing, clearable, controlled, uncontrolled | P1 | ✅ | Busca de componentes, tokens e contexto com `role="searchbox"` e ação explícita de limpar |
+| Slider + SliderField | Range, disabled, value label, hint | P1 | ✅ | Controle nativo para densidade, intensidade, humor e preferências adaptativas |
 | PromptInput | Empty, typing, multiline, submitting, disabled, attachment | P0 | ✅ | Enter envia, Shift+Enter quebra linha e composição permanece extensível |
 
 ## Botões e ações
@@ -57,8 +60,10 @@ Um componente só muda para `✅` quando atende à [Definition of Done](12-compo
 |--|--|--:|:--:|--|
 | Badge | Default, secondary, outline, success, warning, destructive | P0 | ✅ | Falta avaliar variantes numérica e dot |
 | Progress | Determinate, zero, complete | P0 | ✅ | Indeterminate fica para Skeleton/Spinner |
+| Spinner | sm, md, lg; live status | P0 | ✅ | Feedback indeterminado com label acessível e respeito a reduced motion |
 | InsightCallout | Info, success, warning | P0 | ✅ | Composição AI para recomendações contextuais |
 | Alert | Info, success, warning, error; dismissible | P0 | ✅ | Feedback persistente com papéis semânticos |
+| InlineNotification | Info, success, warning, error, action | P1 | ✅ | Feedback contextual dentro da página; erro usa `role="alert"` e demais estados usam `status` |
 | Skeleton | Text, avatar, card, chart | P0 | ✅ | Shapes reutilizáveis e respeito a reduced motion |
 | EmptyState | No data, no results, first use, action | P0 | ✅ | Composição genérica com ícone, descrição e ação |
 | Toast | Success, error, warning, info, action | P1 | ✅ | Primitive Radix; não usar para erros que exigem correção no contexto |
@@ -82,6 +87,14 @@ Um componente só muda para `✅` quando atende à [Definition of Done](12-compo
 | AlertDialog | Default, destructive, pending | P0 | ✅ | Confirmação dedicada com Action e Cancel |
 | Sheet / Drawer | Right, left, bottom/mobile | P1 | ✅ | Dialog responsivo com quatro direções |
 | Popover | Default, action, controlled | P2 | ✅ | Conteúdo breve sem bloquear contexto |
+
+## Documentação e componentes do próprio DS
+
+| Componente | Variantes e estados | Prioridade | Status | Notas Flytrap |
+|--|--|--:|:--:|--|
+| CodeBlock | Filename, linguagem, modo mínimo | P1 | ✅ | Snippets de uso para docs, guides e páginas de componente |
+| TokenSwatch | Nome, valor, descrição | P1 | ✅ | Documenta primitives/semantic/component tokens sem hardcode visual na página |
+| ComponentPreview | Título, descrição, preview, código | P1 | ✅ | Bloco base para documentação estilo Carbon/ShadCN com exemplo vivo e snippet |
 
 ## AI — Agents
 
@@ -153,6 +166,8 @@ Um componente só muda para `✅` quando atende à [Definition of Done](12-compo
 - [x] Select e Checkbox
 - [x] Tabs e Tooltip
 - [x] Alert, Skeleton e EmptyState
+- [x] Label, FormField, SearchField, Slider, Spinner e InlineNotification
+- [x] CodeBlock, TokenSwatch e ComponentPreview para documentação robusta
 - [x] Sidebar compartilhada
 - [x] Dialog e AlertDialog
 

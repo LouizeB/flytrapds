@@ -43,6 +43,8 @@ import {
   ChatThread,
   CheckboxField,
   CitationChip,
+  CodeBlock,
+  ComponentPreview,
   CopyButton,
   CostTokenMeter,
   Command,
@@ -65,6 +67,9 @@ import {
   Field,
   FilterBar,
   FlytrapIcon,
+  Form,
+  FormField,
+  FormMessage,
   Header,
   HeaderActions,
   HeaderBrand,
@@ -74,7 +79,9 @@ import {
   AiAvatar,
   Input,
   InsightCallout,
+  InlineNotification,
   KpiStatCard,
+  Label,
   MessageBubble,
   MessageActions,
   Pagination,
@@ -89,6 +96,7 @@ import {
   PopoverTrigger,
   PromptInput,
   ReasoningStream,
+  SearchField,
   Select,
   SelectContent,
   SelectGroup,
@@ -121,6 +129,9 @@ import {
   SidebarProvider,
   SidebarTrigger,
   Skeleton,
+  Slider,
+  SliderField,
+  Spinner,
   SuccessIcon,
   SwitchField,
   Tabs,
@@ -138,6 +149,7 @@ import {
   StreamingMessage,
   SuggestedPrompts,
   SmartDataTable,
+  TokenSwatch,
   Tooltip,
   TooltipContent,
   TooltipProvider,
@@ -183,6 +195,155 @@ describe("componentes de formulário", () => {
     </form>);
 
     expect((await axe(container, { rules: { "color-contrast": { enabled: false } } })).violations).toHaveLength(0);
+  });
+});
+
+describe("componentes Onda 1", () => {
+  it("compõe Label com obrigatório e texto opcional", () => {
+    const { rerender } = render(<Label htmlFor="name" required>Nome</Label>);
+    expect(screen.getByText("*")).toHaveAttribute("aria-hidden", "true");
+
+    rerender(<Label htmlFor="alias" optionalText="Opcional">Alias</Label>);
+    expect(screen.getByText("Opcional")).toBeVisible();
+  });
+
+  it("associa FormField a controle, mensagens e estado inválido", async () => {
+    const { container, rerender } = render(<Form aria-label="Perfil">
+      <FormField error="Informe um nome" hint="Use seu nome público" label="Nome" required success="Tudo certo">
+        <Input aria-describedby="native-help" id="name" />
+      </FormField>
+    </Form>);
+
+    const input = screen.getByLabelText(/^Nome/);
+    expect(input).toHaveAttribute("id", "name");
+    expect(input).toHaveAttribute("aria-invalid", "true");
+    expect(input).toHaveAttribute("aria-describedby", expect.stringContaining("native-help"));
+    expect(screen.getByRole("alert")).toHaveTextContent("Informe um nome");
+    expect(screen.queryByText("Tudo certo")).not.toBeInTheDocument();
+    expect((await axe(container, { rules: { "color-contrast": { enabled: false } } })).violations).toHaveLength(0);
+
+    rerender(<FormField hint="Ajuda" label="Código" success="Disponível"><Input /></FormField>);
+    expect(screen.getByText("Disponível")).toBeVisible();
+    expect(screen.getByLabelText("Código")).not.toHaveAttribute("aria-invalid");
+
+    rerender(<FormField label="Sem mensagens"><Input /></FormField>);
+    expect(screen.getByLabelText("Sem mensagens")).not.toHaveAttribute("aria-describedby");
+
+    rerender(<FormField label="Conteúdo livre">Texto sem controle</FormField>);
+    expect(screen.getByText("Conteúdo livre")).toBeVisible();
+    expect(screen.getByText("Texto sem controle")).toBeVisible();
+  });
+
+  it.each([
+    ["hint", "Dica"],
+    ["error", "Erro"],
+    ["success", "Sucesso"],
+  ] as const)("renderiza FormMessage no tom %s", (tone, text) => {
+    render(<FormMessage tone={tone}>{text}</FormMessage>);
+    expect(screen.getByText(text)).toBeVisible();
+  });
+
+  it.each([
+    ["sm", "Carregando rápido"],
+    ["md", "Carregando"],
+    ["lg", "Carregando tudo"],
+  ] as const)("expõe Spinner acessível no tamanho %s", (size, label) => {
+    render(<Spinner label={label} size={size} />);
+    expect(screen.getByRole("status", { name: label })).toBeVisible();
+  });
+
+  it.each([
+    ["info", "status"],
+    ["success", "status"],
+    ["warning", "status"],
+    ["error", "alert"],
+  ] as const)("renderiza InlineNotification %s com role %s", async (variant, role) => {
+    const { container } = render(<InlineNotification action={<Button size="sm">Ver</Button>} title="Sincronização" variant={variant}>Mensagem do sistema.</InlineNotification>);
+    expect(screen.getByRole(role)).toHaveTextContent("Sincronização");
+    expect(screen.getByRole("button", { name: "Ver" })).toBeVisible();
+    expect((await axe(container, { rules: { "color-contrast": { enabled: false } } })).violations).toHaveLength(0);
+  });
+
+  it("recorre à notificação informativa quando variante é nula e aceita conteúdo mínimo", () => {
+    const { rerender } = render(<InlineNotification variant={null}>Somente descrição.</InlineNotification>);
+    expect(screen.getByRole("status")).toHaveTextContent("Somente descrição.");
+
+    rerender(<InlineNotification title="Somente título" />);
+    expect(screen.getByRole("status")).toHaveTextContent("Somente título");
+  });
+
+  it("renderiza CodeBlock com metadados e modo mínimo", () => {
+    const { rerender } = render(<CodeBlock code="<Button />" filename="button.tsx" language="tsx" />);
+    expect(screen.getByText("button.tsx")).toBeVisible();
+    expect(screen.getByText("<Button />")).toBeVisible();
+
+    rerender(<CodeBlock code="plain" language="" />);
+    expect(screen.queryByText("Snippet")).not.toBeInTheDocument();
+    expect(screen.getByText("plain")).toBeVisible();
+  });
+
+  it("documenta tokens com swatch, valor e descrição opcional", () => {
+    const { rerender } = render(<TokenSwatch description="Acento primário" name="color.primary" value="var(--primary)" />);
+    expect(screen.getByText("color.primary")).toBeVisible();
+    expect(screen.getByText("Acento primário")).toBeVisible();
+
+    rerender(<TokenSwatch name="color.surface" value="#05060a" />);
+    expect(screen.getByText("#05060a")).toBeVisible();
+  });
+
+  it("compõe ComponentPreview com preview, descrição e código", () => {
+    const { rerender } = render(<ComponentPreview code="<Button>Salvar</Button>" description="Exemplo interativo" preview={<Button>Salvar</Button>} title="Button" />);
+    expect(screen.getByRole("heading", { name: "Button" })).toBeVisible();
+    expect(screen.getByText("Exemplo interativo")).toBeVisible();
+    expect(screen.getByText("<Button>Salvar</Button>")).toBeVisible();
+
+    rerender(<ComponentPreview preview={<Badge>Beta</Badge>} title="Badge" />);
+    expect(screen.getByRole("heading", { name: "Badge" })).toBeVisible();
+    expect(screen.queryByText("Exemplo interativo")).not.toBeInTheDocument();
+  });
+
+  it("limpa SearchField não controlado e chama onClear em modo controlado", async () => {
+    const user = userEvent.setup();
+    const onClear = vi.fn();
+    const { rerender } = render(<SearchField aria-label="Buscar componentes" defaultValue="button" />);
+
+    await user.click(screen.getByRole("button", { name: "Limpar busca" }));
+    expect(screen.getByRole("searchbox", { name: "Buscar componentes" })).toHaveValue("");
+    expect(screen.queryByRole("button", { name: "Limpar busca" })).not.toBeInTheDocument();
+
+    rerender(<SearchField aria-label="Buscar tokens" clearLabel="Limpar tokens" onClear={onClear} value="color" />);
+    await user.click(screen.getByRole("button", { name: "Limpar tokens" }));
+    expect(onClear).toHaveBeenCalledOnce();
+  });
+
+  it("atualiza SearchField por digitação", async () => {
+    const user = userEvent.setup();
+    const onChange = vi.fn();
+    const { unmount } = render(<SearchField aria-label="Buscar" onChange={onChange} />);
+    await user.type(screen.getByRole("searchbox", { name: "Buscar" }), "tokens");
+    expect(onChange).toHaveBeenCalled();
+    expect(screen.getByRole("button", { name: "Limpar busca" })).toBeVisible();
+
+    unmount();
+    const empty = render(<SearchField aria-label="Vazio" />);
+    expect(screen.queryByRole("button", { name: "Limpar busca" })).not.toBeInTheDocument();
+
+    empty.rerender(<SearchField aria-label="Controlado" readOnly value="token" />);
+    fireEvent.change(screen.getByRole("searchbox", { name: "Controlado" }), { target: { value: "tokens" } });
+    expect(screen.getByRole("searchbox", { name: "Controlado" })).toHaveValue("token");
+  });
+
+  it("renderiza Slider e SliderField com valor e descrição", () => {
+    const { rerender } = render(<Slider aria-label="Intensidade" valueLabel="42%" />);
+    expect(screen.getByRole("slider", { name: "Intensidade" })).toBeVisible();
+    expect(screen.getByText("42%")).toBeVisible();
+
+    rerender(<SliderField hint="Ajusta a densidade da interface" label="Densidade" valueLabel="Alta" />);
+    expect(screen.getByRole("slider", { name: "Densidade" })).toHaveAccessibleDescription("Ajusta a densidade da interface");
+    expect(screen.getByText("Alta")).toBeVisible();
+
+    rerender(<SliderField label="Humor" />);
+    expect(screen.getByRole("slider", { name: "Humor" })).toBeVisible();
   });
 });
 
