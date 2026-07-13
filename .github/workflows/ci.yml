@@ -51,6 +51,9 @@ jobs:
       - name: Validate public art color boundary
         run: pnpm art:contract
 
+      - name: Validate component adoption snapshot
+        run: pnpm adoption:check
+
       - name: Lint
         run: pnpm lint
 

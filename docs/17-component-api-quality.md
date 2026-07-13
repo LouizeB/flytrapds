@@ -39,6 +39,7 @@ pnpm build
 pnpm tokens:contract
 pnpm apca
 pnpm art:contract
+pnpm adoption:check
 ```
 
 Os testes automatizados cobrem componentes fundamentais em light, dark e vibrant. Contraste cromático continua sob responsabilidade do gate APCA, pois jsdom não calcula layout e cor renderizada com fidelidade.

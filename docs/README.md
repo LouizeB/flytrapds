@@ -63,5 +63,6 @@ Perguntas que esta trilha responde: qual pacote importar? Onde o código deve vi
 17. [Assets de marca e avatar](16-brand-assets.md)
 18. [API e qualidade dos componentes](17-component-api-quality.md)
 19. [Distribuição e versionamento](18-distribution.md)
+20. [Sincronização design → código](19-design-code-sync.md)
 
 Contribuição: [CONTRIBUTING](../CONTRIBUTING.md) · Histórico: [CHANGELOG](../CHANGELOG.md)

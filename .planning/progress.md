@@ -25,6 +25,6 @@ Fonte de verdade para retomar a evolução pós-auditoria.
 
 ## Fase 3 — Próxima onda
 
-- [ ] Materializar Figma → DTCG com export versionado ou ajustar a documentação para o processo manual real.
+- [x] Ajustar a documentação Figma → DTCG para refletir o processo manual real.
 - [ ] Conectar o primeiro consumidor real do DS.
-- [ ] Criar telemetria de adoção por componente.
+- [x] Criar telemetria estática de adoção por componente com `pnpm adoption:report`.

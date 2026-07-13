@@ -33,4 +33,6 @@ Os breakpoints vivem em `foundation.breakpoint` e são emitidos como `--breakpoi
 
 ## Pipeline multibrand
 
-Figma (collection por brand e modos) → Tokens Studio → DTCG versionado → token_contract + apca_gate → `build.mjs` → Tailwind build.
+Arquitetura-alvo: Figma (collection por brand e modos) → Tokens Studio → DTCG versionado → token_contract + apca_gate → `build.mjs` → Tailwind build.
+
+Estado atual: o DTCG versionado em `packages/tokens/src/flytrap.tokens.json` é a fonte executável de verdade. A reconciliação com Figma ainda é manual e deve seguir [Sincronização design → código](19-design-code-sync.md) até existir export versionado do Tokens Studio e check de drift no CI.
