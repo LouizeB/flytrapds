@@ -17,3 +17,4 @@
 | 13 | `@flytrap/ui` como dono dos componentes compartilhados | impede forks divergentes entre docs e dashboard |
 | 14 | **Aliases iconográficos semânticos Flytrap** | consistência entre Figma e código sem acoplar significado ao fornecedor |
 | 15 | Contexto de IA como **contrato compacto** | agentes reutilizam componentes e intenção sem receber o repositório inteiro nem inventar primitives |
+| 16 | Lima `#b8ff35` confinado à **camada de arte do site** (`apps/docs/src/site.css` e `living/*`) | não pertence à ramp HCT `acid` nem passou por gate APCA; o DS usa `--ring` (validado) para foco; integração à escala é decisão de design pendente (Fase 2 da auditoria) |
