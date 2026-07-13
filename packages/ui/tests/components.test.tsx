@@ -25,7 +25,10 @@ import {
   Avatar,
   AvatarFallback,
   Badge,
+  BrandIcon,
   Button,
+  ButtonGroup,
+  ButtonGroupItem,
   BrandLockup,
   BrandMark,
   Breadcrumb,
@@ -66,6 +69,10 @@ import {
   DialogTrigger,
   DatePicker,
   DatePickerField,
+  DataList,
+  DataListDescription,
+  DataListItem,
+  DataListTerm,
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
@@ -94,6 +101,7 @@ import {
   Input,
   InsightCallout,
   InlineNotification,
+  InteractiveCard,
   KpiStatCard,
   Label,
   MessageBubble,
@@ -154,6 +162,8 @@ import {
   Slider,
   SliderField,
   Spinner,
+  Stack,
+  StatusIndicator,
   SuccessIcon,
   SwitchField,
   Tabs,
@@ -178,8 +188,14 @@ import {
   TooltipTrigger,
   ToolCallBlock,
   RunTraceTimeline,
+  Timeline,
+  TimelineItem,
   Toolbar,
+  TreeItem,
+  TreeView,
   useSidebar,
+  Container,
+  Grid,
 } from "../src";
 
 describe("componentes de formulário", () => {
@@ -510,6 +526,125 @@ describe("componentes Onda 2", () => {
     expect(screen.getByRole("toolbar", { name: "Ações da página" })).toBeVisible();
     expect(screen.getByRole("heading", { level: 2, name: "Inputs" })).toBeVisible();
     expect((await axe(container, { rules: { "color-contrast": { enabled: false } } })).violations).toHaveLength(0);
+  });
+});
+
+describe("componentes Onda 3", () => {
+  it("compõe Container, Stack e Grid responsivos", () => {
+    render(<Container>
+      <Stack gap="lg">
+        <Grid columns={4}>
+          <span>Um</span>
+          <span>Dois</span>
+        </Grid>
+      </Stack>
+    </Container>);
+
+    expect(screen.getByText("Um").parentElement).toHaveAttribute("data-slot", "grid");
+    expect(screen.getByText("Dois").closest("[data-slot='container']")).toBeInTheDocument();
+  });
+
+  it.each(["sm", "md", "lg"] as const)("renderiza Stack com gap %s", (gap) => {
+    const { container } = render(<Stack gap={gap}>Conteúdo</Stack>);
+    expect(container.querySelector("[data-slot='stack']")).toBeInTheDocument();
+  });
+
+  it.each([1, 2, 3, 4] as const)("renderiza Grid com %i colunas", (columns) => {
+    const { container } = render(<Grid columns={columns}>Conteúdo</Grid>);
+    expect(container.querySelector("[data-slot='grid']")).toBeInTheDocument();
+  });
+
+  it("agrupa ações segmentadas com estado pressionado", async () => {
+    const user = userEvent.setup();
+    const onClick = vi.fn();
+    render(<ButtonGroup aria-label="Visualização">
+      <ButtonGroupItem selected>Lista</ButtonGroupItem>
+      <ButtonGroupItem onClick={onClick}>Grade</ButtonGroupItem>
+      <ButtonGroupItem disabled>Mapa</ButtonGroupItem>
+    </ButtonGroup>);
+
+    expect(screen.getByRole("group", { name: "Visualização" })).toBeVisible();
+    expect(screen.getByRole("button", { name: "Lista" })).toHaveAttribute("aria-pressed", "true");
+    expect(screen.getByRole("button", { name: "Mapa" })).toBeDisabled();
+    await user.click(screen.getByRole("button", { name: "Grade" }));
+    expect(onClick).toHaveBeenCalledOnce();
+  });
+
+  it("renderiza InteractiveCard selecionável com ícone, descrição e conteúdo", async () => {
+    const { container, rerender } = render(<InteractiveCard description="Organismo reutilizável" heading="Componentes" icon={BrandIcon} selected>Use em telas densas.</InteractiveCard>);
+
+    expect(screen.getByRole("button", { name: /Componentes/ })).toHaveAttribute("aria-pressed", "true");
+    expect(screen.getByText("Organismo reutilizável")).toBeVisible();
+    expect(screen.getByText("Use em telas densas.")).toBeVisible();
+    expect((await axe(container, { rules: { "color-contrast": { enabled: false } } })).violations).toHaveLength(0);
+
+    rerender(<InteractiveCard heading="Tokens" />);
+    expect(screen.getByRole("button", { name: "Tokens" })).toHaveAttribute("aria-pressed", "false");
+  });
+
+  it("compõe DataList com termos e descrições", () => {
+    render(<DataList>
+      <DataListItem>
+        <DataListTerm>Status</DataListTerm>
+        <DataListDescription>Sincronizado</DataListDescription>
+      </DataListItem>
+    </DataList>);
+
+    expect(screen.getByText("Status").tagName).toBe("DT");
+    expect(screen.getByText("Sincronizado").tagName).toBe("DD");
+  });
+
+  it.each([
+    ["neutral", "Neutro"],
+    ["info", "Informativo"],
+    ["success", "Concluído"],
+    ["warning", "Atenção"],
+    ["error", "Erro"],
+  ] as const)("renderiza StatusIndicator %s", (tone, label) => {
+    render(<StatusIndicator tone={tone}>{label}</StatusIndicator>);
+    expect(screen.getByRole("status")).toHaveTextContent(label);
+  });
+
+  it("renderiza StatusIndicator apenas com label visualmente oculto", () => {
+    render(<StatusIndicator tone="success" />);
+    expect(screen.getByRole("status")).toHaveTextContent("success");
+  });
+
+  it.each([
+    ["neutral", "Criado"],
+    ["info", "Em análise"],
+    ["success", "Publicado"],
+    ["warning", "Revisar"],
+    ["error", "Falhou"],
+  ] as const)("renderiza TimelineItem %s", (tone, title) => {
+    render(<Timeline><TimelineItem description="Detalhe do evento" meta="agora" title={title} tone={tone} /></Timeline>);
+    expect(screen.getByText(title)).toBeVisible();
+    expect(screen.getByText("Detalhe do evento")).toBeVisible();
+    expect(screen.getByText("agora")).toBeVisible();
+  });
+
+  it("renderiza TimelineItem mínimo", () => {
+    render(<Timeline><TimelineItem title="Sem detalhes" /></Timeline>);
+    expect(screen.getByText("Sem detalhes")).toBeVisible();
+  });
+
+  it("representa TreeView com item expandido, selecionado e desabilitado", async () => {
+    const { container, rerender } = render(<TreeView aria-label="Arquitetura">
+      <TreeItem expanded label="Components" selected>
+        <TreeItem label="Button" />
+      </TreeItem>
+      <TreeItem disabled label="Deprecated" />
+    </TreeView>);
+
+    expect(screen.getByRole("tree", { name: "Arquitetura" })).toBeVisible();
+    expect(screen.getByRole("treeitem", { name: "Components" })).toHaveAttribute("aria-expanded", "true");
+    expect(screen.getByRole("treeitem", { name: "Components" })).toHaveAttribute("aria-selected", "true");
+    expect(screen.getByRole("treeitem", { name: "Deprecated" })).toHaveAttribute("aria-disabled", "true");
+    expect(screen.getByRole("treeitem", { name: "Button" })).toBeVisible();
+    expect((await axe(container, { rules: { "color-contrast": { enabled: false } } })).violations).toHaveLength(0);
+
+    rerender(<TreeView aria-label="Fechada"><TreeItem expanded={false} label="Components"><TreeItem label="Button" /></TreeItem></TreeView>);
+    expect(screen.queryByRole("treeitem", { name: "Button" })).not.toBeInTheDocument();
   });
 });
 

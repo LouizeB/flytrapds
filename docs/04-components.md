@@ -41,7 +41,7 @@ Um componente só muda para `✅` quando atende à [Definition of Done](12-compo
 | Button | Default, secondary, destructive, outline, ghost, link; hover, focus, active, disabled | P0 | ✅ | Estados principais conectados a component tokens e APCA |
 | Button loading | Loading, label preservado, progress announcement | P0 | ✅ | `loading` bloqueia interação, mantém o label e anuncia progresso |
 | IconButton | Default, hover, focus, disabled | P0 | ✅ | API própria exige `label` e aplica `size="icon"` |
-| ButtonGroup | Horizontal, segmented, responsive | P2 | ⬜ | Útil para filtros compactos |
+| ButtonGroup | Horizontal, segmented, selected, disabled | P2 | ✅ | Grupo semântico para filtros compactos e alternância de visualização |
 | CopyButton | Idle, copied | P1 | ✅ | Clipboard nativo ou adaptador injetável para código, tokens e snippets |
 | HumanApprovalAction | Approve, reject, pending, expired | P1 | ⬜ | Ação crítica de agentes; exige confirmação e rastreabilidade |
 
@@ -50,8 +50,9 @@ Um componente só muda para `✅` quando atende à [Definition of Done](12-compo
 | Componente | Variantes e estados | Prioridade | Status | Notas Flytrap |
 |--|--|--:|:--:|--|
 | Card | Header, title, description, content, footer | P0 | ✅ | Container base por composição |
-| InteractiveCard | Default, hover, focus, selected, disabled | P1 | ⬜ | Não transformar Card estático em botão sem semântica correta |
+| InteractiveCard | Default, hover, focus, selected, disabled | P1 | ✅ | Card acionável renderizado como botão real, com `aria-pressed` quando selecionado |
 | KpiStatCard | Delta up, down, neutral; loading | P0 | ✅ | Dashboard e telemetria de adoção |
+| DataList | Term, description, responsive rows | P1 | ✅ | Pares de metadados, propriedades de tokens e detalhes de componentes com semântica `dl` |
 | Accordion | Closed, open, disabled | P2 | ✅ | Disclosure nativo com foco visível |
 | Tabs | Active, inactive, focus, disabled | P0 | ✅ | Navegação por teclado via Radix |
 | Separator | Horizontal, vertical | P2 | ✅ | Decorativo por padrão; aceita semântica quando necessária |
@@ -64,6 +65,7 @@ Um componente só muda para `✅` quando atende à [Definition of Done](12-compo
 | Badge | Default, secondary, outline, success, warning, destructive | P0 | ✅ | Falta avaliar variantes numérica e dot |
 | Progress | Determinate, zero, complete | P0 | ✅ | Indeterminate fica para Skeleton/Spinner |
 | Spinner | sm, md, lg; live status | P0 | ✅ | Feedback indeterminado com label acessível e respeito a reduced motion |
+| StatusIndicator | Neutral, info, success, warning, error | P1 | ✅ | Sinal compacto com `role="status"` para saúde do sistema, sync e estados operacionais |
 | InsightCallout | Info, success, warning | P0 | ✅ | Composição AI para recomendações contextuais |
 | Alert | Info, success, warning, error; dismissible | P0 | ✅ | Feedback persistente com papéis semânticos |
 | InlineNotification | Info, success, warning, error, action | P1 | ✅ | Feedback contextual dentro da página; erro usa `role="alert"` e demais estados usam `status` |
@@ -78,12 +80,15 @@ Um componente só muda para `✅` quando atende à [Definition of Done](12-compo
 |--|--|--:|:--:|--|
 | Sidebar | Expanded, collapsed, mobile, active item | P0 | ✅ | Provider, desktop colapsável, Sheet mobile e menu compartilhados |
 | Header | Desktop, mobile, actions | P1 | ✅ | Estrutura composável com Brand, Title e Actions |
+| Container + Stack + Grid | Width constraint, vertical rhythm, responsive columns | P1 | ✅ | Primitives de layout para reduzir CSS específico em produtos e docs |
 | Page + PageHeader | Main, title, description, constrained width | P1 | ✅ | Esqueleto semântico para páginas de produto, docs e dashboards |
 | Section + SectionHeader | Landmark section, title, description | P1 | ✅ | Bloco repetível para conteúdo documentado e telas densas |
 | Toolbar | Responsive actions, filters, search | P1 | ✅ | Barra de ações com `role="toolbar"` para filtros e comandos de página |
 | Breadcrumb | Levels, current page, custom separator | P2 | ✅ | Navegação profunda com semântica nativa |
 | Pagination | Previous, pages, next, disabled | P2 | ✅ | Registry, tabelas e logs |
 | CommandMenu | Closed, search, groups, empty | P1 | ✅ | Busca, grupos, atalhos e dialog acessível via cmdk |
+| Timeline | Tone, title, description, meta | P1 | ✅ | Histórico de eventos, releases, auditorias e execuções com estrutura ordenada |
+| TreeView | Expanded, selected, disabled, nested group | P1 | ✅ | Navegação hierárquica para anatomia, arquivos e estruturas de componentes |
 
 ## Overlays
 
