@@ -15,15 +15,20 @@ import {
   Clipboard,
   X,
   ExternalLink,
+  Heart,
   LayoutDashboard,
   Lightbulb,
   LoaderCircle,
   Menu,
   Minus,
   Moon,
+  Pause,
+  Play,
   Send,
   Search,
   ShieldCheck,
+  SkipBack,
+  SkipForward,
   Sparkles,
   Sprout,
   Sun,
@@ -58,6 +63,11 @@ export const ConfirmIcon = Check;
 export const ChevronDownIcon = ChevronDown;
 export const CloseIcon = X;
 export const ExternalLinkIcon = ExternalLink;
+export const HeartIcon = Heart;
+export const PlayIcon = Play;
+export const PauseIcon = Pause;
+export const PreviousIcon = SkipBack;
+export const NextIcon = SkipForward;
 export const TrendUpIcon = ArrowUpRight;
 export const TrendDownIcon = ArrowDownRight;
 export const TrendNeutralIcon = Minus;

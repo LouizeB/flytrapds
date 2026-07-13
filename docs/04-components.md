@@ -136,6 +136,18 @@ Um componente só muda para `✅` quando atende à [Definition of Done](12-compo
 | AttachmentPreview | Uploading, ready, error, remove | P2 | ⬜ | Só entra quando o backend aceitar anexos |
 | ModelSelector | Default, unavailable, capability hint | P2 | ⬜ | Adiar enquanto a Edge Function tiver um único modelo suportado |
 
+## Streaming, humor e personalização
+
+| Componente | Variantes e estados | Prioridade | Status | Notas Flytrap |
+|--|--|--:|:--:|--|
+| MoodSignal | Calm, focus, energy, melancholy; meter 0–100 | P1 | ✅ | Sinal biométrico/afetivo normalizado para explicar adaptação da experiência |
+| MoodSelector | Controlled, uncontrolled, disabled option, tone variants | P1 | ✅ | Seleção explícita de humor com semântica de radiogroup |
+| MediaCard | Image, fallback, active, badge, duration, action | P1 | ✅ | Unidade de conteúdo recomendável para rails, playlists e curadoria AI |
+| RecommendationRail | With cards, empty, description | P1 | ✅ | Trilho horizontal para recomendações inteligentes contextualizadas |
+| PlayerControls | Play, pause, previous, next, disabled, progress | P1 | ✅ | Controle base para preview/playback com progresso acessível |
+| ModelConfidence | Default/custom label, description, meter 0–100 | P1 | ✅ | Transparência sobre confiança da recomendação sem falsa precisão |
+| PersonalizationPanel | Mood, confidence, signals, action | P1 | ✅ | Painel explicável de como a IA está moldando a sessão |
+
 ## Dashboard e dataviz
 
 | Componente | Variantes e estados | Prioridade | Status | Notas Flytrap |
