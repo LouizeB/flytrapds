@@ -7,13 +7,21 @@ import {
   Badge,
   BrandIcon,
   Button,
+  ButtonGroup,
+  ButtonGroupItem,
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
   ChartIcon,
+  Combobox,
   DashboardIcon,
+  DataList,
+  DataListDescription,
+  DataListItem,
+  DataListTerm,
+  DatePickerField,
   Dialog,
   DialogContent,
   DialogDescription,
@@ -21,19 +29,42 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
   ErrorIcon,
   Field,
+  FileUpload,
   FlytrapIcon,
+  InlineNotification,
   Input,
   InsightIcon,
+  InteractiveCard,
   MenuIcon,
+  MediaCard,
+  ModelConfidence,
+  MoodSelector,
+  MoodSignal,
+  PersonalizationPanel,
+  PlayerControls,
   Progress,
+  RecommendationRail,
   SearchIcon,
+  SearchField,
   SendIcon,
+  SliderField,
   SmartDataTable,
+  StatusIndicator,
   SuccessIcon,
   SwitchField,
+  Timeline,
+  TimelineItem,
   ToolIcon,
+  TreeItem,
+  TreeView,
 } from "@flytrap/ui";
 import "@flytrap/ui/styles";
 import "./site.css";
@@ -84,6 +115,32 @@ const workflowCards = [
   { icon: ToolIcon, title: "Refactor", description: "Melhore a estrutura automaticamente sem quebrar o contrato semântico." },
   { icon: BrandIcon, title: "Document", description: "Gere documentação viva instantaneamente a partir do código." },
 ] as const;
+
+const comboboxOptions: React.ComponentProps<typeof Combobox>["options"] = [
+  { value: "foundation", label: "Foundations" },
+  { value: "tokens", label: "Tokens" },
+  { value: "components", label: "Components" },
+  { value: "streaming", label: "Streaming AI" },
+];
+
+const moodOptions: React.ComponentProps<typeof MoodSelector>["options"] = [
+  { value: "calm", label: "Calm", tone: "calm", description: "Reduz estímulo e favorece descobertas suaves." },
+  { value: "focus", label: "Focus", tone: "focus", description: "Prioriza continuidade, clareza e próxima ação." },
+  { value: "energy", label: "Energy", tone: "energy", description: "Aumenta ritmo, contraste e recomendações pulsantes." },
+  { value: "melancholy", label: "Noir", tone: "melancholy", description: "Curadoria contemplativa e atmosfera mais profunda." },
+];
+
+const recommendationCards: Array<{
+  active?: boolean;
+  badge: string;
+  duration: string;
+  subtitle: string;
+  title: string;
+}> = [
+  { title: "Bio-signal playlist", subtitle: "Sequência ajustada ao humor detectado.", duration: "24m", badge: "AI", active: true },
+  { title: "Neon garden", subtitle: "Conteúdo visual para desacelerar sem perder presença.", duration: "11m", badge: "Calm" },
+  { title: "Pulse protocol", subtitle: "Recomendação de alta energia com transições rápidas.", duration: "18m", badge: "Energy" },
+];
 
 function getInitialAppearance(): Appearance {
   if (typeof window === "undefined") return "dark";
@@ -370,6 +427,127 @@ function App() {
                       </DialogContent>
                     </Dialog>
                   </ComponentPreview>
+                </div>
+                <div className="mt-5 grid gap-4">
+                  <SectionCard meta="new wave" title="Controls · inputs · feedback">
+                    <div className="grid gap-4 xl:grid-cols-[1fr_1fr]">
+                      <div className="grid gap-3">
+                        <SearchField aria-label="Buscar componente" defaultValue="mood selector" />
+                        <Combobox defaultValue="streaming" options={comboboxOptions} />
+                        <DatePickerField defaultValue="2026-07-13" hint="A documentação usa inputs nativos e rotulagem acessível." label="Release target" />
+                        <SliderField defaultValue={76} hint="Controla intensidade da curadoria inteligente." label="Bio-signal intensity" valueLabel="76%" />
+                      </div>
+                      <div className="grid gap-3">
+                        <InlineNotification title="Componentes sincronizados" variant="success">
+                          Novos organismos estão renderizados na página pública e prontos para inspeção visual.
+                        </InlineNotification>
+                        <FileUpload description="Exemplo de estado pronto para anexar assets do DS." label="Importar asset do organismo" multiple />
+                        <div className="flex flex-wrap items-center gap-2">
+                          <StatusIndicator tone="success">Tokens ativos</StatusIndicator>
+                          <StatusIndicator tone="info">Docs atualizada</StatusIndicator>
+                          <StatusIndicator tone="warning">Visual audit recomendado</StatusIndicator>
+                        </div>
+                        <ButtonGroup aria-label="Modos de documentação">
+                          <ButtonGroupItem selected>Docs</ButtonGroupItem>
+                          <ButtonGroupItem>Usage</ButtonGroupItem>
+                          <ButtonGroupItem>API</ButtonGroupItem>
+                        </ButtonGroup>
+                      </div>
+                    </div>
+                  </SectionCard>
+
+                  <SectionCard meta="structure" title="Layout organisms">
+                    <div className="grid gap-4 xl:grid-cols-[1fr_1fr]">
+                      <div className="grid gap-3 sm:grid-cols-2">
+                        <InteractiveCard description="Ação principal com estado selecionado, foco visível e descrição." heading="Interactive card" icon={AiAccentIcon} selected>
+                          Usado para escolhas de fluxo, agentes e modos do sistema.
+                        </InteractiveCard>
+                        <InteractiveCard description="Cartão neutro para padrões navegáveis." heading="Pattern surface" icon={DashboardIcon}>
+                          Herda tokens de superfície, borda e estado.
+                        </InteractiveCard>
+                      </div>
+                      <div className="grid gap-4">
+                        <DataList>
+                          <DataListItem>
+                            <DataListTerm>Package</DataListTerm>
+                            <DataListDescription>@flytrap/ui</DataListDescription>
+                          </DataListItem>
+                          <DataListItem>
+                            <DataListTerm>Coverage</DataListTerm>
+                            <DataListDescription>100% componentes exportados</DataListDescription>
+                          </DataListItem>
+                        </DataList>
+                        <div className="grid gap-4 md:grid-cols-2">
+                          <Timeline aria-label="Linha do tempo de adoção">
+                            <TimelineItem description="Inputs, feedback e preview." meta="P0" title="Foundation" tone="success" />
+                            <TimelineItem description="Estrutura para docs robusta." meta="P1" title="Layout" tone="info" />
+                            <TimelineItem description="Streaming moldado por humor." meta="P2" title="AI layer" tone="warning" />
+                          </Timeline>
+                          <TreeView aria-label="Árvore de componentes">
+                            <TreeItem expanded label="Components" selected>
+                              <TreeItem label="Controls" />
+                              <TreeItem label="Data display" />
+                              <TreeItem label="Streaming AI" />
+                            </TreeItem>
+                          </TreeView>
+                        </div>
+                      </div>
+                    </div>
+                  </SectionCard>
+
+                  <SectionCard meta="streaming · ai" title="Mood-aware streaming system">
+                    <div className="grid gap-5">
+                      <MoodSelector defaultValue="focus" options={moodOptions} />
+                      <div className="grid gap-4 xl:grid-cols-[1fr_1.15fr]">
+                        <div className="grid gap-3">
+                          <MoodSignal description="Sinal dominante usado para ajustar ritmo, intensidade e narrativa." label="Focus signal" tone="focus" value={82} />
+                          <ModelConfidence description="Modelo recomenda com base em humor, histórico e contexto da sessão." value={91} />
+                          <PlayerControls playing progress={64} />
+                        </div>
+                        <PersonalizationPanel
+                          action={<Button size="sm" variant="outline">Recalibrar</Button>}
+                          confidence={91}
+                          moodLabel="Bio-mood"
+                          moodTone="focus"
+                          moodValue={82}
+                          signals={[
+                            { label: "Atmosfera", value: "Cyber-botânica · neon baixo" },
+                            { label: "Ritmo", value: "Sequência progressiva, baixa fricção" },
+                            { label: "Interface", value: "Cards densos, glow moderado, foco alto" },
+                          ]}
+                          title="AI personalization engine"
+                        />
+                      </div>
+                      <RecommendationRail description="Exemplo de rail para uma experiência de streaming que muda conforme o humor." title="Recomendações inteligentes">
+                        {recommendationCards.map((card, index) => <div className="min-w-[220px] flex-1" key={card.title} role="listitem">
+                          <MediaCard
+                            active={card.active}
+                            badge={card.badge}
+                            duration={card.duration}
+                            imageAlt={`Visual abstrato do conteúdo ${card.title}`}
+                            imageSrc={index === 0 ? spriteCorner : index === 1 ? organismBr : spriteWideB}
+                            subtitle={card.subtitle}
+                            title={card.title}
+                          />
+                        </div>)}
+                      </RecommendationRail>
+                      <div className="flex flex-wrap gap-2">
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button variant="outline">Ações do componente</Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="start">
+                            <DropdownMenuLabel>Documentar</DropdownMenuLabel>
+                            <DropdownMenuItem>Copiar snippet</DropdownMenuItem>
+                            <DropdownMenuItem>Ver estados</DropdownMenuItem>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem>Auditar acessibilidade</DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                        <Button className="bg-[#F10081] hover:bg-[#CF006A]">Ver componentes no pacote</Button>
+                      </div>
+                    </div>
+                  </SectionCard>
                 </div>
               </div>
             </div>
