@@ -8,6 +8,11 @@ Formato: Keep a Changelog · SemVer.
 - Estados disabled do Button agora usam tokens de opacidade rastreáveis em vez de valores utilitários fixos.
 - Variantes `ghost` e `link` do Button passam a ter tokens próprios de opacidade disabled.
 - CheckboxField, RadioGroupField e SwitchField reforçam alvo efetivo mínimo e estado disabled visual.
+- Foco visível global de `@flytrap/ui` passa a usar o token `--ring` (validado pelo gate APCA nas três aparências) em vez do valor fixo `#b8ff35` (ADR 16).
+- Estilos exclusivos do site público (tema `flytrap-light`, keyframes e texturas "living", fundo do body) migraram de `@flytrap/ui` para `apps/docs/src/site.css` — o pacote UI volta a conter apenas estilos do design system.
+
+### Quality
+- CI passa a executar a suíte de testes com cobertura (`pnpm test:coverage`), alinhando o pipeline à matriz de validação documentada.
 
 ## [0.4.0] — 2026-07-06
 ### Added
