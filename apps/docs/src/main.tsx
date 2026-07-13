@@ -36,6 +36,7 @@ import {
   ToolIcon,
 } from "@flytrap/ui";
 import "@flytrap/ui/styles";
+import "./site.css";
 import { AtmosphereLayer, OrganicBackground, TechFrame } from "./living/organic-background";
 import { BootLoader } from "./living/boot-loader";
 import organismBr from "./assets/flytrap-organism-br.webp";
