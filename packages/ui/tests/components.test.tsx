@@ -91,6 +91,7 @@ import {
   Form,
   FormField,
   FormMessage,
+  HeartIcon,
   Header,
   HeaderActions,
   HeaderBrand,
@@ -106,6 +107,10 @@ import {
   Label,
   MessageBubble,
   MessageActions,
+  MediaCard,
+  ModelConfidence,
+  MoodSelector,
+  MoodSignal,
   Page,
   PageDescription,
   PageHeader,
@@ -115,6 +120,8 @@ import {
   PaginationPage,
   PaginationPrevious,
   Progress,
+  PersonalizationPanel,
+  PlayerControls,
   RadioGroup,
   RadioGroupField,
   Popover,
@@ -122,6 +129,7 @@ import {
   PopoverTrigger,
   PromptInput,
   ReasoningStream,
+  RecommendationRail,
   SearchField,
   Section,
   SectionDescription,
@@ -645,6 +653,140 @@ describe("componentes Onda 3", () => {
 
     rerender(<TreeView aria-label="Fechada"><TreeItem expanded={false} label="Components"><TreeItem label="Button" /></TreeItem></TreeView>);
     expect(screen.queryByRole("treeitem", { name: "Button" })).not.toBeInTheDocument();
+  });
+});
+
+describe("componentes Flytrap streaming", () => {
+  it.each([
+    ["calm", -10, "0"],
+    ["focus", 42, "42"],
+    ["energy", 150, "100"],
+    ["melancholy", 64, "64"],
+  ] as const)("renderiza MoodSignal %s normalizando %i", (tone, value, expected) => {
+    render(<MoodSignal description="Sinal detectado" label="Humor atual" tone={tone} value={value} />);
+    expect(screen.getByRole("meter", { name: "Humor atual" })).toHaveAttribute("aria-valuenow", expected);
+    expect(screen.getByText("Sinal detectado")).toBeVisible();
+  });
+
+  it("renderiza MoodSignal sem descrição e com label não textual", () => {
+    render(<MoodSignal label={<span>Foco visual</span>} value={20} />);
+    expect(screen.getByRole("meter")).toHaveAttribute("aria-valuenow", "20");
+    expect(screen.getByText("Foco visual")).toBeVisible();
+  });
+
+  it("seleciona MoodSelector em modo não controlado e respeita opção desabilitada", async () => {
+    const user = userEvent.setup();
+    const onValueChange = vi.fn();
+    render(<MoodSelector aria-label="Selecionar humor" onValueChange={onValueChange} options={[
+      { value: "calm", label: "Calmo", tone: "calm", description: "Mais suave" },
+      { value: "focus", label: "Foco" },
+      { value: "energy", label: "Energia", tone: "energy", disabled: true },
+    ]} />);
+
+    expect(screen.getByRole("radio", { name: /Calmo/ })).toHaveAttribute("aria-checked", "true");
+    await user.click(screen.getByRole("radio", { name: "Foco" }));
+    expect(onValueChange).toHaveBeenCalledWith("focus");
+    expect(screen.getByRole("radio", { name: "Foco" })).toHaveAttribute("aria-checked", "true");
+    expect(screen.getByRole("radio", { name: "Energia" })).toBeDisabled();
+  });
+
+  it("mantém MoodSelector controlado e suporta lista vazia", async () => {
+    const user = userEvent.setup();
+    const onValueChange = vi.fn();
+    const { container, rerender } = render(<MoodSelector aria-label="Humor controlado" onValueChange={onValueChange} options={[
+      { value: "melancholy", label: "Melancólico", tone: "melancholy" },
+      { value: "energy", label: "Energia", tone: "energy" },
+    ]} value="melancholy" />);
+
+    await user.click(screen.getByRole("radio", { name: "Energia" }));
+    expect(onValueChange).toHaveBeenCalledWith("energy");
+    expect(screen.getByRole("radio", { name: "Melancólico" })).toHaveAttribute("aria-checked", "true");
+
+    rerender(<MoodSelector aria-label="Sem opções" options={[]} />);
+    expect(container.querySelector("[data-slot='mood-selector']")).toBeInTheDocument();
+  });
+
+  it("renderiza MediaCard com imagem, badge, duração e ação", async () => {
+    const { container, rerender } = render(<MediaCard action={<Button size="sm">Assistir</Button>} active badge="AI match" duration="12:40" imageAlt="Cena neon" imageSrc="/poster.jpg" subtitle="Selecionado para seu humor" title="Jardim orbital" />);
+
+    expect(screen.getByRole("img", { name: "Cena neon" })).toHaveAttribute("src", "/poster.jpg");
+    expect(screen.getByText("AI match")).toBeVisible();
+    expect(screen.getByRole("button", { name: "Assistir" })).toBeVisible();
+    expect(container.querySelector("[data-active='true']")).toBeInTheDocument();
+    expect((await axe(container, { rules: { "color-contrast": { enabled: false } } })).violations).toHaveLength(0);
+
+    rerender(<MediaCard title="Sem imagem" />);
+    expect(screen.getByText("Sem imagem")).toBeVisible();
+    expect(screen.getByText("Recomendado")).toBeVisible();
+  });
+
+  it("compõe RecommendationRail com cards e estado vazio", () => {
+    const { rerender } = render(<RecommendationRail description="Baseado no seu humor" title="Para agora">
+      <MediaCard title="Sinal 1" />
+      <MediaCard title="Sinal 2" />
+    </RecommendationRail>);
+
+    expect(screen.getByRole("heading", { name: "Para agora" })).toBeVisible();
+    expect(screen.getByRole("list")).toBeVisible();
+
+    rerender(<RecommendationRail empty="Nada por enquanto" title="Sem trilhas" />);
+    expect(screen.getByText("Nada por enquanto")).toBeVisible();
+  });
+
+  it("controla PlayerControls e normaliza progresso", async () => {
+    const user = userEvent.setup();
+    const onPlayPause = vi.fn();
+    const onNext = vi.fn();
+    const onPrevious = vi.fn();
+    const { rerender } = render(<PlayerControls onNext={onNext} onPlayPause={onPlayPause} onPrevious={onPrevious} progress={120} />);
+
+    expect(screen.getByRole("progressbar", { name: "Progresso da mídia" })).toHaveAttribute("aria-valuenow", "100");
+    await user.click(screen.getByRole("button", { name: "Reproduzir" }));
+    await user.click(screen.getByRole("button", { name: "Próximo" }));
+    await user.click(screen.getByRole("button", { name: "Anterior" }));
+    expect(onPlayPause).toHaveBeenCalledOnce();
+    expect(onNext).toHaveBeenCalledOnce();
+    expect(onPrevious).toHaveBeenCalledOnce();
+
+    rerender(<PlayerControls disabled playing progress={-4} />);
+    expect(screen.getByRole("button", { name: "Pausar" })).toBeDisabled();
+    expect(screen.getByRole("progressbar", { name: "Progresso da mídia" })).toHaveAttribute("aria-valuenow", "0");
+  });
+
+  it("renderiza ModelConfidence com label padrão, customizado e limites", () => {
+    const { rerender } = render(<ModelConfidence description="Alto sinal comportamental" value={88} />);
+    expect(screen.getByRole("meter", { name: "Confiança do modelo" })).toHaveAttribute("aria-valuenow", "88");
+    expect(screen.getByText("Alto sinal comportamental")).toBeVisible();
+
+    rerender(<ModelConfidence label={<span>Modelo visual</span>} value={150} />);
+    expect(screen.getByRole("meter")).toHaveAttribute("aria-valuenow", "100");
+
+    rerender(<ModelConfidence label="Baixa confiança" value={-10} />);
+    expect(screen.getByRole("meter", { name: "Baixa confiança" })).toHaveAttribute("aria-valuenow", "0");
+  });
+
+  it("compõe PersonalizationPanel com sinais e ação", () => {
+    const { rerender } = render(<PersonalizationPanel
+      action={<Button size="sm">Ajustar</Button>}
+      confidence={76}
+      moodLabel="Modo foco"
+      moodTone="calm"
+      moodValue={58}
+      signals={[
+        { label: "Tempo", value: "Noite" },
+        { label: "Ritmo", value: "Calmo" },
+      ]}
+      title="IA moldando a sessão"
+    />);
+
+    expect(screen.getByRole("heading", { name: "IA moldando a sessão" })).toBeVisible();
+    expect(screen.getByRole("button", { name: "Ajustar" })).toBeVisible();
+    expect(screen.getByText("Tempo")).toBeVisible();
+    expect(screen.getByText("Noite")).toBeVisible();
+
+    rerender(<PersonalizationPanel confidence={20} moodLabel="Livre" moodValue={10} />);
+    expect(screen.getByRole("heading", { name: "Personalização ativa" })).toBeVisible();
+    expect(screen.queryByText("Tempo")).not.toBeInTheDocument();
   });
 });
 
