@@ -63,7 +63,7 @@ function useDeferredSceneMount(enabled: boolean) {
       return undefined;
     }
 
-    let timeoutHandle = 0;
+    let timeoutHandle: ReturnType<typeof globalThis.setTimeout> | undefined;
     let idleHandle = 0;
 
     const mount = () => setReady(true);

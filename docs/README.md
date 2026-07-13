@@ -35,9 +35,10 @@ Para instalar, implementar, validar e publicar:
 4. [Pipeline Figma → Deploy](06-pipeline.md)
 5. [Backend Supabase](07-supabase.md)
 6. [Secrets](08-secrets.md)
-7. [Decisões arquiteturais](10-decisions.md)
-8. [Contrato de contexto para agentes](14-ai-context-contract.md)
-9. [Como contribuir](../CONTRIBUTING.md)
+7. [Distribuição e versionamento](18-distribution.md)
+8. [Decisões arquiteturais](10-decisions.md)
+9. [Contrato de contexto para agentes](14-ai-context-contract.md)
+10. [Como contribuir](../CONTRIBUTING.md)
 
 Perguntas que esta trilha responde: qual pacote importar? Onde o código deve viver? Como adicionar um componente? Quais gates precisam passar? Como publicar sem expor secrets?
 
@@ -61,5 +62,6 @@ Perguntas que esta trilha responde: qual pacote importar? Onde o código deve vi
 16. [Experiência pública — Release 1](15-public-experience-release-1.md)
 17. [Assets de marca e avatar](16-brand-assets.md)
 18. [API e qualidade dos componentes](17-component-api-quality.md)
+19. [Distribuição e versionamento](18-distribution.md)
 
 Contribuição: [CONTRIBUTING](../CONTRIBUTING.md) · Histórico: [CHANGELOG](../CHANGELOG.md)

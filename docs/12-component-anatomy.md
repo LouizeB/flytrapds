@@ -22,7 +22,9 @@ Button
 | Primary | `button-primary-bg` | `button-primary-bg-hover` | `ring` | `button-primary-bg-disabled` |
 | Secondary | `button-secondary-bg` | `button-secondary-bg-hover` | `ring` | opacidade reduzida |
 | Destructive | `button-destructive-bg` | `button-destructive-bg-hover` | `ring` | opacidade reduzida |
-| Outline | transparente + `button-outline` | `accent` | `ring` | opacidade reduzida |
+| Outline | transparente + `button-outline-border` + `button-outline-fg` | `button-outline-bg-hover` + `button-outline-fg-hover` | `ring` | opacidade reduzida |
+| Ghost | `button-ghost-fg` | `button-ghost-bg-hover` + `button-ghost-fg-hover` | `ring` | opacidade reduzida |
+| Link | `button-link-fg` | underline | `ring` | opacidade reduzida |
 
 O foreground sempre usa o par `*-fg` correspondente. O componente não conhece magenta, acid ou qualquer step da paleta.
 

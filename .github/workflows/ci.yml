@@ -48,6 +48,9 @@ jobs:
       - name: Run APCA gate
         run: pnpm apca
 
+      - name: Validate public art color boundary
+        run: pnpm art:contract
+
       - name: Lint
         run: pnpm lint
 

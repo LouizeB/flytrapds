@@ -23,7 +23,7 @@ Flytrap combina a dualidade Vênus + Dionaea: uma superfície orgânica, vibrant
 | Arquitetura | primitive → semantic → component |
 | Dimensões | brand × mode × theme |
 | Aparências | light · dark · vibrant |
-| Tokens | 230 resolvidos · fonte única DTCG |
+| Tokens | 238 resolvidos · fonte única DTCG |
 | Acessibilidade | 54 pares APCA aprovados |
 | Iconografia | Aliases semânticos Flytrap |
 | UI | Componentes React orientados por tokens |
@@ -79,12 +79,25 @@ docs/               arquitetura, decisões, inventário e roadmap
 ```bash
 pnpm tokens:contract  # aliases, ciclos, modos e fronteiras de camada
 pnpm apca             # contraste em light, dark e vibrant
+pnpm art:contract     # cores cruas confinadas à camada artística pública
 pnpm lint
 pnpm typecheck
+pnpm test:coverage
 pnpm build
 ```
 
 Pull requests executam todos os gates no workflow **Quality**. Merges em `main` publicam o catálogo pelo workflow **Pages**.
+
+## Distribuição
+
+`@flytrap/ui` é preparado para distribuição externa por `dist`: JavaScript compilado, declarações TypeScript, CSS global e assets oficiais. Durante desenvolvimento local, os apps usam aliases Vite para consumir `src` diretamente e manter hot reload rápido.
+
+```bash
+pnpm --filter @flytrap/ui build
+pnpm changeset
+```
+
+Veja o contrato completo em [Distribuição e versionamento](docs/18-distribution.md).
 
 ## Fonte de verdade
 
