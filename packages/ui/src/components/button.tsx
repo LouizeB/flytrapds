@@ -41,7 +41,7 @@ export function Button({
   asChild = false,
   disabled,
   loading = false,
-  loadingAnnouncement = "Carregando",
+  loadingAnnouncement = "Loading",
   ...props
 }: ButtonProps) {
   const isDisabled = disabled || loading;

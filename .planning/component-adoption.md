@@ -4,8 +4,8 @@ Static scan of `@flytrap/ui` named imports in `apps/**`.
 
 ## Summary
 
-- Total named imports: 108
-- Unique exports adopted: 79
+- Total named imports: 107
+- Unique exports adopted: 78
 - Files importing UI: 5
 - Files importing styles: 2
 
@@ -84,7 +84,6 @@ Static scan of `@flytrap/ui` named imports in `apps/**`.
 | `SmartDataTable` | 1 | `apps/docs/src/main.tsx` |
 | `StatusIndicator` | 1 | `apps/docs/src/main.tsx` |
 | `SuccessIcon` | 1 | `apps/docs/src/main.tsx` |
-| `Switch` | 1 | `apps/docs/src/living/sidebar.tsx` |
 | `SwitchField` | 1 | `apps/docs/src/main.tsx` |
 | `ThemeDarkIcon` | 1 | `apps/dashboard/src/main.tsx` |
 | `ThemeLightIcon` | 1 | `apps/dashboard/src/main.tsx` |
@@ -100,5 +99,5 @@ Static scan of `@flytrap/ui` named imports in `apps/**`.
 | `apps/dashboard/src/main.tsx` | `AgentCard`, `AgentIcon`, `BrandLockup`, `Button`, `Card`, `CardContent`, `CardDescription`, `CardHeader`, `CardTitle`, `DashboardIcon`, `FlytrapIcon`, `InsightCallout`, `KpiStatCard`, `MessageBubble`, `PlaygroundIcon`, `SendIcon`, `ThemeDarkIcon`, `ThemeLightIcon` |
 | `apps/docs/src/living/hero.tsx` | `AiAccentIcon`, `BrandIcon`, `Button`, `ExternalLinkIcon`, `FlytrapIcon`, `FlytrapIconComponent`, `SendIcon` |
 | `apps/docs/src/living/panels.tsx` | `Button`, `ConfirmIcon`, `CopyIcon`, `FlytrapIcon`, `FlytrapIconComponent` |
-| `apps/docs/src/living/sidebar.tsx` | `AgentIcon`, `AiAccentIcon`, `ApprovalIcon`, `BrandIcon`, `BrandMark`, `ChartIcon`, `DashboardIcon`, `FlytrapIcon`, `FlytrapIconComponent`, `InfoIcon`, `InsightIcon`, `Switch`, `ToolIcon` |
+| `apps/docs/src/living/sidebar.tsx` | `AgentIcon`, `AiAccentIcon`, `ApprovalIcon`, `BrandIcon`, `BrandMark`, `ChartIcon`, `DashboardIcon`, `FlytrapIcon`, `FlytrapIconComponent`, `InfoIcon`, `InsightIcon`, `ToolIcon` |
 | `apps/docs/src/main.tsx` | `AgentIcon`, `AiAccentIcon`, `ApprovalIcon`, `Badge`, `BrandIcon`, `Button`, `ButtonGroup`, `ButtonGroupItem`, `Card`, `CardContent`, `CardDescription`, `CardHeader`, `CardTitle`, `ChartIcon`, `Combobox`, `DashboardIcon`, `DataList`, `DataListDescription`, `DataListItem`, `DataListTerm`, `DatePickerField`, `Dialog`, `DialogContent`, `DialogDescription`, `DialogFooter`, `DialogHeader`, `DialogTitle`, `DialogTrigger`, `DropdownMenu`, `DropdownMenuContent`, `DropdownMenuItem`, `DropdownMenuLabel`, `DropdownMenuSeparator`, `DropdownMenuTrigger`, `ErrorIcon`, `Field`, `FileUpload`, `FlytrapIcon`, `InlineNotification`, `Input`, `InsightIcon`, `InteractiveCard`, `MediaCard`, `MenuIcon`, `ModelConfidence`, `MoodSelector`, `MoodSignal`, `PersonalizationPanel`, `PlayerControls`, `Progress`, `RecommendationRail`, `SearchField`, `SearchIcon`, `SendIcon`, `SliderField`, `SmartDataTable`, `StatusIndicator`, `SuccessIcon`, `SwitchField`, `Timeline`, `TimelineItem`, `ToolIcon`, `TreeItem`, `TreeView` |

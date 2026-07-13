@@ -69,6 +69,7 @@ export function CharacterLayer({
       style={tilt ? { transform: `rotateX(${(gaze.y * -3.2).toFixed(2)}deg) rotateY(${(gaze.x * 4.4).toFixed(2)}deg)` } : undefined}
     >
       <img
+        alt=""
         aria-hidden="true"
         className="absolute inset-0 size-full object-contain opacity-60 blur-xl saturate-150"
         draggable={false}

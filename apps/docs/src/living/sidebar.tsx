@@ -10,12 +10,11 @@ import {
   FlytrapIcon,
   InfoIcon,
   InsightIcon,
-  Switch,
   ToolIcon,
   type FlytrapIconComponent,
 } from "@flytrap/ui";
 
-export type Appearance = "light" | "dark" | "vibrant";
+export type Appearance = "dark";
 
 export const navSections: readonly [string, string, FlytrapIconComponent][] = [
   ["Overview", "overview", DashboardIcon],
@@ -48,13 +47,8 @@ function StatusWave() {
   </svg>;
 }
 
-export function Sidebar({ appearance, onAppearanceChange }: {
-  appearance: Appearance;
-  onAppearanceChange: (value: Appearance) => void;
-}) {
+export function Sidebar() {
   const [active, setActive] = React.useState("overview");
-  const vibrant = appearance === "vibrant";
-  const mode = appearance === "light" ? "light" : "dark";
 
   React.useEffect(() => {
     const elements = navSections
@@ -94,7 +88,7 @@ export function Sidebar({ appearance, onAppearanceChange }: {
       </span>
     </a>
 
-    <nav aria-label="Seções" className="grid overflow-visible rounded-xl border border-white/10 bg-black/25 text-[0.82rem] shadow-[inset_0_0_24px_rgba(139,92,246,.08)]">
+    <nav aria-label="Sections" className="grid overflow-visible rounded-xl border border-white/10 bg-black/25 text-[0.82rem] shadow-[inset_0_0_24px_rgba(139,92,246,.08)]">
       {navSections.map(([label, id, icon]) => {
         const isActive = active === id;
         return <a
@@ -121,7 +115,7 @@ export function Sidebar({ appearance, onAppearanceChange }: {
       <p className="font-mono text-[0.58rem] uppercase tracking-[0.22em] text-white/60">System status</p>
       <p className="mt-2 flex items-center gap-2 text-[0.68rem] text-white/75">
         <span className="size-1.5 rounded-full bg-[#00c970] shadow-[0_0_8px_rgba(0,201,112,.8)]" />
-        Flytrap system organic
+        Flytrap system online
       </p>
       <p className="mt-1 flex items-center gap-2 text-[0.68rem] text-white/70">
         <span className="size-1.5 rounded-full bg-[#F10081]/90 shadow-[0_0_8px_rgba(241,0,129,.7)]" />
@@ -135,41 +129,18 @@ export function Sidebar({ appearance, onAppearanceChange }: {
     </div>
 
     <div className="rounded-xl border border-[rgba(241,0,129,.18)] bg-[rgba(10,11,18,.8)] p-3 shadow-[0_0_22px_rgba(241,0,129,.08)]">
-      <p className="font-mono text-[0.58rem] uppercase tracking-[0.22em] text-white/60">Theme</p>
-      <label className="mt-2 flex items-center justify-between gap-3 text-xs text-white/75">
-        Bio-Cyber
-        <Switch
-          aria-label="Alternar tema Bio-Cyber (vibrant)"
-          checked={vibrant}
-          onCheckedChange={checked => onAppearanceChange(checked ? "vibrant" : mode)}
-        />
-      </label>
-      <p className="mt-3 font-mono text-[0.58rem] uppercase tracking-[0.22em] text-white/60">Mode</p>
-      <div aria-label="Modo de cor" className="mt-2 flex gap-1 rounded-lg border border-white/10 bg-black/40 p-1" role="group">
-        {(["light", "dark", "auto"] as const).map(value => <button
-          aria-label={value === "auto" ? "Usar preferência do sistema" : `Ativar modo ${value}`}
-          aria-pressed={!vibrant && value !== "auto" && mode === value}
-          className={[
-            "flex-1 rounded-md px-2 py-1 text-xs capitalize transition-colors",
-            !vibrant && value !== "auto" && mode === value ? "bg-[#ff4fbd]/20 text-[#ffd7ee]" : "text-white/65 hover:text-white/80",
-          ].join(" ")}
-          key={value}
-          onClick={() => onAppearanceChange(
-            value === "auto"
-              ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
-              : value,
-          )}
-          type="button"
-        >{value}</button>)}
-      </div>
+      <p className="font-mono text-[0.58rem] uppercase tracking-[0.22em] text-white/60">Display mode</p>
+      <p className="mt-2 rounded-lg border border-white/10 bg-black/35 px-3 py-2 text-xs text-white/75">
+        Dark experience only while the visual language for alternate themes is refined.
+      </p>
     </div>
 
     <div className="rounded-xl border border-[rgba(241,0,129,.18)] bg-[rgba(10,11,18,.8)] p-3 shadow-[0_0_22px_rgba(241,0,129,.08)] lg:mt-auto">
       <p className="font-mono text-[0.58rem] uppercase tracking-[0.22em] text-white/60">Version 1.0.0</p>
-      <p className="mt-0.5 font-mono text-[0.55rem] text-white/70">Updated: 07.10.2026</p>
+      <p className="mt-0.5 font-mono text-[0.55rem] text-white/70">Updated: 2026-07-13</p>
       <p className="mt-1 text-xs text-white/70">DTCG · React · APCA</p>
       <a
-        aria-label="Ver changelog no GitHub"
+        aria-label="View changelog on GitHub"
         className="mt-3 inline-flex rounded-full border border-[#ff4fbd]/45 bg-[#ff4fbd]/10 px-3 py-1 font-mono text-[0.6rem] uppercase tracking-[0.16em] text-[#ff9bdd] transition-colors hover:bg-[#ff4fbd]/20"
         href="https://github.com/LouizeB/flytrapds/blob/main/CHANGELOG.md"
       >View changelog</a>

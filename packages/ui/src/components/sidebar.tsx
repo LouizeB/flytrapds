@@ -50,18 +50,18 @@ export interface SidebarMobileProps extends React.ComponentPropsWithoutRef<typeo
   title?: string;
   description?: string;
 }
-export function SidebarMobile({ title = "Navegação", description = "Navegação principal", children, className, ...props }: SidebarMobileProps) {
+export function SidebarMobile({ title = "Navigation", description = "Main navigation", children, className, ...props }: SidebarMobileProps) {
   const { mobileOpen, setMobileOpen } = useSidebar();
   return <Sheet onOpenChange={setMobileOpen} open={mobileOpen}><SheetContent className={cn("w-72 p-0 md:hidden", className)} side="left" {...props}><SheetTitle className="sr-only">{title}</SheetTitle><SheetDescription className="sr-only">{description}</SheetDescription>{children}</SheetContent></Sheet>;
 }
 
 export function SidebarTrigger({ className, ...props }: Omit<React.ComponentPropsWithoutRef<typeof IconButton>, "icon" | "label">) {
   const { open, toggle } = useSidebar();
-  return <IconButton className={className} icon={MenuIcon} label={open ? "Recolher navegação" : "Expandir navegação"} onClick={toggle} variant="ghost" {...props} />;
+  return <IconButton className={className} icon={MenuIcon} label={open ? "Collapse navigation" : "Expand navigation"} onClick={toggle} variant="ghost" {...props} />;
 }
 export function SidebarMobileTrigger({ className, ...props }: Omit<React.ComponentPropsWithoutRef<typeof IconButton>, "icon" | "label">) {
   const { setMobileOpen } = useSidebar();
-  return <IconButton className={cn("md:hidden", className)} icon={MenuIcon} label="Abrir navegação" onClick={() => setMobileOpen(true)} variant="ghost" {...props} />;
+  return <IconButton className={cn("md:hidden", className)} icon={MenuIcon} label="Open navigation" onClick={() => setMobileOpen(true)} variant="ghost" {...props} />;
 }
 export function SidebarHeader({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) { return <div className={cn("flex min-h-16 items-center gap-3 border-b p-3", className)} data-slot="sidebar-header" {...props} />; }
 export function SidebarContent({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) { return <div className={cn("min-h-0 flex-1 overflow-y-auto p-2", className)} data-slot="sidebar-content" {...props} />; }

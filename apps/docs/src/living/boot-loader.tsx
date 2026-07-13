@@ -62,7 +62,7 @@ export function BootLoader({ onComplete }: { onComplete: () => void }) {
   }, [onComplete]);
 
   return <div
-    aria-label="Carregando Flytrap Design System"
+    aria-label="Loading Flytrap Design System"
     className={[
       "fixed inset-0 z-[100] grid place-items-center overflow-hidden bg-[#05060a] text-white transition-[opacity,transform,filter] duration-500",
       exiting ? "pointer-events-none opacity-0 blur-sm scale-[1.015]" : "opacity-100",
@@ -93,7 +93,7 @@ export function BootLoader({ onComplete }: { onComplete: () => void }) {
           <span className="text-[#ff4fbd]">{progress}%</span>
         </div>
         <div
-          aria-label="Progresso do carregamento"
+          aria-label="Loading progress"
           aria-valuemax={100}
           aria-valuemin={0}
           aria-valuenow={progress}
@@ -118,7 +118,7 @@ export function BootLoader({ onComplete }: { onComplete: () => void }) {
         onClick={complete}
         type="button"
       >
-        Entrar agora
+        Enter now
       </button>
     </div>
   </div>;

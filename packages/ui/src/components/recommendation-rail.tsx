@@ -7,7 +7,7 @@ export interface RecommendationRailProps extends Omit<React.HTMLAttributes<HTMLE
   empty?: React.ReactNode;
 }
 
-export function RecommendationRail({ children, className, description, empty = "Nenhuma recomendação disponível.", title, ...props }: RecommendationRailProps) {
+export function RecommendationRail({ children, className, description, empty = "No recommendations available.", title, ...props }: RecommendationRailProps) {
   const titleId = React.useId();
   const hasChildren = React.Children.count(children) > 0;
 

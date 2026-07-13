@@ -19,7 +19,7 @@ export interface ComboboxProps extends Omit<React.InputHTMLAttributes<HTMLInputE
 export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(({
   className,
   defaultValue,
-  emptyMessage = "Nenhuma opção encontrada.",
+  emptyMessage = "No options found.",
   onValueChange,
   options,
   placeholder = "Selecione...",
@@ -83,7 +83,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(({
       value={open ? query : selected?.label ?? ""}
       {...props}
     />
-    <button aria-label="Abrir opções" className="absolute right-2 top-1/2 grid size-7 -translate-y-1/2 place-items-center rounded-md text-muted-foreground hover:bg-accent hover:text-accent-foreground" onClick={() => setOpen((state) => !state)} type="button">
+    <button aria-label="Open options" className="absolute right-2 top-1/2 grid size-7 -translate-y-1/2 place-items-center rounded-md text-muted-foreground hover:bg-accent hover:text-accent-foreground" onClick={() => setOpen((state) => !state)} type="button">
       <FlytrapIcon icon={ChevronDownIcon} size="sm" />
     </button>
     {open ? <div className="absolute z-50 mt-2 max-h-64 w-full overflow-auto rounded-xl border bg-popover p-1 text-popover-foreground shadow-md" id={listboxId} role="listbox">

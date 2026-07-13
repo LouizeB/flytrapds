@@ -14,6 +14,6 @@ export function CopyButton({ value, copy = valueToCopy => navigator.clipboard.wr
     setCopied(true);
   };
   return <Button aria-live="polite" onClick={handleClick} variant="outline" {...props}>
-    <FlytrapIcon icon={copied ? ConfirmIcon : CopyIcon} />{copied ? "Copiado" : "Copiar"}
+    <FlytrapIcon icon={copied ? ConfirmIcon : CopyIcon} />{copied ? "Copied" : "Copy"}
   </Button>;
 }

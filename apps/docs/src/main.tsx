@@ -76,7 +76,7 @@ import spriteWideB from "./assets/flytrap-sprite-wide-b.webp";
 import spriteCorner from "./assets/flytrap-sprite-corner.webp";
 import spritePlatform from "./assets/flytrap-sprite-platform.webp";
 import { CharacterLayer } from "./living/character";
-import { Sidebar, type Appearance } from "./living/sidebar";
+import { Sidebar } from "./living/sidebar";
 import { Hero } from "./living/hero";
 import {
   CodeBlock,
@@ -88,8 +88,6 @@ import {
   TokenRow,
   WorkflowCard,
 } from "./living/panels";
-
-const appearanceStorageKey = "flytrap:appearance";
 
 const magentaSteps = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
 const spaceSteps = [4, 8, 12, 16, 24, 32, 48, 64, 96, 128];
@@ -110,10 +108,10 @@ const anatomyLayers = ["Surface", "Content", "Container", "State layer", "Motion
 const iconographySet = [AiAccentIcon, ToolIcon, ApprovalIcon, AgentIcon, ChartIcon, DashboardIcon, SearchIcon, MenuIcon] as const;
 
 const workflowCards = [
-  { icon: AiAccentIcon, title: "Generate UI", description: "Descreva a intenção e gere composições com os componentes do organismo." },
-  { icon: ApprovalIcon, title: "Audit", description: "Analise acessibilidade, contraste APCA e consistência de tokens." },
-  { icon: ToolIcon, title: "Refactor", description: "Melhore a estrutura automaticamente sem quebrar o contrato semântico." },
-  { icon: BrandIcon, title: "Document", description: "Gere documentação viva instantaneamente a partir do código." },
+  { icon: AiAccentIcon, title: "Generate UI", description: "Describe the intent and assemble screens with the system components." },
+  { icon: ApprovalIcon, title: "Audit", description: "Check accessibility, APCA contrast, token usage, and component consistency." },
+  { icon: ToolIcon, title: "Refactor", description: "Improve structure without breaking semantic contracts or visual intent." },
+  { icon: BrandIcon, title: "Document", description: "Turn code and component states into clear system documentation." },
 ] as const;
 
 const comboboxOptions: React.ComponentProps<typeof Combobox>["options"] = [
@@ -124,10 +122,10 @@ const comboboxOptions: React.ComponentProps<typeof Combobox>["options"] = [
 ];
 
 const moodOptions: React.ComponentProps<typeof MoodSelector>["options"] = [
-  { value: "calm", label: "Calm", tone: "calm", description: "Reduz estímulo e favorece descobertas suaves." },
-  { value: "focus", label: "Focus", tone: "focus", description: "Prioriza continuidade, clareza e próxima ação." },
-  { value: "energy", label: "Energy", tone: "energy", description: "Aumenta ritmo, contraste e recomendações pulsantes." },
-  { value: "melancholy", label: "Noir", tone: "melancholy", description: "Curadoria contemplativa e atmosfera mais profunda." },
+  { value: "calm", label: "Calm", tone: "calm", description: "Reduces stimulation and supports soft discovery." },
+  { value: "focus", label: "Focus", tone: "focus", description: "Prioritizes continuity, clarity, and the next best action." },
+  { value: "energy", label: "Energy", tone: "energy", description: "Raises pace, contrast, and high-signal recommendations." },
+  { value: "melancholy", label: "Noir", tone: "melancholy", description: "Creates a deeper, more reflective curation mode." },
 ];
 
 const recommendationCards: Array<{
@@ -137,33 +135,20 @@ const recommendationCards: Array<{
   subtitle: string;
   title: string;
 }> = [
-  { title: "Bio-signal playlist", subtitle: "Sequência ajustada ao humor detectado.", duration: "24m", badge: "AI", active: true },
-  { title: "Neon garden", subtitle: "Conteúdo visual para desacelerar sem perder presença.", duration: "11m", badge: "Calm" },
-  { title: "Pulse protocol", subtitle: "Recomendação de alta energia com transições rápidas.", duration: "18m", badge: "Energy" },
+  { title: "Bio-signal playlist", subtitle: "A sequence tuned to the detected mood.", duration: "24m", badge: "AI", active: true },
+  { title: "Neon garden", subtitle: "Visual content that slows the pace without losing presence.", duration: "11m", badge: "Calm" },
+  { title: "Pulse protocol", subtitle: "A high-energy recommendation with faster transitions.", duration: "18m", badge: "Energy" },
 ];
 
-function getInitialAppearance(): Appearance {
-  if (typeof window === "undefined") return "dark";
-
-  const saved = window.localStorage.getItem(appearanceStorageKey);
-  if (saved === "light" || saved === "dark" || saved === "vibrant") return saved;
-
-  return window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
-}
-
 function App() {
-  const [appearance, setAppearance] = useState<Appearance>(getInitialAppearance);
   const [bootComplete, setBootComplete] = useState(false);
-  const appearanceClass = appearance === "light" ? "flytrap-light" : appearance;
-  const lightMode = appearance === "light";
   const handleBootComplete = React.useCallback(() => setBootComplete(true), []);
 
   React.useEffect(() => {
-    document.documentElement.dataset.theme = appearance;
-    document.documentElement.classList.toggle("dark", appearance !== "light");
-    document.body.style.background = lightMode ? "#fff7fb" : "#05060a";
-    window.localStorage.setItem(appearanceStorageKey, appearance);
-  }, [appearance, lightMode]);
+    document.documentElement.dataset.theme = "dark";
+    document.documentElement.classList.add("dark");
+    document.body.style.background = "#05060a";
+  }, []);
 
   React.useEffect(() => {
     document.documentElement.style.overflow = bootComplete ? "" : "hidden";
@@ -173,19 +158,19 @@ function App() {
     };
   }, [bootComplete]);
 
-  return <div className={appearanceClass}>
+  return <div className="dark">
     <a
       className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[120] focus:rounded-full focus:bg-[#b8ff35] focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-[#071006] focus:shadow-[0_0_24px_rgba(184,255,53,.45)]"
       href="#main-content"
     >
-      Pular para o conteúdo principal
+      Skip to main content
     </a>
     {!bootComplete && <BootLoader onComplete={handleBootComplete} />}
-    <div className={["min-h-screen text-white lg:grid lg:grid-cols-[268px_1fr]", lightMode ? "bg-[#fff7fb]" : "bg-[#05060a]"].join(" ")}>
-      <Sidebar appearance={appearance} onAppearanceChange={setAppearance} />
+    <div className="min-h-screen bg-[#05060a] text-white lg:grid lg:grid-cols-[268px_1fr]">
+      <Sidebar />
 
       <main aria-label="Flytrap Design System documentation" className="relative min-w-0 overflow-hidden" id="main-content" tabIndex={-1}>
-        <OrganicBackground enable3D={bootComplete} light={lightMode} />
+        <OrganicBackground enable3D={bootComplete} light={false} />
         <AtmosphereLayer />
         <TechFrame />
         <div className="relative z-10 mx-auto max-w-[1440px] border-x border-white/6 bg-black/[.08] shadow-[0_0_80px_rgba(0,0,0,.45)]">
@@ -197,13 +182,13 @@ function App() {
               <SectionHeader
                 id="foundations"
                 index="01"
-                lead="Os princípios atômicos que moldam nosso organismo digital."
+                lead="The core principles that shape the Flytrap interface system."
                 linkHref="https://github.com/LouizeB/flytrapds/blob/main/docs/README.md"
                 linkLabel="View foundations"
                 title="Foundations"
               />
               <div className="grid flex-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
-                <SectionCard meta="8 escalas" title="Color">
+                <SectionCard meta="8 scales" title="Color">
                   <div className="flex gap-1.5">
                     {["#F10081", "#FF64A4", "#8B5CF6", "#00C970", "#C9C2C4", "#837A7B", "#3A3540", "#16141A"].map(color => <span className="h-14 flex-1 rounded-md border border-white/15" key={color} style={{ background: color }} />)}
                   </div>
@@ -240,18 +225,18 @@ function App() {
 
           {/* 02 · Tokens */}
           <section aria-label="Tokens" className="relative border-b border-[#ff4fbd]/14 px-6 py-9 md:px-8">
-            <img aria-hidden="true" className="pointer-events-none absolute left-[-9rem] top-[-6rem] z-0 hidden w-64 opacity-90 lg:block" draggable={false} src={spriteVertical} />
+            <img alt="" aria-hidden="true" className="pointer-events-none absolute left-[-9rem] top-[-6rem] z-0 hidden w-64 opacity-90 lg:block" draggable={false} src={spriteVertical} />
             <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:gap-12">
               <SectionHeader
                 id="tokens"
                 index="02"
-                lead="As variáveis vivas que alimentam nosso sistema. Primitive entrega valor, semantic entrega intenção."
+                lead="The variables that connect visual decisions to product intent."
                 linkHref="https://github.com/LouizeB/flytrapds/blob/main/packages/tokens/src/flytrap.tokens.json"
                 linkLabel="Explore tokens"
                 title="Tokens"
               />
               <div className="min-w-0 flex-1">
-                <PillTabs active={0} items={["All tokens", "Color", "Type", "Space", "Border", "Motion", "Elevation"]} label="Categorias de tokens" />
+                <PillTabs active={0} items={["All tokens", "Color", "Type", "Space", "Border", "Motion", "Elevation"]} label="Token groups" />
                 <div className="mt-3 grid gap-3 xl:grid-cols-[1.05fr_1.4fr]">
                   <SectionCard meta="DTCG" title="Semantic">
                     {semanticTokens.map(([name, hex, swatch]) => <TokenRow key={name} name={name} swatch={swatch} value={hex} />)}
@@ -314,20 +299,20 @@ function App() {
           </section>
 
           {/* 03 · Components */}
-          <section aria-label="Components" className="relative min-h-[420px] border-b border-[#ff4fbd]/14 px-6 py-9 md:px-8">
+          <section aria-label="Components" className="relative min-h-[420px] overflow-hidden border-b border-[#ff4fbd]/14 px-6 py-9 [contain:paint] md:px-8">
             <CharacterLayer
-              alt="Alienígena Flytrap deitada sobre uma placa de circuito holográfica, inspecionando o repositório de componentes."
-              className="absolute right-[-25vw] top-[8%] z-0 hidden h-[min(54vw,780px)] w-[min(66vw,980px)] lg:block xl:right-[-14vw]"
+              alt="Flytrap alien lying on a holographic circuit board while inspecting the component repository."
+              className="absolute right-0 top-[8%] z-0 hidden h-[min(50vw,720px)] w-[min(58vw,860px)] lg:block xl:right-0"
               pose="lying"
             />
             <img
               alt=""
               aria-hidden="true"
-              className="flytrap-motion pointer-events-none absolute right-[-22vw] top-[38%] z-0 hidden w-[min(58vw,940px)] animate-[flytrap-panel-float_8.4s_ease-in-out_infinite] opacity-95 drop-shadow-[0_30px_80px_rgba(139,92,246,.48)] lg:block xl:right-[-13vw]"
+              className="flytrap-motion pointer-events-none absolute right-0 top-[38%] z-0 hidden w-[min(52vw,820px)] animate-[flytrap-panel-float_8.4s_ease-in-out_infinite] opacity-95 drop-shadow-[0_30px_80px_rgba(139,92,246,.48)] lg:block"
               draggable={false}
               src={spritePlatform}
             />
-            <img aria-hidden="true" className="pointer-events-none absolute bottom-[-5rem] right-[-12rem] z-0 hidden w-[62rem] opacity-95 lg:block" draggable={false} src={spriteWideB} />
+            <img alt="" aria-hidden="true" className="pointer-events-none absolute bottom-[-5rem] right-0 z-0 hidden w-[54rem] opacity-95 lg:block" draggable={false} src={spriteWideB} />
             <FloatingPanel className="absolute right-8 top-14 z-40 hidden w-56 xl:block" title="Component anatomy">
               <div aria-hidden="true" className="relative mx-auto h-28 w-36 [perspective:600px]">
                 {anatomyLayers.map((_, index) => <span
@@ -346,13 +331,13 @@ function App() {
               <SectionHeader
                 id="components"
                 index="03"
-                lead="Organismos reutilizáveis que compõem experiências com significado."
+                lead="Reusable interface organisms for clear, consistent product experiences."
                 linkHref="https://github.com/LouizeB/flytrapds/tree/main/packages/ui"
                 linkLabel="Browse components"
                 title="Components"
               />
-              <div className="min-w-0 flex-1 lg:max-w-[54%] xl:max-w-[58%]">
-                <PillTabs active={0} items={["All", "Inputs", "Navigation", "Feedback", "Data display", "Surfaces", "Overlays"]} label="Categorias de componentes" />
+              <div className="min-w-0 flex-1 lg:max-w-[68%] xl:max-w-[72%] 2xl:max-w-[76%]">
+                <PillTabs active={0} items={["All", "Inputs", "Navigation", "Feedback", "Data display", "Surfaces", "Overlays"]} label="Component groups" />
                 <div className="mt-3 grid gap-3 sm:grid-cols-2">
                   <ComponentPreview title="Button">
                     <div className="grid justify-items-start gap-2">
@@ -381,7 +366,7 @@ function App() {
                   </ComponentPreview>
                   <ComponentPreview title="Data table">
                     <SmartDataTable
-                      caption="Registros do organismo"
+                      caption="Component records"
                       columns={[{ key: "name", header: "Name" }, { key: "status", header: "Status" }]}
                       getRowId={row => row.name}
                       rows={[{ name: "Item 1", status: "Active" }, { name: "Item 2", status: "Pending" }, { name: "Item 3", status: "Inactive" }]}
@@ -400,8 +385,8 @@ function App() {
                     <Progress value={72} />
                   </ComponentPreview>
                   <ComponentPreview title="Toggle">
-                    <SwitchField label="On" switchProps={{ defaultChecked: true }} />
-                    <SwitchField label="Off" />
+                    <SwitchField label="On" switchProps={{ "aria-label": "Example switch on", defaultChecked: true }} />
+                    <SwitchField label="Off" switchProps={{ "aria-label": "Example switch off" }} />
                   </ComponentPreview>
                   <ComponentPreview className="col-span-2" title="Modal">
                     <Dialog>
@@ -421,7 +406,7 @@ function App() {
                       <DialogContent>
                         <DialogHeader>
                           <DialogTitle>Modal Title</DialogTitle>
-                          <DialogDescription>This is a modal. Overlays preservam foco e contexto.</DialogDescription>
+                          <DialogDescription>This modal keeps focus inside the overlay and preserves context.</DialogDescription>
                         </DialogHeader>
                         <DialogFooter><Button variant="outline">Cancel</Button><Button className="bg-[#F10081] hover:bg-[#CF006A]">Confirm</Button></DialogFooter>
                       </DialogContent>
@@ -430,24 +415,24 @@ function App() {
                 </div>
                 <div className="mt-5 grid gap-4">
                   <SectionCard meta="new wave" title="Controls · inputs · feedback">
-                    <div className="grid gap-4 xl:grid-cols-[1fr_1fr]">
+                    <div className="grid gap-4 2xl:grid-cols-[1fr_1fr]">
                       <div className="grid gap-3">
-                        <SearchField aria-label="Buscar componente" defaultValue="mood selector" />
+                        <SearchField aria-label="Search components" defaultValue="mood selector" />
                         <Combobox defaultValue="streaming" options={comboboxOptions} />
-                        <DatePickerField defaultValue="2026-07-13" hint="A documentação usa inputs nativos e rotulagem acessível." label="Release target" />
-                        <SliderField defaultValue={76} hint="Controla intensidade da curadoria inteligente." label="Bio-signal intensity" valueLabel="76%" />
+                        <DatePickerField defaultValue="2026-07-13" hint="Native inputs keep the demo accessible and keyboard friendly." label="Release target" />
+                        <SliderField defaultValue={76} hint="Controls how strongly the AI adapts the content experience." label="Bio-signal intensity" valueLabel="76%" />
                       </div>
                       <div className="grid gap-3">
-                        <InlineNotification title="Componentes sincronizados" variant="success">
-                          Novos organismos estão renderizados na página pública e prontos para inspeção visual.
+                        <InlineNotification title="Components synchronized" variant="success">
+                          The newest components are now visible in the public documentation.
                         </InlineNotification>
-                        <FileUpload description="Exemplo de estado pronto para anexar assets do DS." label="Importar asset do organismo" multiple />
+                        <FileUpload description="Example upload state for product and brand assets." label="Import system asset" multiple />
                         <div className="flex flex-wrap items-center gap-2">
-                          <StatusIndicator tone="success">Tokens ativos</StatusIndicator>
-                          <StatusIndicator tone="info">Docs atualizada</StatusIndicator>
-                          <StatusIndicator tone="warning">Visual audit recomendado</StatusIndicator>
+                          <StatusIndicator tone="success">Tokens active</StatusIndicator>
+                          <StatusIndicator tone="info">Docs updated</StatusIndicator>
+                          <StatusIndicator tone="warning">Visual audit recommended</StatusIndicator>
                         </div>
-                        <ButtonGroup aria-label="Modos de documentação">
+                        <ButtonGroup aria-label="Documentation views">
                           <ButtonGroupItem selected>Docs</ButtonGroupItem>
                           <ButtonGroupItem>Usage</ButtonGroupItem>
                           <ButtonGroupItem>API</ButtonGroupItem>
@@ -457,33 +442,33 @@ function App() {
                   </SectionCard>
 
                   <SectionCard meta="structure" title="Layout organisms">
-                    <div className="grid gap-4 xl:grid-cols-[1fr_1fr]">
-                      <div className="grid gap-3 sm:grid-cols-2">
-                        <InteractiveCard description="Ação principal com estado selecionado, foco visível e descrição." heading="Interactive card" icon={AiAccentIcon} selected>
-                          Usado para escolhas de fluxo, agentes e modos do sistema.
+                    <div className="grid gap-4 2xl:grid-cols-[1fr_1fr]">
+                      <div className="grid gap-3 xl:grid-cols-2">
+                        <InteractiveCard description="A selected action card with visible focus and clear supporting text." heading="Interactive card" icon={AiAccentIcon} selected>
+                          Use it for flow choices, agents, and system modes.
                         </InteractiveCard>
-                        <InteractiveCard description="Cartão neutro para padrões navegáveis." heading="Pattern surface" icon={DashboardIcon}>
-                          Herda tokens de superfície, borda e estado.
+                        <InteractiveCard description="A neutral card for navigable documentation patterns." heading="Pattern surface" icon={DashboardIcon}>
+                          Uses surface, border, and state tokens.
                         </InteractiveCard>
                       </div>
                       <div className="grid gap-4">
                         <DataList>
-                          <DataListItem>
+                          <DataListItem className="sm:grid-cols-1 xl:grid-cols-[8rem_1fr]">
                             <DataListTerm>Package</DataListTerm>
                             <DataListDescription>@flytrap/ui</DataListDescription>
                           </DataListItem>
-                          <DataListItem>
+                          <DataListItem className="sm:grid-cols-1 xl:grid-cols-[8rem_1fr]">
                             <DataListTerm>Coverage</DataListTerm>
-                            <DataListDescription>100% componentes exportados</DataListDescription>
+                            <DataListDescription>100% exported components</DataListDescription>
                           </DataListItem>
                         </DataList>
-                        <div className="grid gap-4 md:grid-cols-2">
-                          <Timeline aria-label="Linha do tempo de adoção">
-                            <TimelineItem description="Inputs, feedback e preview." meta="P0" title="Foundation" tone="success" />
-                            <TimelineItem description="Estrutura para docs robusta." meta="P1" title="Layout" tone="info" />
-                            <TimelineItem description="Streaming moldado por humor." meta="P2" title="AI layer" tone="warning" />
+                        <div className="grid gap-4 2xl:grid-cols-2">
+                          <Timeline aria-label="Adoption timeline">
+                            <TimelineItem description="Inputs, feedback, and previews." meta="P0" title="Foundation" tone="success" />
+                            <TimelineItem description="Documentation structure and layout primitives." meta="P1" title="Layout" tone="info" />
+                            <TimelineItem description="Mood-aware streaming components." meta="P2" title="AI layer" tone="warning" />
                           </Timeline>
-                          <TreeView aria-label="Árvore de componentes">
+                          <TreeView aria-label="Component tree">
                             <TreeItem expanded label="Components" selected>
                               <TreeItem label="Controls" />
                               <TreeItem label="Data display" />
@@ -498,33 +483,33 @@ function App() {
                   <SectionCard meta="streaming · ai" title="Mood-aware streaming system">
                     <div className="grid gap-5">
                       <MoodSelector defaultValue="focus" options={moodOptions} />
-                      <div className="grid gap-4 xl:grid-cols-[1fr_1.15fr]">
+                      <div className="grid gap-4 2xl:grid-cols-[1fr_1.15fr]">
                         <div className="grid gap-3">
-                          <MoodSignal description="Sinal dominante usado para ajustar ritmo, intensidade e narrativa." label="Focus signal" tone="focus" value={82} />
-                          <ModelConfidence description="Modelo recomenda com base em humor, histórico e contexto da sessão." value={91} />
+                          <MoodSignal description="Dominant signal used to tune pace, intensity, and narrative." label="Focus signal" tone="focus" value={82} />
+                          <ModelConfidence description="Recommendation confidence based on mood, history, and session context." value={91} />
                           <PlayerControls playing progress={64} />
                         </div>
                         <PersonalizationPanel
-                          action={<Button size="sm" variant="outline">Recalibrar</Button>}
+                          action={<Button size="sm" variant="outline">Recalibrate</Button>}
                           confidence={91}
                           moodLabel="Bio-mood"
                           moodTone="focus"
                           moodValue={82}
                           signals={[
-                            { label: "Atmosfera", value: "Cyber-botânica · neon baixo" },
-                            { label: "Ritmo", value: "Sequência progressiva, baixa fricção" },
-                            { label: "Interface", value: "Cards densos, glow moderado, foco alto" },
+                            { label: "Atmosphere", value: "Cyber-botanical · low neon" },
+                            { label: "Pace", value: "Progressive sequence, low friction" },
+                            { label: "Interface", value: "Dense cards, measured glow, clear focus" },
                           ]}
                           title="AI personalization engine"
                         />
                       </div>
-                      <RecommendationRail description="Exemplo de rail para uma experiência de streaming que muda conforme o humor." title="Recomendações inteligentes">
+                      <RecommendationRail description="A recommendation rail for a streaming experience that adapts to mood." title="Intelligent recommendations">
                         {recommendationCards.map((card, index) => <div className="min-w-[220px] flex-1" key={card.title} role="listitem">
                           <MediaCard
                             active={card.active}
                             badge={card.badge}
                             duration={card.duration}
-                            imageAlt={`Visual abstrato do conteúdo ${card.title}`}
+                            imageAlt={`Abstract visual for ${card.title}`}
                             imageSrc={index === 0 ? spriteCorner : index === 1 ? organismBr : spriteWideB}
                             subtitle={card.subtitle}
                             title={card.title}
@@ -534,17 +519,17 @@ function App() {
                       <div className="flex flex-wrap gap-2">
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>
-                            <Button variant="outline">Ações do componente</Button>
+                            <Button variant="outline">Component actions</Button>
                           </DropdownMenuTrigger>
                           <DropdownMenuContent align="start">
-                            <DropdownMenuLabel>Documentar</DropdownMenuLabel>
-                            <DropdownMenuItem>Copiar snippet</DropdownMenuItem>
-                            <DropdownMenuItem>Ver estados</DropdownMenuItem>
+                            <DropdownMenuLabel>Documentation</DropdownMenuLabel>
+                            <DropdownMenuItem>Copy snippet</DropdownMenuItem>
+                            <DropdownMenuItem>View states</DropdownMenuItem>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem>Auditar acessibilidade</DropdownMenuItem>
+                            <DropdownMenuItem>Audit accessibility</DropdownMenuItem>
                           </DropdownMenuContent>
                         </DropdownMenu>
-                        <Button className="bg-[#F10081] hover:bg-[#CF006A]">Ver componentes no pacote</Button>
+                        <Button className="bg-[#F10081] hover:bg-[#CF006A]">View package components</Button>
                       </div>
                     </div>
                   </SectionCard>
@@ -555,12 +540,12 @@ function App() {
 
           {/* 04 · Patterns */}
           <section aria-label="Patterns" className="relative border-b border-[#ff4fbd]/14 px-6 py-8 md:px-8 lg:pr-[30vw] xl:pr-[26vw]">
-            <img aria-hidden="true" className="pointer-events-none absolute bottom-[-5rem] left-[-8rem] z-0 hidden w-[38rem] opacity-90 mix-blend-screen saturate-150 lg:block" draggable={false} src={spriteWideB} />
+            <img alt="" aria-hidden="true" className="pointer-events-none absolute bottom-[-5rem] left-[-8rem] z-0 hidden w-[38rem] opacity-90 mix-blend-screen saturate-150 lg:block" draggable={false} src={spriteWideB} />
             <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-12">
               <SectionHeader
                 id="patterns"
                 index="04"
-                lead="Combinações comprovadas que resolvem problemas complexos."
+                lead="Reusable compositions for common product problems."
                 linkHref="https://github.com/LouizeB/flytrapds/blob/main/docs/README.md"
                 linkLabel="Explore patterns"
                 title="Patterns"
@@ -583,24 +568,24 @@ function App() {
 
           {/* 05 · Accessibility */}
           <section aria-label="Accessibility" className="relative border-b border-[#ff4fbd]/14 px-6 py-8 md:px-8 lg:pr-[24vw] xl:pr-[20vw]">
-            <img aria-hidden="true" className="pointer-events-none absolute right-[-6rem] top-[-8rem] z-0 hidden w-72 -scale-x-100 rotate-12 opacity-80 mix-blend-screen lg:block" draggable={false} src={spriteCorner} />
+            <img alt="" aria-hidden="true" className="pointer-events-none absolute right-[-6rem] top-[-8rem] z-0 hidden w-72 -scale-x-100 rotate-12 opacity-80 mix-blend-screen lg:block" draggable={false} src={spriteCorner} />
             <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-12">
               <SectionHeader
                 id="accessibility"
                 index="05"
-                lead="Inclusivo por design. Usável por qualquer pessoa."
+                lead="Designed for keyboard, screen reader, contrast, and readability needs."
                 linkHref="https://github.com/LouizeB/flytrapds/blob/main/docs/README.md"
                 linkLabel="View guidelines"
                 title="Accessibility"
               />
               <div className="grid flex-1 gap-4 sm:grid-cols-2">
                 <SectionCard meta="APCA" title="Contrast">
-                  <p className="font-display text-3xl font-bold text-white/90">54 <span className="text-base font-medium text-white/65">pares aprovados</span></p>
-                  <p className="mt-2 text-sm text-white/60">Conteúdo, ações, foco e dataviz validados em light, dark e vibrant.</p>
+                  <p className="font-display text-3xl font-bold text-white/90">54 <span className="text-base font-medium text-white/65">approved pairs</span></p>
+                  <p className="mt-2 text-sm text-white/60">Text, actions, focus states, and data visualization are validated for the dark experience.</p>
                 </SectionCard>
                 <SectionCard meta="focus" title="Visible focus">
                   <span className="inline-grid size-14 place-items-center rounded-lg border border-white/20 bg-black/40 font-display text-xl font-bold text-white outline outline-2 outline-offset-2 outline-[#ff4fbd]">Aa</span>
-                  <p className="mt-3 text-sm text-white/60">Anel de foco visível e navegação por teclado em todos os componentes.</p>
+                  <p className="mt-3 text-sm text-white/60">Visible focus rings and keyboard navigation are required for every component.</p>
                 </SectionCard>
               </div>
             </div>
@@ -613,7 +598,7 @@ function App() {
               <SectionHeader
                 id="guidelines"
                 index="06"
-                lead="Regras de engajamento para uma experiência consistente."
+                lead="Guidance for keeping interfaces clear, intentional, and consistent."
                 linkHref="https://github.com/LouizeB/flytrapds/blob/main/CONTRIBUTING.md"
                 linkLabel="Read guidelines"
                 title="Guidelines"
@@ -621,12 +606,12 @@ function App() {
               <div className="grid flex-1 gap-4 sm:grid-cols-2">
                 <SectionCard meta="Do" title="Use clear hierarchy">
                   <span className="inline-flex items-center gap-2 text-sm text-[#b8ff35]">
-                    <FlytrapIcon icon={SuccessIcon} /> Hierarquia tipográfica orienta a leitura sem esforço.
+                    <FlytrapIcon icon={SuccessIcon} /> Clear hierarchy helps users understand the page quickly.
                   </span>
                 </SectionCard>
                 <SectionCard meta="Don't" title="Overuse accents">
                   <span className="inline-flex items-center gap-2 text-sm text-[#ff4fbd]">
-                    <FlytrapIcon icon={ErrorIcon} /> Acentos em excesso disputam atenção e quebram o foco.
+                    <FlytrapIcon icon={ErrorIcon} /> Too many accents compete for attention and reduce focus.
                   </span>
                   <div aria-hidden="true" className="mt-3 h-1.5 overflow-hidden rounded-full bg-white/10">
                     <div className="h-full w-3/4 rounded-full bg-gradient-to-r from-[#ff4fbd] to-[#F10081]" />
@@ -638,19 +623,19 @@ function App() {
 
           {/* 07 · Code / Develop */}
           <section aria-label="Code / Develop" className="relative border-b border-[#ff4fbd]/14 px-6 py-8 md:px-8">
-            <img aria-hidden="true" className="pointer-events-none absolute bottom-[-7rem] right-[8rem] z-0 hidden w-80 opacity-70 mix-blend-screen saturate-150 lg:block" draggable={false} src={organismBr} />
+            <img alt="" aria-hidden="true" className="pointer-events-none absolute bottom-[-7rem] right-[8rem] z-0 hidden w-80 opacity-70 mix-blend-screen saturate-150 lg:block" draggable={false} src={organismBr} />
             <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:gap-12">
               <SectionHeader
                 id="code"
                 index="07"
-                lead="Construa com o nosso sistema em qualquer ambiente."
+                lead="Build with the system across product and documentation surfaces."
                 linkHref="https://github.com/LouizeB/flytrapds/blob/main/docs/README.md#trilha-development"
                 linkLabel="View documentation"
                 title="Code / Develop"
               />
               <div className="grid min-w-0 flex-1 gap-4 xl:grid-cols-[1.5fr_1fr]">
                 <div className="min-w-0">
-                  <PillTabs active={0} items={["React", "Vue", "Web components", "CSS"]} label="Plataformas" />
+                  <PillTabs active={0} items={["React", "Vue", "Web components", "CSS"]} label="Supported platforms" />
                   <div className="mt-3">
                     <CodeBlock
                       copyText={`import { Button } from '@flytrap/ui';\n\n<Button variant="primary" size="md">\n  Engage\n</Button>`}
@@ -678,13 +663,13 @@ function App() {
 
           {/* 08 · AI Workflows */}
           <section aria-label="AI Workflows" className="relative px-6 py-8 md:px-8">
-            <img aria-hidden="true" className="pointer-events-none absolute bottom-[-2rem] right-[-1rem] z-0 hidden w-72 opacity-95 mix-blend-screen saturate-125 lg:block" draggable={false} src={organismBr} />
-            <img aria-hidden="true" className="pointer-events-none absolute left-[-5rem] top-[-6rem] z-0 hidden w-72 rotate-[160deg] opacity-70 lg:block" draggable={false} src={spriteCorner} />
+            <img alt="" aria-hidden="true" className="pointer-events-none absolute bottom-[-2rem] right-[-1rem] z-0 hidden w-72 opacity-95 mix-blend-screen saturate-125 lg:block" draggable={false} src={organismBr} />
+            <img alt="" aria-hidden="true" className="pointer-events-none absolute left-[-5rem] top-[-6rem] z-0 hidden w-72 rotate-[160deg] opacity-70 lg:block" draggable={false} src={spriteCorner} />
             <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:gap-12">
               <SectionHeader
                 id="ai-workflows"
                 index="08"
-                lead="Design na velocidade da inteligência: o metabolismo do organismo."
+                lead="AI-assisted workflows for generation, review, refactoring, and documentation."
                 linkHref="https://github.com/LouizeB/flytrapds/blob/main/docs/README.md"
                 linkLabel="Explore workflows"
                 title="AI Workflows"
@@ -695,11 +680,11 @@ function App() {
             </div>
           </section>
 
-          <footer aria-label="Informações finais do Flytrap Design System" className="relative border-t border-white/10 px-6 py-8 text-white/65 md:px-10">
+          <footer aria-label="Flytrap Design System footer" className="relative border-t border-white/10 px-6 py-8 text-white/65 md:px-10">
             <div className="flex flex-wrap items-center justify-between gap-4 text-sm">
               <p className="inline-flex items-center gap-2">
                 <FlytrapIcon icon={InsightIcon} size="sm" />
-                Flytrap DS · Um organismo vivo de tokens, componentes e acessibilidade.
+                Flytrap DS · A living system of tokens, components, and accessibility guidance.
               </p>
               <a className="inline-flex items-center gap-1 font-medium text-[#ff9bdd] hover:underline" href="https://github.com/LouizeB/flytrapds">
                 GitHub <FlytrapIcon icon={SendIcon} size="sm" />

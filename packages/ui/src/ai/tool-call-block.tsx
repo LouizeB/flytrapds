@@ -13,10 +13,10 @@ export interface ToolCallBlockProps extends React.ComponentPropsWithoutRef<typeo
   errorMessage?: string;
 }
 const toolStatus = {
-  pending: { label: "Pendente", icon: ToolIcon, className: "text-muted-foreground" },
-  running: { label: "Executando", icon: AgentRunningIcon, className: "text-primary" },
-  success: { label: "Concluída", icon: SuccessIcon, className: "text-success" },
-  error: { label: "Falhou", icon: ErrorIcon, className: "text-destructive" },
+  pending: { label: "Pending", icon: ToolIcon, className: "text-muted-foreground" },
+  running: { label: "Running", icon: AgentRunningIcon, className: "text-primary" },
+  success: { label: "Completed", icon: SuccessIcon, className: "text-success" },
+  error: { label: "Failed", icon: ErrorIcon, className: "text-destructive" },
 } as const;
 
 export function ToolCallBlock({ name, status, input, output, duration, errorMessage, className, defaultOpen = false, ...props }: ToolCallBlockProps) {
@@ -30,9 +30,9 @@ export function ToolCallBlock({ name, status, input, output, duration, errorMess
       <FlytrapIcon className="transition-transform group-data-[state=open]:rotate-180 motion-reduce:transition-none" icon={ChevronDownIcon} size="sm" />
     </CollapsiblePrimitive.Trigger>
     <CollapsiblePrimitive.Content className="border-t">
-      {input !== undefined && <section className="grid gap-2 p-4"><h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Entrada</h4><div className="overflow-x-auto rounded-md bg-muted p-3 font-mono text-xs leading-5">{input}</div></section>}
-      {output !== undefined && <section className="grid gap-2 border-t p-4"><h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Saída</h4><div className="overflow-x-auto rounded-md bg-muted p-3 font-mono text-xs leading-5">{output}</div></section>}
-      {status === "error" && <p className="border-t bg-destructive/10 p-4 text-sm text-destructive" role="alert">{errorMessage ?? "A ferramenta falhou sem expor detalhes sensíveis."}</p>}
+      {input !== undefined && <section className="grid gap-2 p-4"><h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Input</h4><div className="overflow-x-auto rounded-md bg-muted p-3 font-mono text-xs leading-5">{input}</div></section>}
+      {output !== undefined && <section className="grid gap-2 border-t p-4"><h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Output</h4><div className="overflow-x-auto rounded-md bg-muted p-3 font-mono text-xs leading-5">{output}</div></section>}
+      {status === "error" && <p className="border-t bg-destructive/10 p-4 text-sm text-destructive" role="alert">{errorMessage ?? "The tool failed without exposing sensitive details."}</p>}
     </CollapsiblePrimitive.Content>
   </CollapsiblePrimitive.Root>;
 }

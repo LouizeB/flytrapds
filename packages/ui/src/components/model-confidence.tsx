@@ -11,7 +11,7 @@ function clampConfidence(value: number) {
   return Math.min(100, Math.max(0, value));
 }
 
-export function ModelConfidence({ className, description, label = "Confiança do modelo", value, ...props }: ModelConfidenceProps) {
+export function ModelConfidence({ className, description, label = "Model confidence", value, ...props }: ModelConfidenceProps) {
   const safeValue = clampConfidence(value);
 
   return <div className={cn("grid gap-2 rounded-xl border bg-card p-4 text-card-foreground", className)} data-slot="model-confidence" {...props}>

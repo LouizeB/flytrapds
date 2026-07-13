@@ -12,7 +12,7 @@ export const Dialog = DialogPrimitive.Root;
 export const DialogTrigger = DialogPrimitive.Trigger;
 export const DialogClose = DialogPrimitive.Close;
 export function DialogContent({ className, children, ...props }: React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>) {
-  return <DialogPrimitive.Portal><DialogPrimitive.Overlay className={overlayClass} /><DialogPrimitive.Content className={cn(contentClass, className)} {...props}>{children}<DialogPrimitive.Close aria-label="Fechar" className="absolute right-4 top-4 rounded-md p-1 text-muted-foreground outline-none hover:bg-accent hover:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring"><FlytrapIcon icon={CloseIcon} /></DialogPrimitive.Close></DialogPrimitive.Content></DialogPrimitive.Portal>;
+  return <DialogPrimitive.Portal><DialogPrimitive.Overlay className={overlayClass} /><DialogPrimitive.Content className={cn(contentClass, className)} {...props}>{children}<DialogPrimitive.Close aria-label="Close" className="absolute right-4 top-4 rounded-md p-1 text-muted-foreground outline-none hover:bg-accent hover:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring"><FlytrapIcon icon={CloseIcon} /></DialogPrimitive.Close></DialogPrimitive.Content></DialogPrimitive.Portal>;
 }
 export function DialogHeader({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) { return <div className={cn("grid gap-2 text-center sm:text-left", className)} {...props} />; }
 export function DialogFooter({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) { return <div className={cn("flex flex-col-reverse gap-2 sm:flex-row sm:justify-end", className)} {...props} />; }

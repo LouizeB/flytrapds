@@ -15,10 +15,10 @@ export interface HumanApprovalPromptProps extends React.HTMLAttributes<HTMLDivEl
   pending?: boolean;
 }
 const approvalMeta = {
-  pending: { label: "Aguardando decisão", icon: ApprovalIcon, className: "text-warning" },
-  approved: { label: "Aprovado", icon: SuccessIcon, className: "text-success" },
-  rejected: { label: "Rejeitado", icon: ErrorIcon, className: "text-destructive" },
-  expired: { label: "Expirado", icon: WarningIcon, className: "text-muted-foreground" },
+  pending: { label: "Awaiting decision", icon: ApprovalIcon, className: "text-warning" },
+  approved: { label: "Approved", icon: SuccessIcon, className: "text-success" },
+  rejected: { label: "Rejected", icon: ErrorIcon, className: "text-destructive" },
+  expired: { label: "Expired", icon: WarningIcon, className: "text-muted-foreground" },
 } as const;
 
 export function HumanApprovalPrompt({ title, description, status = "pending", details, expiresAt, onApprove, onReject, pending = false, className, ...props }: HumanApprovalPromptProps) {
@@ -30,8 +30,8 @@ export function HumanApprovalPrompt({ title, description, status = "pending", de
     {details && <div className="rounded-lg bg-muted p-3 text-sm leading-6">{details}</div>}
     <div className="flex flex-wrap items-center gap-2">
       <span aria-live="polite" className={cn("inline-flex items-center gap-1.5 text-xs font-medium", meta.className)}><FlytrapIcon icon={meta.icon} size="sm" />{meta.label}</span>
-      {expiresAt && status === "pending" && <span className="text-xs text-muted-foreground">Expira {expiresAt}</span>}
-      {status === "pending" && <div className="ml-auto flex gap-2"><Button disabled={pending} onClick={onReject} size="sm" variant="outline">Rejeitar</Button><Button loading={pending} loadingAnnouncement="Aplicando aprovação" onClick={onApprove} size="sm">Aprovar</Button></div>}
+      {expiresAt && status === "pending" && <span className="text-xs text-muted-foreground">Expires {expiresAt}</span>}
+      {status === "pending" && <div className="ml-auto flex gap-2"><Button disabled={pending} onClick={onReject} size="sm" variant="outline">Reject</Button><Button loading={pending} loadingAnnouncement="Applying approval" onClick={onApprove} size="sm">Approve</Button></div>}
     </div>
   </section>;
 }

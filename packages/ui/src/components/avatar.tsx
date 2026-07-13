@@ -28,7 +28,7 @@ const statusClasses: Record<AiAvatarStatus, string> = {
 };
 
 export function AiAvatar({ label = "Flytrap AI", status = "online", size = "md", className, ...props }: AiAvatarProps) {
-  const statusLabel = status === "online" ? "Disponível" : status === "processing" ? "Processando" : "Offline";
+  const statusLabel = status === "online" ? "Available" : status === "processing" ? "Processing" : "Offline";
   return <span className="relative inline-flex" data-slot="ai-avatar">
     <Avatar aria-label={label} className={className} role="img" size={size} {...props}>
       <AvatarImage alt="" src={flytrapAiAvatarUrl} />

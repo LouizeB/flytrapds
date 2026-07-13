@@ -5,11 +5,11 @@ import { cn } from "../lib/utils";
 
 export type AgentExecutionStatus = "idle" | "queued" | "running" | "completed" | "error";
 const status = {
-  idle: ["Inativo", AgentIdleIcon, "text-muted-foreground"],
-  queued: ["Na fila", AgentIdleIcon, "text-warning"],
-  running: ["Executando", AgentRunningIcon, "text-success"],
-  completed: ["Concluído", SuccessIcon, "text-success"],
-  error: ["Erro", ErrorIcon, "text-destructive"],
+  idle: ["Idle", AgentIdleIcon, "text-muted-foreground"],
+  queued: ["Queued", AgentIdleIcon, "text-warning"],
+  running: ["Running", AgentRunningIcon, "text-success"],
+  completed: ["Completed", SuccessIcon, "text-success"],
+  error: ["Error", ErrorIcon, "text-destructive"],
 } as const;
 
 export function AgentStatusIndicator({ status: value, className }: { status: AgentExecutionStatus; className?: string }) {

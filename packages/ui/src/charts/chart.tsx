@@ -53,8 +53,8 @@ export function Chart({
   state = "ready",
   height = 280,
   valueFormatter = value => String(value),
-  emptyMessage = "Não há dados para exibir.",
-  errorMessage = "Não foi possível carregar os dados.",
+  emptyMessage = "No data to display.",
+  errorMessage = "Data could not be loaded.",
   className,
   ...props
 }: ChartProps) {
@@ -77,12 +77,12 @@ export function Chart({
 
   return <section aria-describedby={description ? descriptionId : undefined} aria-labelledby={titleId} className={cn("grid gap-4 rounded-xl border bg-card p-5 text-card-foreground", className)} data-slot="chart" data-state={state} {...props}>
     <header><h3 className="font-display text-lg font-semibold" id={titleId}>{title}</h3>{description && <p className="mt-1 text-sm text-muted-foreground" id={descriptionId}>{description}</p>}</header>
-    {state === "loading" && <div aria-label="Carregando gráfico" className="grid gap-3" style={{ height }}><Skeleton className="h-full w-full" /></div>}
-    {state === "empty" && <EmptyState className="border-0" description={emptyMessage} icon={ChartIcon} title="Sem dados" />}
-    {state === "error" && <Alert variant="error"><AlertTitle>Erro no gráfico</AlertTitle><AlertDescription>{errorMessage}</AlertDescription></Alert>}
+    {state === "loading" && <div aria-label="Loading chart" className="grid gap-3" style={{ height }}><Skeleton className="h-full w-full" /></div>}
+    {state === "empty" && <EmptyState className="border-0" description={emptyMessage} icon={ChartIcon} title="No data" />}
+    {state === "error" && <Alert variant="error"><AlertTitle>Chart error</AlertTitle><AlertDescription>{errorMessage}</AlertDescription></Alert>}
     {state === "ready" && <>
       <div aria-hidden="true" style={{ height }}><ResponsiveContainer height="100%" minWidth={1} width="100%">{visualization}</ResponsiveContainer></div>
-      <details className="rounded-lg border"><summary className="cursor-pointer px-3 py-2 text-sm font-medium">Tabela de dados</summary><div className="overflow-x-auto border-t"><table className="w-full text-left text-sm"><thead><tr className="border-b bg-muted/50"><th className="px-3 py-2">{xKey}</th>{series.map(item => <th className="px-3 py-2" key={item.key}>{item.label}</th>)}</tr></thead><tbody>{data.map((datum, index) => <tr className="border-b last:border-0" key={`${String(datum[xKey])}-${index}`}><th className="px-3 py-2 font-medium">{datum[xKey]}</th>{series.map(item => <td className="px-3 py-2" key={item.key}>{typeof datum[item.key] === "number" ? valueFormatter(datum[item.key] as number) : datum[item.key]}</td>)}</tr>)}</tbody></table></div></details>
+      <details className="rounded-lg border"><summary className="cursor-pointer px-3 py-2 text-sm font-medium">Data table</summary><div className="overflow-x-auto border-t"><table className="w-full text-left text-sm"><thead><tr className="border-b bg-muted/50"><th className="px-3 py-2">{xKey}</th>{series.map(item => <th className="px-3 py-2" key={item.key}>{item.label}</th>)}</tr></thead><tbody>{data.map((datum, index) => <tr className="border-b last:border-0" key={`${String(datum[xKey])}-${index}`}><th className="px-3 py-2 font-medium">{datum[xKey]}</th>{series.map(item => <td className="px-3 py-2" key={item.key}>{typeof datum[item.key] === "number" ? valueFormatter(datum[item.key] as number) : datum[item.key]}</td>)}</tr>)}</tbody></table></div></details>
     </>}
   </section>;
 }

@@ -42,9 +42,9 @@ describe("Chart", () => {
   });
 
   it.each([
-    ["loading", "Carregando gráfico"],
-    ["empty", "Sem dados"],
-    ["error", "Erro no gráfico"],
+    ["loading", "Loading chart"],
+    ["empty", "No data"],
+    ["error", "Chart error"],
   ] as const)("representa o estado %s", (state, text) => {
     render(<Chart data={[]} emptyMessage="Nada encontrado" errorMessage="Falha customizada" series={series} state={state} title="Adoção" xKey="period" />);
     expect(state === "loading" ? screen.getByLabelText(text) : screen.getByText(text)).toBeTruthy();
