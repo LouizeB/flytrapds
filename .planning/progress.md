@@ -19,8 +19,8 @@ Fonte de verdade para retomar a evolução pós-auditoria.
 
 ## Fase 2 — Pendências recomendadas
 
-- [ ] Decidir com design se o lima entra na escala oficial HCT ou continua exclusivamente como arte pública.
-- [ ] Rodar uma publicação dry-run quando houver conta npm/release owner definido.
+- [x] Decidir com design se o lima entra na escala oficial HCT ou continua exclusivamente como arte pública. Decisão: manter como arte pública; `#b8ff35` passa em dark/vibrant, mas falha no light (`Lc=0` contra superfícies claras), então não entra como token oficial do DS agora.
+- [x] Rodar uma publicação dry-run quando houver conta npm/release owner definido. Validado com `npm pack --dry-run` em `packages/ui`; pacote contém `dist`, CSS e assets, sem publicação real.
 - [ ] Capturar screenshot/auditoria visual da página pública após merge.
 
 ## Fase 3 — Próxima onda

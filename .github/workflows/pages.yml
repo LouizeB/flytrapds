@@ -38,6 +38,9 @@ jobs:
       - name: Build tokens
         run: pnpm tokens
 
+      - name: Build UI package
+        run: pnpm --filter @flytrap/ui build
+
       - name: Build documentation
         run: pnpm --filter @flytrap/docs build:pages
 
