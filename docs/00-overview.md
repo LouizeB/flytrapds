@@ -18,8 +18,8 @@ Tema "Venus Flytrap": dualidade Vênus (beleza, escultura, estrutura) + Dionaea 
 
 ## Marca
 - Primária: magenta `#F10081`
-- Secundária: acid (lime)
+- Secundária: verde orgânico validado por tokens; lima artístico fica restrito à experiência pública.
 - Tipografia: Fira Sans (display) · Ubuntu Sans (texto) · Roboto Mono (mono)
 
 ## Status
-M0 scaffold ✅ · M1 tokens ✅ · M3 Supabase schema ✅ · M2 fundação UI ✅ · M4 apps compilando/deploy ⏳
+M0 scaffold ✅ · M1 tokens ✅ · M2 fundação UI ✅ · M3 Supabase schema ✅ · M4 deploy/docs ✅ · M5 experiência pública e consumidores reais em evolução ✅
