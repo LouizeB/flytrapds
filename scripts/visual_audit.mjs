@@ -2,10 +2,79 @@ import { chromium } from "@playwright/test";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 
-const url = process.env.FLYTRAP_VISUAL_AUDIT_URL ?? "https://louizeb.github.io/flytrapds/";
+const profiles = {
+  public: {
+    title: "Visual audit — Flytrap public DS",
+    defaultUrl: "https://louizeb.github.io/flytrapds/",
+    reportPath: ".planning/visual-audit.md",
+    resultFile: "visual-audit-results.json",
+    screenshotPrefix: "flytrap-public",
+    mainSelector: "#main-content",
+    loaderSelector: '[aria-label="Loading Flytrap Design System"], [aria-label="Carregando Flytrap Design System"]',
+    expectedSections: [
+      "Foundations",
+      "Tokens",
+      "Components",
+      "Patterns",
+      "Accessibility",
+      "Guidelines",
+      "Code / Develop",
+      "AI Workflows",
+    ],
+    expectedComponentAnchors: [
+      "component-inputs",
+      "component-navigation",
+      "component-feedback",
+      "component-data-display",
+      "component-surfaces",
+      "component-overlays",
+      "component-ai",
+    ],
+    humanReviewNotes: [
+      "Desktop: sidebar, hero, character, organic atmosphere, dense cards and all DS sections render after the boot sequence.",
+      "Mobile: content stacks without horizontal overflow; all sections remain reachable after the boot sequence.",
+      "Automated DOM checks cover duplicate IDs, broken hash links, unnamed buttons/links, component category anchors and horizontal overflow.",
+      "Known non-blocking observation: the public art layer is intentionally dark/neon and remains outside the DS token contract.",
+    ],
+  },
+  studio: {
+    title: "Visual audit — Flytrap Stream Studio",
+    defaultUrl: "http://127.0.0.1:4174/",
+    reportPath: ".planning/studio-visual-audit.md",
+    resultFile: "studio-visual-audit-results.json",
+    screenshotPrefix: "flytrap-studio",
+    mainSelector: 'main[data-slot="page"]',
+    loaderSelector: '[aria-label="Loading Flytrap Stream Studio"]',
+    expectedSections: [
+      "AI-managed streaming studio",
+      "Mood-shaped experience",
+      "Adaptive queue",
+      "Viewer signals",
+      "AI workflow",
+      "Assistant console",
+    ],
+    expectedComponentAnchors: [],
+    humanReviewNotes: [
+      "Desktop: the product consumer renders a complete streaming workflow with mood controls, queue, signals, agent trace and assistant console.",
+      "Mobile: content should remain stacked and navigable without horizontal overflow.",
+      "Automated DOM checks cover duplicate IDs, broken hash links, unnamed buttons/links and horizontal overflow.",
+      "Known non-blocking observation: Studio intentionally uses the dark-only Flytrap product shell until a deliberate light mode is designed.",
+    ],
+  },
+};
+
+const profileName = process.env.FLYTRAP_VISUAL_AUDIT_PROFILE ?? "public";
+const profile = profiles[profileName];
+
+if (!profile) {
+  console.error(`Unknown visual audit profile: ${profileName}. Expected one of: ${Object.keys(profiles).join(", ")}`);
+  process.exit(1);
+}
+
+const url = process.env.FLYTRAP_VISUAL_AUDIT_URL ?? profile.defaultUrl;
 const outputDir = resolve(".planning/screenshots");
-const reportPath = resolve(".planning/visual-audit.md");
-const resultPath = join(outputDir, "visual-audit-results.json");
+const reportPath = resolve(process.env.FLYTRAP_VISUAL_AUDIT_REPORT ?? profile.reportPath);
+const resultPath = join(outputDir, process.env.FLYTRAP_VISUAL_AUDIT_RESULT_FILE ?? profile.resultFile);
 const waitAfterNetworkIdleMs = Number(process.env.FLYTRAP_VISUAL_AUDIT_WAIT_MS ?? 4500);
 
 const viewports = [
@@ -13,26 +82,8 @@ const viewports = [
   { name: "mobile", width: 390, height: 1200 },
 ];
 
-const expectedSections = [
-  "Foundations",
-  "Tokens",
-  "Components",
-  "Patterns",
-  "Accessibility",
-  "Guidelines",
-  "Code / Develop",
-  "AI Workflows",
-];
-
-const expectedComponentAnchors = [
-  "component-inputs",
-  "component-navigation",
-  "component-feedback",
-  "component-data-display",
-  "component-surfaces",
-  "component-overlays",
-  "component-ai",
-];
+const expectedSections = profile.expectedSections;
+const expectedComponentAnchors = profile.expectedComponentAnchors;
 
 function statusIcon(ok) {
   return ok ? "✅" : "❌";
@@ -40,8 +91,9 @@ function statusIcon(ok) {
 
 function markdown(results) {
   const lines = [
-    "# Visual audit — Flytrap public DS",
+    `# ${profile.title}`,
     "",
+    `Profile: ${profileName}`,
     `URL: ${url}`,
     `Generated: ${new Date().toISOString()}`,
     "",
@@ -113,10 +165,7 @@ function markdown(results) {
 
   lines.push("## Human review notes");
   lines.push("");
-  lines.push("- Desktop: sidebar, hero, character, organic atmosphere, dense cards and all DS sections render after the boot sequence.");
-  lines.push("- Mobile: content stacks without horizontal overflow; all sections remain reachable after the boot sequence.");
-  lines.push("- Automated DOM checks cover duplicate IDs, broken hash links, unnamed buttons/links, component category anchors and horizontal overflow.");
-  lines.push("- Known non-blocking observation: the public art layer is intentionally dark/neon and remains outside the DS token contract.");
+  for (const note of profile.humanReviewNotes) lines.push(`- ${note}`);
   lines.push("");
 
   return `${lines.join("\n")}\n`;
@@ -149,14 +198,14 @@ async function run() {
     const response = await page.goto(url, { waitUntil: "networkidle", timeout: 60000 });
     await page.waitForTimeout(waitAfterNetworkIdleMs);
 
-    const screenshot = join(".planning/screenshots", `flytrap-public-${viewport.name}-ready.png`);
+    const screenshot = join(".planning/screenshots", `${profile.screenshotPrefix}-${viewport.name}-ready.png`);
     await page.screenshot({ path: screenshot, fullPage: true });
 
     const bodyText = await page.locator("body").innerText({ timeout: 5000 });
     const present = expectedSections.filter((section) => bodyText.includes(section));
     const missing = expectedSections.filter((section) => !bodyText.includes(section));
-    const loaderVisible = await page.locator('[aria-label="Loading Flytrap Design System"], [aria-label="Carregando Flytrap Design System"]').isVisible().catch(() => false);
-    const mainVisible = await page.locator("#main-content").isVisible().catch(() => false);
+    const loaderVisible = await page.locator(profile.loaderSelector).isVisible().catch(() => false);
+    const mainVisible = await page.locator(profile.mainSelector).isVisible().catch(() => false);
     const status = response?.status() ?? 0;
     const domAudit = await page.evaluate((componentAnchors) => {
       const ids = [...document.querySelectorAll("[id]")]

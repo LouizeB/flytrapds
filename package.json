@@ -7,6 +7,7 @@
     "dev": "turbo run dev",
     "live": "pnpm --filter @flytrap/docs live",
     "studio": "pnpm --filter @flytrap/studio dev",
+    "studio:visual:audit": "node scripts/studio_visual_audit.mjs",
     "changeset": "changeset",
     "version-packages": "changeset version",
     "release": "pnpm build && changeset publish",
