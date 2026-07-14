@@ -19,7 +19,7 @@ export interface PersonalizationPanelProps extends Omit<React.HTMLAttributes<HTM
   action?: React.ReactNode;
 }
 
-export function PersonalizationPanel({ action, className, confidence, moodLabel, moodTone = "focus", moodValue, signals = [], title = "Personalização ativa", ...props }: PersonalizationPanelProps) {
+export function PersonalizationPanel({ action, className, confidence, moodLabel, moodTone = "focus", moodValue, signals = [], title = "Active personalization", ...props }: PersonalizationPanelProps) {
   return <section className={cn("grid gap-4 rounded-2xl border bg-card p-5 text-card-foreground", className)} data-slot="personalization-panel" {...props}>
     <div className="flex items-start justify-between gap-3">
       <h2 className="font-display text-lg font-semibold">{title}</h2>

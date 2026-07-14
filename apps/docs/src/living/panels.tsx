@@ -37,13 +37,14 @@ export function SectionHeader({ index, id, title, lead, linkLabel, linkHref }: {
   </div>;
 }
 
-export function SectionCard({ title, meta, className, children }: {
+export function SectionCard({ title, meta, className, children, id }: {
   title: string;
   meta?: string;
   className?: string;
   children: React.ReactNode;
+  id?: string;
 }) {
-  return <article className={["flytrap-card relative overflow-hidden rounded-[1.15rem] border border-[rgba(241,0,129,.22)] bg-[linear-gradient(145deg,rgba(14,18,28,.84),rgba(2,5,10,.72))] p-4 shadow-[0_18px_52px_rgba(0,0,0,.62),0_0_30px_rgba(139,92,246,.1),inset_0_0_18px_rgba(255,255,255,.025)] backdrop-blur-[20px] transition-all hover:border-[rgba(241,0,129,.48)] hover:shadow-[0_18px_52px_rgba(0,0,0,.62),0_0_46px_rgba(241,0,129,.22)]", className].filter(Boolean).join(" ")}>
+  return <article className={["flytrap-card relative scroll-mt-24 overflow-hidden rounded-[1.15rem] border border-[rgba(241,0,129,.22)] bg-[linear-gradient(145deg,rgba(14,18,28,.84),rgba(2,5,10,.72))] p-4 shadow-[0_18px_52px_rgba(0,0,0,.62),0_0_30px_rgba(139,92,246,.1),inset_0_0_18px_rgba(255,255,255,.025)] backdrop-blur-[20px]", className].filter(Boolean).join(" ")} id={id}>
     <span aria-hidden="true" className="pointer-events-none absolute inset-x-3 top-0 h-px bg-gradient-to-r from-transparent via-[#ff4fbd]/65 to-transparent" />
     <span aria-hidden="true" className="pointer-events-none absolute left-0 top-0 h-full w-px bg-gradient-to-b from-[#ff4fbd]/50 via-transparent to-[#8b5cf6]/40" />
     <span aria-hidden="true" className="pointer-events-none absolute -right-8 -top-8 size-24 rounded-full bg-[#ff4fbd]/8 blur-2xl" />
@@ -55,26 +56,38 @@ export function SectionCard({ title, meta, className, children }: {
   </article>;
 }
 
-export function PillTabs({ items, active = 0, label }: { items: readonly string[]; active?: number; label: string }) {
-  return <div aria-label={label} className="flex flex-wrap gap-1 rounded-xl border border-white/10 bg-black/30 p-1 backdrop-blur" role="list">
-    {items.map((item, index) => <span
-      aria-current={index === active ? "true" : undefined}
-      className={[
-        "whitespace-nowrap rounded-lg px-2.5 py-1.5 font-mono text-[0.62rem] uppercase tracking-[0.1em]",
-        index === active ? "bg-[#ff4fbd] text-[#1c0313] shadow-[0_0_18px_rgba(255,79,189,.45)]" : "text-white/70",
-      ].join(" ")}
-      key={item}
-      role="listitem"
-    >{item}</span>)}
+type PillTabItem = string | {
+  href?: string;
+  label: string;
+};
+
+export function PillTabs({ items, active = 0, label }: { items: readonly PillTabItem[]; active?: number; label: string }) {
+  return <div aria-label={label} className="flex flex-wrap gap-1.5 rounded-xl border border-white/10 bg-black/25 p-1.5 backdrop-blur" role="list">
+    {items.map((item, index) => {
+      const tab = typeof item === "string" ? { label: item } : item;
+      const tabClassName = [
+        "whitespace-nowrap rounded-md border px-2.5 py-1.5 font-mono text-[0.58rem] uppercase tracking-[0.1em]",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b8ff35] focus-visible:ring-offset-2 focus-visible:ring-offset-[#05060a]",
+        index === active ? "border-[#ff4fbd]/45 bg-[#ff4fbd]/12 text-[#ffd2ef]" : "border-white/8 bg-white/[.03] text-white/62",
+        tab.href ? "transition-colors hover:border-[#ff4fbd]/50 hover:bg-[#ff4fbd]/10 hover:text-white" : "",
+      ].join(" ");
+
+      return <span key={tab.label} role="listitem">
+        {tab.href
+          ? <a aria-current={index === active ? "page" : undefined} className={tabClassName} href={tab.href}>{tab.label}</a>
+          : <span aria-current={index === active ? "true" : undefined} className={tabClassName}>{tab.label}</span>}
+      </span>;
+    })}
   </div>;
 }
 
-export function ComponentPreview({ title, className, children }: {
+export function ComponentPreview({ title, className, children, id }: {
   title: string;
   className?: string;
   children: React.ReactNode;
+  id?: string;
 }) {
-  return <article className={["flytrap-preview relative overflow-hidden rounded-[1rem] border border-[rgba(241,0,129,.2)] bg-[rgba(5,8,14,.78)] p-3 shadow-[0_14px_38px_rgba(0,0,0,.62),0_0_24px_rgba(139,92,246,.11)] backdrop-blur-[18px] transition-all hover:border-[rgba(241,0,129,.45)] hover:shadow-[0_14px_40px_rgba(0,0,0,.62),0_0_34px_rgba(241,0,129,.2)]", className].filter(Boolean).join(" ")}>
+  return <article className={["flytrap-preview relative scroll-mt-24 overflow-hidden rounded-[1rem] border border-[rgba(241,0,129,.2)] bg-[rgba(5,8,14,.78)] p-3 shadow-[0_14px_38px_rgba(0,0,0,.62),0_0_24px_rgba(139,92,246,.11)] backdrop-blur-[18px]", className].filter(Boolean).join(" ")} id={id}>
     <span aria-hidden="true" className="pointer-events-none absolute inset-x-3 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
     <p className="font-mono text-[0.6rem] uppercase tracking-[0.2em] text-white/60">{title}</p>
     <div className="mt-3 grid gap-3">{children}</div>
@@ -127,7 +140,7 @@ export function CodeBlock({ lines, copyText }: { lines: CodeToken[][]; copyText:
     </pre>
     <Button className="absolute bottom-3 right-3 border-[#ff4fbd]/40 bg-[#ff4fbd]/10 text-[#ff9bdd] hover:bg-[#ff4fbd]/20" onClick={copy} size="sm" variant="outline">
       <FlytrapIcon icon={copied ? ConfirmIcon : CopyIcon} size="sm" />
-      {copied ? "Copiado" : "Copy"}
+      {copied ? "Copied" : "Copy"}
     </Button>
   </div>;
 }
@@ -137,10 +150,10 @@ export function WorkflowCard({ icon, title, description }: {
   title: string;
   description: string;
 }) {
-  return <article className="flytrap-workflow-card group rounded-2xl border border-white/10 bg-white/[.04] p-5 text-center shadow-2xl shadow-black/25 backdrop-blur-xl transition-colors hover:border-[#ff4fbd]/40">
+  return <article className="flytrap-workflow-card rounded-2xl border border-white/10 bg-white/[.04] p-5 text-center shadow-2xl shadow-black/25 backdrop-blur-xl">
     <h3 className="font-display text-base font-bold text-white/90">{title}</h3>
     <p className="mt-2 text-xs leading-5 text-white/70">{description}</p>
-    <span className="mx-auto mt-5 grid size-12 place-items-center rounded-xl border border-[#ff4fbd]/30 bg-[#ff4fbd]/10 text-[#ff9bdd] shadow-[0_0_22px_rgba(255,79,189,.25)] transition-transform group-hover:scale-110">
+    <span className="mx-auto mt-5 grid size-12 place-items-center rounded-xl border border-[#ff4fbd]/30 bg-[#ff4fbd]/10 text-[#ff9bdd] shadow-[0_0_22px_rgba(255,79,189,.25)]">
       <FlytrapIcon icon={icon} size="lg" />
     </span>
   </article>;

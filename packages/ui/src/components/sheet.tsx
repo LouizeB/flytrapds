@@ -27,7 +27,7 @@ export const SheetContent = React.forwardRef<React.ElementRef<typeof DialogPrimi
     <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-foreground/70 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out" />
     <DialogPrimitive.Content ref={ref} className={cn(sheetVariants({ side }), className)} data-slot="sheet-content" {...props}>
       {children}
-      <DialogPrimitive.Close aria-label="Fechar" className="absolute right-4 top-4 rounded-md p-1 text-muted-foreground outline-none hover:bg-accent hover:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring"><FlytrapIcon icon={CloseIcon} /></DialogPrimitive.Close>
+      <DialogPrimitive.Close aria-label="Close" className="absolute right-4 top-4 rounded-md p-1 text-muted-foreground outline-none hover:bg-accent hover:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring"><FlytrapIcon icon={CloseIcon} /></DialogPrimitive.Close>
     </DialogPrimitive.Content>
   </DialogPrimitive.Portal>
 );

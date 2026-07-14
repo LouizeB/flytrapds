@@ -13,7 +13,7 @@ const sizes = {
   lg: "size-8",
 };
 
-export function Spinner({ className, label = "Carregando", size = "md", ...props }: SpinnerProps) {
+export function Spinner({ className, label = "Loading", size = "md", ...props }: SpinnerProps) {
   return <div aria-label={label} className={cn("inline-flex items-center justify-center text-primary", className)} data-slot="spinner" role="status" {...props}>
     <FlytrapIcon className={cn("animate-spin motion-reduce:animate-none", sizes[size])} icon={AgentRunningIcon} />
     <span className="sr-only">{label}</span>

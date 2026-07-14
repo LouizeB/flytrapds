@@ -269,8 +269,8 @@ describe("componentes Onda 1", () => {
     expect(screen.queryByText("Tudo certo")).not.toBeInTheDocument();
     expect((await axe(container, { rules: { "color-contrast": { enabled: false } } })).violations).toHaveLength(0);
 
-    rerender(<FormField hint="Ajuda" label="Código" success="Disponível"><Input /></FormField>);
-    expect(screen.getByText("Disponível")).toBeVisible();
+    rerender(<FormField hint="Ajuda" label="Código" success="Available"><Input /></FormField>);
+    expect(screen.getByText("Available")).toBeVisible();
     expect(screen.getByLabelText("Código")).not.toHaveAttribute("aria-invalid");
 
     rerender(<FormField label="Sem mensagens"><Input /></FormField>);
@@ -305,7 +305,7 @@ describe("componentes Onda 1", () => {
     ["warning", "status"],
     ["error", "alert"],
   ] as const)("renderiza InlineNotification %s com role %s", async (variant, role) => {
-    const { container } = render(<InlineNotification action={<Button size="sm">Ver</Button>} title="Sincronização" variant={variant}>Mensagem do sistema.</InlineNotification>);
+    const { container } = render(<InlineNotification action={<Button size="sm">Ver</Button>} title="Sincronização" variant={variant}>Message do sistema.</InlineNotification>);
     expect(screen.getByRole(role)).toHaveTextContent("Sincronização");
     expect(screen.getByRole("button", { name: "Ver" })).toBeVisible();
     expect((await axe(container, { rules: { "color-contrast": { enabled: false } } })).violations).toHaveLength(0);
@@ -354,9 +354,9 @@ describe("componentes Onda 1", () => {
     const onClear = vi.fn();
     const { rerender } = render(<SearchField aria-label="Buscar componentes" defaultValue="button" />);
 
-    await user.click(screen.getByRole("button", { name: "Limpar busca" }));
+    await user.click(screen.getByRole("button", { name: "Clear search" }));
     expect(screen.getByRole("searchbox", { name: "Buscar componentes" })).toHaveValue("");
-    expect(screen.queryByRole("button", { name: "Limpar busca" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Clear search" })).not.toBeInTheDocument();
 
     rerender(<SearchField aria-label="Buscar tokens" clearLabel="Limpar tokens" onClear={onClear} value="color" />);
     await user.click(screen.getByRole("button", { name: "Limpar tokens" }));
@@ -369,11 +369,11 @@ describe("componentes Onda 1", () => {
     const { unmount } = render(<SearchField aria-label="Buscar" onChange={onChange} />);
     await user.type(screen.getByRole("searchbox", { name: "Buscar" }), "tokens");
     expect(onChange).toHaveBeenCalled();
-    expect(screen.getByRole("button", { name: "Limpar busca" })).toBeVisible();
+    expect(screen.getByRole("button", { name: "Clear search" })).toBeVisible();
 
     unmount();
     const empty = render(<SearchField aria-label="Vazio" />);
-    expect(screen.queryByRole("button", { name: "Limpar busca" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Clear search" })).not.toBeInTheDocument();
 
     empty.rerender(<SearchField aria-label="Controlado" readOnly value="token" />);
     fireEvent.change(screen.getByRole("searchbox", { name: "Controlado" }), { target: { value: "tokens" } });
@@ -407,7 +407,7 @@ describe("componentes Onda 2", () => {
     const { container } = render(<Combobox aria-label="Humor" defaultValue="focus" onValueChange={onValueChange} options={moodOptions} />);
 
     expect(screen.getByRole("combobox", { name: "Humor" })).toHaveValue("Foco");
-    await user.click(screen.getByRole("button", { name: "Abrir opções" }));
+    await user.click(screen.getByRole("button", { name: "Open options" }));
     await user.click(screen.getByRole("option", { name: "Calmo" }));
     expect(onValueChange).toHaveBeenCalledWith("calm");
     expect(screen.getByRole("combobox", { name: "Humor" })).toHaveValue("Calmo");
@@ -446,7 +446,7 @@ describe("componentes Onda 2", () => {
     const onValueChange = vi.fn();
     const { rerender } = render(<Combobox aria-label="Controlado" onValueChange={onValueChange} options={moodOptions} value="focus" />);
 
-    await user.click(screen.getByRole("button", { name: "Abrir opções" }));
+    await user.click(screen.getByRole("button", { name: "Open options" }));
     await user.click(screen.getByRole("option", { name: "Calmo" }));
     expect(onValueChange).toHaveBeenCalledWith("calm");
     expect(screen.getByRole("combobox", { name: "Controlado" })).toHaveValue("Foco");
@@ -502,7 +502,7 @@ describe("componentes Onda 2", () => {
     const file = new File(["flytrap"], "flytrap.txt", { type: "text/plain" });
     const { rerender } = render(<FileUpload multiple onFilesChange={onFilesChange} />);
 
-    await user.upload(screen.getByLabelText(/Selecionar arquivos/), file);
+    await user.upload(screen.getByLabelText(/Select files/), file);
     expect(onFilesChange).toHaveBeenCalledWith([file]);
     expect(screen.getByText("flytrap.txt")).toBeVisible();
 
@@ -605,7 +605,7 @@ describe("componentes Onda 3", () => {
   it.each([
     ["neutral", "Neutro"],
     ["info", "Informativo"],
-    ["success", "Concluído"],
+    ["success", "Completed"],
     ["warning", "Atenção"],
     ["error", "Erro"],
   ] as const)("renderiza StatusIndicator %s", (tone, label) => {
@@ -623,7 +623,7 @@ describe("componentes Onda 3", () => {
     ["info", "Em análise"],
     ["success", "Publicado"],
     ["warning", "Revisar"],
-    ["error", "Falhou"],
+    ["error", "Failed"],
   ] as const)("renderiza TimelineItem %s", (tone, title) => {
     render(<Timeline><TimelineItem description="Detalhe do evento" meta="agora" title={title} tone={tone} /></Timeline>);
     expect(screen.getByText(title)).toBeVisible();
@@ -740,22 +740,22 @@ describe("componentes Flytrap streaming", () => {
     const onPrevious = vi.fn();
     const { rerender } = render(<PlayerControls onNext={onNext} onPlayPause={onPlayPause} onPrevious={onPrevious} progress={120} />);
 
-    expect(screen.getByRole("progressbar", { name: "Progresso da mídia" })).toHaveAttribute("aria-valuenow", "100");
-    await user.click(screen.getByRole("button", { name: "Reproduzir" }));
-    await user.click(screen.getByRole("button", { name: "Próximo" }));
-    await user.click(screen.getByRole("button", { name: "Anterior" }));
+    expect(screen.getByRole("progressbar", { name: "Media progress" })).toHaveAttribute("aria-valuenow", "100");
+    await user.click(screen.getByRole("button", { name: "Play" }));
+    await user.click(screen.getByRole("button", { name: "Next" }));
+    await user.click(screen.getByRole("button", { name: "Previous" }));
     expect(onPlayPause).toHaveBeenCalledOnce();
     expect(onNext).toHaveBeenCalledOnce();
     expect(onPrevious).toHaveBeenCalledOnce();
 
     rerender(<PlayerControls disabled playing progress={-4} />);
-    expect(screen.getByRole("button", { name: "Pausar" })).toBeDisabled();
-    expect(screen.getByRole("progressbar", { name: "Progresso da mídia" })).toHaveAttribute("aria-valuenow", "0");
+    expect(screen.getByRole("button", { name: "Pause" })).toBeDisabled();
+    expect(screen.getByRole("progressbar", { name: "Media progress" })).toHaveAttribute("aria-valuenow", "0");
   });
 
   it("renderiza ModelConfidence com label padrão, customizado e limites", () => {
     const { rerender } = render(<ModelConfidence description="Alto sinal comportamental" value={88} />);
-    expect(screen.getByRole("meter", { name: "Confiança do modelo" })).toHaveAttribute("aria-valuenow", "88");
+    expect(screen.getByRole("meter", { name: "Model confidence" })).toHaveAttribute("aria-valuenow", "88");
     expect(screen.getByText("Alto sinal comportamental")).toBeVisible();
 
     rerender(<ModelConfidence label={<span>Modelo visual</span>} value={150} />);
@@ -785,7 +785,7 @@ describe("componentes Flytrap streaming", () => {
     expect(screen.getByText("Noite")).toBeVisible();
 
     rerender(<PersonalizationPanel confidence={20} moodLabel="Livre" moodValue={10} />);
-    expect(screen.getByRole("heading", { name: "Personalização ativa" })).toBeVisible();
+    expect(screen.getByRole("heading", { name: "Active personalization" })).toBeVisible();
     expect(screen.queryByText("Tempo")).not.toBeInTheDocument();
   });
 });
@@ -800,7 +800,7 @@ describe("identidade de marca", () => {
   it("expõe avatar AI e status separadamente", () => {
     render(<AiAvatar label="Assistente Flytrap" status="processing" />);
     expect(screen.getByRole("img", { name: "Assistente Flytrap" })).toBeVisible();
-    expect(screen.getByRole("status", { name: "Processando" })).toBeVisible();
+    expect(screen.getByRole("status", { name: "Processing" })).toBeVisible();
   });
 });
 
@@ -810,8 +810,8 @@ describe("componentes AI", () => {
     const onRetry = vi.fn();
     render(<StreamingMessage onRetry={onRetry} status="interrupted">Resposta parcial preservada.</StreamingMessage>);
 
-    expect(screen.getByRole("status")).toHaveTextContent("Resposta interrompida");
-    await user.click(screen.getByRole("button", { name: "Tentar novamente" }));
+    expect(screen.getByRole("status")).toHaveTextContent("Response interrupted");
+    await user.click(screen.getByRole("button", { name: "Try again" }));
     expect(onRetry).toHaveBeenCalledOnce();
   });
 
@@ -831,15 +831,15 @@ describe("componentes AI", () => {
     const onReject = vi.fn();
     render(<HumanApprovalPrompt description="A ação altera dados compartilhados." onApprove={onApprove} onReject={onReject} title="Publicar alterações?" />);
 
-    await user.click(screen.getByRole("button", { name: "Aprovar" }));
-    await user.click(screen.getByRole("button", { name: "Rejeitar" }));
+    await user.click(screen.getByRole("button", { name: "Approve" }));
+    await user.click(screen.getByRole("button", { name: "Reject" }));
     expect(onApprove).toHaveBeenCalledOnce();
     expect(onReject).toHaveBeenCalledOnce();
   });
 
   it("distingue citações disponíveis e ausentes", () => {
     render(<><CitationChip href="https://example.com" index={1} source="Documentação" /><CitationChip index={2} missing source="Fonte removida" /></>);
-    expect(screen.getByRole("link", { name: /fonte 1/i })).toHaveAttribute("target", "_blank");
+    expect(screen.getByRole("link", { name: /source 1/i })).toHaveAttribute("target", "_blank");
     expect(screen.getByText("[2] Fonte removida").closest("[data-slot='citation-chip']")).toHaveAttribute("data-state", "missing");
   });
 
@@ -851,7 +851,7 @@ describe("componentes AI", () => {
       return <PromptInput onSubmitPrompt={onSubmitPrompt} onValueChange={setValue} value={value} />;
     }
     render(<PromptFixture />);
-    const input = screen.getByRole("textbox", { name: "Mensagem" });
+    const input = screen.getByRole("textbox", { name: "Message" });
     await user.type(input, "Olá{shift>}{enter}{/shift}mundo");
     expect(onSubmitPrompt).not.toHaveBeenCalled();
     await user.keyboard("{Enter}");
@@ -861,16 +861,16 @@ describe("componentes AI", () => {
   it("apresenta somente resumo seguro de análise", async () => {
     const user = userEvent.setup();
     render(<ReasoningStream status="completed" summary="Foram comparados aliases e contraste." />);
-    await user.click(screen.getByRole("button", { name: /resumo da análise/i }));
+    await user.click(screen.getByRole("button", { name: /analysis summary/i }));
     expect(screen.getByText("Foram comparados aliases e contraste.")).toBeVisible();
-    expect(screen.getByText(/não representa raciocínio interno/i)).toBeVisible();
+    expect(screen.getByText(/does not expose hidden chain-of-thought/i)).toBeVisible();
   });
 
   it("representa estados assíncronos do ChatThread", () => {
     const { rerender } = render(<ChatThread state="empty" />);
-    expect(screen.getByText("Comece uma conversa")).toBeVisible();
+    expect(screen.getByText("Start a conversation")).toBeVisible();
     rerender(<ChatThread state="loading" />);
-    expect(screen.getByLabelText("Carregando conversa")).toBeVisible();
+    expect(screen.getByLabelText("Loading conversation")).toBeVisible();
     rerender(<ChatThread errorMessage="Falha segura" state="error" />);
     expect(screen.getByRole("alert")).toHaveTextContent("Falha segura");
   });
@@ -879,18 +879,18 @@ describe("componentes AI", () => {
 describe("estrutura e navegação", () => {
   it("expande e recolhe a Sidebar preservando estado semântico", async () => {
     const user = userEvent.setup();
-    render(<SidebarProvider><Sidebar aria-label="Navegação principal" /><SidebarTrigger /></SidebarProvider>);
+    render(<SidebarProvider><Sidebar aria-label="Main navigation" /><SidebarTrigger /></SidebarProvider>);
 
-    expect(screen.getByLabelText("Navegação principal")).toHaveAttribute("data-state", "expanded");
-    await user.click(screen.getByRole("button", { name: "Recolher navegação" }));
-    expect(screen.getByLabelText("Navegação principal")).toHaveAttribute("data-state", "collapsed");
+    expect(screen.getByLabelText("Main navigation")).toHaveAttribute("data-state", "expanded");
+    await user.click(screen.getByRole("button", { name: "Collapse navigation" }));
+    expect(screen.getByLabelText("Main navigation")).toHaveAttribute("data-state", "collapsed");
   });
 
   it("filtra comandos pela entrada de busca", async () => {
     const user = userEvent.setup();
     render(<Command><CommandInput aria-label="Buscar comandos" /><CommandList><CommandEmpty>Nenhum resultado</CommandEmpty><CommandItem>Tokens</CommandItem><CommandItem>Componentes</CommandItem></CommandList></Command>);
 
-    await user.type(screen.getByRole("combobox", { name: "Menu de comandos" }), "tokens");
+    await user.type(screen.getByRole("combobox", { name: "Command menu" }), "tokens");
     expect(screen.getByText("Tokens")).toBeVisible();
     expect(screen.queryByText("Componentes")).not.toBeInTheDocument();
   });
@@ -914,7 +914,7 @@ describe("overlays e feedback", () => {
 
     await user.click(screen.getByRole("button", { name: "Abrir painel" }));
     expect(screen.getByRole("dialog", { name: "Preferências" })).toHaveAccessibleDescription("Configure a experiência.");
-    await user.click(screen.getByRole("button", { name: "Fechar" }));
+    await user.click(screen.getByRole("button", { name: "Close" }));
     await waitFor(() => expect(screen.queryByRole("dialog", { name: "Preferências" })).not.toBeInTheDocument());
   });
 
@@ -1150,7 +1150,7 @@ describe("RadioGroup", () => {
 describe("Command extras", () => {
   it("usa título e descrição padrão do CommandDialog", async () => {
     render(<CommandDialog open><CommandGroup><CommandItem>Item<CommandShortcut>⌘K</CommandShortcut></CommandItem></CommandGroup><CommandSeparator /></CommandDialog>);
-    expect(screen.getByRole("dialog", { name: "Menu de comandos" })).toBeVisible();
+    expect(screen.getByRole("dialog", { name: "Command menu" })).toBeVisible();
     expect(screen.getByText("⌘K")).toBeVisible();
   });
 });
@@ -1165,7 +1165,7 @@ describe("Dialog", () => {
     expect(dialog).toHaveAccessibleDescription("Detalhes da ação.");
     expect((await axe(dialog, { rules: { "color-contrast": { enabled: false } } })).violations).toHaveLength(0);
 
-    await user.click(screen.getByRole("button", { name: "Fechar" }));
+    await user.click(screen.getByRole("button", { name: "Close" }));
     await waitFor(() => expect(screen.queryByRole("dialog")).not.toBeInTheDocument());
   });
 
@@ -1182,10 +1182,10 @@ describe("Dialog", () => {
 
 describe("EmptyState", () => {
   it("renderiza ícone, descrição e ação quando fornecidos", () => {
-    render(<EmptyState action={<button>Tentar novamente</button>} description="Nada por aqui ainda." icon={SuccessIcon} title="Sem resultados" />);
+    render(<EmptyState action={<button>Try again</button>} description="Nada por aqui ainda." icon={SuccessIcon} title="Sem resultados" />);
     expect(screen.getByRole("heading", { name: "Sem resultados" })).toBeVisible();
     expect(screen.getByText("Nada por aqui ainda.")).toBeVisible();
-    expect(screen.getByRole("button", { name: "Tentar novamente" })).toBeVisible();
+    expect(screen.getByRole("button", { name: "Try again" })).toBeVisible();
   });
 
   it("funciona apenas com o título obrigatório", () => {
@@ -1247,7 +1247,7 @@ describe("Sidebar extras", () => {
   it("abre o painel móvel pelo gatilho dedicado", async () => {
     const user = userEvent.setup();
     render(<SidebarProvider><SidebarMobileTrigger /><SidebarMobile><SidebarMenu><SidebarMenuItem>Item móvel</SidebarMenuItem></SidebarMenu></SidebarMobile></SidebarProvider>);
-    await user.click(screen.getByRole("button", { name: "Abrir navegação" }));
+    await user.click(screen.getByRole("button", { name: "Open navigation" }));
     expect(await screen.findByText("Item móvel")).toBeVisible();
   });
 
@@ -1262,11 +1262,11 @@ describe("Sidebar extras", () => {
   it("respeita o modo controlado via open/onOpenChange", async () => {
     const user = userEvent.setup();
     const onOpenChange = vi.fn();
-    render(<SidebarProvider onOpenChange={onOpenChange} open={false}><Sidebar aria-label="Navegação" /><SidebarTrigger /></SidebarProvider>);
-    expect(screen.getByLabelText("Navegação")).toHaveAttribute("data-state", "collapsed");
-    await user.click(screen.getByRole("button", { name: "Expandir navegação" }));
+    render(<SidebarProvider onOpenChange={onOpenChange} open={false}><Sidebar aria-label="Navigation" /><SidebarTrigger /></SidebarProvider>);
+    expect(screen.getByLabelText("Navigation")).toHaveAttribute("data-state", "collapsed");
+    await user.click(screen.getByRole("button", { name: "Expand navigation" }));
     expect(onOpenChange).toHaveBeenCalledWith(true);
-    expect(screen.getByLabelText("Navegação")).toHaveAttribute("data-state", "collapsed");
+    expect(screen.getByLabelText("Navigation")).toHaveAttribute("data-state", "collapsed");
   });
 });
 
@@ -1300,10 +1300,10 @@ describe("Toast extras", () => {
   it("permite ação e fechamento explícitos", async () => {
     const user = userEvent.setup();
     const onAction = vi.fn();
-    render(<ToastProvider><Toast open><ToastTitle>Falha ao salvar</ToastTitle><ToastAction altText="Tentar novamente" onClick={onAction}>Repetir</ToastAction><ToastClose /></Toast><ToastViewport /></ToastProvider>);
+    render(<ToastProvider><Toast open><ToastTitle>Falha ao salvar</ToastTitle><ToastAction altText="Try again" onClick={onAction}>Repetir</ToastAction><ToastClose /></Toast><ToastViewport /></ToastProvider>);
     await user.click(screen.getByRole("button", { name: "Repetir" }));
     expect(onAction).toHaveBeenCalledOnce();
-    await user.click(screen.getByRole("button", { name: "Fechar notificação" }));
+    await user.click(screen.getByRole("button", { name: "Close notification" }));
   });
 });
 
@@ -1325,27 +1325,27 @@ describe("Avatar", () => {
 
 describe("ChatThread extras", () => {
   it("renderiza os filhos no estado ready", () => {
-    render(<ChatThread state="ready"><p>Mensagem existente</p></ChatThread>);
-    expect(screen.getByText("Mensagem existente")).toBeVisible();
+    render(<ChatThread state="ready"><p>Message existente</p></ChatThread>);
+    expect(screen.getByText("Message existente")).toBeVisible();
   });
 });
 
 describe("HumanApprovalPrompt extras", () => {
   it.each([
-    ["approved", "Aprovado"],
-    ["rejected", "Rejeitado"],
-    ["expired", "Expirado"],
+    ["approved", "Approved"],
+    ["rejected", "Rejected"],
+    ["expired", "Expired"],
   ] as const)("oculta as ações quando o status é %s", (status, label) => {
     render(<HumanApprovalPrompt description="Detalhe" status={status} title="Decisão registrada" />);
     expect(screen.getByText(label)).toBeVisible();
-    expect(screen.queryByRole("button", { name: "Aprovar" })).not.toBeInTheDocument();
-    expect(screen.queryByRole("button", { name: "Rejeitar" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Approve" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Reject" })).not.toBeInTheDocument();
   });
 
   it("exibe detalhes e prazo de expiração quando pendente", () => {
     render(<HumanApprovalPrompt description="Detalhe" details={<span>Contexto extra</span>} expiresAt="em 2 horas" title="Publicar?" />);
     expect(screen.getByText("Contexto extra")).toBeVisible();
-    expect(screen.getByText("Expira em 2 horas")).toBeVisible();
+    expect(screen.getByText("Expires em 2 horas")).toBeVisible();
   });
 });
 
@@ -1353,7 +1353,7 @@ describe("PromptInput extras", () => {
   it("bloqueia o envio quando o valor está vazio ou já enviando", async () => {
     const onSubmitPrompt = vi.fn();
     render(<PromptInput onSubmitPrompt={onSubmitPrompt} onValueChange={() => {}} submitting value="" />);
-    expect(screen.getByRole("button", { name: "Enviar mensagem" })).toBeDisabled();
+    expect(screen.getByRole("button", { name: "Send message" })).toBeDisabled();
   });
 
   it("renderiza contador, anexo e rodapé", () => {
@@ -1366,7 +1366,7 @@ describe("PromptInput extras", () => {
   it("ignora Enter durante composição de IME", () => {
     const onSubmitPrompt = vi.fn();
     render(<PromptInput onSubmitPrompt={onSubmitPrompt} onValueChange={() => {}} value="日本語" />);
-    fireEvent.keyDown(screen.getByRole("textbox", { name: "Mensagem" }), { isComposing: true, key: "Enter" });
+    fireEvent.keyDown(screen.getByRole("textbox", { name: "Message" }), { isComposing: true, key: "Enter" });
     expect(onSubmitPrompt).not.toHaveBeenCalled();
   });
 
@@ -1374,7 +1374,7 @@ describe("PromptInput extras", () => {
     const user = userEvent.setup();
     const onSubmitPrompt = vi.fn();
     render(<PromptInput onSubmitPrompt={onSubmitPrompt} onValueChange={() => {}} value="Enviar pelo botão" />);
-    await user.click(screen.getByRole("button", { name: "Enviar mensagem" }));
+    await user.click(screen.getByRole("button", { name: "Send message" }));
     expect(onSubmitPrompt).toHaveBeenCalledWith("Enviar pelo botão");
   });
 
@@ -1397,12 +1397,12 @@ describe("PromptInput extras", () => {
 
 describe("ReasoningStream extras", () => {
   it.each([
-    ["streaming", "Analisando"],
-    ["interrupted", "Análise interrompida"],
+    ["streaming", "Analyzing"],
+    ["interrupted", "Analysis interrupted"],
   ] as const)("exibe o status %s", async (status, label) => {
     const user = userEvent.setup();
     render(<ReasoningStream status={status} summary="Resumo" />);
-    await user.click(screen.getByRole("button", { name: /resumo da análise/i }));
+    await user.click(screen.getByRole("button", { name: /analysis summary/i }));
     expect(screen.getByText(label)).toBeVisible();
   });
 });
@@ -1410,13 +1410,13 @@ describe("ReasoningStream extras", () => {
 describe("StreamingMessage extras", () => {
   it("não exibe ícone de erro nem retry quando concluída", () => {
     render(<StreamingMessage status="completed">Resposta final.</StreamingMessage>);
-    expect(screen.getByText("Resposta concluída")).toBeVisible();
+    expect(screen.getByText("Response complete")).toBeVisible();
     expect(screen.queryByRole("button")).not.toBeInTheDocument();
   });
 
   it("indica o estado streaming", () => {
     render(<StreamingMessage status="streaming">Gerando...</StreamingMessage>);
-    expect(screen.getByText("Resposta em andamento")).toBeVisible();
+    expect(screen.getByText("Response in progress")).toBeVisible();
   });
 });
 
@@ -1425,12 +1425,12 @@ describe("ToolCallBlock extras", () => {
     const user = userEvent.setup();
     render(<ToolCallBlock name="delete_records" status="error" />);
     await user.click(screen.getByRole("button", { name: /delete_records/i }));
-    expect(screen.getByRole("alert")).toHaveTextContent("A ferramenta falhou sem expor detalhes sensíveis.");
+    expect(screen.getByRole("alert")).toHaveTextContent("The tool failed without exposing sensitive details.");
   });
 
   it.each([
-    ["pending", "Pendente"],
-    ["running", "Executando"],
+    ["pending", "Pending"],
+    ["running", "Running"],
   ] as const)("exibe o status %s sem duração quando ausente", (status, label) => {
     render(<ToolCallBlock name="fetch_data" status={status} />);
     expect(screen.getByText(label)).toBeVisible();
@@ -1459,8 +1459,8 @@ describe("componentes P1", () => {
     const user = userEvent.setup();
     const next = vi.fn();
     render(<Pagination><PaginationPrevious disabled /><PaginationPage current>1</PaginationPage><PaginationPage>2</PaginationPage><PaginationNext onClick={next} /></Pagination>);
-    expect(screen.getByRole("button", { name: "Página 1" })).toHaveAttribute("aria-current", "page");
-    await user.click(screen.getByRole("button", { name: "Próxima" }));
+    expect(screen.getByRole("button", { name: "Page 1" })).toHaveAttribute("aria-current", "page");
+    await user.click(screen.getByRole("button", { name: "Next" }));
     expect(next).toHaveBeenCalledOnce();
   });
 
@@ -1468,16 +1468,16 @@ describe("componentes P1", () => {
     const user = userEvent.setup();
     const copy = vi.fn().mockResolvedValue(undefined);
     render(<CopyButton copy={copy} value="token-123" />);
-    await user.click(screen.getByRole("button", { name: /copiar/i }));
+    await user.click(screen.getByRole("button", { name: /copy/i }));
     expect(copy).toHaveBeenCalledWith("token-123");
-    expect(screen.getByText("Copiado")).toBeVisible();
+    expect(screen.getByText("Copied")).toBeVisible();
   });
 
   it.each([
-    ["idle", "Inativo"],
-    ["queued", "Na fila"],
-    ["running", "Executando"],
-    ["completed", "Concluído"],
+    ["idle", "Idle"],
+    ["queued", "Queued"],
+    ["running", "Running"],
+    ["completed", "Completed"],
     ["error", "Erro"],
   ] as const)("apresenta o status de agente %s", (status, label) => {
     render(<AgentStatusIndicator status={status} />);
@@ -1508,8 +1508,8 @@ describe("componentes P1", () => {
       <MessageActions content="Resposta" feedback={<button>Útil</button>} onRetry={onRetry} />
     </>);
     await user.click(screen.getByRole("button", { name: "Resumir contexto" }));
-    await user.click(screen.getByRole("button", { name: "Copiar" }));
-    await user.click(screen.getByRole("button", { name: "Tentar novamente" }));
+    await user.click(screen.getByRole("button", { name: "Copy" }));
+    await user.click(screen.getByRole("button", { name: "Try again" }));
     expect(onSelect).toHaveBeenCalledWith("Resumir contexto");
     expect(copy).toHaveBeenCalledWith("Resposta");
     expect(onRetry).toHaveBeenCalledOnce();
@@ -1531,14 +1531,14 @@ describe("componentes P1", () => {
         rows={rows}
       />
     </>);
-    await user.type(screen.getByRole("searchbox", { name: "Filtrar resultados" }), "cura");
+    await user.type(screen.getByRole("searchbox", { name: "Filter results" }), "cura");
     expect(onValueChange).toHaveBeenCalled();
     expect(screen.getByRole("table", { name: "Agentes" })).toBeVisible();
     expect(screen.getByText("Ativo").tagName).toBe("STRONG");
   });
 
   it("apresenta estado vazio da tabela", () => {
-    render(<SmartDataTable caption="Sem dados" columns={[{ key: "name", header: "Nome" }]} getRowId={row => String(row.name)} rows={[]} />);
-    expect(screen.getByText("Nenhum resultado.")).toBeVisible();
+    render(<SmartDataTable caption="No data" columns={[{ key: "name", header: "Nome" }]} getRowId={row => String(row.name)} rows={[]} />);
+    expect(screen.getByText("No results found.")).toBeVisible();
   });
 });

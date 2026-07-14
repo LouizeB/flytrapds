@@ -4,14 +4,14 @@ import { SearchIcon, FlytrapIcon } from "../icons";
 import { cn } from "../lib/utils";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "./dialog";
 
-export const Command = React.forwardRef<React.ElementRef<typeof CommandPrimitive>, React.ComponentPropsWithoutRef<typeof CommandPrimitive>>(({ className, label = "Menu de comandos", ...props }, ref) => <CommandPrimitive ref={ref} className={cn("flex size-full flex-col overflow-hidden rounded-xl bg-popover text-popover-foreground", className)} data-slot="command" label={label} {...props} />);
+export const Command = React.forwardRef<React.ElementRef<typeof CommandPrimitive>, React.ComponentPropsWithoutRef<typeof CommandPrimitive>>(({ className, label = "Command menu", ...props }, ref) => <CommandPrimitive ref={ref} className={cn("flex size-full flex-col overflow-hidden rounded-xl bg-popover text-popover-foreground", className)} data-slot="command" label={label} {...props} />);
 Command.displayName = CommandPrimitive.displayName;
 
 export interface CommandDialogProps extends React.ComponentPropsWithoutRef<typeof Dialog> {
   title?: string;
   description?: string;
 }
-export function CommandDialog({ title = "Menu de comandos", description = "Busque uma ação ou destino", children, ...props }: CommandDialogProps) {
+export function CommandDialog({ title = "Command menu", description = "Search for an action or destination", children, ...props }: CommandDialogProps) {
   return <Dialog {...props}><DialogContent className="overflow-hidden p-0"><DialogTitle className="sr-only">{title}</DialogTitle><DialogDescription className="sr-only">{description}</DialogDescription><Command>{children}</Command></DialogContent></Dialog>;
 }
 export const CommandInput = React.forwardRef<React.ElementRef<typeof CommandPrimitive.Input>, React.ComponentPropsWithoutRef<typeof CommandPrimitive.Input>>(({ className, ...props }, ref) => <div className="flex items-center border-b px-3" data-slot="command-input-wrapper"><FlytrapIcon className="mr-2 opacity-60" icon={SearchIcon} /><CommandPrimitive.Input ref={ref} className={cn("h-12 w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50", className)} {...props} /></div>);

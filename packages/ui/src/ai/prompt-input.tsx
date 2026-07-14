@@ -16,7 +16,7 @@ export interface PromptInputProps extends Omit<React.FormHTMLAttributes<HTMLForm
   label?: string;
 }
 
-export function PromptInput({ value, onValueChange, onSubmitPrompt, placeholder = "Escreva uma mensagem…", submitting = false, maxLength = 4000, attachmentAction, footer, label = "Mensagem", className, ...props }: PromptInputProps) {
+export function PromptInput({ value, onValueChange, onSubmitPrompt, placeholder = "Write a message…", submitting = false, maxLength = 4000, attachmentAction, footer, label = "Message", className, ...props }: PromptInputProps) {
   const promptId = React.useId();
   const countId = React.useId();
   const submit = () => {
@@ -41,7 +41,7 @@ export function PromptInput({ value, onValueChange, onSubmitPrompt, placeholder 
       {attachmentAction}
       <span className="text-xs text-muted-foreground" id={countId}>{value.length}/{maxLength}</span>
       {footer && <div className="min-w-0 flex-1">{footer}</div>}
-      <Button aria-label="Enviar mensagem" className="ml-auto" disabled={!value.trim()} loading={submitting} loadingAnnouncement="Enviando mensagem" size="icon" type="submit">{!submitting && <FlytrapIcon icon={SendIcon} />}</Button>
+      <Button aria-label="Send message" className="ml-auto" disabled={!value.trim()} loading={submitting} loadingAnnouncement="Sending message" size="icon" type="submit">{!submitting && <FlytrapIcon icon={SendIcon} />}</Button>
     </div>
   </form>;
 }

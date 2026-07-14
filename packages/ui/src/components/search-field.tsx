@@ -9,7 +9,7 @@ export interface SearchFieldProps extends Omit<React.InputHTMLAttributes<HTMLInp
 
 export const SearchField = React.forwardRef<HTMLInputElement, SearchFieldProps>(({
   className,
-  clearLabel = "Limpar busca",
+  clearLabel = "Clear search",
   onChange,
   onClear,
   value,

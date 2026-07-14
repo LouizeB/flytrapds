@@ -10,12 +10,12 @@ export interface ReasoningStreamProps extends React.ComponentPropsWithoutRef<typ
   summary: React.ReactNode;
 }
 const reasoningStatus = {
-  streaming: { label: "Analisando", icon: AgentRunningIcon, className: "text-primary" },
-  completed: { label: "Análise concluída", icon: SuccessIcon, className: "text-success" },
-  interrupted: { label: "Análise interrompida", icon: ErrorIcon, className: "text-destructive" },
+  streaming: { label: "Analyzing", icon: AgentRunningIcon, className: "text-primary" },
+  completed: { label: "Analysis complete", icon: SuccessIcon, className: "text-success" },
+  interrupted: { label: "Analysis interrupted", icon: ErrorIcon, className: "text-destructive" },
 } as const;
 
-export function ReasoningStream({ status, title = "Resumo da análise", summary, className, defaultOpen = false, ...props }: ReasoningStreamProps) {
+export function ReasoningStream({ status, title = "Analysis summary", summary, className, defaultOpen = false, ...props }: ReasoningStreamProps) {
   const meta = reasoningStatus[status];
   return <CollapsiblePrimitive.Root className={cn("overflow-hidden rounded-xl border bg-card text-card-foreground", className)} data-slot="reasoning-stream" data-status={status} defaultOpen={defaultOpen} {...props}>
     <CollapsiblePrimitive.Trigger className="group flex min-h-12 w-full items-center gap-3 px-4 text-left outline-none hover:bg-accent/60 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring">
@@ -26,7 +26,7 @@ export function ReasoningStream({ status, title = "Resumo da análise", summary,
     </CollapsiblePrimitive.Trigger>
     <CollapsiblePrimitive.Content className="border-t p-4 text-sm leading-6 text-muted-foreground">
       {summary}
-      <p className="mt-3 text-xs">Resumo operacional; não representa raciocínio interno nem conteúdo oculto do modelo.</p>
+      <p className="mt-3 text-xs">Operational summary; it does not expose hidden chain-of-thought or private model content.</p>
     </CollapsiblePrimitive.Content>
   </CollapsiblePrimitive.Root>;
 }

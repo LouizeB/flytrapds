@@ -10,8 +10,8 @@ export interface FileUploadProps extends Omit<React.InputHTMLAttributes<HTMLInpu
 
 export const FileUpload = React.forwardRef<HTMLInputElement, FileUploadProps>(({
   className,
-  description = "Arraste ou selecione arquivos.",
-  label = "Selecionar arquivos",
+  description = "Drag or select files.",
+  label = "Select files",
   multiple,
   onFilesChange,
   ...props

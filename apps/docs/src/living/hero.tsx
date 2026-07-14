@@ -9,8 +9,8 @@ const syncRows = ["Tokens", "Components", "Patterns", "Documentation"] as const;
 
 const heroStrip: readonly [string, string, FlytrapIconComponent | null][] = [
   ["What's new", "v1.0.0", AiAccentIcon],
-  ["Design principles", "Nossa filosofia", BrandIcon],
-  ["Contribute", "Entre no ecossistema", SendIcon],
+  ["Design principles", "How the system thinks", BrandIcon],
+  ["Contribute", "Join the ecosystem", SendIcon],
   ["System health", "All systems nominal", null],
 ] as const;
 
@@ -38,11 +38,11 @@ export function Hero() {
     <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(circle_at_63%_24%,rgba(241,0,129,.2),transparent_24rem),radial-gradient(circle_at_80%_4%,rgba(139,92,246,.2),transparent_18rem)]" />
     <WireframeMoon className="pointer-events-none absolute left-[37%] top-[-16rem] z-0 hidden size-[36rem] opacity-85 blur-[0.5px] md:block" />
 
-    <img aria-hidden="true" className="pointer-events-none absolute right-[-6rem] top-[-4rem] z-0 hidden w-[26rem] -scale-x-100 opacity-95 md:block" draggable={false} src={spriteCorner} />
-    <img aria-hidden="true" className="pointer-events-none absolute bottom-[-5rem] left-[-4rem] z-0 hidden w-[70%] opacity-90 lg:block" draggable={false} src={spriteWideA} />
+    <img alt="" aria-hidden="true" className="pointer-events-none absolute right-[-6rem] top-[-4rem] z-0 hidden w-[26rem] -scale-x-100 opacity-95 md:block" draggable={false} src={spriteCorner} />
+    <img alt="" aria-hidden="true" className="pointer-events-none absolute bottom-[-5rem] left-[-4rem] z-0 hidden w-[70%] opacity-90 lg:block" draggable={false} src={spriteWideA} />
 
     <CharacterLayer
-      alt="Alienígena Flytrap em pé sobre uma plataforma holográfica, consultando um painel translúcido do Design System."
+      alt="Flytrap alien standing on a holographic platform while reading a translucent Design System panel."
       className="absolute right-[-35vw] top-2 z-10 hidden h-[min(78vw,800px)] w-[min(78vw,800px)] sm:block lg:right-[-18vw] xl:right-[3rem] 2xl:right-[10rem]"
       pose="standing"
     />
@@ -54,7 +54,7 @@ export function Hero() {
         <span className="block">for <span className="text-[#ff4fbd] drop-shadow-[0_0_24px_rgba(255,79,189,.5)]">future</span> interfaces.</span>
       </h1>
       <p className="mt-6 max-w-md text-base leading-7 text-white/65">
-        Um design system orgânico e adaptável que evolui com o seu produto. Biomórfico por natureza. Cibernético por design.
+        An organic, adaptive design system for expressive product interfaces. Biomorphic by nature. Cybernetic by design.
       </p>
       <div className="mt-8 flex flex-wrap gap-3">
         <Button asChild className="rounded-full bg-[#F10081] px-6 text-white shadow-[0_0_28px_rgba(241,0,129,.45)] hover:bg-[#CF006A]" size="lg">
@@ -68,7 +68,7 @@ export function Hero() {
         className="mt-6 inline-flex items-center gap-1 text-sm font-medium text-[#b8ff35] underline-offset-4 hover:underline"
         href="https://github.com/LouizeB/flytrapds"
       >
-        Ver código no GitHub <FlytrapIcon icon={ExternalLinkIcon} size="sm" />
+        View code on GitHub <FlytrapIcon icon={ExternalLinkIcon} size="sm" />
       </a>
     </div>
 
