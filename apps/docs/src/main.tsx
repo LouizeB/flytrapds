@@ -88,7 +88,44 @@ import {
   WorkflowCard,
 } from "./living/panels";
 
-const anatomyLayers = ["Surface", "Content", "Container", "State layer", "Motion layer", "Bio-field"] as const;
+const anatomyLayerDetails = [
+  {
+    description: "The visible shell: background, border, radius, elevation, and density.",
+    example: "Card, input, modal panel",
+    label: "Surface",
+    token: "semantic.card",
+  },
+  {
+    description: "The readable content layer: copy, icon, media, table rows, or input value.",
+    example: "Title, hint, media, rows",
+    label: "Content",
+    token: "semantic.foreground",
+  },
+  {
+    description: "The structure that groups content and defines spacing, alignment, and layout behavior.",
+    example: "Header, body, footer",
+    label: "Container",
+    token: "foundation.space",
+  },
+  {
+    description: "The interaction layer for hover, focus, selected, disabled, error, and loading.",
+    example: "Focus ring, selected card",
+    label: "State layer",
+    token: "semantic.ring",
+  },
+  {
+    description: "The timing layer that controls transitions without hiding information.",
+    example: "Panel entrance, feedback",
+    label: "Motion layer",
+    token: "foundation.motion",
+  },
+  {
+    description: "The Flytrap expressive layer: glow, organism atmosphere, and AI/streaming mood signals.",
+    example: "Glow, pulse, bio-signal",
+    label: "Bio-field",
+    token: "public art",
+  },
+] as const;
 
 const iconographySet = [AiAccentIcon, ToolIcon, ApprovalIcon, AgentIcon, ChartIcon, DashboardIcon, SearchIcon, MenuIcon] as const;
 
@@ -294,19 +331,41 @@ function App() {
               src={spritePlatform}
             />
             <img alt="" aria-hidden="true" className="pointer-events-none absolute bottom-[-5rem] right-0 z-0 hidden w-[54rem] opacity-95 lg:block" draggable={false} src={spriteWideB} />
-            <FloatingPanel className="absolute right-8 top-14 z-40 hidden w-56 xl:block" title="Component anatomy">
-              <div aria-hidden="true" className="relative mx-auto h-28 w-36 [perspective:600px]">
-                {anatomyLayers.map((_, index) => <span
-                  className="absolute inset-x-2 h-10 rounded-lg border border-[#ff4fbd]/45 bg-[#ff4fbd]/10 backdrop-blur-sm"
-                  key={index}
-                  style={{ top: `${index * 13}px`, transform: "rotateX(58deg) rotateZ(-38deg)", opacity: 1 - index * 0.12 }}
-                />)}
+            <FloatingPanel className="absolute right-8 top-14 z-40 hidden w-80 xl:block" title="Component anatomy">
+              <p className="text-xs leading-5 text-white/58">
+                Inspect the six layers that every Flytrap component should document before it ships.
+              </p>
+              <div aria-hidden="true" className="relative mx-auto mt-3 h-32 w-48 [perspective:760px]">
+                {anatomyLayerDetails.map((layer, index) => <span
+                  className="absolute inset-x-3 grid h-11 place-items-center rounded-xl border border-[#ff4fbd]/45 bg-[linear-gradient(135deg,rgba(255,79,189,.18),rgba(139,92,246,.08))] px-3 text-center font-mono text-[0.54rem] uppercase tracking-[0.14em] text-white/70 backdrop-blur-sm"
+                  key={layer.label}
+                  style={{ top: `${index * 12}px`, transform: "rotateX(58deg) rotateZ(-30deg)", opacity: 1 - index * 0.08, zIndex: anatomyLayerDetails.length - index }}
+                >
+                  {index + 1} · {layer.label}
+                </span>)}
               </div>
-              <ul className="mt-3 grid gap-1.5">
-                {anatomyLayers.map(layer => <li className="flex items-center gap-2 font-mono text-[0.62rem] uppercase tracking-[0.14em] text-white/60" key={layer}>
-                  <span className="size-1 rounded-full bg-[#ff4fbd]" />{layer}
-                </li>)}
-              </ul>
+              <div className="mt-4 grid gap-1.5">
+                {anatomyLayerDetails.map((layer, index) => <details
+                  className="group rounded-xl border border-white/8 bg-white/[.035] p-2 open:border-[#ff4fbd]/35 open:bg-[#ff4fbd]/8"
+                  key={layer.label}
+                  open={index === 0}
+                >
+                  <summary className="flex min-h-8 cursor-pointer list-none items-center gap-2 rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-[#b8ff35] [&::-webkit-details-marker]:hidden">
+                    <span className="grid size-5 shrink-0 place-items-center rounded-full bg-[#ff4fbd]/16 font-mono text-[0.55rem] text-[#ff9bdd]">{index + 1}</span>
+                    <span className="flex-1 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-white/72">{layer.label}</span>
+                    <span aria-hidden="true" className="font-mono text-xs text-white/35 transition-transform group-open:rotate-90">›</span>
+                  </summary>
+                  <div className="mt-2 grid gap-2 pl-7">
+                    <p className="text-xs leading-5 text-white/62">{layer.description}</p>
+                    <div className="grid grid-cols-[4.5rem_1fr] gap-2 text-[0.62rem] leading-5">
+                      <span className="font-mono uppercase tracking-[0.14em] text-white/40">Example</span>
+                      <span className="text-white/66">{layer.example}</span>
+                      <span className="font-mono uppercase tracking-[0.14em] text-white/40">Token</span>
+                      <code className="text-[#ff9bdd]">{layer.token}</code>
+                    </div>
+                  </div>
+                </details>)}
+              </div>
             </FloatingPanel>
             <div className="relative z-20 flex flex-col gap-8 lg:flex-row lg:gap-12">
               <SectionHeader
