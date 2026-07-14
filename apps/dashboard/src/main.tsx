@@ -1,21 +1,330 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { AgentCard, AgentIcon, BrandLockup, Button, Card, CardContent, CardDescription, CardHeader, CardTitle, DashboardIcon, FlytrapIcon, InsightCallout, KpiStatCard, MessageBubble, PlaygroundIcon, SendIcon, ThemeDarkIcon, ThemeLightIcon } from "@flytrap/ui";
+import {
+  AgentCard,
+  AgentIcon,
+  Badge,
+  BrandLockup,
+  Button,
+  ButtonGroup,
+  ButtonGroupItem,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  ChartIcon,
+  DashboardIcon,
+  DataList,
+  DataListDescription,
+  DataListItem,
+  DataListTerm,
+  FilterBar,
+  FlytrapIcon,
+  InlineNotification,
+  InsightCallout,
+  InteractiveCard,
+  KpiStatCard,
+  MediaCard,
+  MessageBubble,
+  ModelConfidence,
+  MoodSelector,
+  Page,
+  PageDescription,
+  PageHeader,
+  PageTitle,
+  PersonalizationPanel,
+  PlayerControls,
+  Progress,
+  RecommendationRail,
+  Section,
+  SectionDescription,
+  SectionHeader,
+  SectionTitle,
+  SendIcon,
+  SmartDataTable,
+  StatusIndicator,
+  ThemeDarkIcon,
+  ThemeLightIcon,
+  Timeline,
+  TimelineItem,
+  Toolbar,
+  TreeItem,
+  TreeView,
+} from "@flytrap/ui";
 import "@flytrap/ui/styles";
 
-const activity = [44, 61, 54, 78, 68, 89, 83, 96, 72, 91, 100, 87];
+const adoption = [44, 61, 54, 78, 68, 89, 83, 96, 72, 91, 100, 87];
+
+const recommendationActions = [
+  {
+    active: true,
+    badge: "P0",
+    subtitle: "Connect a non-docs product to @flytrap/ui.",
+    title: "External app integration",
+  },
+  {
+    active: false,
+    badge: "P1",
+    subtitle: "Compare manual Figma variables with DTCG tokens.",
+    title: "Figma drift check",
+  },
+  {
+    active: false,
+    badge: "P2",
+    subtitle: "Track Three.js and public-art payload costs.",
+    title: "Performance budget",
+  },
+] as const;
+
+const moodOptions = [
+  { value: "calm", label: "Calm", tone: "calm" as const, description: "Reduce density and keep the review flow quiet." },
+  { value: "focus", label: "Focus", tone: "focus" as const, description: "Prioritize release blockers, accessibility and token drift." },
+  { value: "energy", label: "Energy", tone: "energy" as const, description: "Surface high-signal wins and adoption momentum." },
+  { value: "noir", label: "Noir", tone: "melancholy" as const, description: "Slow the pace for deeper audit and narrative review." },
+];
+
+type ReleaseRow = {
+  item: React.ReactNode;
+  owner: React.ReactNode;
+  risk: React.ReactNode;
+  status: React.ReactNode;
+};
+
+const releaseRows: ReleaseRow[] = [
+  { item: "Component category guide", owner: "Docs", risk: "Low", status: <StatusIndicator tone="success">Shipped</StatusIndicator> },
+  { item: "Experience visual audit", owner: "QA", risk: "Low", status: <StatusIndicator tone="success">Automated</StatusIndicator> },
+  { item: "Dashboard consumer", owner: "Product", risk: "Medium", status: <StatusIndicator tone="info">In progress</StatusIndicator> },
+  { item: "External product adoption", owner: "Delivery", risk: "High", status: <StatusIndicator tone="warning">Next</StatusIndicator> },
+];
 
 function App() {
-  const [dark, setDark] = useState(false);
-  return <div className={dark ? "dark" : ""}><div className="min-h-screen bg-background text-foreground lg:grid lg:grid-cols-[224px_1fr]">
-    <aside className="border-b bg-sidebar p-5 lg:sticky lg:top-0 lg:h-screen lg:border-b-0 lg:border-r"><BrandLockup descriptor="Dashboard" /><nav className="mt-8 grid gap-1 text-sm"><a className="flex items-center gap-3 rounded-md bg-sidebar-accent px-3 py-2 font-medium" href="#dashboard"><FlytrapIcon icon={DashboardIcon} />Dashboard</a><a className="flex items-center gap-3 rounded-md px-3 py-2 font-medium hover:bg-sidebar-accent" href="#agents"><FlytrapIcon icon={AgentIcon} />Agents</a><a className="flex items-center gap-3 rounded-md px-3 py-2 font-medium hover:bg-sidebar-accent" href="#playground"><FlytrapIcon icon={PlaygroundIcon} />Playground</a></nav></aside>
-    <main className="min-w-0 p-5 md:p-8"><header className="flex items-center justify-between"><div><p className="text-sm text-muted-foreground">Design system analytics</p><h1 className="font-display text-2xl font-bold">Visão geral</h1></div><Button variant="outline" size="icon" aria-label="Alternar tema" onClick={() => setDark(value => !value)}><FlytrapIcon icon={dark ? ThemeLightIcon : ThemeDarkIcon} /></Button></header>
-      <section id="dashboard" className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4"><KpiStatCard label="Token adoption" value="87%" delta={12} description="no período" /><KpiStatCard label="APCA compliance" value="100%" delta={0} description="54 pares" /><KpiStatCard label="Módulos públicos" value="51" delta={12} description="na release 0.4" /><KpiStatCard label="Hardcoded values" value="14" delta={-18} description="no período" /></section>
-      <section className="mt-4 grid gap-4 xl:grid-cols-[1.5fr_1fr]"><Card><CardHeader><CardTitle>Adoção semanal</CardTitle><CardDescription>Uso de tokens semânticos nos produtos.</CardDescription></CardHeader><CardContent><div className="flex h-56 items-end gap-2">{activity.map((value, index) => <div key={index} className="group relative flex-1 rounded-t-md bg-primary/20 transition-colors hover:bg-primary" style={{ height: `${value}%` }}><span className="sr-only">{value}%</span></div>)}</div></CardContent></Card><InsightCallout title="Sinal da semana" severity="success" className="h-fit">A adoção subiu 12%. O maior ganho veio da substituição de cores fixas pelos tokens de superfície e feedback.</InsightCallout></section>
-      <section id="agents" className="mt-10"><h2 className="font-display text-xl font-bold">Agents</h2><div className="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-3"><AgentCard name="Token validator" status="running" model="Claude Sonnet" tokens="2.3K">Validando contratos semânticos e pares APCA.</AgentCard><AgentCard name="Migration agent" status="completed" model="Claude Sonnet" tokens="890">Migração inicial para React concluída.</AgentCard><AgentCard name="Docs agent" status="idle" model="Claude Haiku">Aguardando novos componentes.</AgentCard></div></section>
-      <section id="playground" className="mt-10"><h2 className="font-display text-xl font-bold">AI playground</h2><Card className="mt-4 max-w-3xl"><CardHeader><CardTitle>Converse com o design system</CardTitle><CardDescription>Interface preparada para a Edge Function `ai-chat`.</CardDescription></CardHeader><CardContent className="grid gap-3"><MessageBubble role="user">Qual token devo usar para uma ação primária?</MessageBubble><MessageBubble role="assistant">Use o token semântico <code>--primary</code>. O componente Button já consome esse contrato e acompanha brand, mode e theme.</MessageBubble><form className="mt-3 flex gap-2" onSubmit={event => event.preventDefault()}><input aria-label="Mensagem" placeholder="Pergunte sobre tokens e componentes…" className="h-10 flex-1 rounded-md border border-input bg-background px-3 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring" /><Button size="icon" aria-label="Enviar"><FlytrapIcon icon={SendIcon} /></Button></form></CardContent></Card></section>
-    </main>
-  </div></div>;
+  const [dark, setDark] = useState(true);
+  const [filter, setFilter] = useState("");
+  const [view, setView] = useState("health");
+
+  const filteredRows = useMemo(() => {
+    const query = filter.trim().toLowerCase();
+    if (!query) return releaseRows;
+
+    return releaseRows.filter((row) => String(row.item).toLowerCase().includes(query) || String(row.owner).toLowerCase().includes(query));
+  }, [filter]);
+
+  return <div className={dark ? "dark" : ""}>
+    <div className="min-h-screen bg-background text-foreground lg:grid lg:grid-cols-[248px_1fr]">
+      <aside className="border-b bg-sidebar p-5 lg:sticky lg:top-0 lg:h-screen lg:border-b-0 lg:border-r">
+        <BrandLockup descriptor="Operations" />
+        <nav aria-label="Dashboard sections" className="mt-8 grid gap-1 text-sm">
+          <a className="flex min-h-10 items-center gap-3 rounded-md bg-sidebar-accent px-3 py-2 font-medium" href="#health"><FlytrapIcon icon={DashboardIcon} />Health</a>
+          <a className="flex min-h-10 items-center gap-3 rounded-md px-3 py-2 font-medium hover:bg-sidebar-accent" href="#adoption"><FlytrapIcon icon={ChartIcon} />Adoption</a>
+          <a className="flex min-h-10 items-center gap-3 rounded-md px-3 py-2 font-medium hover:bg-sidebar-accent" href="#agents"><FlytrapIcon icon={AgentIcon} />Agents</a>
+        </nav>
+        <div className="mt-8 grid gap-3 rounded-xl border bg-background/50 p-4">
+          <StatusIndicator tone="success">Design system online</StatusIndicator>
+          <StatusIndicator tone="info">230 tokens synced</StatusIndicator>
+          <StatusIndicator tone="warning">External consumer pending</StatusIndicator>
+        </div>
+      </aside>
+
+      <Page className="max-w-none">
+        <PageHeader className="gap-4">
+          <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+            <div>
+              <PageDescription>Flytrap Design System · internal product consumer</PageDescription>
+              <PageTitle>Design system operations</PageTitle>
+              <PageDescription>
+                A real dashboard surface using Flytrap UI components to monitor tokens, release quality, adoption and AI-assisted workflows.
+              </PageDescription>
+            </div>
+            <Button aria-label={dark ? "Switch to light preview" : "Switch to dark preview"} onClick={() => setDark((value) => !value)} size="icon" variant="outline">
+              <FlytrapIcon icon={dark ? ThemeLightIcon : ThemeDarkIcon} />
+            </Button>
+          </div>
+          <Toolbar>
+            <FilterBar onValueChange={setFilter} placeholder="Filter release items…" value={filter}>
+              <ButtonGroup aria-label="Dashboard view">
+                <ButtonGroupItem onClick={() => setView("health")} selected={view === "health"}>Health</ButtonGroupItem>
+                <ButtonGroupItem onClick={() => setView("release")} selected={view === "release"}>Release</ButtonGroupItem>
+                <ButtonGroupItem onClick={() => setView("ai")} selected={view === "ai"}>AI</ButtonGroupItem>
+              </ButtonGroup>
+            </FilterBar>
+          </Toolbar>
+        </PageHeader>
+
+        <Section aria-labelledby="health-title" id="health">
+          <SectionHeader>
+            <SectionTitle id="health-title">System health</SectionTitle>
+            <SectionDescription>Operational indicators that exercise cards, status, table, progress and notification components.</SectionDescription>
+          </SectionHeader>
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            <KpiStatCard delta={12} description="semantic usage" label="Token adoption" value="87%" />
+            <KpiStatCard delta={0} description="validated pairs" label="APCA compliance" value="100%" />
+            <KpiStatCard delta={7} description="documented groups" label="Component docs" value="7/7" />
+            <KpiStatCard delta={-18} description="remaining in public art" label="Hardcoded values" value="14" />
+          </div>
+          <InlineNotification action={<Badge variant="success">Live</Badge>} title="Experience QA is active" variant="success">
+            Visual audit now checks internal anchors, duplicate IDs, accessible names and horizontal overflow.
+          </InlineNotification>
+        </Section>
+
+        <Section aria-labelledby="adoption-title" id="adoption">
+          <SectionHeader>
+            <SectionTitle id="adoption-title">Adoption and release readiness</SectionTitle>
+            <SectionDescription>Release status rendered as reusable DS primitives instead of bespoke dashboard markup.</SectionDescription>
+          </SectionHeader>
+          <div className="grid gap-4 xl:grid-cols-[1.25fr_.75fr]">
+            <Card>
+              <CardHeader>
+                <CardTitle>Weekly adoption</CardTitle>
+                <CardDescription>Semantic token and component usage across Flytrap surfaces.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="flex h-56 items-end gap-2" role="img" aria-label="Weekly adoption chart from 44 percent to 87 percent">
+                  {adoption.map((value, index) => <div
+                    className="group relative flex-1 rounded-t-md bg-primary/20 transition-colors hover:bg-primary"
+                    key={index}
+                    style={{ height: `${value}%` }}
+                  >
+                    <span className="sr-only">Week {index + 1}: {value}% adoption</span>
+                  </div>)}
+                </div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle>Release contract</CardTitle>
+                <CardDescription>Minimum checks before a component graduates.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <DataList>
+                  <DataListItem>
+                    <DataListTerm>Coverage</DataListTerm>
+                    <DataListDescription>190 tests · 100%</DataListDescription>
+                  </DataListItem>
+                  <DataListItem>
+                    <DataListTerm>Visual QA</DataListTerm>
+                    <DataListDescription>Desktop and mobile audit passing</DataListDescription>
+                  </DataListItem>
+                  <DataListItem>
+                    <DataListTerm>Package</DataListTerm>
+                    <DataListDescription>@flytrap/ui · dist ready</DataListDescription>
+                  </DataListItem>
+                </DataList>
+              </CardContent>
+            </Card>
+          </div>
+          <SmartDataTable
+            caption="Release readiness items"
+            columns={[
+              { key: "item", header: "Item" },
+              { key: "owner", header: "Owner" },
+              { key: "risk", header: "Risk" },
+              { key: "status", header: "Status" },
+            ]}
+            getRowId={(row) => String(row.item)}
+            rows={filteredRows}
+          />
+        </Section>
+
+        <Section aria-labelledby="agents-title" id="agents">
+          <SectionHeader>
+            <SectionTitle id="agents-title">Agents and AI workflow</SectionTitle>
+            <SectionDescription>Streaming and AI components used in a realistic design-system operations flow.</SectionDescription>
+          </SectionHeader>
+          <div className="grid gap-4 xl:grid-cols-[.85fr_1.15fr]">
+            <div className="grid gap-4">
+              <AgentCard model="Codex" name="Docs QA agent" status="running" tokens="2.8K">
+                Watching anchors, accessible names, release notes and generated visual-audit reports.
+              </AgentCard>
+              <AgentCard model="Codex" name="Adoption agent" status="completed" tokens="1.1K">
+                Static adoption report is current and ready for product-owner review.
+              </AgentCard>
+              <InsightCallout severity="warning" title="Next strategic gap">
+                The DS still needs a product outside the documentation surface to prove external adoption.
+              </InsightCallout>
+            </div>
+            <PersonalizationPanel
+              action={<Button size="sm" variant="outline">Recalibrate</Button>}
+              confidence={91}
+              moodLabel="Review mode"
+              moodTone="focus"
+              moodValue={82}
+              signals={[
+                { label: "Priority", value: "Accessibility and component adoption" },
+                { label: "Surface", value: "Dashboard, docs and public DS" },
+                { label: "Risk", value: "External consumer still pending" },
+              ]}
+              title="AI review engine"
+            />
+          </div>
+          <div className="grid gap-4 xl:grid-cols-[1fr_1fr]">
+            <MoodSelector defaultValue="focus" options={moodOptions} />
+            <Card>
+              <CardHeader>
+                <CardTitle>Playback simulation</CardTitle>
+                <CardDescription>Streaming controls reused for release pacing and walkthrough demos.</CardDescription>
+              </CardHeader>
+              <CardContent className="grid gap-4">
+                <ModelConfidence description="Confidence that the current release is safe to preview." value={91} />
+                <Progress aria-label="Release readiness" value={82} />
+                <PlayerControls playing progress={64} />
+              </CardContent>
+            </Card>
+          </div>
+          <RecommendationRail description="AI-ranked next actions for the Flytrap DS roadmap." title="Recommended next actions">
+            {recommendationActions.map(({ active, badge, subtitle, title }) => <div className="min-w-[240px] flex-1" key={title} role="listitem">
+              <MediaCard active={Boolean(active)} badge={badge} subtitle={subtitle} title={title} />
+            </div>)}
+          </RecommendationRail>
+        </Section>
+
+        <Section aria-labelledby="structure-title">
+          <SectionHeader>
+            <SectionTitle id="structure-title">Component structure</SectionTitle>
+            <SectionDescription>A compact view of ownership, release phases and composition hierarchy.</SectionDescription>
+          </SectionHeader>
+          <div className="grid gap-4 xl:grid-cols-[1fr_1fr]">
+            <Timeline aria-label="Design system delivery timeline">
+              <TimelineItem description="Tokens, tests and CI gates are enforced." meta="Done" title="Confidence foundation" tone="success" />
+              <TimelineItem description="Documentation categories and visual QA are now active." meta="Current" title="Documentation quality" tone="info" />
+              <TimelineItem description="A product consumer must validate the DS outside docs." meta="Next" title="External adoption" tone="warning" />
+            </Timeline>
+            <TreeView aria-label="Dashboard component tree">
+              <TreeItem expanded label="Dashboard consumer" selected>
+                <TreeItem label="System health" />
+                <TreeItem label="Release readiness" />
+                <TreeItem label="AI workflow" />
+              </TreeItem>
+            </TreeView>
+          </div>
+          <div className="grid gap-4 md:grid-cols-2">
+            <InteractiveCard description="Route to the component documentation guide." heading="Open component docs" icon={DashboardIcon} selected>
+              Component categories now define usage, anatomy, states, accessibility and token expectations.
+            </InteractiveCard>
+            <InteractiveCard description="Prepare a consuming product for the next adoption milestone." heading="Connect product surface" icon={AgentIcon}>
+              This is the next real validation step after the internal dashboard consumer.
+            </InteractiveCard>
+          </div>
+        </Section>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Ask the design system</CardTitle>
+            <CardDescription>Prepared interaction model for future AI assistance.</CardDescription>
+          </CardHeader>
+          <CardContent className="grid gap-3">
+            <MessageBubble role="user">Which component should I use for a release decision?</MessageBubble>
+            <MessageBubble role="assistant">Use DataList for structured facts, InlineNotification for status and HumanApprovalPrompt when an action needs explicit approval.</MessageBubble>
+            <form className="flex gap-2" onSubmit={(event) => event.preventDefault()}>
+              <label className="sr-only" htmlFor="dashboard-message">Message</label>
+              <input className="h-10 flex-1 rounded-md border border-input bg-background px-3 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring" id="dashboard-message" placeholder="Ask about tokens, components or release gates…" />
+              <Button aria-label="Send message" size="icon"><FlytrapIcon icon={SendIcon} /></Button>
+            </form>
+          </CardContent>
+        </Card>
+      </Page>
+    </div>
+  </div>;
 }
 
 createRoot(document.getElementById("root")!).render(<React.StrictMode><App /></React.StrictMode>);

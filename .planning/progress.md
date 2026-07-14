@@ -32,5 +32,6 @@ Fonte de verdade para retomar a evolução pós-auditoria.
 - [x] Adicionar onda Flytrap streaming/IA com `MoodSignal`, `MoodSelector`, `MediaCard`, `RecommendationRail`, `PlayerControls`, `ModelConfidence` e `PersonalizationPanel`.
 - [x] Criar guia de documentação por categoria com uso, anatomia, estados, acessibilidade, tokens e exemplos para `Inputs`, `Navigation`, `Feedback`, `Data display`, `Surfaces`, `Overlays` e `AI / Streaming`.
 - [x] Fortalecer `pnpm visual:audit` com checks de anchors de categorias, links internos quebrados, IDs duplicados, nomes acessíveis em botões/links e overflow horizontal.
+- [x] Transformar `apps/dashboard` em consumidor interno robusto do DS, exercitando 50 exports de `@flytrap/ui` em uma superfície operacional real de health, release, adoption e AI workflow.
 - [ ] Conectar o primeiro consumidor real do DS.
 - [x] Criar telemetria estática de adoção por componente com `pnpm adoption:report`.
