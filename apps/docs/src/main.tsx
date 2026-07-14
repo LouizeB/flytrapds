@@ -331,42 +331,6 @@ function App() {
               src={spritePlatform}
             />
             <img alt="" aria-hidden="true" className="pointer-events-none absolute bottom-[-5rem] right-0 z-0 hidden w-[54rem] opacity-95 lg:block" draggable={false} src={spriteWideB} />
-            <FloatingPanel className="absolute right-8 top-14 z-40 hidden w-80 xl:block" title="Component anatomy">
-              <p className="text-xs leading-5 text-white/58">
-                Inspect the six layers that every Flytrap component should document before it ships.
-              </p>
-              <div aria-hidden="true" className="relative mx-auto mt-3 h-32 w-48 [perspective:760px]">
-                {anatomyLayerDetails.map((layer, index) => <span
-                  className="absolute inset-x-3 grid h-11 place-items-center rounded-xl border border-[#ff4fbd]/45 bg-[linear-gradient(135deg,rgba(255,79,189,.18),rgba(139,92,246,.08))] px-3 text-center font-mono text-[0.54rem] uppercase tracking-[0.14em] text-white/70 backdrop-blur-sm"
-                  key={layer.label}
-                  style={{ top: `${index * 12}px`, transform: "rotateX(58deg) rotateZ(-30deg)", opacity: 1 - index * 0.08, zIndex: anatomyLayerDetails.length - index }}
-                >
-                  {index + 1} · {layer.label}
-                </span>)}
-              </div>
-              <div className="mt-4 grid gap-1.5">
-                {anatomyLayerDetails.map((layer, index) => <details
-                  className="group rounded-xl border border-white/8 bg-white/[.035] p-2 open:border-[#ff4fbd]/35 open:bg-[#ff4fbd]/8"
-                  key={layer.label}
-                  open={index === 0}
-                >
-                  <summary className="flex min-h-8 cursor-pointer list-none items-center gap-2 rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-[#b8ff35] [&::-webkit-details-marker]:hidden">
-                    <span className="grid size-5 shrink-0 place-items-center rounded-full bg-[#ff4fbd]/16 font-mono text-[0.55rem] text-[#ff9bdd]">{index + 1}</span>
-                    <span className="flex-1 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-white/72">{layer.label}</span>
-                    <span aria-hidden="true" className="font-mono text-xs text-white/35 transition-transform group-open:rotate-90">›</span>
-                  </summary>
-                  <div className="mt-2 grid gap-2 pl-7">
-                    <p className="text-xs leading-5 text-white/62">{layer.description}</p>
-                    <div className="grid grid-cols-[4.5rem_1fr] gap-2 text-[0.62rem] leading-5">
-                      <span className="font-mono uppercase tracking-[0.14em] text-white/40">Example</span>
-                      <span className="text-white/66">{layer.example}</span>
-                      <span className="font-mono uppercase tracking-[0.14em] text-white/40">Token</span>
-                      <code className="text-[#ff9bdd]">{layer.token}</code>
-                    </div>
-                  </div>
-                </details>)}
-              </div>
-            </FloatingPanel>
             <div className="relative z-20 flex flex-col gap-8 lg:flex-row lg:gap-12">
               <SectionHeader
                 id="components"
@@ -420,26 +384,6 @@ function App() {
                       </div>
                     </div>
                   </SectionCard>
-
-                  <div className="grid gap-3 md:grid-cols-2 2xl:grid-cols-4">
-                    {componentReferenceGroups.map(group => <a
-                      className="group rounded-[1rem] border border-[rgba(241,0,129,.22)] bg-[linear-gradient(145deg,rgba(14,18,28,.78),rgba(2,5,10,.66))] p-4 text-white shadow-[0_14px_34px_rgba(0,0,0,.48)] outline-none transition-colors hover:border-[#ff4fbd]/55 hover:bg-[#ff4fbd]/8 focus-visible:ring-2 focus-visible:ring-[#b8ff35] focus-visible:ring-offset-2 focus-visible:ring-offset-[#05060a]"
-                      href={group.anchor}
-                      key={group.name}
-                    >
-                      <span className="flex items-start justify-between gap-3">
-                        <span>
-                          <span className="block font-display text-lg font-bold text-white">{group.name}</span>
-                          <span className="mt-1 block font-mono text-[0.58rem] uppercase tracking-[0.16em] text-[#ff9bdd]">{group.count} components · {group.status}</span>
-                        </span>
-                        <span aria-hidden="true" className="text-[#ff4fbd] transition-transform group-hover:translate-x-1">→</span>
-                      </span>
-                      <span className="mt-3 block text-sm leading-6 text-white/62">{group.description}</span>
-                      <span className="mt-3 flex flex-wrap gap-1.5">
-                        {group.examples.map(example => <code className="rounded-full border border-white/10 bg-black/35 px-2 py-1 font-mono text-[0.56rem] text-white/62" key={example}>{example}</code>)}
-                      </span>
-                    </a>)}
-                  </div>
 
                   <SectionCard className="p-5 lg:p-6" meta="interactive anatomy" title="Component anatomy stage">
                     <div className="grid gap-5 2xl:grid-cols-[1.35fr_.65fr]">
@@ -541,6 +485,26 @@ function App() {
                       </div>
                     </div>
                   </SectionCard>
+
+                  <div className="grid gap-3 md:grid-cols-2 2xl:grid-cols-4">
+                    {componentReferenceGroups.map(group => <a
+                      className="group rounded-[1rem] border border-[rgba(241,0,129,.22)] bg-[linear-gradient(145deg,rgba(14,18,28,.78),rgba(2,5,10,.66))] p-4 text-white shadow-[0_14px_34px_rgba(0,0,0,.48)] outline-none transition-colors hover:border-[#ff4fbd]/55 hover:bg-[#ff4fbd]/8 focus-visible:ring-2 focus-visible:ring-[#b8ff35] focus-visible:ring-offset-2 focus-visible:ring-offset-[#05060a]"
+                      href={group.anchor}
+                      key={group.name}
+                    >
+                      <span className="flex items-start justify-between gap-3">
+                        <span>
+                          <span className="block font-display text-lg font-bold text-white">{group.name}</span>
+                          <span className="mt-1 block font-mono text-[0.58rem] uppercase tracking-[0.16em] text-[#ff9bdd]">{group.count} components · {group.status}</span>
+                        </span>
+                        <span aria-hidden="true" className="text-[#ff4fbd] transition-transform group-hover:translate-x-1">→</span>
+                      </span>
+                      <span className="mt-3 block text-sm leading-6 text-white/62">{group.description}</span>
+                      <span className="mt-3 flex flex-wrap gap-1.5">
+                        {group.examples.map(example => <code className="rounded-full border border-white/10 bg-black/35 px-2 py-1 font-mono text-[0.56rem] text-white/62" key={example}>{example}</code>)}
+                      </span>
+                    </a>)}
+                  </div>
 
                   <div className="grid gap-4">
                     <SectionCard meta="implementation" title="Component contract">
