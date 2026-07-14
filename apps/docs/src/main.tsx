@@ -230,7 +230,9 @@ const componentQualityChecks = [
 
 function App() {
   const [bootComplete, setBootComplete] = useState(false);
+  const [selectedAnatomyLayer, setSelectedAnatomyLayer] = useState(0);
   const handleBootComplete = React.useCallback(() => setBootComplete(true), []);
+  const selectedAnatomyLayerDetail = anatomyLayerDetails[selectedAnatomyLayer] ?? anatomyLayerDetails[0];
 
   React.useEffect(() => {
     document.documentElement.dataset.theme = "dark";
@@ -374,7 +376,7 @@ function App() {
                 linkLabel="Browse components"
                 title="Components"
               />
-              <div className="min-w-0 flex-1 lg:max-w-[74%] xl:max-w-[80%] 2xl:max-w-[84%]">
+              <div className="min-w-0 flex-1">
                 <p className="mb-2 max-w-2xl text-sm leading-6 text-white/62">
                   Component groups link to the documented examples below. Use them as section shortcuts, not filter controls.
                 </p>
@@ -439,9 +441,9 @@ function App() {
                     </a>)}
                   </div>
 
-                  <SectionCard meta="interactive anatomy" title="Component anatomy stage">
-                    <div className="grid gap-5 2xl:grid-cols-[1.25fr_.85fr]">
-                      <div className="relative min-h-[28rem] overflow-hidden rounded-[1.5rem] border border-[#ff4fbd]/24 bg-[radial-gradient(circle_at_50%_20%,rgba(255,79,189,.20),transparent_34%),linear-gradient(145deg,rgba(9,12,21,.92),rgba(2,5,10,.78))] p-5 shadow-[0_30px_90px_rgba(0,0,0,.48)]">
+                  <SectionCard className="p-5 lg:p-6" meta="interactive anatomy" title="Component anatomy stage">
+                    <div className="grid gap-5 2xl:grid-cols-[1.35fr_.65fr]">
+                      <div className="relative min-h-[46rem] overflow-hidden rounded-[1.5rem] border border-[#ff4fbd]/24 bg-[radial-gradient(circle_at_50%_20%,rgba(255,79,189,.20),transparent_34%),linear-gradient(145deg,rgba(9,12,21,.92),rgba(2,5,10,.78))] p-5 shadow-[0_30px_90px_rgba(0,0,0,.48)]">
                         <div aria-hidden="true" className="absolute inset-0 opacity-45 [background-image:linear-gradient(rgba(255,255,255,.055)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.055)_1px,transparent_1px)] [background-size:46px_46px]" />
                         <div aria-hidden="true" className="absolute -right-24 top-10 h-64 w-64 rounded-full bg-[#ff4fbd]/16 blur-3xl" />
                         <div aria-hidden="true" className="absolute bottom-0 left-8 h-40 w-80 rounded-full bg-[#b8ff35]/8 blur-3xl" />
@@ -460,46 +462,82 @@ function App() {
                             <p className="font-mono text-[0.58rem] uppercase tracking-[0.16em] text-white/55">visible layers</p>
                           </div>
                         </div>
-                        <div aria-label="Expanded component layer stack" className="relative z-10 mx-auto mt-8 h-[18rem] max-w-4xl [perspective:1200px] md:h-[22rem]">
-                          {anatomyLayerDetails.map((layer, index) => <div
-                            className="absolute left-[3%] right-[3%] grid min-h-16 grid-cols-[2.25rem_1fr_auto] items-center gap-4 rounded-2xl border border-[#ff4fbd]/40 bg-[linear-gradient(135deg,rgba(255,79,189,.22),rgba(139,92,246,.10)_48%,rgba(3,8,16,.72))] px-4 py-3 shadow-[0_18px_45px_rgba(0,0,0,.42)] backdrop-blur-xl md:left-[8%] md:right-[8%]"
-                            key={layer.label}
-                            style={{
-                              top: `${index * 2.55}rem`,
-                              transform: `translateY(${index * 10}px) rotateX(58deg) rotateZ(-8deg)`,
-                              zIndex: anatomyLayerDetails.length - index,
-                            }}
-                          >
-                            <span className="grid size-9 place-items-center rounded-full bg-[#ff4fbd]/20 font-mono text-xs text-[#ffb6e3]">{index + 1}</span>
-                            <span>
-                              <span className="block font-mono text-[0.66rem] uppercase tracking-[0.18em] text-white/82">{layer.label}</span>
-                              <span className="mt-1 hidden text-xs leading-5 text-white/58 sm:block">{layer.description}</span>
-                            </span>
-                            <code className="hidden rounded-full border border-white/10 bg-black/40 px-3 py-1 font-mono text-[0.6rem] text-[#b8ff35] md:inline-flex">{layer.token}</code>
-                          </div>)}
+                        <div aria-label="Expanded component layer stack" className="relative z-20 mx-auto mt-8 h-[22rem] max-w-5xl [perspective:1400px] md:h-[25rem]">
+                          {anatomyLayerDetails.map((layer, index) => {
+                            const isSelected = selectedAnatomyLayer === index;
+
+                            return <button
+                              aria-pressed={isSelected}
+                              className={[
+                                "absolute left-[2%] right-[2%] grid min-h-16 cursor-pointer grid-cols-[2.25rem_1fr_auto] items-center gap-4 rounded-2xl border px-4 py-3 text-left shadow-[0_18px_45px_rgba(0,0,0,.42)] backdrop-blur-xl outline-none transition-all duration-300 focus-visible:ring-2 focus-visible:ring-[#b8ff35] focus-visible:ring-offset-2 focus-visible:ring-offset-[#05060a] md:left-[5%] md:right-[5%]",
+                                isSelected
+                                  ? "border-[#b8ff35]/70 bg-[linear-gradient(135deg,rgba(184,255,53,.18),rgba(255,79,189,.24)_44%,rgba(3,8,16,.84))] text-white shadow-[0_0_32px_rgba(184,255,53,.16),0_22px_54px_rgba(0,0,0,.5)]"
+                                  : "border-[#ff4fbd]/40 bg-[linear-gradient(135deg,rgba(255,79,189,.22),rgba(139,92,246,.10)_48%,rgba(3,8,16,.72))] text-white/80 hover:border-[#ff4fbd]/70 hover:bg-[#ff4fbd]/16",
+                              ].join(" ")}
+                              key={layer.label}
+                              onClick={() => setSelectedAnatomyLayer(index)}
+                              style={{
+                                top: `${index * 2.85}rem`,
+                                transform: `translateY(${index * 11}px) rotateX(58deg) rotateZ(-8deg) ${isSelected ? "translateZ(42px)" : "translateZ(0)"}`,
+                                zIndex: anatomyLayerDetails.length - index + (isSelected ? 8 : 0),
+                              }}
+                              type="button"
+                            >
+                              <span className={["grid size-9 place-items-center rounded-full font-mono text-xs", isSelected ? "bg-[#b8ff35]/22 text-[#d9ff83]" : "bg-[#ff4fbd]/20 text-[#ffb6e3]"].join(" ")}>{index + 1}</span>
+                              <span>
+                                <span className="block font-mono text-[0.66rem] uppercase tracking-[0.18em]">{layer.label}</span>
+                                <span className="mt-1 hidden text-xs leading-5 text-white/62 sm:block">{layer.description}</span>
+                              </span>
+                              <code className="hidden rounded-full border border-white/10 bg-black/40 px-3 py-1 font-mono text-[0.6rem] text-[#b8ff35] md:inline-flex">{layer.token}</code>
+                            </button>;
+                          })}
+                        </div>
+                        <div className="pointer-events-none absolute inset-x-4 bottom-0 z-10 h-[22rem] overflow-hidden rounded-b-[1.5rem]">
+                          <CharacterLayer
+                            alt="Flytrap alien lying under the component anatomy model, connecting the organism metaphor to the documented component layers."
+                            className="absolute bottom-[-8rem] left-1/2 h-[30rem] w-[min(72rem,112vw)] -translate-x-1/2 opacity-85"
+                            float
+                            pose="lying"
+                            tilt
+                          />
+                          <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#05060a] via-[#05060a]/82 to-transparent" />
                         </div>
                       </div>
-                      <div className="grid content-start gap-2">
-                        {anatomyLayerDetails.map((layer, index) => <details
-                          className="group rounded-2xl border border-white/10 bg-black/35 p-3 open:border-[#ff4fbd]/45 open:bg-[#ff4fbd]/10"
-                          key={layer.label}
-                          open={index === 0}
-                        >
-                          <summary className="flex min-h-10 cursor-pointer list-none items-center gap-3 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-[#b8ff35] [&::-webkit-details-marker]:hidden">
-                            <span className="grid size-8 shrink-0 place-items-center rounded-full bg-[#ff4fbd]/18 font-mono text-xs text-[#ff9bdd]">{index + 1}</span>
-                            <span className="flex-1 font-mono text-[0.68rem] uppercase tracking-[0.16em] text-white/76">{layer.label}</span>
-                            <span aria-hidden="true" className="font-mono text-sm text-white/40 transition-transform group-open:rotate-90">›</span>
-                          </summary>
-                          <div className="mt-3 grid gap-3 pl-11">
-                            <p className="text-sm leading-6 text-white/64">{layer.description}</p>
-                            <div className="grid gap-2 rounded-xl border border-white/8 bg-black/30 p-3 text-xs leading-5 sm:grid-cols-[5rem_1fr]">
-                              <span className="font-mono uppercase tracking-[0.14em] text-white/42">Example</span>
-                              <span className="text-white/68">{layer.example}</span>
-                              <span className="font-mono uppercase tracking-[0.14em] text-white/42">Token</span>
-                              <code className="text-[#ff9bdd]">{layer.token}</code>
-                            </div>
+                      <div className="grid content-start gap-3">
+                        <div aria-live="polite" className="rounded-[1.35rem] border border-[#b8ff35]/26 bg-[linear-gradient(145deg,rgba(184,255,53,.10),rgba(255,79,189,.09)_44%,rgba(0,0,0,.46))] p-5 shadow-[0_20px_54px_rgba(0,0,0,.42)]">
+                          <p className="font-mono text-[0.62rem] uppercase tracking-[0.18em] text-[#b8ff35]">Selected layer</p>
+                          <h4 className="mt-2 font-display text-2xl font-bold text-white">{selectedAnatomyLayer + 1}. {selectedAnatomyLayerDetail.label}</h4>
+                          <p className="mt-3 text-sm leading-6 text-white/68">{selectedAnatomyLayerDetail.description}</p>
+                          <div className="mt-5 grid gap-3 rounded-2xl border border-white/8 bg-black/35 p-4 text-sm sm:grid-cols-[6rem_1fr]">
+                            <span className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-white/42">Example</span>
+                            <span className="text-white/72">{selectedAnatomyLayerDetail.example}</span>
+                            <span className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-white/42">Token</span>
+                            <code className="text-[#ff9bdd]">{selectedAnatomyLayerDetail.token}</code>
+                            <span className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-white/42">Ship check</span>
+                            <span className="text-white/72">Document behavior, states, token mapping, and keyboard expectations for this layer.</span>
                           </div>
-                        </details>)}
+                        </div>
+                        <div className="grid gap-2">
+                          {anatomyLayerDetails.map((layer, index) => <button
+                            aria-pressed={selectedAnatomyLayer === index}
+                            className={[
+                              "group flex min-h-14 items-center gap-3 rounded-2xl border p-3 text-left outline-none transition-colors focus-visible:ring-2 focus-visible:ring-[#b8ff35] focus-visible:ring-offset-2 focus-visible:ring-offset-[#05060a]",
+                              selectedAnatomyLayer === index
+                                ? "border-[#ff4fbd]/55 bg-[#ff4fbd]/14"
+                                : "border-white/10 bg-black/35 hover:border-[#ff4fbd]/45 hover:bg-[#ff4fbd]/8",
+                            ].join(" ")}
+                            key={layer.label}
+                            onClick={() => setSelectedAnatomyLayer(index)}
+                            type="button"
+                          >
+                            <span className="grid size-8 shrink-0 place-items-center rounded-full bg-[#ff4fbd]/18 font-mono text-xs text-[#ff9bdd]">{index + 1}</span>
+                            <span className="min-w-0 flex-1">
+                              <span className="block font-mono text-[0.68rem] uppercase tracking-[0.16em] text-white/78">{layer.label}</span>
+                              <span className="mt-1 block truncate text-xs text-white/44">{layer.token}</span>
+                            </span>
+                            <span aria-hidden="true" className="text-[#ff4fbd] transition-transform group-hover:translate-x-1">→</span>
+                          </button>)}
+                        </div>
                       </div>
                     </div>
                   </SectionCard>
