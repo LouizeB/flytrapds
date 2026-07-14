@@ -6,6 +6,7 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "live": "pnpm --filter @flytrap/docs live",
+    "studio": "pnpm --filter @flytrap/studio dev",
     "changeset": "changeset",
     "version-packages": "changeset version",
     "release": "pnpm build && changeset publish",

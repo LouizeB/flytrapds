@@ -4,62 +4,76 @@ Static scan of `@flytrap/ui` named imports in `apps/**`.
 
 ## Summary
 
-- Total named imports: 142
-- Unique exports adopted: 87
-- Files importing UI: 5
-- Files importing styles: 2
+- Total named imports: 194
+- Unique exports adopted: 97
+- Files importing UI: 6
+- Files importing styles: 3
 
 ## Exports
 
 | Export | Count | Files |
 |--|--:|--|
-| `Button` | 6 | `apps/dashboard/src/main.tsx`, `apps/docs/src/living/hero.tsx`, `apps/docs/src/living/panels.tsx`, `apps/docs/src/main.tsx` |
-| `FlytrapIcon` | 5 | `apps/dashboard/src/main.tsx`, `apps/docs/src/living/hero.tsx`, `apps/docs/src/living/panels.tsx`, `apps/docs/src/living/sidebar.tsx`, `apps/docs/src/main.tsx` |
-| `AgentIcon` | 3 | `apps/dashboard/src/main.tsx`, `apps/docs/src/living/sidebar.tsx`, `apps/docs/src/main.tsx` |
+| `Button` | 7 | `apps/dashboard/src/main.tsx`, `apps/docs/src/living/hero.tsx`, `apps/docs/src/living/panels.tsx`, `apps/docs/src/main.tsx`, `apps/studio/src/main.tsx` |
+| `FlytrapIcon` | 6 | `apps/dashboard/src/main.tsx`, `apps/docs/src/living/hero.tsx`, `apps/docs/src/living/panels.tsx`, `apps/docs/src/living/sidebar.tsx`, `apps/docs/src/main.tsx`, `apps/studio/src/main.tsx` |
+| `AgentIcon` | 4 | `apps/dashboard/src/main.tsx`, `apps/docs/src/living/sidebar.tsx`, `apps/docs/src/main.tsx`, `apps/studio/src/main.tsx` |
+| `BrandIcon` | 4 | `apps/docs/src/living/hero.tsx`, `apps/docs/src/living/sidebar.tsx`, `apps/docs/src/main.tsx`, `apps/studio/src/main.tsx` |
+| `ChartIcon` | 4 | `apps/dashboard/src/main.tsx`, `apps/docs/src/living/sidebar.tsx`, `apps/docs/src/main.tsx`, `apps/studio/src/main.tsx` |
 | `AiAccentIcon` | 3 | `apps/docs/src/living/hero.tsx`, `apps/docs/src/living/sidebar.tsx`, `apps/docs/src/main.tsx` |
-| `BrandIcon` | 3 | `apps/docs/src/living/hero.tsx`, `apps/docs/src/living/sidebar.tsx`, `apps/docs/src/main.tsx` |
-| `ChartIcon` | 3 | `apps/dashboard/src/main.tsx`, `apps/docs/src/living/sidebar.tsx`, `apps/docs/src/main.tsx` |
+| `Badge` | 3 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx`, `apps/studio/src/main.tsx` |
+| `ButtonGroup` | 3 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx`, `apps/studio/src/main.tsx` |
+| `ButtonGroupItem` | 3 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx`, `apps/studio/src/main.tsx` |
+| `Card` | 3 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx`, `apps/studio/src/main.tsx` |
+| `CardContent` | 3 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx`, `apps/studio/src/main.tsx` |
+| `CardDescription` | 3 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx`, `apps/studio/src/main.tsx` |
+| `CardHeader` | 3 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx`, `apps/studio/src/main.tsx` |
+| `CardTitle` | 3 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx`, `apps/studio/src/main.tsx` |
 | `DashboardIcon` | 3 | `apps/dashboard/src/main.tsx`, `apps/docs/src/living/sidebar.tsx`, `apps/docs/src/main.tsx` |
+| `DataList` | 3 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx`, `apps/studio/src/main.tsx` |
+| `DataListDescription` | 3 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx`, `apps/studio/src/main.tsx` |
+| `DataListItem` | 3 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx`, `apps/studio/src/main.tsx` |
+| `DataListTerm` | 3 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx`, `apps/studio/src/main.tsx` |
 | `FlytrapIconComponent` | 3 | `apps/docs/src/living/hero.tsx`, `apps/docs/src/living/panels.tsx`, `apps/docs/src/living/sidebar.tsx` |
+| `InlineNotification` | 3 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx`, `apps/studio/src/main.tsx` |
+| `MediaCard` | 3 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx`, `apps/studio/src/main.tsx` |
+| `ModelConfidence` | 3 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx`, `apps/studio/src/main.tsx` |
+| `MoodSelector` | 3 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx`, `apps/studio/src/main.tsx` |
+| `PersonalizationPanel` | 3 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx`, `apps/studio/src/main.tsx` |
+| `PlayerControls` | 3 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx`, `apps/studio/src/main.tsx` |
+| `RecommendationRail` | 3 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx`, `apps/studio/src/main.tsx` |
 | `SendIcon` | 3 | `apps/dashboard/src/main.tsx`, `apps/docs/src/living/hero.tsx`, `apps/docs/src/main.tsx` |
+| `SmartDataTable` | 3 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx`, `apps/studio/src/main.tsx` |
+| `StatusIndicator` | 3 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx`, `apps/studio/src/main.tsx` |
+| `Timeline` | 3 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx`, `apps/studio/src/main.tsx` |
+| `TimelineItem` | 3 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx`, `apps/studio/src/main.tsx` |
+| `AgentCard` | 2 | `apps/dashboard/src/main.tsx`, `apps/studio/src/main.tsx` |
 | `ApprovalIcon` | 2 | `apps/docs/src/living/sidebar.tsx`, `apps/docs/src/main.tsx` |
-| `Badge` | 2 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx` |
-| `ButtonGroup` | 2 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx` |
-| `ButtonGroupItem` | 2 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx` |
-| `Card` | 2 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx` |
-| `CardContent` | 2 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx` |
-| `CardDescription` | 2 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx` |
-| `CardHeader` | 2 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx` |
-| `CardTitle` | 2 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx` |
-| `DataList` | 2 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx` |
-| `DataListDescription` | 2 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx` |
-| `DataListItem` | 2 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx` |
-| `DataListTerm` | 2 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx` |
+| `BrandLockup` | 2 | `apps/dashboard/src/main.tsx`, `apps/studio/src/main.tsx` |
 | `Field` | 2 | `apps/docs/src/main.tsx` |
-| `InlineNotification` | 2 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx` |
+| `FilterBar` | 2 | `apps/dashboard/src/main.tsx`, `apps/studio/src/main.tsx` |
 | `Input` | 2 | `apps/docs/src/main.tsx` |
+| `InsightCallout` | 2 | `apps/dashboard/src/main.tsx`, `apps/studio/src/main.tsx` |
 | `InsightIcon` | 2 | `apps/docs/src/living/sidebar.tsx`, `apps/docs/src/main.tsx` |
 | `InteractiveCard` | 2 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx` |
-| `MediaCard` | 2 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx` |
-| `ModelConfidence` | 2 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx` |
-| `MoodSelector` | 2 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx` |
-| `PersonalizationPanel` | 2 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx` |
-| `PlayerControls` | 2 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx` |
+| `KpiStatCard` | 2 | `apps/dashboard/src/main.tsx`, `apps/studio/src/main.tsx` |
+| `Page` | 2 | `apps/dashboard/src/main.tsx`, `apps/studio/src/main.tsx` |
+| `PageDescription` | 2 | `apps/dashboard/src/main.tsx`, `apps/studio/src/main.tsx` |
+| `PageHeader` | 2 | `apps/dashboard/src/main.tsx`, `apps/studio/src/main.tsx` |
+| `PageTitle` | 2 | `apps/dashboard/src/main.tsx`, `apps/studio/src/main.tsx` |
 | `Progress` | 2 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx` |
-| `RecommendationRail` | 2 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx` |
-| `SmartDataTable` | 2 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx` |
-| `StatusIndicator` | 2 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx` |
-| `Timeline` | 2 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx` |
-| `TimelineItem` | 2 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx` |
+| `SearchIcon` | 2 | `apps/docs/src/main.tsx`, `apps/studio/src/main.tsx` |
+| `Section` | 2 | `apps/dashboard/src/main.tsx`, `apps/studio/src/main.tsx` |
+| `SectionDescription` | 2 | `apps/dashboard/src/main.tsx`, `apps/studio/src/main.tsx` |
+| `SectionHeader` | 2 | `apps/dashboard/src/main.tsx`, `apps/studio/src/main.tsx` |
+| `SectionTitle` | 2 | `apps/dashboard/src/main.tsx`, `apps/studio/src/main.tsx` |
 | `ToolIcon` | 2 | `apps/docs/src/living/sidebar.tsx`, `apps/docs/src/main.tsx` |
 | `TreeItem` | 2 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx` |
 | `TreeView` | 2 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx` |
-| `AgentCard` | 1 | `apps/dashboard/src/main.tsx` |
-| `BrandLockup` | 1 | `apps/dashboard/src/main.tsx` |
 | `BrandMark` | 1 | `apps/docs/src/living/sidebar.tsx` |
+| `Chart` | 1 | `apps/studio/src/main.tsx` |
 | `Combobox` | 1 | `apps/docs/src/main.tsx` |
 | `ConfirmIcon` | 1 | `apps/docs/src/living/panels.tsx` |
 | `CopyIcon` | 1 | `apps/docs/src/living/panels.tsx` |
+| `CostTokenMeter` | 1 | `apps/studio/src/main.tsx` |
 | `DatePickerField` | 1 | `apps/docs/src/main.tsx` |
 | `Dialog` | 1 | `apps/docs/src/main.tsx` |
 | `DialogContent` | 1 | `apps/docs/src/main.tsx` |
@@ -77,28 +91,24 @@ Static scan of `@flytrap/ui` named imports in `apps/**`.
 | `ErrorIcon` | 1 | `apps/docs/src/main.tsx` |
 | `ExternalLinkIcon` | 1 | `apps/docs/src/living/hero.tsx` |
 | `FileUpload` | 1 | `apps/docs/src/main.tsx` |
-| `FilterBar` | 1 | `apps/dashboard/src/main.tsx` |
+| `HumanApprovalPrompt` | 1 | `apps/studio/src/main.tsx` |
 | `InfoIcon` | 1 | `apps/docs/src/living/sidebar.tsx` |
-| `InsightCallout` | 1 | `apps/dashboard/src/main.tsx` |
-| `KpiStatCard` | 1 | `apps/dashboard/src/main.tsx` |
 | `MenuIcon` | 1 | `apps/docs/src/main.tsx` |
 | `MessageBubble` | 1 | `apps/dashboard/src/main.tsx` |
+| `MoodSelectorOption` | 1 | `apps/studio/src/main.tsx` |
 | `MoodSignal` | 1 | `apps/docs/src/main.tsx` |
-| `Page` | 1 | `apps/dashboard/src/main.tsx` |
-| `PageDescription` | 1 | `apps/dashboard/src/main.tsx` |
-| `PageHeader` | 1 | `apps/dashboard/src/main.tsx` |
-| `PageTitle` | 1 | `apps/dashboard/src/main.tsx` |
+| `PromptInput` | 1 | `apps/studio/src/main.tsx` |
+| `ReasoningStream` | 1 | `apps/studio/src/main.tsx` |
+| `RunTraceTimeline` | 1 | `apps/studio/src/main.tsx` |
 | `SearchField` | 1 | `apps/docs/src/main.tsx` |
-| `SearchIcon` | 1 | `apps/docs/src/main.tsx` |
-| `Section` | 1 | `apps/dashboard/src/main.tsx` |
-| `SectionDescription` | 1 | `apps/dashboard/src/main.tsx` |
-| `SectionHeader` | 1 | `apps/dashboard/src/main.tsx` |
-| `SectionTitle` | 1 | `apps/dashboard/src/main.tsx` |
 | `SliderField` | 1 | `apps/docs/src/main.tsx` |
+| `StreamingMessage` | 1 | `apps/studio/src/main.tsx` |
 | `SuccessIcon` | 1 | `apps/docs/src/main.tsx` |
+| `SuggestedPrompts` | 1 | `apps/studio/src/main.tsx` |
 | `SwitchField` | 1 | `apps/docs/src/main.tsx` |
 | `ThemeDarkIcon` | 1 | `apps/dashboard/src/main.tsx` |
 | `ThemeLightIcon` | 1 | `apps/dashboard/src/main.tsx` |
+| `ToolCallBlock` | 1 | `apps/studio/src/main.tsx` |
 | `Toolbar` | 1 | `apps/dashboard/src/main.tsx` |
 
 ## Files
@@ -110,3 +120,4 @@ Static scan of `@flytrap/ui` named imports in `apps/**`.
 | `apps/docs/src/living/panels.tsx` | `Button`, `ConfirmIcon`, `CopyIcon`, `FlytrapIcon`, `FlytrapIconComponent` |
 | `apps/docs/src/living/sidebar.tsx` | `AgentIcon`, `AiAccentIcon`, `ApprovalIcon`, `BrandIcon`, `BrandMark`, `ChartIcon`, `DashboardIcon`, `FlytrapIcon`, `FlytrapIconComponent`, `InfoIcon`, `InsightIcon`, `ToolIcon` |
 | `apps/docs/src/main.tsx` | `AgentIcon`, `AiAccentIcon`, `ApprovalIcon`, `Badge`, `BrandIcon`, `Button`, `ButtonGroup`, `ButtonGroupItem`, `Card`, `CardContent`, `CardDescription`, `CardHeader`, `CardTitle`, `ChartIcon`, `Combobox`, `DashboardIcon`, `DataList`, `DataListDescription`, `DataListItem`, `DataListTerm`, `DatePickerField`, `Dialog`, `DialogContent`, `DialogDescription`, `DialogFooter`, `DialogHeader`, `DialogTitle`, `DialogTrigger`, `DropdownMenu`, `DropdownMenuContent`, `DropdownMenuItem`, `DropdownMenuLabel`, `DropdownMenuSeparator`, `DropdownMenuTrigger`, `ErrorIcon`, `Field`, `FileUpload`, `FlytrapIcon`, `InlineNotification`, `Input`, `InsightIcon`, `InteractiveCard`, `MediaCard`, `MenuIcon`, `ModelConfidence`, `MoodSelector`, `MoodSignal`, `PersonalizationPanel`, `PlayerControls`, `Progress`, `RecommendationRail`, `SearchField`, `SearchIcon`, `SendIcon`, `SliderField`, `SmartDataTable`, `StatusIndicator`, `SuccessIcon`, `SwitchField`, `Timeline`, `TimelineItem`, `ToolIcon`, `TreeItem`, `TreeView` |
+| `apps/studio/src/main.tsx` | `AgentCard`, `AgentIcon`, `Badge`, `BrandIcon`, `BrandLockup`, `Button`, `ButtonGroup`, `ButtonGroupItem`, `Card`, `CardContent`, `CardDescription`, `CardHeader`, `CardTitle`, `Chart`, `ChartIcon`, `CostTokenMeter`, `DataList`, `DataListDescription`, `DataListItem`, `DataListTerm`, `FilterBar`, `FlytrapIcon`, `HumanApprovalPrompt`, `InlineNotification`, `InsightCallout`, `KpiStatCard`, `MediaCard`, `ModelConfidence`, `MoodSelector`, `MoodSelectorOption`, `Page`, `PageDescription`, `PageHeader`, `PageTitle`, `PersonalizationPanel`, `PlayerControls`, `PromptInput`, `ReasoningStream`, `RecommendationRail`, `RunTraceTimeline`, `SearchIcon`, `Section`, `SectionDescription`, `SectionHeader`, `SectionTitle`, `SmartDataTable`, `StatusIndicator`, `StreamingMessage`, `SuggestedPrompts`, `Timeline`, `TimelineItem`, `ToolCallBlock` |

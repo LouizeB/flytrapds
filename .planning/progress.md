@@ -33,5 +33,6 @@ Fonte de verdade para retomar a evolução pós-auditoria.
 - [x] Criar guia de documentação por categoria com uso, anatomia, estados, acessibilidade, tokens e exemplos para `Inputs`, `Navigation`, `Feedback`, `Data display`, `Surfaces`, `Overlays` e `AI / Streaming`.
 - [x] Fortalecer `pnpm visual:audit` com checks de anchors de categorias, links internos quebrados, IDs duplicados, nomes acessíveis em botões/links e overflow horizontal.
 - [x] Transformar `apps/dashboard` em consumidor interno robusto do DS, exercitando 50 exports de `@flytrap/ui` em uma superfície operacional real de health, release, adoption e AI workflow.
-- [ ] Conectar o primeiro consumidor real do DS.
+- [x] Conectar o primeiro consumidor real do DS com `apps/studio`, uma superfície de produto para streaming gerenciado por IA e recomendações moldadas por humor.
 - [x] Criar telemetria estática de adoção por componente com `pnpm adoption:report`.
+- [ ] Otimizar o bundle do `apps/studio`, separando a camada de charts/Recharts em carregamento sob demanda ou chunk dedicado.
