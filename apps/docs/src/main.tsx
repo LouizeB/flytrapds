@@ -125,6 +125,74 @@ const recommendationCards: Array<{
   { title: "Pulse protocol", subtitle: "A high-energy recommendation with faster transitions.", duration: "18m", badge: "Energy" },
 ];
 
+const componentReferenceGroups = [
+  {
+    anchor: "#component-inputs",
+    count: 14,
+    description: "Forms, search, selection, upload, date, slider, switch, and control composition.",
+    examples: ["Input", "SearchField", "Combobox", "FileUpload"],
+    name: "Inputs",
+    status: "Ready",
+  },
+  {
+    anchor: "#component-navigation",
+    count: 10,
+    description: "Page structure, sidebar, breadcrumbs, pagination, command menus, and tree navigation.",
+    examples: ["Sidebar", "Breadcrumb", "Pagination", "TreeView"],
+    name: "Navigation",
+    status: "Ready",
+  },
+  {
+    anchor: "#component-feedback",
+    count: 12,
+    description: "Alerts, inline notifications, progress, status, skeleton, spinner, and toast feedback.",
+    examples: ["InlineNotification", "Toast", "Progress", "StatusIndicator"],
+    name: "Feedback",
+    status: "Ready",
+  },
+  {
+    anchor: "#component-data-display",
+    count: 9,
+    description: "Tables, charts, token swatches, data lists, timelines, KPI cards, and structured values.",
+    examples: ["SmartDataTable", "Chart", "DataList", "Timeline"],
+    name: "Data display",
+    status: "Ready",
+  },
+  {
+    anchor: "#component-surfaces",
+    count: 11,
+    description: "Cards, media, previews, interactive surfaces, empty states, layout primitives, and headers.",
+    examples: ["Card", "MediaCard", "InteractiveCard", "ComponentPreview"],
+    name: "Surfaces",
+    status: "Ready",
+  },
+  {
+    anchor: "#component-overlays",
+    count: 7,
+    description: "Dialog, sheet, popover, dropdown menu, tooltip, command dialog, and alert dialog behavior.",
+    examples: ["Dialog", "Sheet", "Popover", "DropdownMenu"],
+    name: "Overlays",
+    status: "Ready",
+  },
+  {
+    anchor: "#component-ai",
+    count: 14,
+    description: "AI-native message, reasoning, approval, trace, tool call, citation, and personalization components.",
+    examples: ["ChatThread", "PromptInput", "ReasoningStream", "ToolCallBlock"],
+    name: "AI / Streaming",
+    status: "Specialized",
+  },
+] as const;
+
+const componentAnatomy = ["Root", "Label", "Content", "State", "Feedback", "Motion"] as const;
+
+const componentQualityChecks = [
+  ["Keyboard", "Every interactive component exposes focus and supports keyboard navigation."],
+  ["Screen reader", "Names, descriptions, live regions, and roles are explicit where the component needs them."],
+  ["Tokens", "Component styling resolves through semantic and component token aliases."],
+  ["States", "Default, hover, focus, active, disabled, loading, error, and empty states are represented."],
+] as const;
+
 function App() {
   const [bootComplete, setBootComplete] = useState(false);
   const handleBootComplete = React.useCallback(() => setBootComplete(true), []);
@@ -263,9 +331,120 @@ function App() {
                     { label: "Data display", href: "#component-data-display" },
                     { label: "Surfaces", href: "#component-surfaces" },
                     { label: "Overlays", href: "#component-overlays" },
+                    { label: "AI / Streaming", href: "#component-ai" },
                   ]}
                   label="Component groups"
                 />
+                <div className="mt-4 grid gap-4">
+                  <SectionCard meta="reference" title="Component system map">
+                    <div className="grid gap-4 xl:grid-cols-[1fr_1.15fr]">
+                      <div>
+                        <p className="max-w-2xl text-sm leading-6 text-white/64">
+                          The package currently exposes 77 UI, AI, and chart modules. This map groups them by user intent so the documentation is easier to scan than a flat export list.
+                        </p>
+                        <div className="mt-4 grid grid-cols-3 gap-2">
+                          {[
+                            ["77", "export modules"],
+                            ["7", "groups"],
+                            ["4", "quality gates"],
+                          ].map(([value, label]) => <div className="rounded-xl border border-white/10 bg-black/35 p-3" key={label}>
+                            <p className="font-display text-2xl font-bold text-white">{value}</p>
+                            <p className="mt-1 font-mono text-[0.56rem] uppercase tracking-[0.15em] text-white/55">{label}</p>
+                          </div>)}
+                        </div>
+                      </div>
+                      <div className="grid gap-2">
+                        {componentQualityChecks.map(([label, description]) => <div className="rounded-xl border border-white/8 bg-white/[.035] p-3" key={label}>
+                          <p className="font-display text-sm font-bold text-white/90">{label}</p>
+                          <p className="mt-1 text-xs leading-5 text-white/58">{description}</p>
+                        </div>)}
+                      </div>
+                    </div>
+                  </SectionCard>
+
+                  <div className="grid gap-3 md:grid-cols-2 2xl:grid-cols-4">
+                    {componentReferenceGroups.map(group => <a
+                      className="group rounded-[1rem] border border-[rgba(241,0,129,.22)] bg-[linear-gradient(145deg,rgba(14,18,28,.78),rgba(2,5,10,.66))] p-4 text-white shadow-[0_14px_34px_rgba(0,0,0,.48)] outline-none transition-colors hover:border-[#ff4fbd]/55 hover:bg-[#ff4fbd]/8 focus-visible:ring-2 focus-visible:ring-[#b8ff35] focus-visible:ring-offset-2 focus-visible:ring-offset-[#05060a]"
+                      href={group.anchor}
+                      key={group.name}
+                    >
+                      <span className="flex items-start justify-between gap-3">
+                        <span>
+                          <span className="block font-display text-lg font-bold text-white">{group.name}</span>
+                          <span className="mt-1 block font-mono text-[0.58rem] uppercase tracking-[0.16em] text-[#ff9bdd]">{group.count} components · {group.status}</span>
+                        </span>
+                        <span aria-hidden="true" className="text-[#ff4fbd] transition-transform group-hover:translate-x-1">→</span>
+                      </span>
+                      <span className="mt-3 block text-sm leading-6 text-white/62">{group.description}</span>
+                      <span className="mt-3 flex flex-wrap gap-1.5">
+                        {group.examples.map(example => <code className="rounded-full border border-white/10 bg-black/35 px-2 py-1 font-mono text-[0.56rem] text-white/62" key={example}>{example}</code>)}
+                      </span>
+                    </a>)}
+                  </div>
+
+                  <div className="grid gap-4 xl:grid-cols-[1fr_1fr]">
+                    <SectionCard meta="anatomy" title="Component anatomy model">
+                      <div className="grid gap-3 sm:grid-cols-2">
+                        <div className="relative min-h-48 rounded-xl border border-white/10 bg-black/35 p-4">
+                          {componentAnatomy.map((layer, index) => <div
+                            className="absolute left-6 right-6 rounded-xl border border-[#ff4fbd]/35 bg-[#ff4fbd]/10 px-3 py-2 text-xs font-semibold text-white/75 backdrop-blur"
+                            key={layer}
+                            style={{ top: `${1 + index * 1.65}rem`, transform: `translateY(${index * 7}px) rotateX(52deg) rotateZ(-9deg)`, opacity: 1 - index * 0.08 }}
+                          >
+                            {layer}
+                          </div>)}
+                        </div>
+                        <div className="grid gap-2">
+                          {componentAnatomy.map(layer => <div className="rounded-lg border border-white/8 bg-white/[.035] p-2" key={layer}>
+                            <p className="font-mono text-[0.62rem] uppercase tracking-[0.16em] text-[#ff9bdd]">{layer}</p>
+                            <p className="mt-1 text-xs leading-5 text-white/58">
+                              {layer === "Root" && "Owns role, layout, data attributes, and state boundaries."}
+                              {layer === "Label" && "Provides accessible name, visible copy, and required context."}
+                              {layer === "Content" && "Holds product information, icons, media, or user input."}
+                              {layer === "State" && "Represents hover, focus, active, selected, disabled, loading, and error."}
+                              {layer === "Feedback" && "Communicates validation, progress, status, or system response."}
+                              {layer === "Motion" && "Uses tokenized timing and respects reduced-motion preferences."}
+                            </p>
+                          </div>)}
+                        </div>
+                      </div>
+                    </SectionCard>
+
+                    <SectionCard meta="implementation" title="Component contract">
+                      <DataList>
+                        <DataListItem className="sm:grid-cols-1 xl:grid-cols-[9rem_1fr]">
+                          <DataListTerm>Import</DataListTerm>
+                          <DataListDescription>@flytrap/ui</DataListDescription>
+                        </DataListItem>
+                        <DataListItem className="sm:grid-cols-1 xl:grid-cols-[9rem_1fr]">
+                          <DataListTerm>Styling</DataListTerm>
+                          <DataListDescription>Semantic tokens first, component aliases for repeated behavior.</DataListDescription>
+                        </DataListItem>
+                        <DataListItem className="sm:grid-cols-1 xl:grid-cols-[9rem_1fr]">
+                          <DataListTerm>Accessibility</DataListTerm>
+                          <DataListDescription>Accessible names, visible focus, ARIA only when native HTML is not enough.</DataListDescription>
+                        </DataListItem>
+                        <DataListItem className="sm:grid-cols-1 xl:grid-cols-[9rem_1fr]">
+                          <DataListTerm>Docs</DataListTerm>
+                          <DataListDescription>Every shipped component should document usage, states, tokens, and keyboard behavior.</DataListDescription>
+                        </DataListItem>
+                      </DataList>
+                      <div className="mt-4">
+                        <CodeBlock
+                          copyText={`import { Button, Field, Input } from '@flytrap/ui';\n\n<Field label=\"Signal name\">\n  <Input placeholder=\"Focus mode\" />\n</Field>\n<Button>Save signal</Button>`}
+                          lines={[
+                            [{ text: "import", kind: "keyword" }, { text: " { " }, { text: "Button", kind: "component" }, { text: ", " }, { text: "Field", kind: "component" }, { text: ", " }, { text: "Input", kind: "component" }, { text: " } " }, { text: "from", kind: "keyword" }, { text: " " }, { text: "'@flytrap/ui'", kind: "string" }, { text: ";" }],
+                            [{ text: "" }],
+                            [{ text: "<" }, { text: "Field", kind: "component" }, { text: " label=" }, { text: "\"Signal name\"", kind: "string" }, { text: ">" }],
+                            [{ text: "  <" }, { text: "Input", kind: "component" }, { text: " placeholder=" }, { text: "\"Focus mode\"", kind: "string" }, { text: " />" }],
+                            [{ text: "</" }, { text: "Field", kind: "component" }, { text: ">" }],
+                            [{ text: "<" }, { text: "Button", kind: "component" }, { text: ">" }, { text: "Save signal" }, { text: "</" }, { text: "Button", kind: "component" }, { text: ">" }],
+                          ]}
+                        />
+                      </div>
+                    </SectionCard>
+                  </div>
+                </div>
                 <div className="mt-3 grid gap-3 sm:grid-cols-2">
                   <ComponentPreview title="Button">
                     <div className="grid justify-items-start gap-2">
@@ -408,7 +587,7 @@ function App() {
                     </div>
                   </SectionCard>
 
-                  <SectionCard meta="streaming · ai" title="Mood-aware streaming system">
+                  <SectionCard id="component-ai" meta="streaming · ai" title="Mood-aware streaming system">
                     <div className="grid gap-5">
                       <MoodSelector defaultValue="focus" options={moodOptions} />
                       <div className="grid gap-4 2xl:grid-cols-[1fr_1.15fr]">

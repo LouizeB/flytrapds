@@ -4,7 +4,7 @@ Static scan of `@flytrap/ui` named imports in `apps/**`.
 
 ## Summary
 
-- Total named imports: 107
+- Total named imports: 110
 - Unique exports adopted: 78
 - Files importing UI: 5
 - Files importing styles: 2
@@ -13,7 +13,7 @@ Static scan of `@flytrap/ui` named imports in `apps/**`.
 
 | Export | Count | Files |
 |--|--:|--|
-| `Button` | 5 | `apps/dashboard/src/main.tsx`, `apps/docs/src/living/hero.tsx`, `apps/docs/src/living/panels.tsx`, `apps/docs/src/main.tsx` |
+| `Button` | 6 | `apps/dashboard/src/main.tsx`, `apps/docs/src/living/hero.tsx`, `apps/docs/src/living/panels.tsx`, `apps/docs/src/main.tsx` |
 | `FlytrapIcon` | 5 | `apps/dashboard/src/main.tsx`, `apps/docs/src/living/hero.tsx`, `apps/docs/src/living/panels.tsx`, `apps/docs/src/living/sidebar.tsx`, `apps/docs/src/main.tsx` |
 | `AgentIcon` | 3 | `apps/dashboard/src/main.tsx`, `apps/docs/src/living/sidebar.tsx`, `apps/docs/src/main.tsx` |
 | `AiAccentIcon` | 3 | `apps/docs/src/living/hero.tsx`, `apps/docs/src/living/sidebar.tsx`, `apps/docs/src/main.tsx` |
@@ -28,6 +28,8 @@ Static scan of `@flytrap/ui` named imports in `apps/**`.
 | `CardHeader` | 2 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx` |
 | `CardTitle` | 2 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx` |
 | `ChartIcon` | 2 | `apps/docs/src/living/sidebar.tsx`, `apps/docs/src/main.tsx` |
+| `Field` | 2 | `apps/docs/src/main.tsx` |
+| `Input` | 2 | `apps/docs/src/main.tsx` |
 | `InsightIcon` | 2 | `apps/docs/src/living/sidebar.tsx`, `apps/docs/src/main.tsx` |
 | `ToolIcon` | 2 | `apps/docs/src/living/sidebar.tsx`, `apps/docs/src/main.tsx` |
 | `AgentCard` | 1 | `apps/dashboard/src/main.tsx` |
@@ -59,11 +61,9 @@ Static scan of `@flytrap/ui` named imports in `apps/**`.
 | `DropdownMenuTrigger` | 1 | `apps/docs/src/main.tsx` |
 | `ErrorIcon` | 1 | `apps/docs/src/main.tsx` |
 | `ExternalLinkIcon` | 1 | `apps/docs/src/living/hero.tsx` |
-| `Field` | 1 | `apps/docs/src/main.tsx` |
 | `FileUpload` | 1 | `apps/docs/src/main.tsx` |
 | `InfoIcon` | 1 | `apps/docs/src/living/sidebar.tsx` |
 | `InlineNotification` | 1 | `apps/docs/src/main.tsx` |
-| `Input` | 1 | `apps/docs/src/main.tsx` |
 | `InsightCallout` | 1 | `apps/dashboard/src/main.tsx` |
 | `InteractiveCard` | 1 | `apps/docs/src/main.tsx` |
 | `KpiStatCard` | 1 | `apps/dashboard/src/main.tsx` |
