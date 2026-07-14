@@ -41,7 +41,6 @@ import {
   ReasoningStream,
   RecommendationRail,
   RunTraceTimeline,
-  SearchIcon,
   Section,
   SectionDescription,
   SectionHeader,
@@ -57,12 +56,19 @@ import {
 import "@flytrap/ui/styles";
 
 type Mood = "calm" | "focus" | "energy" | "noir";
+type ApprovalState = "pending" | "approved" | "rejected";
+type ConversationMessage = {
+  id: number;
+  mood: Mood;
+  prompt: string;
+};
 type CatalogItem = {
+  duration: string;
+  fitByMood: Record<Mood, number>;
   requiresApproval: boolean;
-  title: React.ReactNode;
-  mood: React.ReactNode;
-  fit: React.ReactNode;
-  status: React.ReactNode;
+  summary: string;
+  title: string;
+  targetMood: Mood;
 };
 
 const moodOptions: MoodSelectorOption[] = [
@@ -92,53 +98,68 @@ const moodOptions: MoodSelectorOption[] = [
   },
 ];
 
-const moodCopy: Record<Mood, { confidence: number; label: string; prompt: string; value: number }> = {
+const moodCopy: Record<Mood, { choiceLoad: string; confidence: number; continuity: string; label: string; prompt: string; reasoning: string; value: number }> = {
   calm: {
+    choiceLoad: "Very low",
     confidence: 87,
+    continuity: "24m",
     label: "Calm evening mode",
     prompt: "Build a calm queue for a viewer who wants soft science fiction and low-intensity visuals.",
+    reasoning: "The system reduces novelty, slows pacing and avoids sudden autoplay because the selected mood asks for quiet control.",
     value: 64,
   },
   focus: {
+    choiceLoad: "Low",
     confidence: 92,
+    continuity: "18m",
     label: "Focused discovery mode",
     prompt: "Recommend a concise queue for someone who wants to learn the system quickly.",
+    reasoning: "The system selected a concise queue because the viewer mood indicates focus. It reduced novelty and prioritized explainable recommendations.",
     value: 82,
   },
   energy: {
+    choiceLoad: "High",
     confidence: 89,
+    continuity: "11m",
     label: "High-energy premiere mode",
     prompt: "Create a bold queue with vivid trailers, fast pacing and social moments.",
+    reasoning: "The system increases preview density, highlights trailers and raises motion intensity while keeping sensitive changes reversible.",
     value: 91,
   },
   noir: {
+    choiceLoad: "Medium",
     confidence: 84,
+    continuity: "32m",
     label: "Noir narrative mode",
     prompt: "Curate moody cinematic episodes with atmospheric pacing and fewer interruptions.",
+    reasoning: "The system favors slower arcs, darker cinematic material and fewer interruptions because the selected mood asks for atmosphere.",
     value: 58,
   },
 };
 
 const catalogRows: CatalogItem[] = [
   {
-    fit: "96%",
-    mood: "Focus",
+    duration: "12m",
+    fitByMood: { calm: 74, energy: 82, focus: 96, noir: 78 },
     requiresApproval: false,
-    status: <StatusIndicator tone="success">Ready</StatusIndicator>,
+    summary: "A compact first episode that explains the world and avoids overwhelming the viewer.",
+    targetMood: "focus",
     title: "Adaptive pilot cut",
   },
   {
-    fit: "91%",
-    mood: "Energy",
+    duration: "2m",
+    fitByMood: { calm: 62, energy: 91, focus: 76, noir: 70 },
     requiresApproval: false,
-    status: <StatusIndicator tone="info">Preview</StatusIndicator>,
+    summary: "A vivid preview with fast transitions, character beats and high-discovery momentum.",
+    targetMood: "energy",
     title: "Neon organism trailer",
   },
   {
-    fit: "84%",
-    mood: "Noir",
+    duration: "18m",
+    fitByMood: { calm: 81, energy: 68, focus: 75, noir: 84 },
     requiresApproval: true,
-    status: <StatusIndicator tone="warning">Needs consent</StatusIndicator>,
+    summary: "A darker archival episode with slower pacing and sensitive mood-shift potential.",
+    targetMood: "noir",
     title: "Slow-burn archive",
   },
 ];
@@ -155,21 +176,56 @@ const signalData = [
 function App() {
   const [mood, setMood] = useState<Mood>("focus");
   const [prompt, setPrompt] = useState(moodCopy.focus.prompt);
+  const [activeTitle, setActiveTitle] = useState(catalogRows[0].title);
+  const [approvalState, setApprovalState] = useState<ApprovalState>("pending");
+  const [conversation, setConversation] = useState<ConversationMessage[]>([]);
+  const [playing, setPlaying] = useState(true);
   const [queueFilter, setQueueFilter] = useState("");
+  const [sessionStarted, setSessionStarted] = useState(false);
   const [segment, setSegment] = useState("recommended");
 
   const currentMood = moodCopy[mood];
+  const activeItem = catalogRows.find((row) => row.title === activeTitle) ?? catalogRows[0];
+  const playerProgress = playing ? Math.min(96, currentMood.value + 8) : Math.max(8, currentMood.value - 24);
+  const tableRows = useMemo(() => catalogRows.map((row) => {
+    const fit = row.fitByMood[mood];
+    const isActive = row.title === activeTitle;
+    return {
+      fit: `${fit}%`,
+      mood: row.targetMood[0].toUpperCase() + row.targetMood.slice(1),
+      status: row.requiresApproval
+        ? <StatusIndicator tone={approvalState === "approved" ? "success" : approvalState === "rejected" ? "error" : "warning"}>{approvalState === "approved" ? "Approved" : approvalState === "rejected" ? "Rejected" : "Needs consent"}</StatusIndicator>
+        : <StatusIndicator tone={isActive ? "success" : "info"}>{isActive ? "Now playing" : "Ready"}</StatusIndicator>,
+      title: row.title,
+    };
+  }), [activeTitle, approvalState, mood]);
   const filteredRows = useMemo(() => {
     const query = queueFilter.trim().toLowerCase();
     const segmentRows = segment === "all"
-      ? catalogRows
+      ? tableRows
       : segment === "approval"
-        ? catalogRows.filter((row) => row.requiresApproval)
-        : catalogRows.filter((row) => String(row.mood).toLowerCase() === mood || segment === "recommended");
+        ? tableRows.filter((row) => catalogRows.find((item) => item.title === row.title)?.requiresApproval)
+        : tableRows.filter((row) => row.mood.toLowerCase() === mood || segment === "recommended");
 
     if (!query) return segmentRows;
     return segmentRows.filter((row) => [row.title, row.mood, row.fit].some((value) => String(value).toLowerCase().includes(query)));
-  }, [mood, queueFilter, segment]);
+  }, [mood, queueFilter, segment, tableRows]);
+
+  function chooseMood(value: string) {
+    const nextMood = value as Mood;
+    const nextItem = catalogRows
+      .filter((item) => !item.requiresApproval || approvalState === "approved")
+      .sort((left, right) => right.fitByMood[nextMood] - left.fitByMood[nextMood])[0] ?? catalogRows[0];
+    setMood(nextMood);
+    setPrompt(moodCopy[nextMood].prompt);
+    setActiveTitle(nextItem.title);
+  }
+
+  function submitPrompt(nextPrompt: string) {
+    setPrompt(nextPrompt);
+    setConversation((messages) => [{ id: Date.now(), mood, prompt: nextPrompt }, ...messages].slice(0, 3));
+    setSessionStarted(true);
+  }
 
   return <div className="dark min-h-screen bg-background text-foreground">
     <div className="min-h-screen lg:grid lg:grid-cols-[264px_1fr]">
@@ -203,12 +259,15 @@ function App() {
                 A product-facing surface that proves Flytrap UI outside docs and operations. The interface adapts recommendations, pacing and review actions from the selected viewer mood.
               </PageDescription>
               <div className="mt-5 flex flex-wrap gap-3">
-                <Button>Start adaptive session</Button>
-                <Button variant="outline">Review model signals</Button>
+                <Button onClick={() => {
+                  setSessionStarted(true);
+                  setPlaying(true);
+                }}>{sessionStarted ? "Session running" : "Start adaptive session"}</Button>
+                <Button onClick={() => document.getElementById("signals")?.scrollIntoView({ behavior: "smooth", block: "start" })} variant="outline">Review model signals</Button>
               </div>
             </div>
             <PersonalizationPanel
-              action={<Badge variant="success">Live session</Badge>}
+              action={<Badge variant={sessionStarted ? "success" : "secondary"}>{sessionStarted ? "Live session" : "Preview mode"}</Badge>}
               confidence={currentMood.confidence}
               moodLabel={currentMood.label}
               moodTone={mood === "noir" ? "melancholy" : mood}
@@ -231,17 +290,13 @@ function App() {
           <MoodSelector
             options={moodOptions}
             value={mood}
-            onValueChange={(value) => {
-              const nextMood = value as Mood;
-              setMood(nextMood);
-              setPrompt(moodCopy[nextMood].prompt);
-            }}
+            onValueChange={chooseMood}
           />
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             <KpiStatCard delta={12} description="session fit" label="Mood match" value={`${currentMood.value}%`} />
             <KpiStatCard delta={4} description="recommendation lift" label="Affinity" value={`${currentMood.confidence}%`} />
-            <KpiStatCard delta={-8} description="reduced friction" label="Choice load" value="Low" />
-            <KpiStatCard delta={6} description="queue stability" label="Continuity" value="18m" />
+            <KpiStatCard delta={mood === "energy" ? 14 : -8} description="adaptive density" label="Choice load" value={currentMood.choiceLoad} />
+            <KpiStatCard delta={6} description="queue stability" label="Continuity" value={currentMood.continuity} />
           </div>
         </Section>
 
@@ -258,15 +313,24 @@ function App() {
             </ButtonGroup>
           </FilterBar>
           <RecommendationRail description="The first card follows the selected mood; secondary cards remain available for exploration." title="Recommended now">
-            <div className="min-w-[260px] flex-1" role="listitem">
-              <MediaCard active badge={mood.toUpperCase()} duration="12m" subtitle={`${currentMood.label} · confidence ${currentMood.confidence}%`} title="Mood-fit feature cut" />
-            </div>
-            <div className="min-w-[260px] flex-1" role="listitem">
-              <MediaCard badge="TRAILER" duration="2m" subtitle="Fast preview with reversible personalization." title="Signal-aware trailer" />
-            </div>
-            <div className="min-w-[260px] flex-1" role="listitem">
-              <MediaCard badge="DEEP DIVE" duration="18m" subtitle="Explains why the model changed the session." title="Recommendation anatomy" />
-            </div>
+            {catalogRows.map((item) => {
+              const active = item.title === activeTitle;
+              const locked = item.requiresApproval && approvalState !== "approved";
+              return <div className="min-w-[260px] flex-1" key={item.title} role="listitem">
+                <MediaCard
+                  active={active}
+                  action={<Button disabled={locked} onClick={() => {
+                    setActiveTitle(item.title);
+                    setSessionStarted(true);
+                    setPlaying(true);
+                  }} size="sm" variant={active ? "secondary" : "outline"}>{locked ? "Needs approval" : active ? "Playing" : "Play next"}</Button>}
+                  badge={item.targetMood.toUpperCase()}
+                  duration={item.duration}
+                  subtitle={`${item.summary} Fit for ${currentMood.label}: ${item.fitByMood[mood]}%.`}
+                  title={item.title}
+                />
+              </div>;
+            })}
           </RecommendationRail>
           <SmartDataTable
             caption="Adaptive queue readiness"
@@ -307,16 +371,16 @@ function App() {
               <CardContent>
                 <DataList>
                   <DataListItem>
-                    <DataListTerm>Transparency</DataListTerm>
-                    <DataListDescription>Every queue change includes a visible reason.</DataListDescription>
+                    <DataListTerm>Now playing</DataListTerm>
+                    <DataListDescription>{activeItem.title} · {activeItem.fitByMood[mood]}% fit</DataListDescription>
                   </DataListItem>
                   <DataListItem>
                     <DataListTerm>Control</DataListTerm>
-                    <DataListDescription>Users can change mood or reset recommendations at any time.</DataListDescription>
+                    <DataListDescription>Users can change mood, filter the queue, pause playback or reset recommendations.</DataListDescription>
                   </DataListItem>
                   <DataListItem>
                     <DataListTerm>Safety</DataListTerm>
-                    <DataListDescription>High-impact mood shifts request human approval.</DataListDescription>
+                    <DataListDescription>High-impact mood shifts request human approval before content can play.</DataListDescription>
                   </DataListItem>
                 </DataList>
               </CardContent>
@@ -331,29 +395,63 @@ function App() {
           </SectionHeader>
           <div className="grid gap-4 xl:grid-cols-[.9fr_1.1fr]">
             <div className="grid gap-4">
-              <AgentCard model="Flytrap Recommender" name="Mood curator" status="running" tokens="3.2K">
-                Adjusts content density, preview order and session tone from explicit mood controls.
+              <AgentCard model="Flytrap Recommender" name="Mood curator" status={sessionStarted ? "running" : "idle"} tokens={sessionStarted ? "3.2K" : "0.8K"}>
+                {sessionStarted
+                  ? `Actively shaping ${activeItem.title} for ${currentMood.label}.`
+                  : "Waiting for an adaptive session to start."}
               </AgentCard>
-              <CostTokenMeter cost="$0.18" limit={8000} used={3260} />
+              <CostTokenMeter cost={sessionStarted ? "$0.18" : "$0.04"} limit={8000} used={sessionStarted ? 3260 : 780} />
               <ModelConfidence description="Confidence that the current queue matches the selected mood without over-personalizing." value={currentMood.confidence} />
-              <PlayerControls playing progress={68} />
+              <PlayerControls
+                onNext={() => {
+                  const currentIndex = catalogRows.findIndex((item) => item.title === activeTitle);
+                  const nextItem = catalogRows[(currentIndex + 1) % catalogRows.length];
+                  if (nextItem.requiresApproval && approvalState !== "approved") {
+                    setSegment("approval");
+                    return;
+                  }
+                  setActiveTitle(nextItem.title);
+                  setSessionStarted(true);
+                }}
+                onPlayPause={() => {
+                  setSessionStarted(true);
+                  setPlaying((value) => !value);
+                }}
+                onPrevious={() => {
+                  const currentIndex = catalogRows.findIndex((item) => item.title === activeTitle);
+                  const previousItem = catalogRows[(currentIndex - 1 + catalogRows.length) % catalogRows.length];
+                  setActiveTitle(previousItem.title);
+                  setSessionStarted(true);
+                }}
+                playing={playing}
+                progress={playerProgress}
+              />
             </div>
             <div className="grid gap-4">
-              <ReasoningStream defaultOpen status="completed" summary="The system selected a concise queue because the viewer mood indicates focus. It reduced novelty and prioritized explainable recommendations.">
-                Analysis complete
+              <ReasoningStream defaultOpen status={sessionStarted ? "streaming" : "completed"} summary={currentMood.reasoning}>
+                {sessionStarted ? "Live adaptation running" : "Analysis ready"}
               </ReasoningStream>
               <ToolCallBlock
                 defaultOpen
                 duration="420ms"
-                input={<code>{JSON.stringify({ mood, safety: "approval-required", queue: "adaptive" }, null, 2)}</code>}
+                input={<code>{JSON.stringify({ active: activeItem.title, mood, safety: "approval-required", segment }, null, 2)}</code>}
                 name="recommendation.rankQueue"
-                output={<code>{JSON.stringify({ selected: "Mood-fit feature cut", confidence: currentMood.confidence }, null, 2)}</code>}
+                output={<code>{JSON.stringify({ confidence: currentMood.confidence, selected: activeItem.title, status: activeItem.requiresApproval ? approvalState : "ready" }, null, 2)}</code>}
                 status="success"
               />
               <HumanApprovalPrompt
                 description="This would change the session from calm pacing to high-energy autoplay. The viewer should confirm before the system applies it."
                 details="Approval keeps the AI helpful without letting mood inference silently reshape a sensitive experience."
                 expiresAt="in 4 minutes"
+                onApprove={() => {
+                  setApprovalState("approved");
+                  setSegment("recommended");
+                }}
+                onReject={() => {
+                  setApprovalState("rejected");
+                  setActiveTitle(catalogRows[0].title);
+                }}
+                status={approvalState}
                 title="Approve high-impact mood shift"
               />
             </div>
@@ -373,18 +471,24 @@ function App() {
               </CardHeader>
               <CardContent className="grid gap-4">
                 <StreamingMessage status="completed">
-                  I adjusted the queue for <strong>{currentMood.label}</strong>. The next item has a {currentMood.confidence}% fit and keeps user control visible.
+                  I adjusted <strong>{activeItem.title}</strong> for <strong>{currentMood.label}</strong>. The active recommendation has a {activeItem.fitByMood[mood]}% fit and keeps user control visible.
                 </StreamingMessage>
+                {conversation.map((message) => <StreamingMessage key={message.id} status="completed">
+                  Request received: “{message.prompt}” · Applied through {moodCopy[message.mood].label}.
+                </StreamingMessage>)}
                 <PromptInput
-                  footer={<span className="text-xs text-muted-foreground">No request is sent in this static consumer app.</span>}
+                  footer={<span className="text-xs text-muted-foreground">{conversation.length > 0 ? `${conversation.length} local prompt${conversation.length > 1 ? "s" : ""} in session history.` : "Submit to update the local recommendation history."}</span>}
                   label="Streaming assistant prompt"
-                  onSubmitPrompt={setPrompt}
+                  onSubmitPrompt={submitPrompt}
                   onValueChange={setPrompt}
                   placeholder="Describe the viewer mood or session goal…"
                   value={prompt}
                 />
                 <SuggestedPrompts
-                  onSelect={setPrompt}
+                  onSelect={(nextPrompt) => {
+                    setPrompt(nextPrompt);
+                    submitPrompt(nextPrompt);
+                  }}
                   prompts={[
                     "Explain why this queue changed",
                     "Make the experience calmer",
@@ -402,19 +506,19 @@ function App() {
                 <RunTraceTimeline
                   steps={[
                     { description: "The app imports components from @flytrap/ui.", duration: "done", id: "consumer", status: "completed", title: "Consumer connected" },
-                    { description: "Mood controls reshape the recommendation surface.", duration: "current", id: "mood", status: "running", title: "Behavior mapped" },
-                    { description: "Visual audit can target this app in a later phase.", duration: "next", id: "audit", status: "idle", title: "Audit extension" },
+                    { description: `Mood controls are shaping ${activeItem.title}.`, duration: sessionStarted ? "current" : "ready", id: "mood", status: sessionStarted ? "running" : "queued", title: "Behavior mapped" },
+                    { description: "Visual audit targets this app in desktop and mobile.", duration: "done", id: "audit", status: "completed", title: "Audit extension" },
                   ]}
                 />
                 <Timeline aria-label="Studio roadmap">
                   <TimelineItem description="Use DS primitives in product context." meta="Done" title="Create Studio consumer" tone="success" />
-                  <TimelineItem description="Add visual and accessibility audit coverage." meta="Next" title="Audit Studio" tone="info" />
+                  <TimelineItem description="Mood, prompt, approval and playback controls mutate visible state." meta="Current" title="Make Studio interactive" tone="info" />
                 </Timeline>
               </CardContent>
             </Card>
           </div>
           <InlineNotification title="Consumer app milestone" variant="success">
-            Flytrap now has a product-like consumer separate from documentation and internal operations.
+            Flytrap now has an interactive product-like consumer separate from documentation and internal operations.
           </InlineNotification>
         </Section>
       </Page>
