@@ -10,4 +10,14 @@ export default defineConfig({
       "@flytrap/ui": new URL("../../packages/ui/src/index.ts", import.meta.url).pathname,
     },
   },
+  build: {
+    chunkSizeWarningLimit: 650,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes("/recharts/") || id.includes("/d3-")) return "charts";
+        },
+      },
+    },
+  },
 });

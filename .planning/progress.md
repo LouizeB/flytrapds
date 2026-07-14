@@ -35,4 +35,5 @@ Fonte de verdade para retomar a evolução pós-auditoria.
 - [x] Transformar `apps/dashboard` em consumidor interno robusto do DS, exercitando 50 exports de `@flytrap/ui` em uma superfície operacional real de health, release, adoption e AI workflow.
 - [x] Conectar o primeiro consumidor real do DS com `apps/studio`, uma superfície de produto para streaming gerenciado por IA e recomendações moldadas por humor.
 - [x] Criar telemetria estática de adoção por componente com `pnpm adoption:report`.
-- [ ] Otimizar o bundle do `apps/studio`, separando a camada de charts/Recharts em carregamento sob demanda ou chunk dedicado.
+- [x] Otimizar o bundle do `apps/studio`, separando a camada de charts/Recharts em chunk dedicado (`index` ~275 kB; `charts` ~405 kB).
+- [x] Adicionar auditoria visual local do `apps/studio` com `pnpm studio:visual:audit`, cobrindo desktop/mobile, landmarks, seções, links, nomes acessíveis e overflow.
