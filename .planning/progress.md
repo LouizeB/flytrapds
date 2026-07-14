@@ -38,3 +38,4 @@ Fonte de verdade para retomar a evolução pós-auditoria.
 - [x] Otimizar o bundle do `apps/studio`, separando a camada de charts/Recharts em chunk dedicado (`index` ~275 kB; `charts` ~405 kB).
 - [x] Adicionar auditoria visual local do `apps/studio` com `pnpm studio:visual:audit`, cobrindo desktop/mobile, landmarks, seções, links, nomes acessíveis e overflow.
 - [x] Tornar `apps/studio` interativo com mood reshaping, seleção de mídia, player state, aprovação humana e histórico local do assistant console.
+- [x] Documentar o padrão `AI-managed streaming flow` na seção `Patterns`, conectando `apps/studio` ao contrato oficial do DS.

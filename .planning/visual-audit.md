@@ -2,7 +2,7 @@
 
 Profile: public
 URL: https://louizeb.github.io/flytrapds/
-Generated: 2026-07-14T20:17:56.519Z
+Generated: 2026-07-14T21:22:52.104Z
 
 ## Summary
 
@@ -26,11 +26,11 @@ Present: `Foundations`, `Tokens`, `Components`, `Patterns`, `Accessibility`, `Gu
 Component docs: `component-inputs`, `component-navigation`, `component-feedback`, `component-data-display`, `component-surfaces`, `component-overlays`, `component-ai`
 
 Diagnostics:
-- console warning: [.WebGL-0x134004fe600]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+- console warning: [.WebGL-0x10c004fe000]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
 - console warning: THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
-- console warning: [.WebGL-0x134004fe000]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
-- console warning: [.WebGL-0x134004fe000]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
-- console warning: [.WebGL-0x134004fe000]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)
+- console warning: [.WebGL-0x10c004fda00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+- console warning: [.WebGL-0x10c004fda00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+- console warning: [.WebGL-0x10c004fda00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)
 
 ### mobile
 
