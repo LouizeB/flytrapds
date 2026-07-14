@@ -40,3 +40,4 @@ Fonte de verdade para retomar a evolução pós-auditoria.
 - [x] Tornar `apps/studio` interativo com mood reshaping, seleção de mídia, player state, aprovação humana e histórico local do assistant console.
 - [x] Documentar o padrão `AI-managed streaming flow` na seção `Patterns`, conectando `apps/studio` ao contrato oficial do DS.
 - [x] Expandir `Patterns` para uma biblioteca inicial com anchors para `AI-managed streaming`, `Dashboard layout` e `Release readiness`.
+- [x] Atualizar overview, roadmap e contrato histórico da experiência pública para refletir deploy, consumidores reais, auditoria visual e evolução da página viva.

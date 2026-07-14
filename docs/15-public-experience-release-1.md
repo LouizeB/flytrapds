@@ -1,8 +1,10 @@
 # 16. Experiência pública — Release 1
 
-Status: **briefing aprovado para implementação**  
+Status: **primeira implementação entregue; documento mantido como contrato histórico e base de refinamento**  
 Nome oficial: **Flytrap Design System**  
 Conceito narrativo: **A living organism for artificial futures**
+
+> Atualização de julho de 2026: a experiência pública evoluiu além do briefing inicial. O site passou a usar personagem, boot sequence, atmosfera orgânica/cyberpunk, padrões documentados e consumidores reais (`apps/dashboard` e `apps/studio`). As regras abaixo continuam úteis como princípios de clareza, acessibilidade e rastreabilidade, mas itens marcados originalmente como “fora do escopo” podem já existir quando aprovados por direção de design e validados pelos gates.
 
 ## Objetivo
 
@@ -151,7 +153,9 @@ Apresentar estrutura e documentação locais sem depender da API do GitHub em ru
 
 Fechamento mais silencioso com acesso à fonte, documentação e contribuição. Não incluir chat ou busca simulados.
 
-## Fora do escopo
+## Fora do escopo original
+
+Alguns itens abaixo foram posteriormente aprovados e implementados na experiência viva do Flytrap. Ao retomar este documento, tratar esta seção como histórico da Release 1 original, não como restrição atual absoluta.
 
 Não implementar nesta release:
 
