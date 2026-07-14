@@ -236,13 +236,45 @@ function App() {
                 title="Tokens"
               />
               <div className="min-w-0 flex-1">
-                <PillTabs active={0} items={["All tokens", "Color", "Type", "Space", "Border", "Motion", "Elevation"]} label="Token groups" />
+                <p className="mb-2 max-w-2xl text-sm leading-6 text-white/62">
+                  Token groups are documented as navigable anchors so designers and engineers can jump directly to the decision layer they need.
+                </p>
+                <PillTabs
+                  active={0}
+                  items={[
+                    { label: "All tokens", href: "#token-all" },
+                    { label: "Color", href: "#token-color" },
+                    { label: "Type", href: "#token-type" },
+                    { label: "Space", href: "#token-space" },
+                    { label: "Border", href: "#token-border" },
+                    { label: "Motion", href: "#token-motion" },
+                    { label: "Elevation", href: "#token-elevation" },
+                  ]}
+                  label="Token groups"
+                />
                 <div className="mt-3 grid gap-3 xl:grid-cols-[1.05fr_1.4fr]">
-                  <SectionCard meta="DTCG" title="Semantic">
-                    {semanticTokens.map(([name, hex, swatch]) => <TokenRow key={name} name={name} swatch={swatch} value={hex} />)}
-                  </SectionCard>
                   <div className="grid gap-4">
-                    <SectionCard meta="11 steps" title="Scale · Magenta">
+                    <SectionCard id="token-all" meta="DTCG" title="All semantic tokens">
+                      <p className="mb-3 text-sm leading-6 text-white/62">
+                        Canonical aliases used by components, documentation, and product surfaces.
+                      </p>
+                    {semanticTokens.map(([name, hex, swatch]) => <TokenRow key={name} name={name} swatch={swatch} value={hex} />)}
+                    </SectionCard>
+                    <SectionCard id="token-type" meta="Typography" title="Type scale">
+                      <div className="grid gap-3">
+                        <p className="font-display text-5xl font-bold leading-none text-[#ff4fbd]">Ag</p>
+                        <p className="text-sm leading-6 text-white/62">Display, title, body, code, and caption styles define readable hierarchy across the dark experience.</p>
+                        <div className="grid gap-2 font-mono text-xs text-white/70">
+                          <span>Display · Satoshi Variable · 700</span>
+                          <span>Body · Inter · 400/500</span>
+                          <span>Code · JetBrains Mono · 500</span>
+                        </div>
+                      </div>
+                    </SectionCard>
+                  </div>
+                  <div className="grid gap-4">
+                    <SectionCard id="token-color" meta="11 steps" title="Color scale">
+                      <p className="mb-3 text-sm leading-6 text-white/62">Color tokens separate brand expression from accessible semantic usage.</p>
                       <div className="grid grid-cols-11 overflow-hidden rounded-lg border border-white/15">
                         {magentaSteps.map(step => <span
                           className={["aspect-square", step === 500 ? "ring-2 ring-inset ring-white" : ""].join(" ")}
@@ -255,7 +287,8 @@ function App() {
                         {magentaSteps.map(step => <span key={step}>{step}</span>)}
                       </div>
                     </SectionCard>
-                    <SectionCard meta="8pt" title="Space scale">
+                    <SectionCard id="token-space" meta="8pt" title="Space scale">
+                      <p className="mb-3 text-sm leading-6 text-white/62">Spacing follows an 8px rhythm with smaller steps for compact controls.</p>
                       <div className="flex items-end gap-1.5">
                         {spaceSteps.map(step => <span
                           className="rounded-sm bg-[#009200] shadow-[0_0_10px_rgba(0,146,0,.4)]"
@@ -269,7 +302,7 @@ function App() {
                       </div>
                     </SectionCard>
                     <div className="grid gap-4 sm:grid-cols-2">
-                      <SectionCard title="Border radius">
+                      <SectionCard id="token-border" title="Border radius">
                         <div className="flex items-end justify-between gap-2">
                           {radiusSteps.map(radius => <span className="grid flex-1 place-items-center" key={radius}>
                             <span
@@ -280,7 +313,15 @@ function App() {
                           </span>)}
                         </div>
                       </SectionCard>
-                      <SectionCard title="Elevation">
+                      <SectionCard id="token-motion" title="Motion">
+                        <div className="grid gap-2">
+                          {["120ms · quick feedback", "240ms · panel transition", "720ms · ambient organism"].map((item, index) => <div className="rounded-lg border border-white/10 bg-white/[.04] p-2" key={item}>
+                            <span className="block h-1.5 rounded-full bg-gradient-to-r from-[#ff4fbd] via-[#8b5cf6] to-[#b8ff35]" style={{ width: `${52 + index * 22}%` }} />
+                            <p className="mt-2 font-mono text-[0.58rem] uppercase tracking-[0.14em] text-white/62">{item}</p>
+                          </div>)}
+                        </div>
+                      </SectionCard>
+                      <SectionCard id="token-elevation" title="Elevation">
                         <div className="flex items-end justify-between gap-2">
                           {elevationSteps.map(level => <span className="grid flex-1 place-items-center" key={level}>
                             <span
@@ -337,7 +378,22 @@ function App() {
                 title="Components"
               />
               <div className="min-w-0 flex-1 lg:max-w-[68%] xl:max-w-[72%] 2xl:max-w-[76%]">
-                <PillTabs active={0} items={["All", "Inputs", "Navigation", "Feedback", "Data display", "Surfaces", "Overlays"]} label="Component groups" />
+                <p className="mb-2 max-w-2xl text-sm leading-6 text-white/62">
+                  Component groups link to the documented examples below. Use them as section shortcuts, not filter controls.
+                </p>
+                <PillTabs
+                  active={0}
+                  items={[
+                    { label: "All", href: "#components" },
+                    { label: "Inputs", href: "#component-inputs" },
+                    { label: "Navigation", href: "#component-navigation" },
+                    { label: "Feedback", href: "#component-feedback" },
+                    { label: "Data display", href: "#component-data-display" },
+                    { label: "Surfaces", href: "#component-surfaces" },
+                    { label: "Overlays", href: "#component-overlays" },
+                  ]}
+                  label="Component groups"
+                />
                 <div className="mt-3 grid gap-3 sm:grid-cols-2">
                   <ComponentPreview title="Button">
                     <div className="grid justify-items-start gap-2">
@@ -345,13 +401,13 @@ function App() {
                       <Button className="rounded-full border border-white/15 bg-white/8 px-5 text-white hover:bg-white/15">Secondary</Button>
                     </div>
                   </ComponentPreview>
-                  <ComponentPreview title="Input field">
+                  <ComponentPreview id="component-inputs" title="Input field">
                     <Field label="Type something...">
                       <Input placeholder="Active" />
                     </Field>
                     <Input disabled placeholder="Disabled" />
                   </ComponentPreview>
-                  <ComponentPreview title="Card">
+                  <ComponentPreview id="component-surfaces" title="Card surface">
                     <Card>
                       <CardHeader>
                         <CardTitle>Title</CardTitle>
@@ -364,7 +420,7 @@ function App() {
                       </CardContent>
                     </Card>
                   </ComponentPreview>
-                  <ComponentPreview title="Data table">
+                  <ComponentPreview id="component-data-display" title="Data table">
                     <SmartDataTable
                       caption="Component records"
                       columns={[{ key: "name", header: "Name" }, { key: "status", header: "Status" }]}
@@ -388,7 +444,7 @@ function App() {
                     <SwitchField label="On" switchProps={{ "aria-label": "Example switch on", defaultChecked: true }} />
                     <SwitchField label="Off" switchProps={{ "aria-label": "Example switch off" }} />
                   </ComponentPreview>
-                  <ComponentPreview className="col-span-2" title="Modal">
+                  <ComponentPreview className="col-span-2" id="component-overlays" title="Modal overlay">
                     <Dialog>
                       <DialogTrigger asChild>
                         <button className="w-full rounded-xl border border-white/12 bg-black/50 p-3 text-left transition-colors hover:border-[#ff4fbd]/40" type="button">
@@ -414,7 +470,7 @@ function App() {
                   </ComponentPreview>
                 </div>
                 <div className="mt-5 grid gap-4">
-                  <SectionCard meta="new wave" title="Controls · inputs · feedback">
+                  <SectionCard id="component-feedback" meta="new wave" title="Inputs and feedback">
                     <div className="grid gap-4 2xl:grid-cols-[1fr_1fr]">
                       <div className="grid gap-3">
                         <SearchField aria-label="Search components" defaultValue="mood selector" />
@@ -441,7 +497,7 @@ function App() {
                     </div>
                   </SectionCard>
 
-                  <SectionCard meta="structure" title="Layout organisms">
+                  <SectionCard id="component-navigation" meta="structure" title="Navigation and layout organisms">
                     <div className="grid gap-4 2xl:grid-cols-[1fr_1fr]">
                       <div className="grid gap-3 xl:grid-cols-2">
                         <InteractiveCard description="A selected action card with visible focus and clear supporting text." heading="Interactive card" icon={AiAccentIcon} selected>
