@@ -2,7 +2,7 @@
 
 Profile: public
 URL: https://louizeb.github.io/flytrapds/
-Generated: 2026-07-14T21:22:52.104Z
+Generated: 2026-07-14T23:20:45.235Z
 
 ## Summary
 
@@ -13,10 +13,10 @@ Generated: 2026-07-14T21:22:52.104Z
 
 ## Viewports
 
-| Viewport | HTTP | Main visible | Loader hidden | Required sections | Component docs | Links | Names | Overflow | Blocking errors | Warnings | Screenshot |
-|--|--:|--|--|--|--|--|--|--|--|--:|--|
-| desktop (1440×1200) | 200 | ✅ | ✅ | ✅ 8/8 | ✅ 7/7 | ✅ 0 | ✅ 0 | ✅ 1440/1440 | ✅ 0 | 5 | `.planning/screenshots/flytrap-public-desktop-ready.png` |
-| mobile (390×1200) | 200 | ✅ | ✅ | ✅ 8/8 | ✅ 7/7 | ✅ 0 | ✅ 0 | ✅ 390/390 | ✅ 0 | 1 | `.planning/screenshots/flytrap-public-mobile-ready.png` |
+| Viewport | HTTP | Main visible | Loader hidden | Required sections | Component docs | Patterns | Links | Names | Overflow | Blocking errors | Warnings | Screenshot |
+|--|--:|--|--|--|--|--|--|--|--|--|--:|--|
+| desktop (1440×1200) | 200 | ✅ | ✅ | ✅ 8/8 | ✅ 7/7 | ✅ 0/0 | ✅ 0 | ✅ 0 | ✅ 1440/1440 | ✅ 0 | 5 | `.planning/screenshots/flytrap-public-desktop-ready.png` |
+| mobile (390×1200) | 200 | ✅ | ✅ | ✅ 8/8 | ✅ 7/7 | ✅ 0/0 | ✅ 0 | ✅ 0 | ✅ 390/390 | ✅ 0 | 1 | `.planning/screenshots/flytrap-public-mobile-ready.png` |
 
 ## Required sections
 
@@ -24,18 +24,20 @@ Generated: 2026-07-14T21:22:52.104Z
 
 Present: `Foundations`, `Tokens`, `Components`, `Patterns`, `Accessibility`, `Guidelines`, `Code / Develop`, `AI Workflows`
 Component docs: `component-inputs`, `component-navigation`, `component-feedback`, `component-data-display`, `component-surfaces`, `component-overlays`, `component-ai`
+Pattern docs: 
 
 Diagnostics:
-- console warning: [.WebGL-0x10c004fe000]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+- console warning: [.WebGL-0x124004ff200]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
 - console warning: THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
-- console warning: [.WebGL-0x10c004fda00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
-- console warning: [.WebGL-0x10c004fda00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
-- console warning: [.WebGL-0x10c004fda00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)
+- console warning: [.WebGL-0x12400500400]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+- console warning: [.WebGL-0x12400500400]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+- console warning: [.WebGL-0x12400500400]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)
 
 ### mobile
 
 Present: `Foundations`, `Tokens`, `Components`, `Patterns`, `Accessibility`, `Guidelines`, `Code / Develop`, `AI Workflows`
 Component docs: `component-inputs`, `component-navigation`, `component-feedback`, `component-data-display`, `component-surfaces`, `component-overlays`, `component-ai`
+Pattern docs: 
 
 Diagnostics:
 - console warning: THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
