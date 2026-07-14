@@ -71,13 +71,13 @@ import "./site.css";
 import { AtmosphereLayer, OrganicBackground, TechFrame } from "./living/organic-background";
 import { BootLoader } from "./living/boot-loader";
 import organismBr from "./assets/flytrap-organism-br.webp";
-import spriteVertical from "./assets/flytrap-sprite-vertical.webp";
 import spriteWideB from "./assets/flytrap-sprite-wide-b.webp";
 import spriteCorner from "./assets/flytrap-sprite-corner.webp";
 import spritePlatform from "./assets/flytrap-sprite-platform.webp";
 import { CharacterLayer } from "./living/character";
 import { Sidebar } from "./living/sidebar";
 import { Hero } from "./living/hero";
+import { TokenSystemGuide } from "./living/token-system-guide";
 import {
   CodeBlock,
   ComponentPreview,
@@ -85,23 +85,8 @@ import {
   PillTabs,
   SectionCard,
   SectionHeader,
-  TokenRow,
   WorkflowCard,
 } from "./living/panels";
-
-const magentaSteps = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
-const spaceSteps = [4, 8, 12, 16, 24, 32, 48, 64, 96, 128];
-const radiusSteps = [0, 4, 8, 12, 16, 24, 32];
-const elevationSteps = [0, 1, 2, 3, 4, 5];
-
-const semanticTokens = [
-  ["--color-primary", "#F10081", "#F10081"],
-  ["--color-secondary", "#00C970", "#00C970"],
-  ["--color-background", "#0F0F12", "#0F0F12"],
-  ["--color-surface", "#1F1F24", "#1F1F24"],
-  ["--color-text", "#E1E1EA", "#E1E1EA"],
-  ["--color-disabled", "#6B6B7B", "#6B6B7B"],
-] as const;
 
 const anatomyLayers = ["Surface", "Content", "Container", "State layer", "Motion layer", "Bio-field"] as const;
 
@@ -224,120 +209,7 @@ function App() {
           </section>
 
           {/* 02 · Tokens */}
-          <section aria-label="Tokens" className="relative border-b border-[#ff4fbd]/14 px-6 py-9 md:px-8">
-            <img alt="" aria-hidden="true" className="pointer-events-none absolute left-[-9rem] top-[-6rem] z-0 hidden w-64 opacity-90 lg:block" draggable={false} src={spriteVertical} />
-            <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:gap-12">
-              <SectionHeader
-                id="tokens"
-                index="02"
-                lead="The variables that connect visual decisions to product intent."
-                linkHref="https://github.com/LouizeB/flytrapds/blob/main/packages/tokens/src/flytrap.tokens.json"
-                linkLabel="Explore tokens"
-                title="Tokens"
-              />
-              <div className="min-w-0 flex-1">
-                <p className="mb-2 max-w-2xl text-sm leading-6 text-white/62">
-                  Token groups are documented as navigable anchors so designers and engineers can jump directly to the decision layer they need.
-                </p>
-                <PillTabs
-                  active={0}
-                  items={[
-                    { label: "All tokens", href: "#token-all" },
-                    { label: "Color", href: "#token-color" },
-                    { label: "Type", href: "#token-type" },
-                    { label: "Space", href: "#token-space" },
-                    { label: "Border", href: "#token-border" },
-                    { label: "Motion", href: "#token-motion" },
-                    { label: "Elevation", href: "#token-elevation" },
-                  ]}
-                  label="Token groups"
-                />
-                <div className="mt-3 grid gap-3 xl:grid-cols-[1.05fr_1.4fr]">
-                  <div className="grid gap-4">
-                    <SectionCard id="token-all" meta="DTCG" title="All semantic tokens">
-                      <p className="mb-3 text-sm leading-6 text-white/62">
-                        Canonical aliases used by components, documentation, and product surfaces.
-                      </p>
-                    {semanticTokens.map(([name, hex, swatch]) => <TokenRow key={name} name={name} swatch={swatch} value={hex} />)}
-                    </SectionCard>
-                    <SectionCard id="token-type" meta="Typography" title="Type scale">
-                      <div className="grid gap-3">
-                        <p className="font-display text-5xl font-bold leading-none text-[#ff4fbd]">Ag</p>
-                        <p className="text-sm leading-6 text-white/62">Display, title, body, code, and caption styles define readable hierarchy across the dark experience.</p>
-                        <div className="grid gap-2 font-mono text-xs text-white/70">
-                          <span>Display · Satoshi Variable · 700</span>
-                          <span>Body · Inter · 400/500</span>
-                          <span>Code · JetBrains Mono · 500</span>
-                        </div>
-                      </div>
-                    </SectionCard>
-                  </div>
-                  <div className="grid gap-4">
-                    <SectionCard id="token-color" meta="11 steps" title="Color scale">
-                      <p className="mb-3 text-sm leading-6 text-white/62">Color tokens separate brand expression from accessible semantic usage.</p>
-                      <div className="grid grid-cols-11 overflow-hidden rounded-lg border border-white/15">
-                        {magentaSteps.map(step => <span
-                          className={["aspect-square", step === 500 ? "ring-2 ring-inset ring-white" : ""].join(" ")}
-                          key={step}
-                          style={{ background: `var(--magenta-${step})` }}
-                          title={`--magenta-${step}`}
-                        />)}
-                      </div>
-                      <div className="mt-2 grid grid-cols-11 text-center font-mono text-[0.55rem] text-white/60">
-                        {magentaSteps.map(step => <span key={step}>{step}</span>)}
-                      </div>
-                    </SectionCard>
-                    <SectionCard id="token-space" meta="8pt" title="Space scale">
-                      <p className="mb-3 text-sm leading-6 text-white/62">Spacing follows an 8px rhythm with smaller steps for compact controls.</p>
-                      <div className="flex items-end gap-1.5">
-                        {spaceSteps.map(step => <span
-                          className="rounded-sm bg-[#009200] shadow-[0_0_10px_rgba(0,146,0,.4)]"
-                          key={step}
-                          style={{ height: `${Math.min(step, 64)}px`, width: "100%" }}
-                          title={`${step}px`}
-                        />)}
-                      </div>
-                      <div className="mt-2 flex justify-between font-mono text-[0.55rem] text-white/60">
-                        {spaceSteps.map(step => <span key={step}>{step}</span>)}
-                      </div>
-                    </SectionCard>
-                    <div className="grid gap-4 sm:grid-cols-2">
-                      <SectionCard id="token-border" title="Border radius">
-                        <div className="flex items-end justify-between gap-2">
-                          {radiusSteps.map(radius => <span className="grid flex-1 place-items-center" key={radius}>
-                            <span
-                              className={["block size-9 border-2", radius === 16 ? "border-[#ff4fbd] shadow-[0_0_14px_rgba(255,79,189,.5)]" : "border-white/30"].join(" ")}
-                              style={{ borderRadius: radius }}
-                            />
-                            <span className="mt-1.5 font-mono text-[0.55rem] text-white/60">{radius}</span>
-                          </span>)}
-                        </div>
-                      </SectionCard>
-                      <SectionCard id="token-motion" title="Motion">
-                        <div className="grid gap-2">
-                          {["120ms · quick feedback", "240ms · panel transition", "720ms · ambient organism"].map((item, index) => <div className="rounded-lg border border-white/10 bg-white/[.04] p-2" key={item}>
-                            <span className="block h-1.5 rounded-full bg-gradient-to-r from-[#ff4fbd] via-[#8b5cf6] to-[#b8ff35]" style={{ width: `${52 + index * 22}%` }} />
-                            <p className="mt-2 font-mono text-[0.58rem] uppercase tracking-[0.14em] text-white/62">{item}</p>
-                          </div>)}
-                        </div>
-                      </SectionCard>
-                      <SectionCard id="token-elevation" title="Elevation">
-                        <div className="flex items-end justify-between gap-2">
-                          {elevationSteps.map(level => <span className="grid flex-1 place-items-center" key={level}>
-                            <span
-                              className={["block size-9 rounded-md bg-white/12", level === 3 ? "ring-2 ring-[#F10081] shadow-[0_0_14px_rgba(241,0,129,.45)]" : ""].join(" ")}
-                              style={{ boxShadow: `0 ${level * 4}px ${level * 9}px rgba(0,0,0,.55), 0 0 ${level * 3}px rgba(255,79,189,${level * 0.05})` }}
-                            />
-                            <span className={["mt-1.5 font-mono text-[0.55rem]", level === 3 ? "text-[#ff4fbd]" : "text-white/60"].join(" ")}>{level}</span>
-                          </span>)}
-                        </div>
-                      </SectionCard>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
+          <TokenSystemGuide />
 
           {/* 03 · Components */}
           <section aria-label="Components" className="relative min-h-[420px] overflow-hidden border-b border-[#ff4fbd]/14 px-6 py-9 [contain:paint] md:px-8">
