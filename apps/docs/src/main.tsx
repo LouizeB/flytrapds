@@ -406,45 +406,25 @@ function App() {
                             <p className="font-mono text-[0.58rem] uppercase tracking-[0.16em] text-white/55">visible layers</p>
                           </div>
                         </div>
-                        <div aria-label="Expanded component layer stack" className="relative z-20 mx-auto mt-8 h-[22rem] max-w-5xl [perspective:1400px] md:h-[25rem]">
-                          {anatomyLayerDetails.map((layer, index) => {
-                            const isSelected = selectedAnatomyLayer === index;
-
-                            return <button
-                              aria-pressed={isSelected}
-                              className={[
-                                "absolute left-[2%] right-[2%] grid min-h-16 cursor-pointer grid-cols-[2.25rem_1fr_auto] items-center gap-4 rounded-2xl border px-4 py-3 text-left shadow-[0_18px_45px_rgba(0,0,0,.42)] backdrop-blur-xl outline-none transition-all duration-300 focus-visible:ring-2 focus-visible:ring-[#b8ff35] focus-visible:ring-offset-2 focus-visible:ring-offset-[#05060a] md:left-[5%] md:right-[5%]",
-                                isSelected
-                                  ? "border-[#b8ff35]/70 bg-[linear-gradient(135deg,rgba(184,255,53,.18),rgba(255,79,189,.24)_44%,rgba(3,8,16,.84))] text-white shadow-[0_0_32px_rgba(184,255,53,.16),0_22px_54px_rgba(0,0,0,.5)]"
-                                  : "border-[#ff4fbd]/40 bg-[linear-gradient(135deg,rgba(255,79,189,.22),rgba(139,92,246,.10)_48%,rgba(3,8,16,.72))] text-white/80 hover:border-[#ff4fbd]/70 hover:bg-[#ff4fbd]/16",
-                              ].join(" ")}
-                              key={layer.label}
-                              onClick={() => setSelectedAnatomyLayer(index)}
-                              style={{
-                                top: `${index * 2.85}rem`,
-                                transform: `translateY(${index * 11}px) rotateX(58deg) rotateZ(-8deg) ${isSelected ? "translateZ(42px)" : "translateZ(0)"}`,
-                                zIndex: anatomyLayerDetails.length - index + (isSelected ? 8 : 0),
-                              }}
-                              type="button"
-                            >
-                              <span className={["grid size-9 place-items-center rounded-full font-mono text-xs", isSelected ? "bg-[#b8ff35]/22 text-[#d9ff83]" : "bg-[#ff4fbd]/20 text-[#ffb6e3]"].join(" ")}>{index + 1}</span>
-                              <span>
-                                <span className="block font-mono text-[0.66rem] uppercase tracking-[0.18em]">{layer.label}</span>
-                                <span className="mt-1 hidden text-xs leading-5 text-white/62 sm:block">{layer.description}</span>
-                              </span>
-                              <code className="hidden rounded-full border border-white/10 bg-black/40 px-3 py-1 font-mono text-[0.6rem] text-[#b8ff35] md:inline-flex">{layer.token}</code>
-                            </button>;
-                          })}
-                        </div>
-                        <div className="pointer-events-none absolute inset-x-4 bottom-0 z-10 h-[22rem] overflow-hidden rounded-b-[1.5rem]">
+                        <div className="relative z-20 mt-8 grid min-h-[28rem] place-items-center overflow-hidden rounded-[1.25rem] border border-white/8 bg-[radial-gradient(circle_at_50%_34%,rgba(184,255,53,.12),transparent_32%),radial-gradient(circle_at_52%_70%,rgba(255,79,189,.20),transparent_42%)]">
+                          <div aria-hidden="true" className="absolute inset-x-10 top-10 h-px bg-gradient-to-r from-transparent via-[#b8ff35]/45 to-transparent" />
+                          <div aria-hidden="true" className="absolute left-[12%] top-[24%] h-36 w-36 rounded-full border border-[#ff4fbd]/18 bg-[#ff4fbd]/8 blur-2xl" />
+                          <div aria-hidden="true" className="absolute right-[10%] top-[16%] h-44 w-44 rounded-full border border-[#b8ff35]/16 bg-[#b8ff35]/8 blur-3xl" />
+                          <div aria-hidden="true" className="absolute bottom-8 left-1/2 h-28 w-[70%] -translate-x-1/2 rounded-full bg-black/65 blur-2xl" />
                           <CharacterLayer
                             alt="Flytrap alien lying under the component anatomy model, connecting the organism metaphor to the documented component layers."
-                            className="absolute bottom-[-8rem] left-1/2 h-[30rem] w-[min(72rem,112vw)] -translate-x-1/2 opacity-85"
+                            className="absolute bottom-[-7rem] left-1/2 z-10 h-[34rem] w-[min(78rem,118vw)] -translate-x-1/2 opacity-90"
                             float
                             pose="lying"
                             tilt
                           />
-                          <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#05060a] via-[#05060a]/82 to-transparent" />
+                          <div className="absolute left-5 top-5 z-20 max-w-xs rounded-2xl border border-white/10 bg-black/45 p-4 backdrop-blur-xl">
+                            <p className="font-mono text-[0.6rem] uppercase tracking-[0.18em] text-[#b8ff35]">Layer controls moved right</p>
+                            <p className="mt-2 text-sm leading-6 text-white/62">
+                              Select a layer in the inspector panel to update the documented anatomy without covering the character.
+                            </p>
+                          </div>
+                          <div aria-hidden="true" className="absolute inset-x-0 bottom-0 z-20 h-36 bg-gradient-to-t from-[#05060a] via-[#05060a]/80 to-transparent" />
                         </div>
                       </div>
                       <div className="grid content-start gap-3">
