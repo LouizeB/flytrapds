@@ -136,6 +136,34 @@ const workflowCards = [
   { icon: BrandIcon, title: "Document", description: "Turn code and component states into clear system documentation." },
 ] as const;
 
+const streamingPatternSteps = [
+  {
+    description: "The user explicitly selects a mood. The system can suggest, but never silently hides the control.",
+    meta: "1",
+    title: "Mood input",
+    tone: "success",
+  },
+  {
+    description: "Recommendations, confidence, playback and assistant copy update from the selected mood.",
+    meta: "2",
+    title: "Adaptive output",
+    tone: "info",
+  },
+  {
+    description: "High-impact mood shifts require approval before sensitive content becomes playable.",
+    meta: "3",
+    title: "Human approval",
+    tone: "warning",
+  },
+] as const;
+
+const streamingPatternChecklist = [
+  ["Control", "Mood controls must remain visible and reversible."],
+  ["Explanation", "Every recommendation needs a short reason and confidence cue."],
+  ["Consent", "Sensitive or high-impact changes require explicit approval."],
+  ["Fallback", "Rejected recommendations should return to a safe active item."],
+] as const;
+
 const comboboxOptions: React.ComponentProps<typeof Combobox>["options"] = [
   { value: "foundation", label: "Foundations" },
   { value: "tokens", label: "Tokens" },
@@ -848,7 +876,7 @@ function App() {
           {/* 04 · Patterns */}
           <section aria-label="Patterns" className="relative border-b border-[#ff4fbd]/14 px-6 py-8 md:px-8 lg:pr-[30vw] xl:pr-[26vw]">
             <img alt="" aria-hidden="true" className="pointer-events-none absolute bottom-[-5rem] left-[-8rem] z-0 hidden w-[38rem] opacity-90 mix-blend-screen saturate-150 lg:block" draggable={false} src={spriteWideB} />
-            <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-12">
+            <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:gap-12">
               <SectionHeader
                 id="patterns"
                 index="04"
@@ -857,19 +885,74 @@ function App() {
                 linkLabel="Explore patterns"
                 title="Patterns"
               />
-              <SectionCard className="flex-1" meta="Example pattern" title="Dashboard layout">
-                <div aria-hidden="true" className="grid h-36 grid-cols-[64px_1fr] gap-2 rounded-xl border border-white/10 bg-black/40 p-2">
-                  <span className="rounded-md bg-[#ff4fbd]/20" />
-                  <span className="grid grid-rows-[24px_1fr] gap-2">
-                    <span className="rounded-md bg-white/10" />
-                    <span className="grid grid-cols-3 gap-2">
-                      <span className="rounded-md bg-[#b8ff35]/15" />
-                      <span className="rounded-md bg-white/8" />
-                      <span className="rounded-md bg-[#ff4fbd]/12" />
-                    </span>
-                  </span>
+              <div className="grid min-w-0 flex-1 gap-4">
+                <SectionCard meta="Product pattern" title="AI-managed streaming flow">
+                  <div className="grid gap-5 xl:grid-cols-[1.05fr_.95fr]">
+                    <div className="grid gap-4">
+                      <p className="max-w-3xl text-sm leading-6 text-white/66">
+                        Use this pattern when an AI system adapts a media experience from an explicit mood or intent signal. The Studio consumer implements this as mood selection, adaptive recommendations, player state, human approval and assistant history.
+                      </p>
+                      <DataList>
+                        <DataListItem className="sm:grid-cols-1 xl:grid-cols-[8rem_1fr]">
+                          <DataListTerm>Use for</DataListTerm>
+                          <DataListDescription>Streaming, learning queues, adaptive onboarding and AI-curated product surfaces.</DataListDescription>
+                        </DataListItem>
+                        <DataListItem className="sm:grid-cols-1 xl:grid-cols-[8rem_1fr]">
+                          <DataListTerm>Avoid when</DataListTerm>
+                          <DataListDescription>The system cannot explain why content changed or cannot offer a safe fallback.</DataListDescription>
+                        </DataListItem>
+                        <DataListItem className="sm:grid-cols-1 xl:grid-cols-[8rem_1fr]">
+                          <DataListTerm>Proof</DataListTerm>
+                          <DataListDescription><code>apps/studio</code> is the first product-like consumer of this pattern.</DataListDescription>
+                        </DataListItem>
+                      </DataList>
+                    </div>
+                    <Timeline aria-label="AI-managed streaming flow states">
+                      {streamingPatternSteps.map(step => <TimelineItem description={step.description} key={step.title} meta={step.meta} title={step.title} tone={step.tone} />)}
+                    </Timeline>
+                  </div>
+                </SectionCard>
+
+                <div className="grid gap-4 xl:grid-cols-[.9fr_1.1fr]">
+                  <SectionCard meta="Anatomy" title="Pattern anatomy">
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      {[
+                        ["Mood control", "MoodSelector"],
+                        ["Recommended media", "RecommendationRail · MediaCard"],
+                        ["Playback state", "PlayerControls"],
+                        ["Decision safety", "HumanApprovalPrompt"],
+                        ["Agent trace", "ReasoningStream · ToolCallBlock"],
+                        ["Assistant input", "PromptInput · StreamingMessage"],
+                      ].map(([label, value]) => <div className="rounded-xl border border-white/10 bg-black/35 p-3" key={label}>
+                        <p className="font-display text-sm font-bold text-white/90">{label}</p>
+                        <p className="mt-1 font-mono text-[0.6rem] uppercase tracking-[0.15em] text-[#ff9bdd]">{value}</p>
+                      </div>)}
+                    </div>
+                  </SectionCard>
+                  <SectionCard meta="Accessibility" title="Interaction rules">
+                    <div className="grid gap-2">
+                      {streamingPatternChecklist.map(([label, description]) => <div className="rounded-xl border border-white/8 bg-white/[.035] p-3" key={label}>
+                        <p className="font-display text-sm font-bold text-white/90">{label}</p>
+                        <p className="mt-1 text-sm leading-6 text-white/62">{description}</p>
+                      </div>)}
+                    </div>
+                  </SectionCard>
                 </div>
-              </SectionCard>
+
+                <SectionCard className="flex-1" meta="Example pattern" title="Dashboard layout">
+                  <div aria-hidden="true" className="grid h-36 grid-cols-[64px_1fr] gap-2 rounded-xl border border-white/10 bg-black/40 p-2">
+                    <span className="rounded-md bg-[#ff4fbd]/20" />
+                    <span className="grid grid-rows-[24px_1fr] gap-2">
+                      <span className="rounded-md bg-white/10" />
+                      <span className="grid grid-cols-3 gap-2">
+                        <span className="rounded-md bg-[#b8ff35]/15" />
+                        <span className="rounded-md bg-white/8" />
+                        <span className="rounded-md bg-[#ff4fbd]/12" />
+                      </span>
+                    </span>
+                  </div>
+                </SectionCard>
+              </div>
             </div>
           </section>
 
