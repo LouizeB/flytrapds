@@ -30,6 +30,7 @@ const profiles = {
       "component-overlays",
       "component-ai",
     ],
+    expectedPatternAnchors: [],
     humanReviewNotes: [
       "Desktop: sidebar, hero, character, organic atmosphere, dense cards and all DS sections render after the boot sequence.",
       "Mobile: content stacks without horizontal overflow; all sections remain reachable after the boot sequence.",
@@ -54,6 +55,7 @@ const profiles = {
       "Assistant console",
     ],
     expectedComponentAnchors: [],
+    expectedPatternAnchors: [],
     humanReviewNotes: [
       "Desktop: the product consumer renders a complete streaming workflow with mood controls, queue, signals, agent trace and assistant console.",
       "Mobile: content should remain stacked and navigable without horizontal overflow.",
@@ -84,6 +86,7 @@ const viewports = [
 
 const expectedSections = profile.expectedSections;
 const expectedComponentAnchors = profile.expectedComponentAnchors;
+const expectedPatternAnchors = profile.expectedPatternAnchors;
 
 function statusIcon(ok) {
   return ok ? "✅" : "❌";
@@ -109,8 +112,8 @@ function markdown(results) {
   lines.push("");
   lines.push("## Viewports");
   lines.push("");
-  lines.push("| Viewport | HTTP | Main visible | Loader hidden | Required sections | Component docs | Links | Names | Overflow | Blocking errors | Warnings | Screenshot |");
-  lines.push("|--|--:|--|--|--|--|--|--|--|--|--:|--|");
+  lines.push("| Viewport | HTTP | Main visible | Loader hidden | Required sections | Component docs | Patterns | Links | Names | Overflow | Blocking errors | Warnings | Screenshot |");
+  lines.push("|--|--:|--|--|--|--|--|--|--|--|--|--:|--|");
 
   for (const result of results) {
     lines.push([
@@ -120,6 +123,7 @@ function markdown(results) {
       statusIcon(!result.loaderVisible),
       `${statusIcon(result.requiredSections.present.length === result.requiredSections.expected.length)} ${result.requiredSections.present.length}/${result.requiredSections.expected.length}`,
       `${statusIcon(result.domAudit.componentAnchors.present.length === result.domAudit.componentAnchors.expected.length)} ${result.domAudit.componentAnchors.present.length}/${result.domAudit.componentAnchors.expected.length}`,
+      `${statusIcon(result.domAudit.patternAnchors.present.length === result.domAudit.patternAnchors.expected.length)} ${result.domAudit.patternAnchors.present.length}/${result.domAudit.patternAnchors.expected.length}`,
       `${statusIcon(result.domAudit.brokenHashLinks.length === 0)} ${result.domAudit.brokenHashLinks.length}`,
       `${statusIcon(result.domAudit.unnamedButtons.length === 0 && result.domAudit.unnamedLinks.length === 0)} ${result.domAudit.unnamedButtons.length + result.domAudit.unnamedLinks.length}`,
       `${statusIcon(!result.domAudit.horizontalOverflow)} ${result.domAudit.scrollWidth}/${result.domAudit.viewportWidth}`,
@@ -141,10 +145,14 @@ function markdown(results) {
       lines.push(`Missing: ${result.requiredSections.missing.map((item) => `\`${item}\``).join(", ")}`);
     }
     lines.push(`Component docs: ${result.domAudit.componentAnchors.present.map((item) => `\`${item}\``).join(", ")}`);
+    lines.push(`Pattern docs: ${result.domAudit.patternAnchors.present.map((item) => `\`${item}\``).join(", ")}`);
     if (result.domAudit.componentAnchors.missing.length > 0) {
       lines.push(`Missing component docs: ${result.domAudit.componentAnchors.missing.map((item) => `\`${item}\``).join(", ")}`);
     }
-    if (result.domAudit.duplicateIds.length > 0 || result.domAudit.brokenHashLinks.length > 0 || result.domAudit.unnamedButtons.length > 0 || result.domAudit.unnamedLinks.length > 0 || result.domAudit.horizontalOverflow) {
+    if (result.domAudit.patternAnchors.missing.length > 0) {
+      lines.push(`Missing pattern docs: ${result.domAudit.patternAnchors.missing.map((item) => `\`${item}\``).join(", ")}`);
+    }
+    if (result.domAudit.duplicateIds.length > 0 || result.domAudit.brokenHashLinks.length > 0 || result.domAudit.unnamedButtons.length > 0 || result.domAudit.unnamedLinks.length > 0 || result.domAudit.patternAnchors.missing.length > 0 || result.domAudit.horizontalOverflow) {
       lines.push("");
       lines.push("DOM audit:");
       for (const id of result.domAudit.duplicateIds) lines.push(`- duplicate id: \`${id}\``);
@@ -207,7 +215,7 @@ async function run() {
     const loaderVisible = await page.locator(profile.loaderSelector).isVisible().catch(() => false);
     const mainVisible = await page.locator(profile.mainSelector).isVisible().catch(() => false);
     const status = response?.status() ?? 0;
-    const domAudit = await page.evaluate((componentAnchors) => {
+    const domAudit = await page.evaluate(({ componentAnchors, patternAnchors }) => {
       const ids = [...document.querySelectorAll("[id]")]
         .map((element) => element.id)
         .filter(Boolean);
@@ -247,6 +255,8 @@ async function run() {
         .filter((href) => !document.getElementById(decodeURIComponent(href.slice(1))));
       const presentComponentAnchors = componentAnchors.filter((id) => Boolean(document.getElementById(id)));
       const missingComponentAnchors = componentAnchors.filter((id) => !document.getElementById(id));
+      const presentPatternAnchors = patternAnchors.filter((id) => Boolean(document.getElementById(id)));
+      const missingPatternAnchors = patternAnchors.filter((id) => !document.getElementById(id));
       const scrollWidth = document.documentElement.scrollWidth;
       const viewportWidth = window.innerWidth;
 
@@ -259,12 +269,17 @@ async function run() {
         },
         duplicateIds,
         horizontalOverflow: scrollWidth > viewportWidth + 2,
+        patternAnchors: {
+          expected: patternAnchors,
+          missing: missingPatternAnchors,
+          present: presentPatternAnchors,
+        },
         scrollWidth,
         unnamedButtons,
         unnamedLinks,
         viewportWidth,
       };
-    }, expectedComponentAnchors);
+    }, { componentAnchors: expectedComponentAnchors, patternAnchors: expectedPatternAnchors });
 
     results.push({
       ok: status >= 200
@@ -273,6 +288,7 @@ async function run() {
         && !loaderVisible
         && missing.length === 0
         && domAudit.componentAnchors.missing.length === 0
+        && domAudit.patternAnchors.missing.length === 0
         && domAudit.duplicateIds.length === 0
         && domAudit.brokenHashLinks.length === 0
         && domAudit.unnamedButtons.length === 0

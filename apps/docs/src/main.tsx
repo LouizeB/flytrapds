@@ -164,6 +164,27 @@ const streamingPatternChecklist = [
   ["Fallback", "Rejected recommendations should return to a safe active item."],
 ] as const;
 
+const patternLibrary = [
+  {
+    anchor: "#pattern-ai-managed-streaming",
+    description: "Mood-shaped recommendations with visible control, confidence, playback and human approval.",
+    maturity: "Production candidate",
+    title: "AI-managed streaming flow",
+  },
+  {
+    anchor: "#pattern-dashboard-layout",
+    description: "Sidebar, KPI, table and activity composition for operational product surfaces.",
+    maturity: "Stable",
+    title: "Dashboard layout",
+  },
+  {
+    anchor: "#pattern-release-readiness",
+    description: "Quality gates for shipping components through adoption, audit and documentation checks.",
+    maturity: "Governance",
+    title: "Release readiness flow",
+  },
+] as const;
+
 const comboboxOptions: React.ComponentProps<typeof Combobox>["options"] = [
   { value: "foundation", label: "Foundations" },
   { value: "tokens", label: "Tokens" },
@@ -886,7 +907,29 @@ function App() {
                 title="Patterns"
               />
               <div className="grid min-w-0 flex-1 gap-4">
-                <SectionCard meta="Product pattern" title="AI-managed streaming flow">
+                <SectionCard meta="Library index" title="Pattern library">
+                  <p className="max-w-3xl text-sm leading-6 text-white/66">
+                    Patterns are reusable product compositions. Each one documents the problem, core anatomy, accessibility contract, and the components expected to work together.
+                  </p>
+                  <div className="mt-4 grid gap-3 xl:grid-cols-3">
+                    {patternLibrary.map(pattern => <a
+                      className="group rounded-2xl border border-white/10 bg-black/35 p-4 outline-none transition-colors hover:border-[#ff4fbd]/55 hover:bg-[#ff4fbd]/8 focus-visible:ring-2 focus-visible:ring-[#b8ff35] focus-visible:ring-offset-2 focus-visible:ring-offset-[#05060a]"
+                      href={pattern.anchor}
+                      key={pattern.title}
+                    >
+                      <span className="flex items-start justify-between gap-3">
+                        <span>
+                          <span className="block font-display text-base font-bold text-white/90">{pattern.title}</span>
+                          <span className="mt-1 block font-mono text-[0.58rem] uppercase tracking-[0.16em] text-[#ff9bdd]">{pattern.maturity}</span>
+                        </span>
+                        <span aria-hidden="true" className="text-[#ff4fbd] transition-transform group-hover:translate-x-1">→</span>
+                      </span>
+                      <span className="mt-3 block text-sm leading-6 text-white/62">{pattern.description}</span>
+                    </a>)}
+                  </div>
+                </SectionCard>
+
+                <SectionCard id="pattern-ai-managed-streaming" meta="Product pattern" title="AI-managed streaming flow">
                   <div className="grid gap-5 xl:grid-cols-[1.05fr_.95fr]">
                     <div className="grid gap-4">
                       <p className="max-w-3xl text-sm leading-6 text-white/66">
@@ -939,19 +982,40 @@ function App() {
                   </SectionCard>
                 </div>
 
-                <SectionCard className="flex-1" meta="Example pattern" title="Dashboard layout">
-                  <div aria-hidden="true" className="grid h-36 grid-cols-[64px_1fr] gap-2 rounded-xl border border-white/10 bg-black/40 p-2">
-                    <span className="rounded-md bg-[#ff4fbd]/20" />
-                    <span className="grid grid-rows-[24px_1fr] gap-2">
-                      <span className="rounded-md bg-white/10" />
-                      <span className="grid grid-cols-3 gap-2">
-                        <span className="rounded-md bg-[#b8ff35]/15" />
-                        <span className="rounded-md bg-white/8" />
-                        <span className="rounded-md bg-[#ff4fbd]/12" />
+                <div className="grid gap-4 xl:grid-cols-2">
+                  <SectionCard className="flex-1" id="pattern-dashboard-layout" meta="Stable pattern" title="Dashboard layout">
+                    <div aria-hidden="true" className="grid h-36 grid-cols-[64px_1fr] gap-2 rounded-xl border border-white/10 bg-black/40 p-2">
+                      <span className="rounded-md bg-[#ff4fbd]/20" />
+                      <span className="grid grid-rows-[24px_1fr] gap-2">
+                        <span className="rounded-md bg-white/10" />
+                        <span className="grid grid-cols-3 gap-2">
+                          <span className="rounded-md bg-[#b8ff35]/15" />
+                          <span className="rounded-md bg-white/8" />
+                          <span className="rounded-md bg-[#ff4fbd]/12" />
+                        </span>
                       </span>
-                    </span>
-                  </div>
-                </SectionCard>
+                    </div>
+                    <p className="mt-4 text-sm leading-6 text-white/64">
+                      Use for operational surfaces that combine navigation, KPIs, tabular status, timelines and agent health.
+                    </p>
+                  </SectionCard>
+                  <SectionCard id="pattern-release-readiness" meta="Governance pattern" title="Release readiness flow">
+                    <DataList>
+                      <DataListItem className="sm:grid-cols-1 xl:grid-cols-[8rem_1fr]">
+                        <DataListTerm>Gate</DataListTerm>
+                        <DataListDescription>Tokens, APCA, tests, build, adoption report and visual audit.</DataListDescription>
+                      </DataListItem>
+                      <DataListItem className="sm:grid-cols-1 xl:grid-cols-[8rem_1fr]">
+                        <DataListTerm>Evidence</DataListTerm>
+                        <DataListDescription>Progress notes, screenshots, CI checks and package readiness.</DataListDescription>
+                      </DataListItem>
+                      <DataListItem className="sm:grid-cols-1 xl:grid-cols-[8rem_1fr]">
+                        <DataListTerm>Components</DataListTerm>
+                        <DataListDescription>Timeline, DataList, StatusIndicator, InlineNotification and SmartDataTable.</DataListDescription>
+                      </DataListItem>
+                    </DataList>
+                  </SectionCard>
+                </div>
               </div>
             </div>
           </section>
