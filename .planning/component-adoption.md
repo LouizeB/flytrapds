@@ -4,7 +4,7 @@ Static scan of `@flytrap/ui` named imports in `apps/**`.
 
 ## Summary
 
-- Total named imports: 194
+- Total named imports: 193
 - Unique exports adopted: 97
 - Files importing UI: 6
 - Files importing styles: 3
@@ -60,7 +60,6 @@ Static scan of `@flytrap/ui` named imports in `apps/**`.
 | `PageHeader` | 2 | `apps/dashboard/src/main.tsx`, `apps/studio/src/main.tsx` |
 | `PageTitle` | 2 | `apps/dashboard/src/main.tsx`, `apps/studio/src/main.tsx` |
 | `Progress` | 2 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx` |
-| `SearchIcon` | 2 | `apps/docs/src/main.tsx`, `apps/studio/src/main.tsx` |
 | `Section` | 2 | `apps/dashboard/src/main.tsx`, `apps/studio/src/main.tsx` |
 | `SectionDescription` | 2 | `apps/dashboard/src/main.tsx`, `apps/studio/src/main.tsx` |
 | `SectionHeader` | 2 | `apps/dashboard/src/main.tsx`, `apps/studio/src/main.tsx` |
@@ -101,6 +100,7 @@ Static scan of `@flytrap/ui` named imports in `apps/**`.
 | `ReasoningStream` | 1 | `apps/studio/src/main.tsx` |
 | `RunTraceTimeline` | 1 | `apps/studio/src/main.tsx` |
 | `SearchField` | 1 | `apps/docs/src/main.tsx` |
+| `SearchIcon` | 1 | `apps/docs/src/main.tsx` |
 | `SliderField` | 1 | `apps/docs/src/main.tsx` |
 | `StreamingMessage` | 1 | `apps/studio/src/main.tsx` |
 | `SuccessIcon` | 1 | `apps/docs/src/main.tsx` |
@@ -120,4 +120,4 @@ Static scan of `@flytrap/ui` named imports in `apps/**`.
 | `apps/docs/src/living/panels.tsx` | `Button`, `ConfirmIcon`, `CopyIcon`, `FlytrapIcon`, `FlytrapIconComponent` |
 | `apps/docs/src/living/sidebar.tsx` | `AgentIcon`, `AiAccentIcon`, `ApprovalIcon`, `BrandIcon`, `BrandMark`, `ChartIcon`, `DashboardIcon`, `FlytrapIcon`, `FlytrapIconComponent`, `InfoIcon`, `InsightIcon`, `ToolIcon` |
 | `apps/docs/src/main.tsx` | `AgentIcon`, `AiAccentIcon`, `ApprovalIcon`, `Badge`, `BrandIcon`, `Button`, `ButtonGroup`, `ButtonGroupItem`, `Card`, `CardContent`, `CardDescription`, `CardHeader`, `CardTitle`, `ChartIcon`, `Combobox`, `DashboardIcon`, `DataList`, `DataListDescription`, `DataListItem`, `DataListTerm`, `DatePickerField`, `Dialog`, `DialogContent`, `DialogDescription`, `DialogFooter`, `DialogHeader`, `DialogTitle`, `DialogTrigger`, `DropdownMenu`, `DropdownMenuContent`, `DropdownMenuItem`, `DropdownMenuLabel`, `DropdownMenuSeparator`, `DropdownMenuTrigger`, `ErrorIcon`, `Field`, `FileUpload`, `FlytrapIcon`, `InlineNotification`, `Input`, `InsightIcon`, `InteractiveCard`, `MediaCard`, `MenuIcon`, `ModelConfidence`, `MoodSelector`, `MoodSignal`, `PersonalizationPanel`, `PlayerControls`, `Progress`, `RecommendationRail`, `SearchField`, `SearchIcon`, `SendIcon`, `SliderField`, `SmartDataTable`, `StatusIndicator`, `SuccessIcon`, `SwitchField`, `Timeline`, `TimelineItem`, `ToolIcon`, `TreeItem`, `TreeView` |
-| `apps/studio/src/main.tsx` | `AgentCard`, `AgentIcon`, `Badge`, `BrandIcon`, `BrandLockup`, `Button`, `ButtonGroup`, `ButtonGroupItem`, `Card`, `CardContent`, `CardDescription`, `CardHeader`, `CardTitle`, `Chart`, `ChartIcon`, `CostTokenMeter`, `DataList`, `DataListDescription`, `DataListItem`, `DataListTerm`, `FilterBar`, `FlytrapIcon`, `HumanApprovalPrompt`, `InlineNotification`, `InsightCallout`, `KpiStatCard`, `MediaCard`, `ModelConfidence`, `MoodSelector`, `MoodSelectorOption`, `Page`, `PageDescription`, `PageHeader`, `PageTitle`, `PersonalizationPanel`, `PlayerControls`, `PromptInput`, `ReasoningStream`, `RecommendationRail`, `RunTraceTimeline`, `SearchIcon`, `Section`, `SectionDescription`, `SectionHeader`, `SectionTitle`, `SmartDataTable`, `StatusIndicator`, `StreamingMessage`, `SuggestedPrompts`, `Timeline`, `TimelineItem`, `ToolCallBlock` |
+| `apps/studio/src/main.tsx` | `AgentCard`, `AgentIcon`, `Badge`, `BrandIcon`, `BrandLockup`, `Button`, `ButtonGroup`, `ButtonGroupItem`, `Card`, `CardContent`, `CardDescription`, `CardHeader`, `CardTitle`, `Chart`, `ChartIcon`, `CostTokenMeter`, `DataList`, `DataListDescription`, `DataListItem`, `DataListTerm`, `FilterBar`, `FlytrapIcon`, `HumanApprovalPrompt`, `InlineNotification`, `InsightCallout`, `KpiStatCard`, `MediaCard`, `ModelConfidence`, `MoodSelector`, `MoodSelectorOption`, `Page`, `PageDescription`, `PageHeader`, `PageTitle`, `PersonalizationPanel`, `PlayerControls`, `PromptInput`, `ReasoningStream`, `RecommendationRail`, `RunTraceTimeline`, `Section`, `SectionDescription`, `SectionHeader`, `SectionTitle`, `SmartDataTable`, `StatusIndicator`, `StreamingMessage`, `SuggestedPrompts`, `Timeline`, `TimelineItem`, `ToolCallBlock` |
