@@ -228,6 +228,79 @@ const componentQualityChecks = [
   ["States", "Default, hover, focus, active, disabled, loading, error, and empty states are represented."],
 ] as const;
 
+const componentDocumentationGroups = [
+  {
+    accessibility: "Every field needs a visible label, persistent helper text when useful, and an explicit error message connected to the control.",
+    anatomy: ["Label", "Control", "Helper text", "Validation message"],
+    examples: ["Field", "Input", "SearchField", "Combobox", "FileUpload"],
+    id: "component-inputs",
+    states: ["Default", "Focus", "Disabled", "Invalid", "Loading"],
+    title: "Inputs",
+    tokens: ["component.input", "color.border.focus", "color.text.muted"],
+    usage: ["Collect product data", "Filter or search lists", "Tune AI and streaming preferences"],
+  },
+  {
+    accessibility: "Navigation should expose the current location, keep landmarks meaningful, and preserve keyboard order.",
+    anatomy: ["Landmark", "Item", "Current state", "Nested route"],
+    examples: ["Sidebar", "Breadcrumb", "Pagination", "TreeView"],
+    id: "component-navigation",
+    states: ["Default", "Hover", "Current", "Collapsed", "Expanded"],
+    title: "Navigation",
+    tokens: ["component.sidebar", "color.surface", "color.border"],
+    usage: ["Move across documentation", "Represent hierarchy", "Guide long product flows"],
+  },
+  {
+    accessibility: "Feedback must be announced when it changes state and should not rely on color alone.",
+    anatomy: ["Status tone", "Title", "Message", "Action"],
+    examples: ["InlineNotification", "Toast", "Progress", "StatusIndicator"],
+    id: "component-feedback",
+    states: ["Info", "Success", "Warning", "Error", "Loading"],
+    title: "Feedback",
+    tokens: ["color.status.*", "component.alert", "component.progress"],
+    usage: ["Confirm user actions", "Explain async progress", "Surface validation or system health"],
+  },
+  {
+    accessibility: "Data display should include captions, semantic headings, and readable empty or loading states.",
+    anatomy: ["Container", "Header", "Rows or values", "Caption"],
+    examples: ["SmartDataTable", "Chart", "DataList", "Timeline"],
+    id: "component-data-display",
+    states: ["Loaded", "Empty", "Loading", "Filtered", "Error"],
+    title: "Data display",
+    tokens: ["component.table", "color.text", "color.chart.*"],
+    usage: ["Compare records", "Show metrics", "Explain system history or adoption"],
+  },
+  {
+    accessibility: "Surfaces should make their interactive affordance explicit and keep focus visible when clickable.",
+    anatomy: ["Surface", "Header", "Content", "Action"],
+    examples: ["Card", "MediaCard", "InteractiveCard", "ComponentPreview"],
+    id: "component-surfaces",
+    states: ["Default", "Interactive", "Selected", "Disabled", "Media loaded"],
+    title: "Surfaces",
+    tokens: ["component.card", "color.surface", "elevation.*"],
+    usage: ["Group related content", "Preview media", "Expose selectable product choices"],
+  },
+  {
+    accessibility: "Overlays must trap focus, provide a close action, and return focus to the trigger.",
+    anatomy: ["Trigger", "Overlay", "Title", "Content", "Close"],
+    examples: ["Dialog", "Sheet", "Popover", "DropdownMenu"],
+    id: "component-overlays",
+    states: ["Closed", "Open", "Nested", "Dismissed", "Action pending"],
+    title: "Overlays",
+    tokens: ["component.overlay", "color.backdrop", "motion.duration"],
+    usage: ["Confirm decisions", "Expose contextual actions", "Show temporary focused content"],
+  },
+  {
+    accessibility: "AI components must make confidence, status, citations, and user control visible before automation acts.",
+    anatomy: ["Signal", "Recommendation", "Reasoning", "Control"],
+    examples: ["MoodSelector", "RecommendationRail", "PromptInput", "ReasoningStream"],
+    id: "component-ai",
+    states: ["Listening", "Thinking", "Recommended", "Approved", "Rejected"],
+    title: "AI / Streaming",
+    tokens: ["component.ai", "color.accent", "motion.pulse"],
+    usage: ["Personalize streaming flows", "Explain AI recommendations", "Ask for approval before high-impact actions"],
+  },
+] as const;
+
 function App() {
   const [bootComplete, setBootComplete] = useState(false);
   const [selectedAnatomyLayer, setSelectedAnatomyLayer] = useState(0);
@@ -520,6 +593,56 @@ function App() {
                         />
                       </div>
                     </SectionCard>
+
+                    <SectionCard meta="category docs" title="Component documentation guide">
+                      <p className="max-w-3xl text-sm leading-6 text-white/64">
+                        Use these category notes as the minimum documentation contract for every component page. Each group defines when to use the pattern, which anatomy to document, which states to test, and which accessibility rule should never be skipped.
+                      </p>
+                      <div className="mt-4 grid gap-3">
+                        {componentDocumentationGroups.map((group, index) => <details
+                          className="group scroll-mt-24 rounded-2xl border border-white/10 bg-black/35 p-3 open:border-[#ff4fbd]/45 open:bg-[#ff4fbd]/8"
+                          id={group.id}
+                          key={group.id}
+                          open={index === 0}
+                        >
+                          <summary className="flex min-h-12 cursor-pointer list-none items-center gap-3 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-[#b8ff35] focus-visible:ring-offset-2 focus-visible:ring-offset-[#05060a] [&::-webkit-details-marker]:hidden">
+                            <span className="grid size-9 shrink-0 place-items-center rounded-full bg-[#ff4fbd]/16 font-mono text-xs text-[#ff9bdd]">{String(index + 1).padStart(2, "0")}</span>
+                            <span className="min-w-0 flex-1">
+                              <span className="block font-display text-base font-bold text-white/90">{group.title}</span>
+                              <span className="mt-1 block font-mono text-[0.58rem] uppercase tracking-[0.16em] text-white/45">{group.examples.join(" · ")}</span>
+                            </span>
+                            <span aria-hidden="true" className="font-mono text-lg text-[#ff4fbd] transition-transform group-open:rotate-90">›</span>
+                          </summary>
+                          <div className="mt-4 grid gap-3 xl:grid-cols-[1fr_1fr]">
+                            <div className="rounded-xl border border-white/8 bg-white/[.035] p-3">
+                              <h4 className="font-mono text-[0.62rem] uppercase tracking-[0.16em] text-[#ff9bdd]">Use when</h4>
+                              <ul className="mt-2 grid gap-1.5 text-sm leading-6 text-white/66">
+                                {group.usage.map(item => <li className="flex gap-2" key={item}><span aria-hidden="true" className="mt-2 size-1.5 shrink-0 rounded-full bg-[#b8ff35]" />{item}</li>)}
+                              </ul>
+                            </div>
+                            <div className="rounded-xl border border-white/8 bg-white/[.035] p-3">
+                              <h4 className="font-mono text-[0.62rem] uppercase tracking-[0.16em] text-[#ff9bdd]">Accessibility rule</h4>
+                              <p className="mt-2 text-sm leading-6 text-white/66">{group.accessibility}</p>
+                            </div>
+                            <div className="rounded-xl border border-white/8 bg-white/[.035] p-3">
+                              <h4 className="font-mono text-[0.62rem] uppercase tracking-[0.16em] text-[#ff9bdd]">Document anatomy</h4>
+                              <div className="mt-2 flex flex-wrap gap-1.5">
+                                {group.anatomy.map(item => <span className="rounded-full border border-white/10 bg-black/35 px-2 py-1 font-mono text-[0.58rem] text-white/64" key={item}>{item}</span>)}
+                              </div>
+                            </div>
+                            <div className="rounded-xl border border-white/8 bg-white/[.035] p-3">
+                              <h4 className="font-mono text-[0.62rem] uppercase tracking-[0.16em] text-[#ff9bdd]">States and tokens</h4>
+                              <div className="mt-2 grid gap-2">
+                                <p className="text-sm leading-6 text-white/66">{group.states.join(", ")}</p>
+                                <div className="flex flex-wrap gap-1.5">
+                                  {group.tokens.map(token => <code className="rounded-full border border-[#b8ff35]/20 bg-[#b8ff35]/8 px-2 py-1 font-mono text-[0.58rem] text-[#d7ff88]" key={token}>{token}</code>)}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </details>)}
+                      </div>
+                    </SectionCard>
                   </div>
                 </div>
                 <div className="mt-3 grid gap-3 sm:grid-cols-2">
@@ -529,13 +652,13 @@ function App() {
                       <Button className="rounded-full border border-white/15 bg-white/8 px-5 text-white hover:bg-white/15">Secondary</Button>
                     </div>
                   </ComponentPreview>
-                  <ComponentPreview id="component-inputs" title="Input field">
+                  <ComponentPreview id="component-inputs-showcase" title="Input field">
                     <Field label="Type something...">
                       <Input placeholder="Active" />
                     </Field>
                     <Input disabled placeholder="Disabled" />
                   </ComponentPreview>
-                  <ComponentPreview id="component-surfaces" title="Card surface">
+                  <ComponentPreview id="component-surfaces-showcase" title="Card surface">
                     <Card>
                       <CardHeader>
                         <CardTitle>Title</CardTitle>
@@ -548,7 +671,7 @@ function App() {
                       </CardContent>
                     </Card>
                   </ComponentPreview>
-                  <ComponentPreview id="component-data-display" title="Data table">
+                  <ComponentPreview id="component-data-display-showcase" title="Data table">
                     <SmartDataTable
                       caption="Component records"
                       columns={[{ key: "name", header: "Name" }, { key: "status", header: "Status" }]}
@@ -572,7 +695,7 @@ function App() {
                     <SwitchField label="On" switchProps={{ "aria-label": "Example switch on", defaultChecked: true }} />
                     <SwitchField label="Off" switchProps={{ "aria-label": "Example switch off" }} />
                   </ComponentPreview>
-                  <ComponentPreview className="col-span-2" id="component-overlays" title="Modal overlay">
+                  <ComponentPreview className="col-span-2" id="component-overlays-showcase" title="Modal overlay">
                     <Dialog>
                       <DialogTrigger asChild>
                         <button className="w-full rounded-xl border border-white/12 bg-black/50 p-3 text-left transition-colors hover:border-[#ff4fbd]/40" type="button">
@@ -598,7 +721,7 @@ function App() {
                   </ComponentPreview>
                 </div>
                 <div className="mt-5 grid gap-4">
-                  <SectionCard id="component-feedback" meta="new wave" title="Inputs and feedback">
+                  <SectionCard id="component-feedback-showcase" meta="new wave" title="Inputs and feedback">
                     <div className="grid gap-4 2xl:grid-cols-[1fr_1fr]">
                       <div className="grid gap-3">
                         <SearchField aria-label="Search components" defaultValue="mood selector" />
@@ -625,7 +748,7 @@ function App() {
                     </div>
                   </SectionCard>
 
-                  <SectionCard id="component-navigation" meta="structure" title="Navigation and layout organisms">
+                  <SectionCard id="component-navigation-showcase" meta="structure" title="Navigation and layout organisms">
                     <div className="grid gap-4 2xl:grid-cols-[1fr_1fr]">
                       <div className="grid gap-3 xl:grid-cols-2">
                         <InteractiveCard description="A selected action card with visible focus and clear supporting text." heading="Interactive card" icon={AiAccentIcon} selected>
@@ -664,7 +787,7 @@ function App() {
                     </div>
                   </SectionCard>
 
-                  <SectionCard id="component-ai" meta="streaming · ai" title="Mood-aware streaming system">
+                  <SectionCard id="component-ai-showcase" meta="streaming · ai" title="Mood-aware streaming system">
                     <div className="grid gap-5">
                       <MoodSelector defaultValue="focus" options={moodOptions} />
                       <div className="grid gap-4 2xl:grid-cols-[1fr_1.15fr]">

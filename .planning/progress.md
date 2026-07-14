@@ -30,5 +30,6 @@ Fonte de verdade para retomar a evolução pós-auditoria.
 - [x] Seguir onda de robustez com `DropdownMenu`, `Combobox`, `DatePicker`, `FileUpload`, `Page`, `Section` e `Toolbar` em `@flytrap/ui`.
 - [x] Adicionar onda estrutural com `Container`, `Stack`, `Grid`, `ButtonGroup`, `InteractiveCard`, `DataList`, `StatusIndicator`, `Timeline` e `TreeView`.
 - [x] Adicionar onda Flytrap streaming/IA com `MoodSignal`, `MoodSelector`, `MediaCard`, `RecommendationRail`, `PlayerControls`, `ModelConfidence` e `PersonalizationPanel`.
+- [x] Criar guia de documentação por categoria com uso, anatomia, estados, acessibilidade, tokens e exemplos para `Inputs`, `Navigation`, `Feedback`, `Data display`, `Surfaces`, `Overlays` e `AI / Streaming`.
 - [ ] Conectar o primeiro consumidor real do DS.
 - [x] Criar telemetria estática de adoção por componente com `pnpm adoption:report`.
