@@ -60,7 +60,7 @@ describe("Flytrap memory search", () => {
   });
 
   it("finds documentation utility and data entry components", () => {
-    const ids = searchFlytrapMemory("code snippet data list term description date calendar file upload empty state no data", 12)
+    const ids = searchFlytrapMemory("code snippet data list term description date calendar file upload empty state no data", 30)
       .map(result => result.id);
 
     expect(ids).toContain("code-block-component");
@@ -85,7 +85,7 @@ describe("Flytrap memory search", () => {
   });
 
   it("finds remaining form and choice components", () => {
-    const ids = searchFlytrapMemory("form input label checkbox radio group select field validation required optional", 20)
+    const ids = searchFlytrapMemory("form input label checkbox radio group select field validation required optional", 40)
       .map(result => result.id);
 
     expect(ids).toContain("form-component");
@@ -97,7 +97,7 @@ describe("Flytrap memory search", () => {
   });
 
   it("finds layout, documentation and structural utilities", () => {
-    const ids = searchFlytrapMemory("layout container stack grid page section toolbar component preview copy button filter bar separator", 30)
+    const ids = searchFlytrapMemory("layout container stack grid page section toolbar component preview copy button filter bar separator", 50)
       .map(result => result.id);
 
     expect(ids).toContain("layout-component");
@@ -109,7 +109,7 @@ describe("Flytrap memory search", () => {
   });
 
   it("finds remaining AI streaming components", () => {
-    const ids = searchFlytrapMemory("mood signal selector media card recommendation rail player controls model confidence personalization panel", 20)
+    const ids = searchFlytrapMemory("mood signal selector media card recommendation rail player controls model confidence personalization panel", 40)
       .map(result => result.id);
 
     expect(ids).toContain("mood-signal-component");
@@ -154,7 +154,7 @@ describe("Flytrap memory search", () => {
   });
 
   it("finds AI assistant primitive components", () => {
-    const ids = searchFlytrapMemory("agent card status chat thread citation chip token meter approval prompt insight kpi message prompt reasoning trace tool call", 40)
+    const ids = searchFlytrapMemory("agent card status chat thread citation chip token meter approval prompt insight kpi message prompt reasoning trace tool call", 90)
       .map(result => result.id);
 
     expect(ids).toContain("agent-card-component");
@@ -178,9 +178,27 @@ describe("Flytrap memory search", () => {
   it("includes generated memory chunks alongside curated sources", () => {
     const generated = flytrapMemoryIndex.filter(item => item.id.startsWith("generated-"));
 
-    expect(generated.length).toBeGreaterThanOrEqual(100);
-    expect(generated.some(item => item.source === "docs/04-components.md")).toBe(true);
-    expect(generated.some(item => item.source === "packages/ui/src/components/button.tsx")).toBe(true);
+    expect(generated.length).toBeGreaterThanOrEqual(300);
+    expect(generated.some(item => item.id.includes("-section-") && item.source === "docs/04-components.md")).toBe(true);
+    expect(generated.some(item => item.id === "generated-ui-button-api")).toBe(true);
+    expect(generated.some(item => item.id === "generated-ui-button-behavior")).toBe(true);
+  });
+
+  it("finds generated documentation section chunks", () => {
+    const ids = searchFlytrapMemory("component inventory inputs selection buttons actions", 12)
+      .map(result => result.id);
+
+    expect(ids.some(id => id.startsWith("generated-doc-04-components-section-"))).toBe(true);
+  });
+
+  it("finds generated component API and behavior chunks", () => {
+    const apiIds = searchFlytrapMemory("button props loadingAnnouncement asChild variant size", 10)
+      .map(result => result.id);
+    const behaviorIds = searchFlytrapMemory("button aria busy disabled focus token variant", 10)
+      .map(result => result.id);
+
+    expect(apiIds).toContain("generated-ui-button-api");
+    expect(behaviorIds).toContain("generated-ui-button-behavior");
   });
 
   it("expands semantic loading intent into relevant components", () => {
