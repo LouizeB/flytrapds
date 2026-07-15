@@ -4,8 +4,8 @@ Static scan of `@flytrap/ui` named imports in `apps/**`.
 
 ## Summary
 
-- Total named imports: 193
-- Unique exports adopted: 97
+- Total named imports: 197
+- Unique exports adopted: 99
 - Files importing UI: 6
 - Files importing styles: 3
 
@@ -55,11 +55,13 @@ Static scan of `@flytrap/ui` named imports in `apps/**`.
 | `InsightIcon` | 2 | `apps/docs/src/living/sidebar.tsx`, `apps/docs/src/main.tsx` |
 | `InteractiveCard` | 2 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx` |
 | `KpiStatCard` | 2 | `apps/dashboard/src/main.tsx`, `apps/studio/src/main.tsx` |
+| `MessageBubble` | 2 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx` |
 | `Page` | 2 | `apps/dashboard/src/main.tsx`, `apps/studio/src/main.tsx` |
 | `PageDescription` | 2 | `apps/dashboard/src/main.tsx`, `apps/studio/src/main.tsx` |
 | `PageHeader` | 2 | `apps/dashboard/src/main.tsx`, `apps/studio/src/main.tsx` |
 | `PageTitle` | 2 | `apps/dashboard/src/main.tsx`, `apps/studio/src/main.tsx` |
 | `Progress` | 2 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx` |
+| `PromptInput` | 2 | `apps/docs/src/main.tsx`, `apps/studio/src/main.tsx` |
 | `Section` | 2 | `apps/dashboard/src/main.tsx`, `apps/studio/src/main.tsx` |
 | `SectionDescription` | 2 | `apps/dashboard/src/main.tsx`, `apps/studio/src/main.tsx` |
 | `SectionHeader` | 2 | `apps/dashboard/src/main.tsx`, `apps/studio/src/main.tsx` |
@@ -69,6 +71,8 @@ Static scan of `@flytrap/ui` named imports in `apps/**`.
 | `TreeView` | 2 | `apps/dashboard/src/main.tsx`, `apps/docs/src/main.tsx` |
 | `BrandMark` | 1 | `apps/docs/src/living/sidebar.tsx` |
 | `Chart` | 1 | `apps/studio/src/main.tsx` |
+| `ChatThread` | 1 | `apps/docs/src/main.tsx` |
+| `CitationChip` | 1 | `apps/docs/src/main.tsx` |
 | `Combobox` | 1 | `apps/docs/src/main.tsx` |
 | `ConfirmIcon` | 1 | `apps/docs/src/living/panels.tsx` |
 | `CopyIcon` | 1 | `apps/docs/src/living/panels.tsx` |
@@ -93,10 +97,8 @@ Static scan of `@flytrap/ui` named imports in `apps/**`.
 | `HumanApprovalPrompt` | 1 | `apps/studio/src/main.tsx` |
 | `InfoIcon` | 1 | `apps/docs/src/living/sidebar.tsx` |
 | `MenuIcon` | 1 | `apps/docs/src/main.tsx` |
-| `MessageBubble` | 1 | `apps/dashboard/src/main.tsx` |
 | `MoodSelectorOption` | 1 | `apps/studio/src/main.tsx` |
 | `MoodSignal` | 1 | `apps/docs/src/main.tsx` |
-| `PromptInput` | 1 | `apps/studio/src/main.tsx` |
 | `ReasoningStream` | 1 | `apps/studio/src/main.tsx` |
 | `RunTraceTimeline` | 1 | `apps/studio/src/main.tsx` |
 | `SearchField` | 1 | `apps/docs/src/main.tsx` |
@@ -119,5 +121,5 @@ Static scan of `@flytrap/ui` named imports in `apps/**`.
 | `apps/docs/src/living/hero.tsx` | `AiAccentIcon`, `BrandIcon`, `Button`, `ExternalLinkIcon`, `FlytrapIcon`, `FlytrapIconComponent`, `SendIcon` |
 | `apps/docs/src/living/panels.tsx` | `Button`, `ConfirmIcon`, `CopyIcon`, `FlytrapIcon`, `FlytrapIconComponent` |
 | `apps/docs/src/living/sidebar.tsx` | `AgentIcon`, `AiAccentIcon`, `ApprovalIcon`, `BrandIcon`, `BrandMark`, `ChartIcon`, `DashboardIcon`, `FlytrapIcon`, `FlytrapIconComponent`, `InfoIcon`, `InsightIcon`, `ToolIcon` |
-| `apps/docs/src/main.tsx` | `AgentIcon`, `AiAccentIcon`, `ApprovalIcon`, `Badge`, `BrandIcon`, `Button`, `ButtonGroup`, `ButtonGroupItem`, `Card`, `CardContent`, `CardDescription`, `CardHeader`, `CardTitle`, `ChartIcon`, `Combobox`, `DashboardIcon`, `DataList`, `DataListDescription`, `DataListItem`, `DataListTerm`, `DatePickerField`, `Dialog`, `DialogContent`, `DialogDescription`, `DialogFooter`, `DialogHeader`, `DialogTitle`, `DialogTrigger`, `DropdownMenu`, `DropdownMenuContent`, `DropdownMenuItem`, `DropdownMenuLabel`, `DropdownMenuSeparator`, `DropdownMenuTrigger`, `ErrorIcon`, `Field`, `FileUpload`, `FlytrapIcon`, `InlineNotification`, `Input`, `InsightIcon`, `InteractiveCard`, `MediaCard`, `MenuIcon`, `ModelConfidence`, `MoodSelector`, `MoodSignal`, `PersonalizationPanel`, `PlayerControls`, `Progress`, `RecommendationRail`, `SearchField`, `SearchIcon`, `SendIcon`, `SliderField`, `SmartDataTable`, `StatusIndicator`, `SuccessIcon`, `SwitchField`, `Timeline`, `TimelineItem`, `ToolIcon`, `TreeItem`, `TreeView` |
+| `apps/docs/src/main.tsx` | `AgentIcon`, `AiAccentIcon`, `ApprovalIcon`, `Badge`, `BrandIcon`, `Button`, `ButtonGroup`, `ButtonGroupItem`, `Card`, `CardContent`, `CardDescription`, `CardHeader`, `CardTitle`, `ChartIcon`, `ChatThread`, `CitationChip`, `Combobox`, `DashboardIcon`, `DataList`, `DataListDescription`, `DataListItem`, `DataListTerm`, `DatePickerField`, `Dialog`, `DialogContent`, `DialogDescription`, `DialogFooter`, `DialogHeader`, `DialogTitle`, `DialogTrigger`, `DropdownMenu`, `DropdownMenuContent`, `DropdownMenuItem`, `DropdownMenuLabel`, `DropdownMenuSeparator`, `DropdownMenuTrigger`, `ErrorIcon`, `Field`, `FileUpload`, `FlytrapIcon`, `InlineNotification`, `Input`, `InsightIcon`, `InteractiveCard`, `MediaCard`, `MenuIcon`, `MessageBubble`, `ModelConfidence`, `MoodSelector`, `MoodSignal`, `PersonalizationPanel`, `PlayerControls`, `Progress`, `PromptInput`, `RecommendationRail`, `SearchField`, `SearchIcon`, `SendIcon`, `SliderField`, `SmartDataTable`, `StatusIndicator`, `SuccessIcon`, `SwitchField`, `Timeline`, `TimelineItem`, `ToolIcon`, `TreeItem`, `TreeView` |
 | `apps/studio/src/main.tsx` | `AgentCard`, `AgentIcon`, `Badge`, `BrandIcon`, `BrandLockup`, `Button`, `ButtonGroup`, `ButtonGroupItem`, `Card`, `CardContent`, `CardDescription`, `CardHeader`, `CardTitle`, `Chart`, `ChartIcon`, `CostTokenMeter`, `DataList`, `DataListDescription`, `DataListItem`, `DataListTerm`, `FilterBar`, `FlytrapIcon`, `HumanApprovalPrompt`, `InlineNotification`, `InsightCallout`, `KpiStatCard`, `MediaCard`, `ModelConfidence`, `MoodSelector`, `MoodSelectorOption`, `Page`, `PageDescription`, `PageHeader`, `PageTitle`, `PersonalizationPanel`, `PlayerControls`, `PromptInput`, `ReasoningStream`, `RecommendationRail`, `RunTraceTimeline`, `Section`, `SectionDescription`, `SectionHeader`, `SectionTitle`, `SmartDataTable`, `StatusIndicator`, `StreamingMessage`, `SuggestedPrompts`, `Timeline`, `TimelineItem`, `ToolCallBlock` |
