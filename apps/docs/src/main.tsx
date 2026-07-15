@@ -167,20 +167,35 @@ const streamingPatternChecklist = [
 const patternLibrary = [
   {
     anchor: "#pattern-ai-managed-streaming",
+    accessibility: ["Visible mood control", "Explainable recommendations", "Approval before high-impact shifts"],
+    anatomy: ["Mood input", "Recommendation rail", "Playback state", "Approval gate", "Assistant trace"],
+    components: ["MoodSelector", "RecommendationRail", "MediaCard", "PlayerControls", "HumanApprovalPrompt"],
     description: "Mood-shaped recommendations with visible control, confidence, playback and human approval.",
+    evidence: "Implemented by apps/studio.",
     maturity: "Production candidate",
+    problem: "AI streaming experiences often feel magical but opaque. This pattern keeps the user in control while the system adapts.",
     title: "AI-managed streaming flow",
   },
   {
     anchor: "#pattern-dashboard-layout",
+    accessibility: ["Persistent landmarks", "Readable KPI labels", "Keyboard-safe navigation"],
+    anatomy: ["Sidebar", "Hero status", "KPI row", "Data region", "Activity timeline"],
+    components: ["Page", "Sidebar", "KpiStatCard", "SmartDataTable", "Timeline"],
     description: "Sidebar, KPI, table and activity composition for operational product surfaces.",
+    evidence: "Implemented by apps/dashboard.",
     maturity: "Stable",
+    problem: "Operational surfaces need dense information without becoming a wall of cards. This pattern gives status, priority and history clear places to live.",
     title: "Dashboard layout",
   },
   {
     anchor: "#pattern-release-readiness",
+    accessibility: ["Status is not color-only", "Evidence links are explicit", "Checklist order follows release flow"],
+    anatomy: ["Gate", "Evidence", "Owner", "Risk", "Decision"],
+    components: ["DataList", "Timeline", "StatusIndicator", "InlineNotification", "SmartDataTable"],
     description: "Quality gates for shipping components through adoption, audit and documentation checks.",
+    evidence: "Used by CI, adoption report and visual audit reports.",
     maturity: "Governance",
+    problem: "A DS release needs traceable proof, not vibes. This pattern turns quality gates into a repeatable release contract.",
     title: "Release readiness flow",
   },
 ] as const;
@@ -911,9 +926,9 @@ function App() {
                   <p className="max-w-3xl text-sm leading-6 text-white/66">
                     Patterns are reusable product compositions. Each one documents the problem, core anatomy, accessibility contract, and the components expected to work together.
                   </p>
-                  <div className="mt-4 grid gap-3 xl:grid-cols-3">
+                  <div className="mt-4 grid gap-4 xl:grid-cols-3">
                     {patternLibrary.map(pattern => <a
-                      className="group rounded-2xl border border-white/10 bg-black/35 p-4 outline-none transition-colors hover:border-[#ff4fbd]/55 hover:bg-[#ff4fbd]/8 focus-visible:ring-2 focus-visible:ring-[#b8ff35] focus-visible:ring-offset-2 focus-visible:ring-offset-[#05060a]"
+                      className="group flex min-h-full flex-col rounded-2xl border border-white/10 bg-black/35 p-4 outline-none transition-colors hover:border-[#ff4fbd]/55 hover:bg-[#ff4fbd]/8 focus-visible:ring-2 focus-visible:ring-[#b8ff35] focus-visible:ring-offset-2 focus-visible:ring-offset-[#05060a]"
                       href={pattern.anchor}
                       key={pattern.title}
                     >
@@ -925,6 +940,15 @@ function App() {
                         <span aria-hidden="true" className="text-[#ff4fbd] transition-transform group-hover:translate-x-1">→</span>
                       </span>
                       <span className="mt-3 block text-sm leading-6 text-white/62">{pattern.description}</span>
+                      <span className="mt-4 block rounded-xl border border-white/8 bg-white/[.035] p-3">
+                        <span className="block font-mono text-[0.58rem] uppercase tracking-[0.16em] text-white/45">Problem</span>
+                        <span className="mt-1 block text-sm leading-6 text-white/66">{pattern.problem}</span>
+                      </span>
+                      <span className="mt-3 flex flex-wrap gap-2">
+                        {pattern.components.slice(0, 3).map(component => <span className="rounded-full border border-[#ff4fbd]/25 bg-[#ff4fbd]/10 px-2.5 py-1 font-mono text-[0.58rem] uppercase tracking-[0.14em] text-[#ff9bdd]" key={component}>
+                          {component}
+                        </span>)}
+                      </span>
                     </a>)}
                   </div>
                 </SectionCard>
@@ -947,6 +971,10 @@ function App() {
                         <DataListItem className="sm:grid-cols-1 xl:grid-cols-[8rem_1fr]">
                           <DataListTerm>Proof</DataListTerm>
                           <DataListDescription><code>apps/studio</code> is the first product-like consumer of this pattern.</DataListDescription>
+                        </DataListItem>
+                        <DataListItem className="sm:grid-cols-1 xl:grid-cols-[8rem_1fr]">
+                          <DataListTerm>Components</DataListTerm>
+                          <DataListDescription>{patternLibrary[0].components.join(" · ")}</DataListDescription>
                         </DataListItem>
                       </DataList>
                     </div>
@@ -998,6 +1026,16 @@ function App() {
                     <p className="mt-4 text-sm leading-6 text-white/64">
                       Use for operational surfaces that combine navigation, KPIs, tabular status, timelines and agent health.
                     </p>
+                    <DataList className="mt-4">
+                      <DataListItem className="sm:grid-cols-1 xl:grid-cols-[8rem_1fr]">
+                        <DataListTerm>Anatomy</DataListTerm>
+                        <DataListDescription>{patternLibrary[1].anatomy.join(" · ")}</DataListDescription>
+                      </DataListItem>
+                      <DataListItem className="sm:grid-cols-1 xl:grid-cols-[8rem_1fr]">
+                        <DataListTerm>Access</DataListTerm>
+                        <DataListDescription>{patternLibrary[1].accessibility.join(" · ")}</DataListDescription>
+                      </DataListItem>
+                    </DataList>
                   </SectionCard>
                   <SectionCard id="pattern-release-readiness" meta="Governance pattern" title="Release readiness flow">
                     <DataList>
@@ -1012,6 +1050,10 @@ function App() {
                       <DataListItem className="sm:grid-cols-1 xl:grid-cols-[8rem_1fr]">
                         <DataListTerm>Components</DataListTerm>
                         <DataListDescription>Timeline, DataList, StatusIndicator, InlineNotification and SmartDataTable.</DataListDescription>
+                      </DataListItem>
+                      <DataListItem className="sm:grid-cols-1 xl:grid-cols-[8rem_1fr]">
+                        <DataListTerm>Access</DataListTerm>
+                        <DataListDescription>{patternLibrary[2].accessibility.join(" · ")}</DataListDescription>
                       </DataListItem>
                     </DataList>
                   </SectionCard>
