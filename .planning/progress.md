@@ -45,3 +45,4 @@ Fonte de verdade para retomar a evolução pós-auditoria.
 - [x] Criar `docs/20-pattern-library.md` como contrato textual dos patterns e conectar a seção pública ao guia.
 - [x] Adicionar exemplos de implementação e checklists visuais para cada pattern na página pública do DS.
 - [x] Criar a primeira camada de Memory Search local com índice allowlist, busca ranqueada e fontes explícitas.
+- [x] Adicionar Memory Chat local, sem chamada de modelo, respondendo apenas a partir do índice com fontes citadas.
