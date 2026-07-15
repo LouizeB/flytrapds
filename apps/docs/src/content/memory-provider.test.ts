@@ -25,6 +25,51 @@ describe("Flytrap memory search", () => {
     expect(first?.type).toBe("component");
   });
 
+  it("finds feedback components by semantic status intent", () => {
+    const ids = searchFlytrapMemory("status feedback error success notification alert action", 6)
+      .map(result => result.id);
+
+    expect(ids).toContain("alert-component");
+    expect(ids).toContain("inline-notification-component");
+  });
+
+  it("finds identity and brand components", () => {
+    const ids = searchFlytrapMemory("avatar logo brand mark lockup fallback image label", 8)
+      .map(result => result.id);
+
+    expect(ids).toContain("avatar-component");
+    expect(ids).toContain("brand-mark-component");
+  });
+
+  it("finds core surface, badge and grouped action components", () => {
+    const ids = searchFlytrapMemory("card surface badge segmented button group metadata aria-pressed", 8)
+      .map(result => result.id);
+
+    expect(ids).toContain("card-component");
+    expect(ids).toContain("badge-component");
+    expect(ids).toContain("button-group-component");
+  });
+
+  it("finds navigation and overlay primitives by behavior", () => {
+    const ids = searchFlytrapMemory("dialog modal close focus dropdown menu commands combobox searchable listbox", 8)
+      .map(result => result.id);
+
+    expect(ids).toContain("dialog-component");
+    expect(ids).toContain("dropdown-menu-component");
+    expect(ids).toContain("combobox-component");
+  });
+
+  it("finds documentation utility and data entry components", () => {
+    const ids = searchFlytrapMemory("code snippet data list term description date calendar file upload empty state no data", 12)
+      .map(result => result.id);
+
+    expect(ids).toContain("code-block-component");
+    expect(ids).toContain("data-list-component");
+    expect(ids).toContain("date-picker-component");
+    expect(ids).toContain("file-upload-component");
+    expect(ids).toContain("empty-state-component");
+  });
+
   it("finds design-to-code sync guidance from Figma questions", () => {
     const [first] = searchFlytrapMemory("Figma Tokens Studio drift DTCG");
 
