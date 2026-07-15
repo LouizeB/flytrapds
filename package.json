@@ -20,6 +20,7 @@
     "art:contract": "python3 scripts/art_color_contract.py",
     "adoption:report": "python3 scripts/component_adoption.py --output .planning/component-adoption.md",
     "adoption:check": "python3 scripts/component_adoption.py --output .planning/component-adoption.md --check",
+    "memory:report": "node scripts/memory_index_report.mjs --output .planning/memory-index-candidates.md",
     "visual:audit": "node scripts/visual_audit.mjs",
     "apca": "python3 scripts/apca_gate.py packages/tokens/src/flytrap.tokens.json"
   },

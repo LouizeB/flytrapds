@@ -45,8 +45,25 @@ The Memory Chat exposes its retrieval state in the UI:
 
 The suggested prompt chips are intentionally curated. They help users discover supported questions without implying that the chat can answer from undocumented knowledge.
 
+## Missing source flow
+
+When the chat reports **Needs source**, the UI can generate a source request:
+
+1. choose the missing source type: component, token, pattern, setup, accessibility or workflow;
+2. review the generated Markdown checklist;
+3. copy the request or open a prefilled GitHub issue;
+4. add or update the canonical documentation;
+5. add the new source to the memory index and re-run validation.
+
+The repo also includes a maintenance report:
+
+```bash
+pnpm memory:report
+```
+
+It scans documentation and UI/AI/chart component files, compares them with the indexed memory sources and writes `.planning/memory-index-candidates.md`.
+
 ## Next improvements
 
 - Add local embeddings for semantic ranking.
-- Continue expanding the memory index from docs and component metadata.
-- Add source contribution flow for missing answers.
+- Promote high-value candidates from `.planning/memory-index-candidates.md` into the indexed memory sources.

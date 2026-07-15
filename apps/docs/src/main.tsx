@@ -18,6 +18,7 @@ import {
   ChatThread,
   CitationChip,
   Combobox,
+  CopyButton,
   DashboardIcon,
   DataList,
   DataListDescription,
@@ -84,6 +85,12 @@ import { Hero } from "./living/hero";
 import { TokenSystemGuide } from "./living/token-system-guide";
 import { answerFlytrapMemoryWithProvider, memoryProviderConfig, type FlytrapMemoryProvider, type FlytrapProviderAnswer } from "./content/memory-provider";
 import { flytrapMemoryIndex, searchFlytrapMemory, type FlytrapMemoryResult } from "./content/search-index";
+import {
+  sourceRequestIssueUrl,
+  sourceRequestKinds,
+  sourceRequestMarkdown,
+  type FlytrapSourceRequestKind,
+} from "./content/source-request";
 import {
   CodeBlock,
   ComponentPreview,
@@ -252,6 +259,7 @@ type MemoryChatMessage = {
   meta?: string;
   provider?: FlytrapProviderAnswer["provider"];
   role: "assistant" | "user";
+  sourceQuestion?: string;
   sources?: FlytrapMemoryResult[];
 };
 
@@ -445,6 +453,8 @@ function App() {
   const [bootComplete, setBootComplete] = useState(false);
   const [memoryChatInput, setMemoryChatInput] = useState("");
   const [memoryProvider, setMemoryProvider] = useState<FlytrapMemoryProvider>(memoryProviderConfig.provider);
+  const [sourceRequestKind, setSourceRequestKind] = useState<FlytrapSourceRequestKind>("component");
+  const [sourceRequestQuestion, setSourceRequestQuestion] = useState("");
   const [memoryChatSubmitting, setMemoryChatSubmitting] = useState(false);
   const [memoryChatMessages, setMemoryChatMessages] = useState<MemoryChatMessage[]>([
     {
@@ -461,6 +471,18 @@ function App() {
   const handleBootComplete = React.useCallback(() => setBootComplete(true), []);
   const memoryResults = React.useMemo(() => searchFlytrapMemory(memoryQuery), [memoryQuery]);
   const selectedAnatomyLayerDetail = anatomyLayerDetails[selectedAnatomyLayer] ?? anatomyLayerDetails[0];
+  const sourceRequest = React.useMemo(() => ({
+    context: "The Memory Chat could not find a reliable indexed source. Please add the canonical Flytrap guidance and connect it back to the memory index.",
+    kind: sourceRequestKind,
+    question: sourceRequestQuestion,
+  }), [sourceRequestKind, sourceRequestQuestion]);
+  const sourceRequestBody = React.useMemo(() => sourceRequestMarkdown(sourceRequest), [sourceRequest]);
+  const sourceRequestUrl = React.useMemo(() => sourceRequestIssueUrl(sourceRequest), [sourceRequest]);
+
+  function openSourceRequest(question: string, kind: FlytrapSourceRequestKind = "component") {
+    setSourceRequestQuestion(question);
+    setSourceRequestKind(kind);
+  }
 
   async function submitMemoryQuestion(question: string) {
     setMemoryChatSubmitting(true);
@@ -478,6 +500,7 @@ function App() {
         meta: providerMeta,
         provider: answer.provider,
         role: "assistant",
+        sourceQuestion: question,
         sources: answer.sources,
       },
     ];
@@ -1300,7 +1323,10 @@ function App() {
                         </span>
                       </a>)
                       : <div className="rounded-2xl border border-white/10 bg-black/35 p-4 text-sm leading-6 text-white/62">
-                        No memory result yet. Try a component name, pattern name, token, accessibility term, or setup question.
+                        <p>No memory result yet. Try a component name, pattern name, token, accessibility term, or setup question.</p>
+                        {memoryQuery.trim() ? <Button className="mt-3 border-[#ffaa00]/35 bg-[#ffaa00]/10 text-[#ffd27a] hover:bg-[#ffaa00]/15" onClick={() => openSourceRequest(memoryQuery)} size="sm" type="button" variant="outline">
+                          Request source
+                        </Button> : null}
                       </div>}
                   </div>
                 </SectionCard>
@@ -1348,7 +1374,10 @@ function App() {
                       </div> : null}
                       <p>{message.content}</p>
                       {message.role === "assistant" && message.sources?.length === 0 ? <div className="mt-3 rounded-xl border border-[#ffaa00]/30 bg-[#ffaa00]/10 p-3 text-sm leading-6 text-[#ffd27a]">
-                        No reliable source was found in the Flytrap memory index. Use one of the suggested prompts below or add a new indexed source before treating this as guidance.
+                        <p>No reliable source was found in the Flytrap memory index. Use one of the suggested prompts below or add a new indexed source before treating this as guidance.</p>
+                        <Button className="mt-3 border-[#ffaa00]/35 bg-black/20 text-[#ffd27a] hover:bg-[#ffaa00]/15" onClick={() => openSourceRequest(message.sourceQuestion ?? message.content)} size="sm" type="button" variant="outline">
+                          Request source
+                        </Button>
                       </div> : null}
                       {message.fallbackReason ? <div className="mt-3 rounded-xl border border-[#b8ff35]/25 bg-[#b8ff35]/8 p-3 text-sm leading-6 text-white/64">
                         <span className="font-display font-bold text-[#d9ff8f]">Fallback used:</span> {message.fallbackReason}
@@ -1391,6 +1420,50 @@ function App() {
                       <DataListDescription>If Ollama is unavailable, the chat returns the same cited memory answer.</DataListDescription>
                     </DataListItem>
                   </DataList>
+                  <div className="mt-4 rounded-2xl border border-[#ffaa00]/25 bg-[#ffaa00]/8 p-4">
+                    <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+                      <div>
+                        <p className="font-display text-sm font-bold text-[#ffd27a]">Missing source request</p>
+                        <p className="mt-1 text-sm leading-6 text-white/62">
+                          When the chat cannot cite a source, turn the gap into a documentation task instead of accepting an unsupported answer.
+                        </p>
+                      </div>
+                      <Badge className="w-fit border-[#ffaa00]/30 bg-black/20 text-[#ffd27a]" variant="outline">Human review</Badge>
+                    </div>
+                    <div className="mt-4 grid gap-3 md:grid-cols-[11rem_1fr]">
+                      <label className="grid gap-1.5 text-xs font-medium uppercase tracking-[0.12em] text-white/50">
+                        Source type
+                        <select
+                          className="h-10 rounded-xl border border-white/10 bg-black/45 px-3 text-sm normal-case tracking-normal text-white outline-none focus-visible:ring-2 focus-visible:ring-[#b8ff35]"
+                          onChange={event => setSourceRequestKind(event.target.value as FlytrapSourceRequestKind)}
+                          value={sourceRequestKind}
+                        >
+                          {sourceRequestKinds.map(kind => <option className="bg-[#05060a] text-white" key={kind} value={kind}>{kind}</option>)}
+                        </select>
+                      </label>
+                      <label className="grid gap-1.5 text-xs font-medium uppercase tracking-[0.12em] text-white/50">
+                        Missing question
+                        <input
+                          className="h-10 rounded-xl border border-white/10 bg-black/45 px-3 text-sm normal-case tracking-normal text-white outline-none placeholder:text-white/35 focus-visible:ring-2 focus-visible:ring-[#b8ff35]"
+                          onChange={event => setSourceRequestQuestion(event.target.value)}
+                          placeholder="Ask something unsupported, then request a source"
+                          value={sourceRequestQuestion}
+                        />
+                      </label>
+                    </div>
+                    <textarea
+                      aria-label="Generated source request template"
+                      className="mt-3 min-h-48 w-full rounded-2xl border border-white/10 bg-black/45 p-3 font-mono text-xs leading-5 text-white/68 outline-none focus-visible:ring-2 focus-visible:ring-[#b8ff35]"
+                      readOnly
+                      value={sourceRequestBody}
+                    />
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      <CopyButton className="border-white/10 bg-black/30 text-white/72 hover:bg-white/10" size="sm" value={sourceRequestBody} variant="outline" />
+                      <Button asChild className="border-[#ffaa00]/35 bg-[#ffaa00]/10 text-[#ffd27a] hover:bg-[#ffaa00]/15" size="sm" variant="outline">
+                        <a href={sourceRequestUrl} rel="noreferrer" target="_blank">Open GitHub issue</a>
+                      </Button>
+                    </div>
+                  </div>
                 </SectionCard>
               </div>
             </div>
