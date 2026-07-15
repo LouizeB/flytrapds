@@ -51,3 +51,4 @@ Fonte de verdade para retomar a evolução pós-auditoria.
 - [x] Adicionar testes do Memory Search/Chat cobrindo ranking, resposta source-backed, provider Ollama e fallback.
 - [x] Adicionar controle explícito de provider em dev/Ollama e expandir o índice de memória com categorias de tokens, forms, navegação, dados, overlays e AI/Streaming.
 - [x] Tornar estados do Memory Chat visíveis: confiança, provider, fonte ausente, fallback Ollama e prompts sugeridos.
+- [x] Fechar ciclo de fonte ausente com request template/issue e relatório automatizado `pnpm memory:report` para candidatos do índice.

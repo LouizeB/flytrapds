@@ -4,8 +4,8 @@ Static scan of `@flytrap/ui` named imports in `apps/**`.
 
 ## Summary
 
-- Total named imports: 197
-- Unique exports adopted: 99
+- Total named imports: 198
+- Unique exports adopted: 100
 - Files importing UI: 6
 - Files importing styles: 3
 
@@ -75,6 +75,7 @@ Static scan of `@flytrap/ui` named imports in `apps/**`.
 | `CitationChip` | 1 | `apps/docs/src/main.tsx` |
 | `Combobox` | 1 | `apps/docs/src/main.tsx` |
 | `ConfirmIcon` | 1 | `apps/docs/src/living/panels.tsx` |
+| `CopyButton` | 1 | `apps/docs/src/main.tsx` |
 | `CopyIcon` | 1 | `apps/docs/src/living/panels.tsx` |
 | `CostTokenMeter` | 1 | `apps/studio/src/main.tsx` |
 | `DatePickerField` | 1 | `apps/docs/src/main.tsx` |
@@ -121,5 +122,5 @@ Static scan of `@flytrap/ui` named imports in `apps/**`.
 | `apps/docs/src/living/hero.tsx` | `AiAccentIcon`, `BrandIcon`, `Button`, `ExternalLinkIcon`, `FlytrapIcon`, `FlytrapIconComponent`, `SendIcon` |
 | `apps/docs/src/living/panels.tsx` | `Button`, `ConfirmIcon`, `CopyIcon`, `FlytrapIcon`, `FlytrapIconComponent` |
 | `apps/docs/src/living/sidebar.tsx` | `AgentIcon`, `AiAccentIcon`, `ApprovalIcon`, `BrandIcon`, `BrandMark`, `ChartIcon`, `DashboardIcon`, `FlytrapIcon`, `FlytrapIconComponent`, `InfoIcon`, `InsightIcon`, `ToolIcon` |
-| `apps/docs/src/main.tsx` | `AgentIcon`, `AiAccentIcon`, `ApprovalIcon`, `Badge`, `BrandIcon`, `Button`, `ButtonGroup`, `ButtonGroupItem`, `Card`, `CardContent`, `CardDescription`, `CardHeader`, `CardTitle`, `ChartIcon`, `ChatThread`, `CitationChip`, `Combobox`, `DashboardIcon`, `DataList`, `DataListDescription`, `DataListItem`, `DataListTerm`, `DatePickerField`, `Dialog`, `DialogContent`, `DialogDescription`, `DialogFooter`, `DialogHeader`, `DialogTitle`, `DialogTrigger`, `DropdownMenu`, `DropdownMenuContent`, `DropdownMenuItem`, `DropdownMenuLabel`, `DropdownMenuSeparator`, `DropdownMenuTrigger`, `ErrorIcon`, `Field`, `FileUpload`, `FlytrapIcon`, `InlineNotification`, `Input`, `InsightIcon`, `InteractiveCard`, `MediaCard`, `MenuIcon`, `MessageBubble`, `ModelConfidence`, `MoodSelector`, `MoodSignal`, `PersonalizationPanel`, `PlayerControls`, `Progress`, `PromptInput`, `RecommendationRail`, `SearchField`, `SearchIcon`, `SendIcon`, `SliderField`, `SmartDataTable`, `StatusIndicator`, `SuccessIcon`, `SwitchField`, `Timeline`, `TimelineItem`, `ToolIcon`, `TreeItem`, `TreeView` |
+| `apps/docs/src/main.tsx` | `AgentIcon`, `AiAccentIcon`, `ApprovalIcon`, `Badge`, `BrandIcon`, `Button`, `ButtonGroup`, `ButtonGroupItem`, `Card`, `CardContent`, `CardDescription`, `CardHeader`, `CardTitle`, `ChartIcon`, `ChatThread`, `CitationChip`, `Combobox`, `CopyButton`, `DashboardIcon`, `DataList`, `DataListDescription`, `DataListItem`, `DataListTerm`, `DatePickerField`, `Dialog`, `DialogContent`, `DialogDescription`, `DialogFooter`, `DialogHeader`, `DialogTitle`, `DialogTrigger`, `DropdownMenu`, `DropdownMenuContent`, `DropdownMenuItem`, `DropdownMenuLabel`, `DropdownMenuSeparator`, `DropdownMenuTrigger`, `ErrorIcon`, `Field`, `FileUpload`, `FlytrapIcon`, `InlineNotification`, `Input`, `InsightIcon`, `InteractiveCard`, `MediaCard`, `MenuIcon`, `MessageBubble`, `ModelConfidence`, `MoodSelector`, `MoodSignal`, `PersonalizationPanel`, `PlayerControls`, `Progress`, `PromptInput`, `RecommendationRail`, `SearchField`, `SearchIcon`, `SendIcon`, `SliderField`, `SmartDataTable`, `StatusIndicator`, `SuccessIcon`, `SwitchField`, `Timeline`, `TimelineItem`, `ToolIcon`, `TreeItem`, `TreeView` |
 | `apps/studio/src/main.tsx` | `AgentCard`, `AgentIcon`, `Badge`, `BrandIcon`, `BrandLockup`, `Button`, `ButtonGroup`, `ButtonGroupItem`, `Card`, `CardContent`, `CardDescription`, `CardHeader`, `CardTitle`, `Chart`, `ChartIcon`, `CostTokenMeter`, `DataList`, `DataListDescription`, `DataListItem`, `DataListTerm`, `FilterBar`, `FlytrapIcon`, `HumanApprovalPrompt`, `InlineNotification`, `InsightCallout`, `KpiStatCard`, `MediaCard`, `ModelConfidence`, `MoodSelector`, `MoodSelectorOption`, `Page`, `PageDescription`, `PageHeader`, `PageTitle`, `PersonalizationPanel`, `PlayerControls`, `PromptInput`, `ReasoningStream`, `RecommendationRail`, `RunTraceTimeline`, `Section`, `SectionDescription`, `SectionHeader`, `SectionTitle`, `SmartDataTable`, `StatusIndicator`, `StreamingMessage`, `SuggestedPrompts`, `Timeline`, `TimelineItem`, `ToolCallBlock` |
