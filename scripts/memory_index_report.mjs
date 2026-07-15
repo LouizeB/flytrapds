@@ -6,8 +6,11 @@ const outputPath = process.argv.includes("--output")
   ? process.argv[process.argv.indexOf("--output") + 1]
   : ".planning/memory-index-candidates.md";
 
-const searchIndexPath = join(repoRoot, "apps/docs/src/content/search-index.ts");
-const searchIndex = readFileSync(searchIndexPath, "utf8");
+const memoryIndexPaths = [
+  join(repoRoot, "apps/docs/src/content/search-index.ts"),
+  join(repoRoot, "apps/docs/src/content/generated-memory-index.ts"),
+].filter(path => existsSync(path));
+const memoryIndexes = memoryIndexPaths.map(path => readFileSync(path, "utf8")).join("\n");
 
 function slug(value) {
   return value
@@ -29,11 +32,11 @@ function markdownHeadings(markdown) {
 }
 
 function indexedSources() {
-  return new Set([...searchIndex.matchAll(/source:\s*"([^"]+)"/g)].map(match => match[1]));
+  return new Set([...memoryIndexes.matchAll(/"?source"?:\s*"([^"]+)"/g)].map(match => match[1]));
 }
 
 function indexedIds() {
-  return [...searchIndex.matchAll(/id:\s*"([^"]+)"/g)].map(match => match[1]);
+  return [...memoryIndexes.matchAll(/"?id"?:\s*"([^"]+)"/g)].map(match => match[1]);
 }
 
 function docsInventory() {

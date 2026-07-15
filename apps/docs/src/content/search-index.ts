@@ -1,3 +1,5 @@
+import { generatedFlytrapMemoryIndex } from "./generated-memory-index";
+
 export type FlytrapMemoryType =
   | "component"
   | "development"
@@ -27,7 +29,7 @@ export interface FlytrapMemoryAnswer {
   sources: FlytrapMemoryResult[];
 }
 
-export const flytrapMemoryIndex = [
+const curatedFlytrapMemoryIndex = [
   {
     answer: "Flytrap is a multibrand, AI-first design system built on semantic tokens, React components, APCA gates and a living public documentation experience.",
     href: "https://github.com/LouizeB/flytrapds/blob/main/docs/00-overview.md",
@@ -1100,13 +1102,153 @@ export const flytrapMemoryIndex = [
   },
 ] as const satisfies readonly FlytrapMemoryItem[];
 
+export const flytrapMemoryIndex = [
+  ...curatedFlytrapMemoryIndex,
+  ...generatedFlytrapMemoryIndex,
+] as const satisfies readonly FlytrapMemoryItem[];
+
+const curatedMemoryIds: ReadonlySet<string> = new Set(curatedFlytrapMemoryIndex.map(item => item.id));
+
 function normalize(value: string) {
   return value.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "");
 }
 
+const semanticExpansions = [
+  {
+    terms: ["loading", "load", "pending", "skeleton", "spinner", "busy", "wait"],
+    triggers: ["loading", "load", "pending", "carregamento", "espera", "skeleton", "spinner", "busy"],
+  },
+  {
+    terms: ["empty state", "empty", "no data", "blank", "placeholder", "zero state"],
+    triggers: ["empty", "no data", "sem dados", "vazio", "blank", "placeholder", "zero state"],
+  },
+  {
+    terms: ["help", "tooltip", "popover", "contextual", "hint", "guidance"],
+    triggers: ["help", "hint", "tooltip", "popover", "ajuda", "dica", "contextual"],
+  },
+  {
+    terms: ["feedback", "alert", "toast", "inline notification", "status", "success", "warning", "error"],
+    triggers: ["feedback", "alert", "toast", "notification", "notificacao", "status", "success", "warning", "error", "erro", "sucesso", "aviso"],
+  },
+  {
+    terms: ["form", "input", "field", "label", "validation", "error", "textarea"],
+    triggers: ["form", "input", "field", "campo", "label", "validation", "validacao", "textarea", "texto"],
+  },
+  {
+    terms: ["choice", "select", "combobox", "radio", "checkbox", "switch", "option"],
+    triggers: ["choice", "choose", "select", "combobox", "radio", "checkbox", "switch", "escolha", "selecionar", "opcao", "opção", "toggle"],
+  },
+  {
+    terms: ["navigation", "breadcrumb", "sidebar", "tabs", "pagination", "command menu", "dropdown"],
+    triggers: ["navigation", "navigate", "menu", "sidebar", "tabs", "breadcrumb", "pagination", "command", "atalho", "navegacao", "navegação"],
+  },
+  {
+    terms: ["overlay", "dialog", "modal", "sheet", "popover", "drawer", "focus", "close"],
+    triggers: ["overlay", "dialog", "modal", "sheet", "drawer", "painel", "close", "fechar", "focus"],
+  },
+  {
+    terms: ["data", "table", "smart data table", "chart", "timeline", "data list", "metric", "kpi"],
+    triggers: ["data", "dados", "table", "tabela", "chart", "grafico", "gráfico", "timeline", "metric", "kpi", "relatorio", "relatório"],
+  },
+  {
+    terms: ["streaming", "mood", "recommendation", "player", "media", "personalization", "model confidence"],
+    triggers: ["streaming", "mood", "humor", "recommendation", "recomendacao", "recomendação", "player", "media", "personalization", "personalizacao", "personalização"],
+  },
+  {
+    terms: ["ai", "agent", "chat", "prompt", "reasoning", "tool call", "approval", "citation", "source"],
+    triggers: ["ai", "ia", "agent", "agente", "chat", "prompt", "reasoning", "raciocinio", "raciocínio", "tool", "approval", "aprovacao", "aprovação", "citation", "source", "fonte"],
+  },
+  {
+    terms: ["install", "package", "@flytrap/ui", "styles", "setup", "npm", "pnpm"],
+    triggers: ["install", "instalar", "setup", "package", "pacote", "@flytrap/ui", "npm", "pnpm"],
+  },
+  {
+    terms: ["accessibility", "apca", "contrast", "focus", "keyboard", "readability", "a11y"],
+    triggers: ["accessibility", "acessibilidade", "apca", "contrast", "contraste", "focus", "foco", "keyboard", "teclado", "readability", "legibilidade", "a11y"],
+  },
+  {
+    terms: ["token", "color", "typography", "space", "border", "motion", "elevation", "dtcg"],
+    triggers: ["token", "tokens", "color", "cor", "typography", "tipo", "space", "espaco", "espaço", "border", "borda", "motion", "movimento", "elevation", "elevacao", "elevação", "dtcg"],
+  },
+] as const;
+
+const stopWords = new Set([
+  "a",
+  "an",
+  "and",
+  "as",
+  "como",
+  "de",
+  "do",
+  "does",
+  "e",
+  "for",
+  "how",
+  "i",
+  "in",
+  "is",
+  "o",
+  "of",
+  "or",
+  "para",
+  "por",
+  "que",
+  "the",
+  "to",
+  "um",
+  "uma",
+  "with",
+]);
+
+function weightedTerms(query: string) {
+  const terms = new Map<string, number>();
+
+  function add(term: string, weight: number) {
+    const normalized = normalize(term.trim());
+    if (!normalized || normalized.length < 2 || stopWords.has(normalized)) return;
+    terms.set(normalized, Math.max(terms.get(normalized) ?? 0, weight));
+  }
+
+  for (const term of query.split(/\s+/).filter(Boolean)) {
+    add(term, 1);
+  }
+
+  for (const expansion of semanticExpansions) {
+    if (expansion.triggers.some(trigger => query.includes(normalize(trigger)))) {
+      for (const term of expansion.terms) {
+        add(term, 0.32);
+        for (const part of term.split(/\s+/)) add(part, 0.18);
+      }
+    }
+  }
+
+  return [...terms.entries()].map(([term, weight]) => ({ term, weight }));
+}
+
+function scoreField(value: string, term: string, weight: number, fieldWeight: number) {
+  if (!value.includes(term)) return 0;
+  const exactBonus = value === term ? 2 : 0;
+  const prefixBonus = value.startsWith(term) ? 0.75 : 0;
+  return (fieldWeight + exactBonus + prefixBonus) * weight;
+}
+
+function intentBoost(item: FlytrapMemoryItem, query: string) {
+  const has = (value: string) => query.includes(value);
+
+  if (item.id === "install-ui" && (has("install") || has("instalar") || has("@flytrap/ui") || has("package"))) return 45;
+  if (item.id === "design-code-sync" && has("figma") && (has("dtcg") || has("tokens studio") || has("drift"))) return 45;
+  if (item.id === "adr-decisions" && (has("adr") || has("decisions") || has("decisoes") || has("decisões"))) return 45;
+  if (item.id === "documentation-index" && (has("readme") || has("table of contents") || has("toc"))) return 45;
+  if (item.id === "apca-accessibility" && !has("adr") && (has("apca") || has("contrast") || has("contraste"))) return 32;
+  if (item.id === "token-categories" && (has("all tokens") || has("motion") || has("elevation"))) return 32;
+  if (item.id === "memory-chat-ollama" && (has("ollama") || has("memory chat") || has("missing source"))) return 32;
+
+  return 0;
+}
+
 export function searchFlytrapMemory(query: string, limit = 6): FlytrapMemoryResult[] {
   const normalizedQuery = normalize(query.trim());
-  const terms = normalizedQuery.split(/\s+/).filter(Boolean);
+  const terms = weightedTerms(normalizedQuery);
 
   if (terms.length === 0) {
     return flytrapMemoryIndex.slice(0, limit).map(item => ({ ...item, score: 0 }));
@@ -1118,19 +1260,25 @@ export function searchFlytrapMemory(query: string, limit = 6): FlytrapMemoryResu
       const summary = normalize(item.summary);
       const answer = normalize(item.answer);
       const tags = item.tags.map(normalize);
-      const haystack = [title, summary, answer, item.type, item.source, ...tags].join(" ");
+      const source = normalize(item.source);
 
-      const score = terms.reduce((total, term) => {
-        if (!haystack.includes(term)) return total;
-        return total
-          + (title.includes(term) ? 8 : 0)
-          + (tags.some(tag => tag.includes(term)) ? 5 : 0)
-          + (summary.includes(term) ? 3 : 0)
-          + (answer.includes(term) ? 2 : 0)
-          + 1;
+      const matchedScore = terms.reduce((total, { term, weight }) => {
+        const tagScore = tags.reduce((best, tag) => Math.max(best, scoreField(tag, term, weight, 7)), 0);
+        const nextScore = scoreField(title, term, weight, 10)
+          + tagScore
+          + scoreField(summary, term, weight, 4)
+          + scoreField(answer, term, weight, 3)
+          + scoreField(item.type, term, weight, 2)
+          + scoreField(source, term, weight, 1.5);
+
+        return total + nextScore;
       }, 0);
 
-      return { ...item, score };
+      const score = matchedScore > 0
+        ? matchedScore + (curatedMemoryIds.has(item.id) ? 12 : 0) + intentBoost(item, normalizedQuery)
+        : 0;
+
+      return { ...item, score: Number(score.toFixed(3)) };
     })
     .filter(item => item.score > 0)
     .sort((left, right) => right.score - left.score || left.title.localeCompare(right.title))

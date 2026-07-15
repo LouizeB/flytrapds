@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { answerFlytrapMemoryQuestion, searchFlytrapMemory } from "./search-index";
+import { answerFlytrapMemoryQuestion, flytrapMemoryIndex, searchFlytrapMemory } from "./search-index";
 
 describe("Flytrap memory search", () => {
   it("ranks direct installation questions with source metadata", () => {
@@ -71,7 +71,7 @@ describe("Flytrap memory search", () => {
   });
 
   it("finds remaining navigation, disclosure and overlay components", () => {
-    const ids = searchFlytrapMemory("accordion breadcrumb command palette popover sheet sidebar pagination scroll area", 14)
+    const ids = searchFlytrapMemory("accordion breadcrumb command palette popover sheet sidebar pagination scroll area", 30)
       .map(result => result.id);
 
     expect(ids).toContain("accordion-component");
@@ -85,7 +85,7 @@ describe("Flytrap memory search", () => {
   });
 
   it("finds remaining form and choice components", () => {
-    const ids = searchFlytrapMemory("form input label checkbox radio group select field validation required optional", 12)
+    const ids = searchFlytrapMemory("form input label checkbox radio group select field validation required optional", 20)
       .map(result => result.id);
 
     expect(ids).toContain("form-component");
@@ -97,7 +97,7 @@ describe("Flytrap memory search", () => {
   });
 
   it("finds layout, documentation and structural utilities", () => {
-    const ids = searchFlytrapMemory("layout container stack grid page section toolbar component preview copy button filter bar separator", 14)
+    const ids = searchFlytrapMemory("layout container stack grid page section toolbar component preview copy button filter bar separator", 30)
       .map(result => result.id);
 
     expect(ids).toContain("layout-component");
@@ -109,7 +109,7 @@ describe("Flytrap memory search", () => {
   });
 
   it("finds remaining AI streaming components", () => {
-    const ids = searchFlytrapMemory("mood signal selector media card recommendation rail player controls model confidence personalization panel", 12)
+    const ids = searchFlytrapMemory("mood signal selector media card recommendation rail player controls model confidence personalization panel", 20)
       .map(result => result.id);
 
     expect(ids).toContain("mood-signal-component");
@@ -154,7 +154,7 @@ describe("Flytrap memory search", () => {
   });
 
   it("finds AI assistant primitive components", () => {
-    const ids = searchFlytrapMemory("agent card status chat thread citation chip token meter approval prompt insight kpi message prompt reasoning trace tool call", 24)
+    const ids = searchFlytrapMemory("agent card status chat thread citation chip token meter approval prompt insight kpi message prompt reasoning trace tool call", 40)
       .map(result => result.id);
 
     expect(ids).toContain("agent-card-component");
@@ -173,6 +173,29 @@ describe("Flytrap memory search", () => {
     expect(ids).toContain("streaming-message-component");
     expect(ids).toContain("suggested-prompts-component");
     expect(ids).toContain("tool-call-block-component");
+  });
+
+  it("includes generated memory chunks alongside curated sources", () => {
+    const generated = flytrapMemoryIndex.filter(item => item.id.startsWith("generated-"));
+
+    expect(generated.length).toBeGreaterThanOrEqual(100);
+    expect(generated.some(item => item.source === "docs/04-components.md")).toBe(true);
+    expect(generated.some(item => item.source === "packages/ui/src/components/button.tsx")).toBe(true);
+  });
+
+  it("expands semantic loading intent into relevant components", () => {
+    const ids = searchFlytrapMemory("how do I show a pending loading state", 8)
+      .map(result => result.id);
+
+    expect(ids).toContain("skeleton-component");
+    expect(ids).toContain("spinner-component");
+  });
+
+  it("expands semantic empty-result intent into empty-state guidance", () => {
+    const ids = searchFlytrapMemory("what should appear when there is no data", 8)
+      .map(result => result.id);
+
+    expect(ids).toContain("empty-state-component");
   });
 
   it("finds design-to-code sync guidance from Figma questions", () => {
