@@ -1,51 +1,51 @@
 # Memory index candidates
 
-Generated: 2026-07-15T06:09:48.824Z
+Generated: 2026-07-15T06:22:43.678Z
 
 ## Summary
 
-- Indexed sources: 41
-- Indexed IDs: 47
+- Indexed sources: 71
+- Indexed IDs: 77
 - Duplicate IDs: none
 - Docs discovered: 23
 - Docs not directly indexed: 0
 - UI/AI/chart files discovered: 77
-- UI/AI/chart files not directly indexed: 60
+- UI/AI/chart files not directly indexed: 30
 
 ## Suggested documentation candidates
 
 ## Suggested component candidates
 
-- `Accordion` — `packages/ui/src/components/accordion.tsx`
-- `Breadcrumb` — `packages/ui/src/components/breadcrumb.tsx`
-- `Checkbox` — `packages/ui/src/components/checkbox.tsx`
-- `CommandMenu` — `packages/ui/src/components/command-menu.tsx`
-- `ComponentPreview` — `packages/ui/src/components/component-preview.tsx`
-- `CopyButton` — `packages/ui/src/components/copy-button.tsx`
-- `FilterBar` — `packages/ui/src/components/filter-bar.tsx`
-- `Form` — `packages/ui/src/components/form.tsx`
-- `Header` — `packages/ui/src/components/header.tsx`
-- `Input` — `packages/ui/src/components/input.tsx`
-- `InteractiveCard` — `packages/ui/src/components/interactive-card.tsx`
-- `Label` — `packages/ui/src/components/label.tsx`
-- `Layout` — `packages/ui/src/components/layout.tsx`
-- `MediaCard` — `packages/ui/src/components/media-card.tsx`
-- `ModelConfidence` — `packages/ui/src/components/model-confidence.tsx`
-- `MoodSelector` — `packages/ui/src/components/mood-selector.tsx`
-- `MoodSignal` — `packages/ui/src/components/mood-signal.tsx`
-- `Page` — `packages/ui/src/components/page.tsx`
-- `Pagination` — `packages/ui/src/components/pagination.tsx`
-- `PersonalizationPanel` — `packages/ui/src/components/personalization-panel.tsx`
-- `PlayerControls` — `packages/ui/src/components/player-controls.tsx`
-- `Popover` — `packages/ui/src/components/popover.tsx`
-- `Progress` — `packages/ui/src/components/progress.tsx`
-- `RadioGroup` — `packages/ui/src/components/radio-group.tsx`
-- `RecommendationRail` — `packages/ui/src/components/recommendation-rail.tsx`
-- `ScrollArea` — `packages/ui/src/components/scroll-area.tsx`
-- `Select` — `packages/ui/src/components/select.tsx`
-- `Separator` — `packages/ui/src/components/separator.tsx`
-- `Sheet` — `packages/ui/src/components/sheet.tsx`
-- `Sidebar` — `packages/ui/src/components/sidebar.tsx`
+- `Skeleton` — `packages/ui/src/components/skeleton.tsx`
+- `Slider` — `packages/ui/src/components/slider.tsx`
+- `SmartDataTable` — `packages/ui/src/components/smart-data-table.tsx`
+- `Spinner` — `packages/ui/src/components/spinner.tsx`
+- `StatusIndicator` — `packages/ui/src/components/status-indicator.tsx`
+- `Switch` — `packages/ui/src/components/switch.tsx`
+- `Tabs` — `packages/ui/src/components/tabs.tsx`
+- `Textarea` — `packages/ui/src/components/textarea.tsx`
+- `Timeline` — `packages/ui/src/components/timeline.tsx`
+- `Toast` — `packages/ui/src/components/toast.tsx`
+- `TokenSwatch` — `packages/ui/src/components/token-swatch.tsx`
+- `Tooltip` — `packages/ui/src/components/tooltip.tsx`
+- `TreeView` — `packages/ui/src/components/tree-view.tsx`
+- `AgentCard` — `packages/ui/src/ai/agent-card.tsx`
+- `AgentStatus` — `packages/ui/src/ai/agent-status.tsx`
+- `ChatThread` — `packages/ui/src/ai/chat-thread.tsx`
+- `CitationChip` — `packages/ui/src/ai/citation-chip.tsx`
+- `CostTokenMeter` — `packages/ui/src/ai/cost-token-meter.tsx`
+- `HumanApprovalPrompt` — `packages/ui/src/ai/human-approval-prompt.tsx`
+- `InsightCallout` — `packages/ui/src/ai/insight-callout.tsx`
+- `KpiStatCard` — `packages/ui/src/ai/kpi-stat-card.tsx`
+- `MessageActions` — `packages/ui/src/ai/message-actions.tsx`
+- `MessageBubble` — `packages/ui/src/ai/message-bubble.tsx`
+- `PromptInput` — `packages/ui/src/ai/prompt-input.tsx`
+- `ReasoningStream` — `packages/ui/src/ai/reasoning-stream.tsx`
+- `RunTraceTimeline` — `packages/ui/src/ai/run-trace-timeline.tsx`
+- `StreamingMessage` — `packages/ui/src/ai/streaming-message.tsx`
+- `SuggestedPrompts` — `packages/ui/src/ai/suggested-prompts.tsx`
+- `ToolCallBlock` — `packages/ui/src/ai/tool-call-block.tsx`
+- `Chart` — `packages/ui/src/charts/chart.tsx`
 
 ## Source request template
 

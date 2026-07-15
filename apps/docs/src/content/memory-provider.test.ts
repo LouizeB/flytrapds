@@ -70,6 +70,57 @@ describe("Flytrap memory search", () => {
     expect(ids).toContain("empty-state-component");
   });
 
+  it("finds remaining navigation, disclosure and overlay components", () => {
+    const ids = searchFlytrapMemory("accordion breadcrumb command palette popover sheet sidebar pagination scroll area", 14)
+      .map(result => result.id);
+
+    expect(ids).toContain("accordion-component");
+    expect(ids).toContain("breadcrumb-component");
+    expect(ids).toContain("command-menu-component");
+    expect(ids).toContain("popover-component");
+    expect(ids).toContain("sheet-component");
+    expect(ids).toContain("sidebar-component");
+    expect(ids).toContain("pagination-component");
+    expect(ids).toContain("scroll-area-component");
+  });
+
+  it("finds remaining form and choice components", () => {
+    const ids = searchFlytrapMemory("form input label checkbox radio group select field validation required optional", 12)
+      .map(result => result.id);
+
+    expect(ids).toContain("form-component");
+    expect(ids).toContain("input-component");
+    expect(ids).toContain("label-component");
+    expect(ids).toContain("checkbox-component");
+    expect(ids).toContain("radio-group-component");
+    expect(ids).toContain("select-component");
+  });
+
+  it("finds layout, documentation and structural utilities", () => {
+    const ids = searchFlytrapMemory("layout container stack grid page section toolbar component preview copy button filter bar separator", 14)
+      .map(result => result.id);
+
+    expect(ids).toContain("layout-component");
+    expect(ids).toContain("page-component");
+    expect(ids).toContain("component-preview-component");
+    expect(ids).toContain("copy-button-component");
+    expect(ids).toContain("filter-bar-component");
+    expect(ids).toContain("separator-component");
+  });
+
+  it("finds remaining AI streaming components", () => {
+    const ids = searchFlytrapMemory("mood signal selector media card recommendation rail player controls model confidence personalization panel", 12)
+      .map(result => result.id);
+
+    expect(ids).toContain("mood-signal-component");
+    expect(ids).toContain("mood-selector-component");
+    expect(ids).toContain("media-card-component");
+    expect(ids).toContain("recommendation-rail-component");
+    expect(ids).toContain("player-controls-component");
+    expect(ids).toContain("model-confidence-component");
+    expect(ids).toContain("personalization-panel-component");
+  });
+
   it("finds design-to-code sync guidance from Figma questions", () => {
     const [first] = searchFlytrapMemory("Figma Tokens Studio drift DTCG");
 
