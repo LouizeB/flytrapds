@@ -21,7 +21,8 @@ Para entender decisões, criar novas experiências e preparar handoff:
 7. [Anatomia e Definition of Done](12-component-anatomy.md)
 8. [Iconografia semântica](13-iconography.md)
 9. [Contrato de contexto para IA](14-ai-context-contract.md)
-10. [Experiência pública — Release 1](15-public-experience-release-1.md)
+10. [Pattern Library](20-pattern-library.md)
+11. [Experiência pública — Release 1](15-public-experience-release-1.md)
 
 Perguntas que esta trilha responde: qual token representa esta intenção? Quais estados precisam ser desenhados? Como validar contraste? O componente já existe? O que deve constar no handoff?
 
@@ -64,5 +65,6 @@ Perguntas que esta trilha responde: qual pacote importar? Onde o código deve vi
 18. [API e qualidade dos componentes](17-component-api-quality.md)
 19. [Distribuição e versionamento](18-distribution.md)
 20. [Sincronização design → código](19-design-code-sync.md)
+21. [Pattern Library](20-pattern-library.md)
 
 Contribuição: [CONTRIBUTING](../CONTRIBUTING.md) · Histórico: [CHANGELOG](../CHANGELOG.md)
