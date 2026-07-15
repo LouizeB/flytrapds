@@ -917,8 +917,8 @@ function App() {
                 id="patterns"
                 index="04"
                 lead="Reusable compositions for common product problems."
-                linkHref="https://github.com/LouizeB/flytrapds/blob/main/docs/README.md"
-                linkLabel="Explore patterns"
+                linkHref="https://github.com/LouizeB/flytrapds/blob/main/docs/20-pattern-library.md"
+                linkLabel="Open pattern guide"
                 title="Patterns"
               />
               <div className="grid min-w-0 flex-1 gap-4">
