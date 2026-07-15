@@ -44,3 +44,4 @@ Fonte de verdade para retomar a evolução pós-auditoria.
 - [x] Aprofundar a Pattern Library com problema, anatomia, acessibilidade, evidência e componentes usados por pattern.
 - [x] Criar `docs/20-pattern-library.md` como contrato textual dos patterns e conectar a seção pública ao guia.
 - [x] Adicionar exemplos de implementação e checklists visuais para cada pattern na página pública do DS.
+- [x] Criar a primeira camada de Memory Search local com índice allowlist, busca ranqueada e fontes explícitas.

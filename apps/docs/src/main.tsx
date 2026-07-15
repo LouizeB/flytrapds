@@ -78,6 +78,7 @@ import { CharacterLayer } from "./living/character";
 import { Sidebar } from "./living/sidebar";
 import { Hero } from "./living/hero";
 import { TokenSystemGuide } from "./living/token-system-guide";
+import { flytrapMemoryIndex, searchFlytrapMemory } from "./content/search-index";
 import {
   CodeBlock,
   ComponentPreview,
@@ -405,8 +406,10 @@ const componentDocumentationGroups = [
 
 function App() {
   const [bootComplete, setBootComplete] = useState(false);
+  const [memoryQuery, setMemoryQuery] = useState("install components");
   const [selectedAnatomyLayer, setSelectedAnatomyLayer] = useState(0);
   const handleBootComplete = React.useCallback(() => setBootComplete(true), []);
+  const memoryResults = React.useMemo(() => searchFlytrapMemory(memoryQuery), [memoryQuery]);
   const selectedAnatomyLayerDetail = anatomyLayerDetails[selectedAnatomyLayer] ?? anatomyLayerDetails[0];
 
   React.useEffect(() => {
@@ -1176,13 +1179,83 @@ function App() {
             </div>
           </section>
 
-          {/* 07 · Code / Develop */}
+          {/* 07 · Memory Search */}
+          <section aria-label="Memory Search" className="relative border-b border-[#ff4fbd]/14 px-6 py-8 md:px-8">
+            <div aria-hidden="true" className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-[#7cecff]/35 to-transparent" />
+            <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-12">
+              <SectionHeader
+                id="memory"
+                index="07"
+                lead="Local, source-backed memory for components, patterns, tokens, setup and improvement requests."
+                linkHref="https://github.com/LouizeB/flytrapds/blob/main/apps/docs/src/content/search-index.ts"
+                linkLabel="View memory index"
+                title="Memory Search"
+              />
+              <div className="grid min-w-0 flex-1 gap-4 xl:grid-cols-[1.05fr_.95fr]">
+                <SectionCard meta={`${flytrapMemoryIndex.length} sources`} title="Ask the system memory">
+                  <p className="max-w-3xl text-sm leading-6 text-white/66">
+                    This is the safe layer before chat: a local allowlist of Flytrap knowledge with direct sources. It can later power an Ollama or hosted model chat without losing traceability.
+                  </p>
+                  <div className="mt-4">
+                    <SearchField
+                      aria-label="Search Flytrap memory"
+                      onChange={event => setMemoryQuery(event.target.value)}
+                      onClear={() => setMemoryQuery("")}
+                      placeholder="Try: install, Button, APCA, streaming, improve component"
+                      value={memoryQuery}
+                    />
+                  </div>
+                  <div aria-live="polite" className="mt-4 grid gap-3">
+                    {memoryResults.length > 0
+                      ? memoryResults.map(result => <a
+                        className="group rounded-2xl border border-white/10 bg-black/35 p-4 outline-none transition-colors hover:border-[#ff4fbd]/55 hover:bg-[#ff4fbd]/8 focus-visible:ring-2 focus-visible:ring-[#b8ff35] focus-visible:ring-offset-2 focus-visible:ring-offset-[#05060a]"
+                        href={result.href}
+                        key={result.id}
+                      >
+                        <span className="flex flex-wrap items-start justify-between gap-3">
+                          <span>
+                            <span className="block font-display text-base font-bold text-white/90">{result.title}</span>
+                            <span className="mt-1 block font-mono text-[0.58rem] uppercase tracking-[0.16em] text-[#ff9bdd]">{result.type} · {result.source}</span>
+                          </span>
+                          <span aria-hidden="true" className="text-[#ff4fbd] transition-transform group-hover:translate-x-1">→</span>
+                        </span>
+                        <span className="mt-3 block text-sm leading-6 text-white/66">{result.answer}</span>
+                        <span className="mt-3 flex flex-wrap gap-1.5">
+                          {result.tags.slice(0, 5).map(tag => <span className="rounded-full border border-white/10 bg-white/[.035] px-2 py-1 font-mono text-[0.56rem] uppercase tracking-[0.12em] text-white/58" key={tag}>{tag}</span>)}
+                        </span>
+                      </a>)
+                      : <div className="rounded-2xl border border-white/10 bg-black/35 p-4 text-sm leading-6 text-white/62">
+                        No memory result yet. Try a component name, pattern name, token, accessibility term, or setup question.
+                      </div>}
+                  </div>
+                </SectionCard>
+                <SectionCard meta="Chat-ready" title="Next intelligence layer">
+                  <DataList>
+                    <DataListItem className="sm:grid-cols-1 xl:grid-cols-[8rem_1fr]">
+                      <DataListTerm>Now</DataListTerm>
+                      <DataListDescription>Local ranked search with explicit sources and no model dependency.</DataListDescription>
+                    </DataListItem>
+                    <DataListItem className="sm:grid-cols-1 xl:grid-cols-[8rem_1fr]">
+                      <DataListTerm>Next</DataListTerm>
+                      <DataListDescription>Chat UI that answers from this index and cites every source before suggesting code.</DataListDescription>
+                    </DataListItem>
+                    <DataListItem className="sm:grid-cols-1 xl:grid-cols-[8rem_1fr]">
+                      <DataListTerm>Ollama</DataListTerm>
+                      <DataListDescription>Optional local provider for development using embeddings/chat, while the public page keeps this fallback.</DataListDescription>
+                    </DataListItem>
+                  </DataList>
+                </SectionCard>
+              </div>
+            </div>
+          </section>
+
+          {/* 08 · Code / Develop */}
           <section aria-label="Code / Develop" className="relative border-b border-[#ff4fbd]/14 px-6 py-8 md:px-8">
             <img alt="" aria-hidden="true" className="pointer-events-none absolute bottom-[-7rem] right-[8rem] z-0 hidden w-80 opacity-70 mix-blend-screen saturate-150 lg:block" draggable={false} src={organismBr} />
             <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:gap-12">
               <SectionHeader
                 id="code"
-                index="07"
+                index="08"
                 lead="Build with the system across product and documentation surfaces."
                 linkHref="https://github.com/LouizeB/flytrapds/blob/main/docs/README.md#trilha-development"
                 linkLabel="View documentation"
@@ -1216,14 +1289,14 @@ function App() {
             </div>
           </section>
 
-          {/* 08 · AI Workflows */}
+          {/* 09 · AI Workflows */}
           <section aria-label="AI Workflows" className="relative px-6 py-8 md:px-8">
             <img alt="" aria-hidden="true" className="pointer-events-none absolute bottom-[-2rem] right-[-1rem] z-0 hidden w-72 opacity-95 mix-blend-screen saturate-125 lg:block" draggable={false} src={organismBr} />
             <img alt="" aria-hidden="true" className="pointer-events-none absolute left-[-5rem] top-[-6rem] z-0 hidden w-72 rotate-[160deg] opacity-70 lg:block" draggable={false} src={spriteCorner} />
             <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:gap-12">
               <SectionHeader
                 id="ai-workflows"
-                index="08"
+                index="09"
                 lead="AI-assisted workflows for generation, review, refactoring, and documentation."
                 linkHref="https://github.com/LouizeB/flytrapds/blob/main/docs/README.md"
                 linkLabel="Explore workflows"
