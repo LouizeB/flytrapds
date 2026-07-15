@@ -2,7 +2,7 @@
 
 Profile: public
 URL: http://127.0.0.1:4175/
-Generated: 2026-07-15T21:09:47.299Z
+Generated: 2026-07-15T22:47:32.510Z
 
 ## Summary
 
@@ -27,11 +27,11 @@ Component docs: `component-inputs`, `component-navigation`, `component-feedback`
 Pattern docs: 
 
 Diagnostics:
-- console warning: [.WebGL-0x104005afe00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+- console warning: [.WebGL-0x12c00500a00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
 - console warning: THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
-- console warning: [.WebGL-0x104005aaa00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
-- console warning: [.WebGL-0x104005aaa00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
-- console warning: [.WebGL-0x104005aaa00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)
+- console warning: [.WebGL-0x12c00501c00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+- console warning: [.WebGL-0x12c00501c00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+- console warning: [.WebGL-0x12c00501c00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)
 
 ### mobile
 
