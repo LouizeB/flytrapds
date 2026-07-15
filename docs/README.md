@@ -66,5 +66,6 @@ Perguntas que esta trilha responde: qual pacote importar? Onde o código deve vi
 19. [Distribuição e versionamento](18-distribution.md)
 20. [Sincronização design → código](19-design-code-sync.md)
 21. [Pattern Library](20-pattern-library.md)
+22. [Memory Chat e Ollama](21-memory-ollama.md)
 
 Contribuição: [CONTRIBUTING](../CONTRIBUTING.md) · Histórico: [CHANGELOG](../CHANGELOG.md)
