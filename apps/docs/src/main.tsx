@@ -245,12 +245,36 @@ function codeLines(code: string) {
 }
 
 type MemoryChatMessage = {
+  confidence?: FlytrapProviderAnswer["confidence"];
   content: string;
+  fallbackReason?: string;
   id: number;
   meta?: string;
+  provider?: FlytrapProviderAnswer["provider"];
   role: "assistant" | "user";
   sources?: FlytrapMemoryResult[];
 };
+
+const memoryQuickPrompts = [
+  "How do I install Flytrap?",
+  "Which components support AI streaming?",
+  "What are the token categories?",
+  "How do I improve a component?",
+] as const;
+
+function memoryConfidenceLabel(confidence?: FlytrapProviderAnswer["confidence"]) {
+  if (!confidence) return "System note";
+  if (confidence === "high") return "High confidence";
+  if (confidence === "medium") return "Medium confidence";
+  return "Needs source";
+}
+
+function memoryConfidenceClass(confidence?: FlytrapProviderAnswer["confidence"]) {
+  if (confidence === "high") return "border-[#b8ff35]/30 bg-[#b8ff35]/10 text-[#d9ff8f]";
+  if (confidence === "medium") return "border-[#ff4fbd]/30 bg-[#ff4fbd]/10 text-[#ffb7e5]";
+  if (confidence === "low") return "border-[#ffaa00]/35 bg-[#ffaa00]/10 text-[#ffd27a]";
+  return "border-white/10 bg-white/[.035] text-white/58";
+}
 
 const comboboxOptions: React.ComponentProps<typeof Combobox>["options"] = [
   { value: "foundation", label: "Foundations" },
@@ -446,7 +470,16 @@ function App() {
       : `Provider: source-backed memory${answer.fallbackReason ? ` · fallback: ${answer.fallbackReason}` : ""}`;
     const nextMessages: MemoryChatMessage[] = [
       { content: question, id: Date.now(), role: "user" },
-      { content: answer.response, id: Date.now() + 1, meta: providerMeta, role: "assistant", sources: answer.sources },
+      {
+        confidence: answer.confidence,
+        content: answer.response,
+        fallbackReason: answer.fallbackReason,
+        id: Date.now() + 1,
+        meta: providerMeta,
+        provider: answer.provider,
+        role: "assistant",
+        sources: answer.sources,
+      },
     ];
     setMemoryQuery(question);
     setMemoryChatMessages(messages => [...messages, ...nextMessages].slice(-8));
@@ -1305,13 +1338,38 @@ function App() {
                   </div>
                   <ChatThread className="max-h-[32rem] border-white/10 bg-black/35">
                     {memoryChatMessages.map(message => <MessageBubble className={message.role === "assistant" ? "max-w-full border-white/10 bg-white/[.045] text-white/72" : "bg-[#ff4fbd] text-white"} key={message.id} role={message.role}>
+                      {message.role === "assistant" ? <div className="mb-3 flex flex-wrap gap-2">
+                        <span className={`inline-flex items-center rounded-full border px-2.5 py-1 font-mono text-[0.56rem] uppercase tracking-[0.12em] ${memoryConfidenceClass(message.confidence)}`}>
+                          {memoryConfidenceLabel(message.confidence)}
+                        </span>
+                        {message.provider ? <span className="inline-flex items-center rounded-full border border-white/10 bg-black/30 px-2.5 py-1 font-mono text-[0.56rem] uppercase tracking-[0.12em] text-white/52">
+                          {message.provider === "ollama" ? "Ollama assisted" : "Source-backed"}
+                        </span> : null}
+                      </div> : null}
                       <p>{message.content}</p>
+                      {message.role === "assistant" && message.sources?.length === 0 ? <div className="mt-3 rounded-xl border border-[#ffaa00]/30 bg-[#ffaa00]/10 p-3 text-sm leading-6 text-[#ffd27a]">
+                        No reliable source was found in the Flytrap memory index. Use one of the suggested prompts below or add a new indexed source before treating this as guidance.
+                      </div> : null}
+                      {message.fallbackReason ? <div className="mt-3 rounded-xl border border-[#b8ff35]/25 bg-[#b8ff35]/8 p-3 text-sm leading-6 text-white/64">
+                        <span className="font-display font-bold text-[#d9ff8f]">Fallback used:</span> {message.fallbackReason}
+                      </div> : null}
                       {message.meta ? <p className="mt-2 font-mono text-[0.56rem] uppercase tracking-[0.12em] text-white/42">{message.meta}</p> : null}
                       {message.sources && message.sources.length > 0 ? <div className="mt-3 flex flex-wrap gap-2">
                         {message.sources.map((source, index) => <CitationChip className="border-white/10 bg-black/35 text-white/72 hover:bg-[#ff4fbd]/10" href={source.href} index={index + 1} key={source.id} source={source.source} />)}
                       </div> : null}
                     </MessageBubble>)}
                   </ChatThread>
+                  <div aria-label="Suggested memory prompts" className="mt-4 flex flex-wrap gap-2">
+                    {memoryQuickPrompts.map(prompt => <button
+                      className="rounded-full border border-white/10 bg-white/[.035] px-3 py-2 text-left text-xs leading-5 text-white/66 outline-none transition-colors hover:border-[#ff4fbd]/45 hover:bg-[#ff4fbd]/10 focus-visible:ring-2 focus-visible:ring-[#b8ff35] disabled:cursor-not-allowed disabled:opacity-50"
+                      disabled={memoryChatSubmitting}
+                      key={prompt}
+                      onClick={() => submitMemoryQuestion(prompt)}
+                      type="button"
+                    >
+                      {prompt}
+                    </button>)}
+                  </div>
                   <PromptInput
                     className="mt-4 border-white/10 bg-black/35 text-white"
                     footer={<span className="font-mono text-[0.58rem] uppercase tracking-[0.14em] text-white/45">{memoryProvider === "ollama" ? "Local Ollama when available · citations stay source-backed" : "Source-backed · no model call"}</span>}
