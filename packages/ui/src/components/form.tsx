@@ -2,11 +2,17 @@ import * as React from "react";
 import { cn } from "../lib/utils";
 import { Label } from "./label";
 
-export function Form({ className, ...props }: React.FormHTMLAttributes<HTMLFormElement>) {
+export interface FormProps extends React.FormHTMLAttributes<HTMLFormElement> {
+  /** Optional className for layout overrides while preserving the default vertical form rhythm. */
+  className?: string;
+}
+
+export function Form({ className, ...props }: FormProps) {
   return <form className={cn("grid gap-5", className)} data-slot="form" {...props} />;
 }
 
 export interface FormMessageProps extends React.HTMLAttributes<HTMLParagraphElement> {
+  /** Visual and semantic intent for helper, error or success feedback. */
   tone?: "hint" | "error" | "success";
 }
 
@@ -25,13 +31,21 @@ export function FormMessage({ className, tone = "hint", ...props }: FormMessageP
 }
 
 export interface FormFieldProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Label content connected to the child control with htmlFor. */
   label: React.ReactNode;
+  /** Single form control that receives id, aria-describedby and aria-invalid when needed. */
   children: React.ReactNode;
+  /** Stable id for the child control; generated automatically when omitted. */
   controlId?: string;
+  /** Helper text announced through aria-describedby. */
   hint?: React.ReactNode;
+  /** Error message that marks the control invalid and renders with role alert. */
   error?: React.ReactNode;
+  /** Success message shown only when there is no error. */
   success?: React.ReactNode;
+  /** Text appended to the label for optional fields. */
   optionalText?: string;
+  /** Marks the field as required in the visible label. */
   required?: boolean;
 }
 

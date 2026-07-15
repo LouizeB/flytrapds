@@ -6,10 +6,15 @@ import { Skeleton } from "../components/skeleton";
 
 export type ChatThreadState = "empty" | "loading" | "ready" | "error";
 export interface ChatThreadProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Current thread state. Loading sets aria-busy, error renders role alert, ready renders children. */
   state?: ChatThreadState;
+  /** Empty-state heading shown before the first message. */
   emptyTitle?: string;
+  /** Empty-state body copy that explains how to begin. */
   emptyDescription?: string;
+  /** Optional action rendered inside the empty state. */
   emptyAction?: React.ReactNode;
+  /** Error copy announced when state is error. */
   errorMessage?: string;
 }
 

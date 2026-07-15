@@ -5,14 +5,23 @@ import { Button } from "../components/button";
 import { Textarea } from "../components/textarea";
 
 export interface PromptInputProps extends Omit<React.FormHTMLAttributes<HTMLFormElement>, "onSubmit"> {
+  /** Controlled textarea value. */
   value: string;
+  /** Called whenever the textarea value changes. */
   onValueChange: (value: string) => void;
+  /** Called with the trimmed prompt when the user submits by button or Enter. */
   onSubmitPrompt: (value: string) => void;
+  /** Placeholder shown while the prompt is empty. */
   placeholder?: string;
+  /** Disables editing and shows the submit button loading state. */
   submitting?: boolean;
+  /** Maximum number of characters accepted by the textarea and shown in the counter. */
   maxLength?: number;
+  /** Optional attachment control rendered before the character counter. */
   attachmentAction?: React.ReactNode;
+  /** Optional metadata or helper content rendered before the submit button. */
   footer?: React.ReactNode;
+  /** Accessible label for the prompt textarea. */
   label?: string;
 }
 

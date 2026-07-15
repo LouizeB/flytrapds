@@ -2,8 +2,11 @@ import * as React from "react";
 import { cn } from "../lib/utils";
 
 export interface RecommendationRailProps extends Omit<React.HTMLAttributes<HTMLElement>, "title"> {
+  /** Section heading used as the accessible name for the rail. */
   title: React.ReactNode;
+  /** Optional helper copy explaining why these recommendations are shown. */
   description?: React.ReactNode;
+  /** Empty state shown when no recommendation cards are available. */
   empty?: React.ReactNode;
 }
 
