@@ -46,3 +46,5 @@ Fonte de verdade para retomar a evolução pós-auditoria.
 - [x] Adicionar exemplos de implementação e checklists visuais para cada pattern na página pública do DS.
 - [x] Criar a primeira camada de Memory Search local com índice allowlist, busca ranqueada e fontes explícitas.
 - [x] Adicionar Memory Chat local, sem chamada de modelo, respondendo apenas a partir do índice com fontes citadas.
+- [x] Adicionar provider opcional para Ollama atrás de env flag, preservando fallback source-backed no site público.
+- [x] Documentar configuração local do Memory Chat com Ollama e regras de fallback.

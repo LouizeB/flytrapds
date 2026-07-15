@@ -82,7 +82,8 @@ import { CharacterLayer } from "./living/character";
 import { Sidebar } from "./living/sidebar";
 import { Hero } from "./living/hero";
 import { TokenSystemGuide } from "./living/token-system-guide";
-import { answerFlytrapMemoryQuestion, flytrapMemoryIndex, searchFlytrapMemory, type FlytrapMemoryResult } from "./content/search-index";
+import { answerFlytrapMemoryWithProvider, memoryProviderConfig, type FlytrapProviderAnswer } from "./content/memory-provider";
+import { flytrapMemoryIndex, searchFlytrapMemory, type FlytrapMemoryResult } from "./content/search-index";
 import {
   CodeBlock,
   ComponentPreview,
@@ -246,6 +247,7 @@ function codeLines(code: string) {
 type MemoryChatMessage = {
   content: string;
   id: number;
+  meta?: string;
   role: "assistant" | "user";
   sources?: FlytrapMemoryResult[];
 };
@@ -418,10 +420,12 @@ const componentDocumentationGroups = [
 function App() {
   const [bootComplete, setBootComplete] = useState(false);
   const [memoryChatInput, setMemoryChatInput] = useState("");
+  const [memoryChatSubmitting, setMemoryChatSubmitting] = useState(false);
   const [memoryChatMessages, setMemoryChatMessages] = useState<MemoryChatMessage[]>([
     {
       content: "Ask me how to install Flytrap, use a component, choose a pattern, validate APCA, or request a component improvement. I only answer from the local memory index and I show sources.",
       id: 1,
+      meta: memoryProviderConfig.provider === "ollama" ? `Provider: Ollama · ${memoryProviderConfig.model}` : "Provider: source-backed memory",
       role: "assistant",
       sources: [],
     },
@@ -432,15 +436,20 @@ function App() {
   const memoryResults = React.useMemo(() => searchFlytrapMemory(memoryQuery), [memoryQuery]);
   const selectedAnatomyLayerDetail = anatomyLayerDetails[selectedAnatomyLayer] ?? anatomyLayerDetails[0];
 
-  function submitMemoryQuestion(question: string) {
-    const answer = answerFlytrapMemoryQuestion(question);
+  async function submitMemoryQuestion(question: string) {
+    setMemoryChatSubmitting(true);
+    const answer: FlytrapProviderAnswer = await answerFlytrapMemoryWithProvider(question);
+    const providerMeta = answer.provider === "ollama"
+      ? `Provider: Ollama · ${answer.model}`
+      : `Provider: source-backed memory${answer.fallbackReason ? ` · fallback: ${answer.fallbackReason}` : ""}`;
     const nextMessages: MemoryChatMessage[] = [
       { content: question, id: Date.now(), role: "user" },
-      { content: answer.response, id: Date.now() + 1, role: "assistant", sources: answer.sources },
+      { content: answer.response, id: Date.now() + 1, meta: providerMeta, role: "assistant", sources: answer.sources },
     ];
     setMemoryQuery(question);
     setMemoryChatMessages(messages => [...messages, ...nextMessages].slice(-8));
     setMemoryChatInput("");
+    setMemoryChatSubmitting(false);
   }
 
   React.useEffect(() => {
@@ -1260,10 +1269,11 @@ function App() {
                       </div>}
                   </div>
                 </SectionCard>
-                <SectionCard meta="Source-backed" title="Memory chat">
+                <SectionCard meta={memoryProviderConfig.provider === "ollama" ? "Ollama optional" : "Source-backed"} title="Memory chat">
                   <ChatThread className="max-h-[32rem] border-white/10 bg-black/35">
                     {memoryChatMessages.map(message => <MessageBubble className={message.role === "assistant" ? "max-w-full border-white/10 bg-white/[.045] text-white/72" : "bg-[#ff4fbd] text-white"} key={message.id} role={message.role}>
                       <p>{message.content}</p>
+                      {message.meta ? <p className="mt-2 font-mono text-[0.56rem] uppercase tracking-[0.12em] text-white/42">{message.meta}</p> : null}
                       {message.sources && message.sources.length > 0 ? <div className="mt-3 flex flex-wrap gap-2">
                         {message.sources.map((source, index) => <CitationChip className="border-white/10 bg-black/35 text-white/72 hover:bg-[#ff4fbd]/10" href={source.href} index={index + 1} key={source.id} source={source.source} />)}
                       </div> : null}
@@ -1277,12 +1287,17 @@ function App() {
                     onSubmitPrompt={submitMemoryQuestion}
                     onValueChange={setMemoryChatInput}
                     placeholder="Ask: how do I install Flytrap?"
+                    submitting={memoryChatSubmitting}
                     value={memoryChatInput}
                   />
                   <DataList className="mt-4">
                     <DataListItem className="sm:grid-cols-1 xl:grid-cols-[8rem_1fr]">
                       <DataListTerm>Ollama</DataListTerm>
-                      <DataListDescription>Next provider: optional local embeddings/chat. This fallback keeps the public page source-backed.</DataListDescription>
+                      <DataListDescription>Set <code>VITE_FLYTRAP_MEMORY_PROVIDER=ollama</code> locally to try Ollama. Public builds keep the source-backed fallback.</DataListDescription>
+                    </DataListItem>
+                    <DataListItem className="sm:grid-cols-1 xl:grid-cols-[8rem_1fr]">
+                      <DataListTerm>Fallback</DataListTerm>
+                      <DataListDescription>If Ollama is unavailable, the chat returns the same cited memory answer.</DataListDescription>
                     </DataListItem>
                   </DataList>
                 </SectionCard>
