@@ -43,3 +43,4 @@ Fonte de verdade para retomar a evolução pós-auditoria.
 - [x] Atualizar overview, roadmap e contrato histórico da experiência pública para refletir deploy, consumidores reais, auditoria visual e evolução da página viva.
 - [x] Aprofundar a Pattern Library com problema, anatomia, acessibilidade, evidência e componentes usados por pattern.
 - [x] Criar `docs/20-pattern-library.md` como contrato textual dos patterns e conectar a seção pública ao guia.
+- [x] Adicionar exemplos de implementação e checklists visuais para cada pattern na página pública do DS.
