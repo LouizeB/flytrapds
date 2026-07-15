@@ -205,7 +205,7 @@ function interfaceBlocks(sourceCode) {
         continue;
       }
 
-      const propMatch = trimmed.match(/^([A-Za-z0-9_]+)\??:\s*([^;]+);?/);
+      const propMatch = trimmed.match(/^["']?([A-Za-z0-9_-]+)["']?\??:\s*([^;]+);?/);
       if (!propMatch) continue;
 
       const [, name, type] = propMatch;
@@ -425,7 +425,10 @@ function componentInventory(folder, kind) {
       const source = relative(repoRoot, join(absolute, file));
       const sourceCode = readFileSync(join(repoRoot, source), "utf8");
       const exports = exportNames(sourceCode);
-      const title = exports.find(name => !name.endsWith("Props")) ?? titleCaseSlug(fileSlug);
+      const preferredTitle = titleCaseSlug(fileSlug);
+      const title = exports.includes(preferredTitle)
+        ? preferredTitle
+        : exports.find(name => !name.endsWith("Props")) ?? preferredTitle;
       const intentTags = kind === "ai"
         ? aiIntentTags[fileSlug] ?? []
         : componentIntentTags[fileSlug] ?? [];

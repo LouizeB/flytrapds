@@ -184,6 +184,13 @@ describe("Flytrap memory search", () => {
     expect(generated.some(item => item.id === "generated-ui-button-behavior")).toBe(true);
     expect(generated.some(item => item.id === "generated-ui-button-props")).toBe(true);
     expect(generated.some(item => item.id === "generated-ui-button-example-1")).toBe(true);
+    expect(generated.some(item => item.id === "generated-ui-input-props")).toBe(true);
+    expect(generated.some(item => item.id === "generated-ui-form-props")).toBe(true);
+    expect(generated.some(item => item.id === "generated-ui-select-props")).toBe(true);
+    expect(generated.some(item => item.id === "generated-ui-dialog-props")).toBe(true);
+    expect(generated.some(item => item.id === "generated-ai-chat-thread-props")).toBe(true);
+    expect(generated.some(item => item.id === "generated-ai-prompt-input-props")).toBe(true);
+    expect(generated.some(item => item.id === "generated-ui-recommendation-rail-props")).toBe(true);
   });
 
   it("finds generated documentation section chunks", () => {
@@ -211,6 +218,23 @@ describe("Flytrap memory search", () => {
 
     expect(propIds).toContain("generated-ui-button-props");
     expect(exampleIds).toContain("generated-ui-button-example-1");
+  });
+
+  it("finds generated prop comments for priority components", () => {
+    const inputIds = searchFlytrapMemory("Input aria-invalid invalid visual state assistive technology", 10)
+      .map(result => result.id);
+    const formIds = searchFlytrapMemory("FormField error role alert aria-describedby required optionalText", 10)
+      .map(result => result.id);
+    const selectIds = searchFlytrapMemory("SelectItem value disabled option SelectTrigger disabled menu", 10)
+      .map(result => result.id);
+    const aiIds = searchFlytrapMemory("PromptInput onSubmitPrompt submitting maxLength ChatThread emptyTitle loading aria-busy", 14)
+      .map(result => result.id);
+
+    expect(inputIds).toContain("generated-ui-input-props");
+    expect(formIds).toContain("generated-ui-form-props");
+    expect(selectIds).toContain("generated-ui-select-props");
+    expect(aiIds).toContain("generated-ai-chat-thread-props");
+    expect(aiIds).toContain("generated-ai-prompt-input-props");
   });
 
   it("expands semantic loading intent into relevant components", () => {

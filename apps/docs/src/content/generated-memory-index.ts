@@ -5502,11 +5502,11 @@ export const generatedFlytrapMemoryIndex = [
     "type": "component"
   },
   {
-    "answer": "Generated component overview for AiAvatar. Use it for identity, person, profile, fallback.",
+    "answer": "Generated component overview for Avatar. Use it for identity, person, profile, fallback.",
     "href": "https://github.com/LouizeB/flytrapds/blob/main/packages/ui/src/components/avatar.tsx",
     "id": "generated-ui-avatar-overview",
     "source": "packages/ui/src/components/avatar.tsx",
-    "summary": "AiAvatar is generated from packages/ui/src/components/avatar.tsx. Exports: AiAvatar, AiAvatarProps, AiAvatarStatus, Avatar, AvatarFallback, AvatarImage, AvatarProps, AvatarSize, flytrapAiAvatarUrl.",
+    "summary": "Avatar is generated from packages/ui/src/components/avatar.tsx. Exports: AiAvatar, AiAvatarProps, AiAvatarStatus, Avatar, AvatarFallback, AvatarImage, AvatarProps, AvatarSize, flytrapAiAvatarUrl.",
     "tags": [
       "generated",
       "ui",
@@ -5526,11 +5526,11 @@ export const generatedFlytrapMemoryIndex = [
       "fallback",
       "assistant"
     ],
-    "title": "AiAvatar — generated overview",
+    "title": "Avatar — generated overview",
     "type": "component"
   },
   {
-    "answer": "Generated API chunk for AiAvatar, including exports, props and literal state/type values detected in source.",
+    "answer": "Generated API chunk for Avatar, including exports, props and literal state/type values detected in source.",
     "href": "https://github.com/LouizeB/flytrapds/blob/main/packages/ui/src/components/avatar.tsx",
     "id": "generated-ui-avatar-api",
     "source": "packages/ui/src/components/avatar.tsx",
@@ -5566,11 +5566,11 @@ export const generatedFlytrapMemoryIndex = [
       "processing",
       "offline"
     ],
-    "title": "AiAvatar — generated API",
+    "title": "Avatar — generated API",
     "type": "component"
   },
   {
-    "answer": "Generated behavior chunk for AiAvatar, focused on states, accessibility, variants and tokenized styling signals.",
+    "answer": "Generated behavior chunk for Avatar, focused on states, accessibility, variants and tokenized styling signals.",
     "href": "https://github.com/LouizeB/flytrapds/blob/main/packages/ui/src/components/avatar.tsx",
     "id": "generated-ui-avatar-behavior",
     "source": "packages/ui/src/components/avatar.tsx",
@@ -5612,7 +5612,7 @@ export const generatedFlytrapMemoryIndex = [
       "border-2",
       "border-background"
     ],
-    "title": "AiAvatar — generated behavior",
+    "title": "Avatar — generated behavior",
     "type": "component"
   },
   {
@@ -5700,11 +5700,11 @@ export const generatedFlytrapMemoryIndex = [
     "type": "component"
   },
   {
-    "answer": "Generated component overview for BrandLockup. Use it for logo, brand, lockup, identity.",
+    "answer": "Generated component overview for BrandMark. Use it for logo, brand, lockup, identity.",
     "href": "https://github.com/LouizeB/flytrapds/blob/main/packages/ui/src/components/brand-mark.tsx",
     "id": "generated-ui-brand-mark-overview",
     "source": "packages/ui/src/components/brand-mark.tsx",
-    "summary": "BrandLockup is generated from packages/ui/src/components/brand-mark.tsx. Exports: BrandLockup, BrandLockupProps, BrandMark, BrandMarkProps, BrandMarkSize, flytrapLogoUrl.",
+    "summary": "BrandMark is generated from packages/ui/src/components/brand-mark.tsx. Exports: BrandLockup, BrandLockupProps, BrandMark, BrandMarkProps, BrandMarkSize, flytrapLogoUrl.",
     "tags": [
       "generated",
       "ui",
@@ -5722,11 +5722,11 @@ export const generatedFlytrapMemoryIndex = [
       "lockup",
       "identity"
     ],
-    "title": "BrandLockup — generated overview",
+    "title": "BrandMark — generated overview",
     "type": "component"
   },
   {
-    "answer": "Generated API chunk for BrandLockup, including exports, props and literal state/type values detected in source.",
+    "answer": "Generated API chunk for BrandMark, including exports, props and literal state/type values detected in source.",
     "href": "https://github.com/LouizeB/flytrapds/blob/main/packages/ui/src/components/brand-mark.tsx",
     "id": "generated-ui-brand-mark-api",
     "source": "packages/ui/src/components/brand-mark.tsx",
@@ -5756,11 +5756,11 @@ export const generatedFlytrapMemoryIndex = [
       "descriptor",
       "markSize"
     ],
-    "title": "BrandLockup — generated API",
+    "title": "BrandMark — generated API",
     "type": "component"
   },
   {
-    "answer": "Generated behavior chunk for BrandLockup, focused on states, accessibility, variants and tokenized styling signals.",
+    "answer": "Generated behavior chunk for BrandMark, focused on states, accessibility, variants and tokenized styling signals.",
     "href": "https://github.com/LouizeB/flytrapds/blob/main/packages/ui/src/components/brand-mark.tsx",
     "id": "generated-ui-brand-mark-behavior",
     "source": "packages/ui/src/components/brand-mark.tsx",
@@ -5790,7 +5790,7 @@ export const generatedFlytrapMemoryIndex = [
       "text-xs",
       "text-muted-foreground"
     ],
-    "title": "BrandLockup — generated behavior",
+    "title": "BrandMark — generated behavior",
     "type": "component"
   },
   {
@@ -7010,11 +7010,11 @@ export const generatedFlytrapMemoryIndex = [
     "type": "component"
   },
   {
-    "answer": "Generated component overview for AlertDialog. Use it for modal, overlay, confirmation, focus trap.",
+    "answer": "Generated component overview for Dialog. Use it for modal, overlay, confirmation, focus trap.",
     "href": "https://github.com/LouizeB/flytrapds/blob/main/packages/ui/src/components/dialog.tsx",
     "id": "generated-ui-dialog-overview",
     "source": "packages/ui/src/components/dialog.tsx",
-    "summary": "AlertDialog is generated from packages/ui/src/components/dialog.tsx. Exports: AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger, Dialog.",
+    "summary": "Dialog is generated from packages/ui/src/components/dialog.tsx. Exports: AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogContentProps, AlertDialogDescription, AlertDialogFooter, AlertDialogFooterProps, AlertDialogHeader, AlertDialogHeaderProps.",
     "tags": [
       "generated",
       "ui",
@@ -7024,16 +7024,22 @@ export const generatedFlytrapMemoryIndex = [
       "alertdialogaction",
       "alertdialogcancel",
       "alertdialogcontent",
+      "alertdialogcontentprops",
       "alertdialogdescription",
       "alertdialogfooter",
+      "alertdialogfooterprops",
       "alertdialogheader",
+      "alertdialogheaderprops",
       "alertdialogtitle",
       "alertdialogtrigger",
       "dialogclose",
       "dialogcontent",
+      "dialogcontentprops",
       "dialogdescription",
       "dialogfooter",
+      "dialogfooterprops",
       "dialogheader",
+      "dialogheaderprops",
       "dialogtitle",
       "dialogtrigger",
       "modal",
@@ -7041,15 +7047,15 @@ export const generatedFlytrapMemoryIndex = [
       "confirmation",
       "focus trap"
     ],
-    "title": "AlertDialog — generated overview",
+    "title": "Dialog — generated overview",
     "type": "component"
   },
   {
-    "answer": "Generated API chunk for AlertDialog, including exports, props and literal state/type values detected in source.",
+    "answer": "Generated API chunk for Dialog, including exports, props and literal state/type values detected in source.",
     "href": "https://github.com/LouizeB/flytrapds/blob/main/packages/ui/src/components/dialog.tsx",
     "id": "generated-ui-dialog-api",
     "source": "packages/ui/src/components/dialog.tsx",
-    "summary": "Exports: AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger, Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger.",
+    "summary": "Exports: AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogContentProps, AlertDialogDescription, AlertDialogFooter, AlertDialogFooterProps, AlertDialogHeader, AlertDialogHeaderProps, AlertDialogTitle, AlertDialogTrigger, Dialog, DialogClose, DialogContent, DialogContentProps, DialogDescription, DialogFooter, DialogFooterProps, DialogHeader, DialogHeaderProps, DialogTitle, DialogTrigger. Interfaces: DialogContentProps props: className; DialogHeaderProps; DialogFooterProps; AlertDialogContentProps props: className; AlertDialogHeaderProps; AlertDialogFooterProps.",
     "tags": [
       "generated",
       "ui",
@@ -7059,16 +7065,22 @@ export const generatedFlytrapMemoryIndex = [
       "alertdialogaction",
       "alertdialogcancel",
       "alertdialogcontent",
+      "alertdialogcontentprops",
       "alertdialogdescription",
       "alertdialogfooter",
+      "alertdialogfooterprops",
       "alertdialogheader",
+      "alertdialogheaderprops",
       "alertdialogtitle",
       "alertdialogtrigger",
       "dialogclose",
       "dialogcontent",
+      "dialogcontentprops",
       "dialogdescription",
       "dialogfooter",
+      "dialogfooterprops",
       "dialogheader",
+      "dialogheaderprops",
       "dialogtitle",
       "dialogtrigger",
       "modal",
@@ -7077,13 +7089,59 @@ export const generatedFlytrapMemoryIndex = [
       "focus trap",
       "api",
       "props",
-      "exports"
+      "exports",
+      "className"
     ],
-    "title": "AlertDialog — generated API",
+    "title": "Dialog — generated API",
     "type": "component"
   },
   {
-    "answer": "Generated behavior chunk for AlertDialog, focused on states, accessibility, variants and tokenized styling signals.",
+    "answer": "Generated prop documentation for Dialog. `className` (string) — Optional className for size or layout overrides while keeping the modal surface contract. `className` (string) — Optional className for destructive-confirmation layout overrides.",
+    "href": "https://github.com/LouizeB/flytrapds/blob/main/packages/ui/src/components/dialog.tsx",
+    "id": "generated-ui-dialog-props",
+    "source": "packages/ui/src/components/dialog.tsx",
+    "summary": "DialogContentProps.className: Optional className for size or layout overrides while keeping the modal surface contract. AlertDialogContentProps.className: Optional className for destructive-confirmation layout overrides.",
+    "tags": [
+      "generated",
+      "ui",
+      "component",
+      "dialog",
+      "alertdialog",
+      "alertdialogaction",
+      "alertdialogcancel",
+      "alertdialogcontent",
+      "alertdialogcontentprops",
+      "alertdialogdescription",
+      "alertdialogfooter",
+      "alertdialogfooterprops",
+      "alertdialogheader",
+      "alertdialogheaderprops",
+      "alertdialogtitle",
+      "alertdialogtrigger",
+      "dialogclose",
+      "dialogcontent",
+      "dialogcontentprops",
+      "dialogdescription",
+      "dialogfooter",
+      "dialogfooterprops",
+      "dialogheader",
+      "dialogheaderprops",
+      "dialogtitle",
+      "dialogtrigger",
+      "modal",
+      "overlay",
+      "confirmation",
+      "focus trap",
+      "props",
+      "prop descriptions",
+      "typescript comments",
+      "className"
+    ],
+    "title": "Dialog — generated prop descriptions",
+    "type": "component"
+  },
+  {
+    "answer": "Generated behavior chunk for Dialog, focused on states, accessibility, variants and tokenized styling signals.",
     "href": "https://github.com/LouizeB/flytrapds/blob/main/packages/ui/src/components/dialog.tsx",
     "id": "generated-ui-dialog-behavior",
     "source": "packages/ui/src/components/dialog.tsx",
@@ -7097,16 +7155,22 @@ export const generatedFlytrapMemoryIndex = [
       "alertdialogaction",
       "alertdialogcancel",
       "alertdialogcontent",
+      "alertdialogcontentprops",
       "alertdialogdescription",
       "alertdialogfooter",
+      "alertdialogfooterprops",
       "alertdialogheader",
+      "alertdialogheaderprops",
       "alertdialogtitle",
       "alertdialogtrigger",
       "dialogclose",
       "dialogcontent",
+      "dialogcontentprops",
       "dialogdescription",
       "dialogfooter",
+      "dialogfooterprops",
       "dialogheader",
+      "dialogheaderprops",
       "dialogtitle",
       "dialogtrigger",
       "modal",
@@ -7118,15 +7182,9 @@ export const generatedFlytrapMemoryIndex = [
       "states",
       "variants",
       "tokens",
-      "aria",
-      "keyboard",
-      "focus",
-      "alert",
-      "bg-foreground/70",
-      "rounded-xl",
-      "bg-background"
+      "aria"
     ],
-    "title": "AlertDialog — generated behavior",
+    "title": "Dialog — generated behavior",
     "type": "component"
   },
   {
@@ -7511,7 +7569,7 @@ export const generatedFlytrapMemoryIndex = [
     "href": "https://github.com/LouizeB/flytrapds/blob/main/packages/ui/src/components/form.tsx",
     "id": "generated-ui-form-overview",
     "source": "packages/ui/src/components/form.tsx",
-    "summary": "Form is generated from packages/ui/src/components/form.tsx. Exports: Form, FormField, FormFieldProps, FormMessage, FormMessageProps.",
+    "summary": "Form is generated from packages/ui/src/components/form.tsx. Exports: Form, FormField, FormFieldProps, FormMessage, FormMessageProps, FormProps.",
     "tags": [
       "generated",
       "ui",
@@ -7521,6 +7579,7 @@ export const generatedFlytrapMemoryIndex = [
       "formfieldprops",
       "formmessage",
       "formmessageprops",
+      "formprops",
       "validation",
       "field group",
       "submit",
@@ -7534,7 +7593,7 @@ export const generatedFlytrapMemoryIndex = [
     "href": "https://github.com/LouizeB/flytrapds/blob/main/packages/ui/src/components/form.tsx",
     "id": "generated-ui-form-api",
     "source": "packages/ui/src/components/form.tsx",
-    "summary": "Exports: Form, FormField, FormFieldProps, FormMessage, FormMessageProps. Interfaces: FormMessageProps props: tone; FormFieldProps props: label, controlId, hint, error, success, optionalText, required.",
+    "summary": "Exports: Form, FormField, FormFieldProps, FormMessage, FormMessageProps, FormProps. Interfaces: FormProps props: className; FormMessageProps props: tone; FormFieldProps props: label, controlId, hint, error, success, optionalText, required.",
     "tags": [
       "generated",
       "ui",
@@ -7544,6 +7603,7 @@ export const generatedFlytrapMemoryIndex = [
       "formfieldprops",
       "formmessage",
       "formmessageprops",
+      "formprops",
       "validation",
       "field group",
       "submit",
@@ -7551,6 +7611,7 @@ export const generatedFlytrapMemoryIndex = [
       "api",
       "props",
       "exports",
+      "className",
       "tone",
       "label",
       "controlId",
@@ -7561,6 +7622,42 @@ export const generatedFlytrapMemoryIndex = [
       "required"
     ],
     "title": "Form — generated API",
+    "type": "component"
+  },
+  {
+    "answer": "Generated prop documentation for Form. `className` (string) — Optional className for layout overrides while preserving the default vertical form rhythm. `tone` (\"hint\" | \"error\" | \"success\") — Visual and semantic intent for helper, error or success feedback. `label` (React.ReactNode) — Label content connected to the child control with htmlFor. `controlId` (string) — Stable id for the child control; generated automatically when omitted. `hint` (React.ReactNode) — Helper text announced through aria-describedby. `error` (React.ReactNode) — Error message that marks the control invalid and renders with role alert. `success` (React.ReactNode) — Success message shown only when there is no error. `optionalText` (string) — Text appended to the label for optional fields. `required` (boolean) — Marks the field as required in the visible label.",
+    "href": "https://github.com/LouizeB/flytrapds/blob/main/packages/ui/src/components/form.tsx",
+    "id": "generated-ui-form-props",
+    "source": "packages/ui/src/components/form.tsx",
+    "summary": "FormProps.className: Optional className for layout overrides while preserving the default vertical form rhythm. FormMessageProps.tone: Visual and semantic intent for helper, error or success feedback. FormFieldProps.label: Label content connected to the child control with htmlFor. FormFieldProps.controlId: Stable id for the child control; generated automatically when omitted. FormFieldProps.hint: Helper text announced through aria-describedby. FormFieldProps.error: Error message that marks the control invalid and renders with role alert. FormFieldProps.success: Success message shown only when there is no error. FormFieldProps.optionalText: Text appended to the label for optional fields. FormFieldProps.required: Marks the field as required in the visible label.",
+    "tags": [
+      "generated",
+      "ui",
+      "component",
+      "form",
+      "formfield",
+      "formfieldprops",
+      "formmessage",
+      "formmessageprops",
+      "formprops",
+      "validation",
+      "field group",
+      "submit",
+      "error message",
+      "props",
+      "prop descriptions",
+      "typescript comments",
+      "className",
+      "tone",
+      "label",
+      "controlId",
+      "hint",
+      "error",
+      "success",
+      "optionalText",
+      "required"
+    ],
+    "title": "Form — generated prop descriptions",
     "type": "component"
   },
   {
@@ -7578,6 +7675,7 @@ export const generatedFlytrapMemoryIndex = [
       "formfieldprops",
       "formmessage",
       "formmessageprops",
+      "formprops",
       "validation",
       "field group",
       "submit",
@@ -7768,58 +7866,98 @@ export const generatedFlytrapMemoryIndex = [
     "type": "component"
   },
   {
-    "answer": "Generated component overview for Field. Use it for text field, data entry, form control.",
+    "answer": "Generated component overview for Input. Use it for text field, data entry, form control.",
     "href": "https://github.com/LouizeB/flytrapds/blob/main/packages/ui/src/components/input.tsx",
     "id": "generated-ui-input-overview",
     "source": "packages/ui/src/components/input.tsx",
-    "summary": "Field is generated from packages/ui/src/components/input.tsx. Exports: Field, Input.",
+    "summary": "Input is generated from packages/ui/src/components/input.tsx. Exports: Field, FieldProps, Input, InputProps.",
     "tags": [
       "generated",
       "ui",
       "component",
       "input",
       "field",
+      "fieldprops",
+      "inputprops",
       "text field",
       "data entry",
       "form control"
     ],
-    "title": "Field — generated overview",
+    "title": "Input — generated overview",
     "type": "component"
   },
   {
-    "answer": "Generated API chunk for Field, including exports, props and literal state/type values detected in source.",
+    "answer": "Generated API chunk for Input, including exports, props and literal state/type values detected in source.",
     "href": "https://github.com/LouizeB/flytrapds/blob/main/packages/ui/src/components/input.tsx",
     "id": "generated-ui-input-api",
     "source": "packages/ui/src/components/input.tsx",
-    "summary": "Exports: Field, Input.",
+    "summary": "Exports: Field, FieldProps, Input, InputProps. Interfaces: InputProps props: type, aria-invalid; FieldProps props: label, hint, error.",
     "tags": [
       "generated",
       "ui",
       "component",
       "input",
       "field",
+      "fieldprops",
+      "inputprops",
       "text field",
       "data entry",
       "form control",
       "api",
       "props",
-      "exports"
+      "exports",
+      "type",
+      "aria-invalid",
+      "label",
+      "hint",
+      "error"
     ],
-    "title": "Field — generated API",
+    "title": "Input — generated API",
     "type": "component"
   },
   {
-    "answer": "Generated behavior chunk for Field, focused on states, accessibility, variants and tokenized styling signals.",
+    "answer": "Generated prop documentation for Input. `type` (React.HTMLInputTypeAttribute) — Native input type. Prefer semantic types such as email, search, password, number or url when they improve keyboard and validation behavior. `aria-invalid` (React.AriaAttributes[\"aria-invalid\"]) — Sets the invalid visual state and exposes invalid state to assistive technology. `label` (string) — Visible label text for the wrapped control. `hint` (string) — Optional helper text shown when there is no error. `error` (string) — Validation message shown in destructive styling.",
     "href": "https://github.com/LouizeB/flytrapds/blob/main/packages/ui/src/components/input.tsx",
-    "id": "generated-ui-input-behavior",
+    "id": "generated-ui-input-props",
     "source": "packages/ui/src/components/input.tsx",
-    "summary": "Behavior and accessibility signals: aria, focus, disabled. Token/style signals: rounded-md, border-input-border, bg-input-bg, text-sm, text-input-placeholder, border-input-border-focus, ring-2, ring-input-border-focus, border-input-border-error, ring-input-border-error/20, text-sm, text-xs, text-muted-foreground, text-destructive.",
+    "summary": "InputProps.type: Native input type. Prefer semantic types such as email, search, password, number or url when they improve keyboard and validation behavior. InputProps.aria-invalid: Sets the invalid visual state and exposes invalid state to assistive technology. FieldProps.label: Visible label text for the wrapped control. FieldProps.hint: Optional helper text shown when there is no error. FieldProps.error: Validation message shown in destructive styling.",
     "tags": [
       "generated",
       "ui",
       "component",
       "input",
       "field",
+      "fieldprops",
+      "inputprops",
+      "text field",
+      "data entry",
+      "form control",
+      "props",
+      "prop descriptions",
+      "typescript comments",
+      "type",
+      "aria-invalid",
+      "label",
+      "hint",
+      "error"
+    ],
+    "title": "Input — generated prop descriptions",
+    "type": "component"
+  },
+  {
+    "answer": "Generated behavior chunk for Input, focused on states, accessibility, variants and tokenized styling signals.",
+    "href": "https://github.com/LouizeB/flytrapds/blob/main/packages/ui/src/components/input.tsx",
+    "id": "generated-ui-input-behavior",
+    "source": "packages/ui/src/components/input.tsx",
+    "summary": "Behavior and accessibility signals: aria, keyboard, focus, disabled. Token/style signals: rounded-md, border-input-border, bg-input-bg, text-sm, text-input-placeholder, border-input-border-focus, ring-2, ring-input-border-focus, border-input-border-error, ring-input-border-error/20, text-sm, text-xs, text-muted-foreground, text-destructive.",
+    "tags": [
+      "generated",
+      "ui",
+      "component",
+      "input",
+      "field",
+      "fieldprops",
+      "inputprops",
       "text field",
       "data entry",
       "form control",
@@ -7829,6 +7967,7 @@ export const generatedFlytrapMemoryIndex = [
       "variants",
       "tokens",
       "aria",
+      "keyboard",
       "focus",
       "disabled",
       "rounded-md",
@@ -7845,7 +7984,7 @@ export const generatedFlytrapMemoryIndex = [
       "text-muted-foreground",
       "text-destructive"
     ],
-    "title": "Field — generated behavior",
+    "title": "Input — generated behavior",
     "type": "component"
   },
   {
@@ -9127,6 +9266,34 @@ export const generatedFlytrapMemoryIndex = [
     "type": "component"
   },
   {
+    "answer": "Generated prop documentation for RecommendationRail. `title` (React.ReactNode) — Section heading used as the accessible name for the rail. `description` (React.ReactNode) — Optional helper copy explaining why these recommendations are shown. `empty` (React.ReactNode) — Empty state shown when no recommendation cards are available.",
+    "href": "https://github.com/LouizeB/flytrapds/blob/main/packages/ui/src/components/recommendation-rail.tsx",
+    "id": "generated-ui-recommendation-rail-props",
+    "source": "packages/ui/src/components/recommendation-rail.tsx",
+    "summary": "RecommendationRailProps.title: Section heading used as the accessible name for the rail. RecommendationRailProps.description: Optional helper copy explaining why these recommendations are shown. RecommendationRailProps.empty: Empty state shown when no recommendation cards are available.",
+    "tags": [
+      "generated",
+      "ui",
+      "component",
+      "recommendation-rail",
+      "recommendation",
+      "rail",
+      "recommendationrail",
+      "recommendationrailprops",
+      "streaming",
+      "recommendations",
+      "media rail",
+      "props",
+      "prop descriptions",
+      "typescript comments",
+      "title",
+      "description",
+      "empty"
+    ],
+    "title": "RecommendationRail — generated prop descriptions",
+    "type": "component"
+  },
+  {
     "answer": "Generated behavior chunk for RecommendationRail, focused on states, accessibility, variants and tokenized styling signals.",
     "href": "https://github.com/LouizeB/flytrapds/blob/main/packages/ui/src/components/recommendation-rail.tsx",
     "id": "generated-ui-recommendation-rail-behavior",
@@ -9330,18 +9497,21 @@ export const generatedFlytrapMemoryIndex = [
     "href": "https://github.com/LouizeB/flytrapds/blob/main/packages/ui/src/components/select.tsx",
     "id": "generated-ui-select-overview",
     "source": "packages/ui/src/components/select.tsx",
-    "summary": "Select is generated from packages/ui/src/components/select.tsx. Exports: Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectSeparator, SelectTrigger, SelectValue.",
+    "summary": "Select is generated from packages/ui/src/components/select.tsx. Exports: Select, SelectContent, SelectContentProps, SelectGroup, SelectItem, SelectItemProps, SelectLabel, SelectSeparator, SelectTrigger, SelectTriggerProps.",
     "tags": [
       "generated",
       "ui",
       "component",
       "select",
       "selectcontent",
+      "selectcontentprops",
       "selectgroup",
       "selectitem",
+      "selectitemprops",
       "selectlabel",
       "selectseparator",
       "selecttrigger",
+      "selecttriggerprops",
       "selectvalue",
       "single select",
       "menu",
@@ -9355,27 +9525,67 @@ export const generatedFlytrapMemoryIndex = [
     "href": "https://github.com/LouizeB/flytrapds/blob/main/packages/ui/src/components/select.tsx",
     "id": "generated-ui-select-api",
     "source": "packages/ui/src/components/select.tsx",
-    "summary": "Exports: Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectSeparator, SelectTrigger, SelectValue.",
+    "summary": "Exports: Select, SelectContent, SelectContentProps, SelectGroup, SelectItem, SelectItemProps, SelectLabel, SelectSeparator, SelectTrigger, SelectTriggerProps, SelectValue. Interfaces: SelectTriggerProps props: disabled; SelectContentProps props: position; SelectItemProps props: value, disabled.",
     "tags": [
       "generated",
       "ui",
       "component",
       "select",
       "selectcontent",
+      "selectcontentprops",
       "selectgroup",
       "selectitem",
+      "selectitemprops",
       "selectlabel",
       "selectseparator",
       "selecttrigger",
+      "selecttriggerprops",
       "selectvalue",
       "single select",
       "menu",
       "option",
       "api",
       "props",
-      "exports"
+      "exports",
+      "disabled",
+      "position",
+      "value"
     ],
     "title": "Select — generated API",
+    "type": "component"
+  },
+  {
+    "answer": "Generated prop documentation for Select. `disabled` (boolean) — Disables opening the menu and removes the trigger from normal interaction. `position` (\"item-aligned\" | \"popper\") — Positions the menu relative to the trigger; popper is the default aligned overlay behavior. `value` (string) — Unique option value submitted by the select root. `disabled` (boolean) — Prevents selection while keeping the option visible.",
+    "href": "https://github.com/LouizeB/flytrapds/blob/main/packages/ui/src/components/select.tsx",
+    "id": "generated-ui-select-props",
+    "source": "packages/ui/src/components/select.tsx",
+    "summary": "SelectTriggerProps.disabled: Disables opening the menu and removes the trigger from normal interaction. SelectContentProps.position: Positions the menu relative to the trigger; popper is the default aligned overlay behavior. SelectItemProps.value: Unique option value submitted by the select root. SelectItemProps.disabled: Prevents selection while keeping the option visible.",
+    "tags": [
+      "generated",
+      "ui",
+      "component",
+      "select",
+      "selectcontent",
+      "selectcontentprops",
+      "selectgroup",
+      "selectitem",
+      "selectitemprops",
+      "selectlabel",
+      "selectseparator",
+      "selecttrigger",
+      "selecttriggerprops",
+      "selectvalue",
+      "single select",
+      "menu",
+      "option",
+      "props",
+      "prop descriptions",
+      "typescript comments",
+      "disabled",
+      "position",
+      "value"
+    ],
+    "title": "Select — generated prop descriptions",
     "type": "component"
   },
   {
@@ -9383,18 +9593,21 @@ export const generatedFlytrapMemoryIndex = [
     "href": "https://github.com/LouizeB/flytrapds/blob/main/packages/ui/src/components/select.tsx",
     "id": "generated-ui-select-behavior",
     "source": "packages/ui/src/components/select.tsx",
-    "summary": "Behavior and accessibility signals: keyboard, focus, disabled, overlay. Token/style signals: rounded-md, border-input, bg-background, text-sm, ring-2, ring-ring, ring-offset-2, rounded-md, bg-popover, text-popover-foreground, shadow-md, text-xs, text-muted-foreground, rounded-sm, text-sm, bg-accent, text-accent-foreground, bg-border.",
+    "summary": "Behavior and accessibility signals: keyboard, focus, disabled, overlay, controlled, selection. Token/style signals: rounded-md, border-input, bg-background, text-sm, ring-2, ring-ring, ring-offset-2, rounded-md, bg-popover, text-popover-foreground, shadow-md, text-xs, text-muted-foreground, rounded-sm, text-sm, bg-accent, text-accent-foreground, bg-border.",
     "tags": [
       "generated",
       "ui",
       "component",
       "select",
       "selectcontent",
+      "selectcontentprops",
       "selectgroup",
       "selectitem",
+      "selectitemprops",
       "selectlabel",
       "selectseparator",
       "selecttrigger",
+      "selecttriggerprops",
       "selectvalue",
       "single select",
       "menu",
@@ -9408,6 +9621,8 @@ export const generatedFlytrapMemoryIndex = [
       "focus",
       "disabled",
       "overlay",
+      "controlled",
+      "selection",
       "rounded-md",
       "border-input",
       "bg-background",
@@ -9415,12 +9630,7 @@ export const generatedFlytrapMemoryIndex = [
       "ring-2",
       "ring-ring",
       "ring-offset-2",
-      "bg-popover",
-      "text-popover-foreground",
-      "shadow-md",
-      "text-xs",
-      "text-muted-foreground",
-      "rounded-sm"
+      "bg-popover"
     ],
     "title": "Select — generated behavior",
     "type": "component"
@@ -9870,11 +10080,11 @@ export const generatedFlytrapMemoryIndex = [
     "type": "component"
   },
   {
-    "answer": "Generated component overview for DataColumn. Use it for table, rows, columns, caption.",
+    "answer": "Generated component overview for SmartDataTable. Use it for table, rows, columns, caption.",
     "href": "https://github.com/LouizeB/flytrapds/blob/main/packages/ui/src/components/smart-data-table.tsx",
     "id": "generated-ui-smart-data-table-overview",
     "source": "packages/ui/src/components/smart-data-table.tsx",
-    "summary": "DataColumn is generated from packages/ui/src/components/smart-data-table.tsx. Exports: DataColumn, SmartDataTable.",
+    "summary": "SmartDataTable is generated from packages/ui/src/components/smart-data-table.tsx. Exports: DataColumn, SmartDataTable.",
     "tags": [
       "generated",
       "ui",
@@ -9889,11 +10099,11 @@ export const generatedFlytrapMemoryIndex = [
       "columns",
       "caption"
     ],
-    "title": "DataColumn — generated overview",
+    "title": "SmartDataTable — generated overview",
     "type": "component"
   },
   {
-    "answer": "Generated API chunk for DataColumn, including exports, props and literal state/type values detected in source.",
+    "answer": "Generated API chunk for SmartDataTable, including exports, props and literal state/type values detected in source.",
     "href": "https://github.com/LouizeB/flytrapds/blob/main/packages/ui/src/components/smart-data-table.tsx",
     "id": "generated-ui-smart-data-table-api",
     "source": "packages/ui/src/components/smart-data-table.tsx",
@@ -9918,11 +10128,11 @@ export const generatedFlytrapMemoryIndex = [
       "header",
       "render"
     ],
-    "title": "DataColumn — generated API",
+    "title": "SmartDataTable — generated API",
     "type": "component"
   },
   {
-    "answer": "Generated behavior chunk for DataColumn, focused on states, accessibility, variants and tokenized styling signals.",
+    "answer": "Generated behavior chunk for SmartDataTable, focused on states, accessibility, variants and tokenized styling signals.",
     "href": "https://github.com/LouizeB/flytrapds/blob/main/packages/ui/src/components/smart-data-table.tsx",
     "id": "generated-ui-smart-data-table-behavior",
     "source": "packages/ui/src/components/smart-data-table.tsx",
@@ -9955,7 +10165,7 @@ export const generatedFlytrapMemoryIndex = [
       "text-center",
       "text-muted-foreground"
     ],
-    "title": "DataColumn — generated behavior",
+    "title": "SmartDataTable — generated behavior",
     "type": "component"
   },
   {
@@ -10727,11 +10937,11 @@ export const generatedFlytrapMemoryIndex = [
     "type": "component"
   },
   {
-    "answer": "Generated component overview for TreeItem. Use it for hierarchy, nested navigation, expanded.",
+    "answer": "Generated component overview for TreeView. Use it for hierarchy, nested navigation, expanded.",
     "href": "https://github.com/LouizeB/flytrapds/blob/main/packages/ui/src/components/tree-view.tsx",
     "id": "generated-ui-tree-view-overview",
     "source": "packages/ui/src/components/tree-view.tsx",
-    "summary": "TreeItem is generated from packages/ui/src/components/tree-view.tsx. Exports: TreeItem, TreeItemProps, TreeView.",
+    "summary": "TreeView is generated from packages/ui/src/components/tree-view.tsx. Exports: TreeItem, TreeItemProps, TreeView.",
     "tags": [
       "generated",
       "ui",
@@ -10746,11 +10956,11 @@ export const generatedFlytrapMemoryIndex = [
       "nested navigation",
       "expanded"
     ],
-    "title": "TreeItem — generated overview",
+    "title": "TreeView — generated overview",
     "type": "component"
   },
   {
-    "answer": "Generated API chunk for TreeItem, including exports, props and literal state/type values detected in source.",
+    "answer": "Generated API chunk for TreeView, including exports, props and literal state/type values detected in source.",
     "href": "https://github.com/LouizeB/flytrapds/blob/main/packages/ui/src/components/tree-view.tsx",
     "id": "generated-ui-tree-view-api",
     "source": "packages/ui/src/components/tree-view.tsx",
@@ -10775,11 +10985,11 @@ export const generatedFlytrapMemoryIndex = [
       "selected",
       "disabled"
     ],
-    "title": "TreeItem — generated API",
+    "title": "TreeView — generated API",
     "type": "component"
   },
   {
-    "answer": "Generated behavior chunk for TreeItem, focused on states, accessibility, variants and tokenized styling signals.",
+    "answer": "Generated behavior chunk for TreeView, focused on states, accessibility, variants and tokenized styling signals.",
     "href": "https://github.com/LouizeB/flytrapds/blob/main/packages/ui/src/components/tree-view.tsx",
     "id": "generated-ui-tree-view-behavior",
     "source": "packages/ui/src/components/tree-view.tsx",
@@ -10817,7 +11027,7 @@ export const generatedFlytrapMemoryIndex = [
       "--icon-size-sm",
       "border-l"
     ],
-    "title": "TreeItem — generated behavior",
+    "title": "TreeView — generated behavior",
     "type": "component"
   },
   {
@@ -11056,6 +11266,38 @@ export const generatedFlytrapMemoryIndex = [
     "type": "component"
   },
   {
+    "answer": "Generated prop documentation for ChatThread. `state` (ChatThreadState) — Current thread state. Loading sets aria-busy, error renders role alert, ready renders children. `emptyTitle` (string) — Empty-state heading shown before the first message. `emptyDescription` (string) — Empty-state body copy that explains how to begin. `emptyAction` (React.ReactNode) — Optional action rendered inside the empty state. `errorMessage` (string) — Error copy announced when state is error.",
+    "href": "https://github.com/LouizeB/flytrapds/blob/main/packages/ui/src/ai/chat-thread.tsx",
+    "id": "generated-ai-chat-thread-props",
+    "source": "packages/ui/src/ai/chat-thread.tsx",
+    "summary": "ChatThreadProps.state: Current thread state. Loading sets aria-busy, error renders role alert, ready renders children. ChatThreadProps.emptyTitle: Empty-state heading shown before the first message. ChatThreadProps.emptyDescription: Empty-state body copy that explains how to begin. ChatThreadProps.emptyAction: Optional action rendered inside the empty state. ChatThreadProps.errorMessage: Error copy announced when state is error.",
+    "tags": [
+      "generated",
+      "ai",
+      "component",
+      "chat-thread",
+      "chat",
+      "thread",
+      "chatthread",
+      "chatthreadprops",
+      "chatthreadstate",
+      "conversation",
+      "empty state",
+      "loading",
+      "error",
+      "props",
+      "prop descriptions",
+      "typescript comments",
+      "state",
+      "emptyTitle",
+      "emptyDescription",
+      "emptyAction",
+      "errorMessage"
+    ],
+    "title": "ChatThread — generated prop descriptions",
+    "type": "component"
+  },
+  {
     "answer": "Generated behavior chunk for ChatThread, focused on states, accessibility, variants and tokenized styling signals.",
     "href": "https://github.com/LouizeB/flytrapds/blob/main/packages/ui/src/ai/chat-thread.tsx",
     "id": "generated-ai-chat-thread-behavior",
@@ -11263,11 +11505,11 @@ export const generatedFlytrapMemoryIndex = [
     "type": "component"
   },
   {
-    "answer": "Generated component overview for ApprovalStatus. Use it for approval, human in the loop, approve, reject.",
+    "answer": "Generated component overview for HumanApprovalPrompt. Use it for approval, human in the loop, approve, reject.",
     "href": "https://github.com/LouizeB/flytrapds/blob/main/packages/ui/src/ai/human-approval-prompt.tsx",
     "id": "generated-ai-human-approval-prompt-overview",
     "source": "packages/ui/src/ai/human-approval-prompt.tsx",
-    "summary": "ApprovalStatus is generated from packages/ui/src/ai/human-approval-prompt.tsx. Exports: ApprovalStatus, HumanApprovalPrompt, HumanApprovalPromptProps.",
+    "summary": "HumanApprovalPrompt is generated from packages/ui/src/ai/human-approval-prompt.tsx. Exports: ApprovalStatus, HumanApprovalPrompt, HumanApprovalPromptProps.",
     "tags": [
       "generated",
       "ai",
@@ -11283,11 +11525,11 @@ export const generatedFlytrapMemoryIndex = [
       "approve",
       "reject"
     ],
-    "title": "ApprovalStatus — generated overview",
+    "title": "HumanApprovalPrompt — generated overview",
     "type": "component"
   },
   {
-    "answer": "Generated API chunk for ApprovalStatus, including exports, props and literal state/type values detected in source.",
+    "answer": "Generated API chunk for HumanApprovalPrompt, including exports, props and literal state/type values detected in source.",
     "href": "https://github.com/LouizeB/flytrapds/blob/main/packages/ui/src/ai/human-approval-prompt.tsx",
     "id": "generated-ai-human-approval-prompt-api",
     "source": "packages/ui/src/ai/human-approval-prompt.tsx",
@@ -11321,11 +11563,11 @@ export const generatedFlytrapMemoryIndex = [
       "rejected",
       "expired"
     ],
-    "title": "ApprovalStatus — generated API",
+    "title": "HumanApprovalPrompt — generated API",
     "type": "component"
   },
   {
-    "answer": "Generated behavior chunk for ApprovalStatus, focused on states, accessibility, variants and tokenized styling signals.",
+    "answer": "Generated behavior chunk for HumanApprovalPrompt, focused on states, accessibility, variants and tokenized styling signals.",
     "href": "https://github.com/LouizeB/flytrapds/blob/main/packages/ui/src/ai/human-approval-prompt.tsx",
     "id": "generated-ai-human-approval-prompt-behavior",
     "source": "packages/ui/src/ai/human-approval-prompt.tsx",
@@ -11368,7 +11610,7 @@ export const generatedFlytrapMemoryIndex = [
       "rounded-lg",
       "bg-muted"
     ],
-    "title": "ApprovalStatus — generated behavior",
+    "title": "HumanApprovalPrompt — generated behavior",
     "type": "component"
   },
   {
@@ -11743,6 +11985,40 @@ export const generatedFlytrapMemoryIndex = [
     "type": "component"
   },
   {
+    "answer": "Generated prop documentation for PromptInput. `value` (string) — Controlled textarea value. `onValueChange` ((value: string) => void) — Called whenever the textarea value changes. `onSubmitPrompt` ((value: string) => void) — Called with the trimmed prompt when the user submits by button or Enter. `placeholder` (string) — Placeholder shown while the prompt is empty. `submitting` (boolean) — Disables editing and shows the submit button loading state. `maxLength` (number) — Maximum number of characters accepted by the textarea and shown in the counter. `attachmentAction` (React.ReactNode) — Optional attachment control rendered before the character counter. `footer` (React.ReactNode) — Optional metadata or helper content rendered before the submit button. `label` (string) — Accessible label for the prompt textarea.",
+    "href": "https://github.com/LouizeB/flytrapds/blob/main/packages/ui/src/ai/prompt-input.tsx",
+    "id": "generated-ai-prompt-input-props",
+    "source": "packages/ui/src/ai/prompt-input.tsx",
+    "summary": "PromptInputProps.value: Controlled textarea value. PromptInputProps.onValueChange: Called whenever the textarea value changes. PromptInputProps.onSubmitPrompt: Called with the trimmed prompt when the user submits by button or Enter. PromptInputProps.placeholder: Placeholder shown while the prompt is empty. PromptInputProps.submitting: Disables editing and shows the submit button loading state. PromptInputProps.maxLength: Maximum number of characters accepted by the textarea and shown in the counter. PromptInputProps.attachmentAction: Optional attachment control rendered before the character counter. PromptInputProps.footer: Optional metadata or helper content rendered before the submit button. PromptInputProps.label: Accessible label for the prompt textarea.",
+    "tags": [
+      "generated",
+      "ai",
+      "component",
+      "prompt-input",
+      "prompt",
+      "input",
+      "promptinput",
+      "promptinputprops",
+      "submit",
+      "attachment",
+      "chat",
+      "props",
+      "prop descriptions",
+      "typescript comments",
+      "value",
+      "onValueChange",
+      "onSubmitPrompt",
+      "placeholder",
+      "submitting",
+      "maxLength",
+      "attachmentAction",
+      "footer",
+      "label"
+    ],
+    "title": "PromptInput — generated prop descriptions",
+    "type": "component"
+  },
+  {
     "answer": "Generated behavior chunk for PromptInput, focused on states, accessibility, variants and tokenized styling signals.",
     "href": "https://github.com/LouizeB/flytrapds/blob/main/packages/ui/src/ai/prompt-input.tsx",
     "id": "generated-ai-prompt-input-behavior",
@@ -11888,11 +12164,11 @@ export const generatedFlytrapMemoryIndex = [
     "type": "component"
   },
   {
-    "answer": "Generated component overview for RunTraceStep. Use it for trace, steps, execution, timeline.",
+    "answer": "Generated component overview for RunTraceTimeline. Use it for trace, steps, execution, timeline.",
     "href": "https://github.com/LouizeB/flytrapds/blob/main/packages/ui/src/ai/run-trace-timeline.tsx",
     "id": "generated-ai-run-trace-timeline-overview",
     "source": "packages/ui/src/ai/run-trace-timeline.tsx",
-    "summary": "RunTraceStep is generated from packages/ui/src/ai/run-trace-timeline.tsx. Exports: RunTraceStep, RunTraceTimeline.",
+    "summary": "RunTraceTimeline is generated from packages/ui/src/ai/run-trace-timeline.tsx. Exports: RunTraceStep, RunTraceTimeline.",
     "tags": [
       "generated",
       "ai",
@@ -11906,11 +12182,11 @@ export const generatedFlytrapMemoryIndex = [
       "steps",
       "execution"
     ],
-    "title": "RunTraceStep — generated overview",
+    "title": "RunTraceTimeline — generated overview",
     "type": "component"
   },
   {
-    "answer": "Generated API chunk for RunTraceStep, including exports, props and literal state/type values detected in source.",
+    "answer": "Generated API chunk for RunTraceTimeline, including exports, props and literal state/type values detected in source.",
     "href": "https://github.com/LouizeB/flytrapds/blob/main/packages/ui/src/ai/run-trace-timeline.tsx",
     "id": "generated-ai-run-trace-timeline-api",
     "source": "packages/ui/src/ai/run-trace-timeline.tsx",
@@ -11936,11 +12212,11 @@ export const generatedFlytrapMemoryIndex = [
       "duration",
       "status"
     ],
-    "title": "RunTraceStep — generated API",
+    "title": "RunTraceTimeline — generated API",
     "type": "component"
   },
   {
-    "answer": "Generated behavior chunk for RunTraceStep, focused on states, accessibility, variants and tokenized styling signals.",
+    "answer": "Generated behavior chunk for RunTraceTimeline, focused on states, accessibility, variants and tokenized styling signals.",
     "href": "https://github.com/LouizeB/flytrapds/blob/main/packages/ui/src/ai/run-trace-timeline.tsx",
     "id": "generated-ai-run-trace-timeline-behavior",
     "source": "packages/ui/src/ai/run-trace-timeline.tsx",
@@ -11974,7 +12250,7 @@ export const generatedFlytrapMemoryIndex = [
       "text-muted-foreground",
       "text-xs"
     ],
-    "title": "RunTraceStep — generated behavior",
+    "title": "RunTraceTimeline — generated behavior",
     "type": "component"
   },
   {
