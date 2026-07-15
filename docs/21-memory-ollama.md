@@ -63,9 +63,9 @@ pnpm memory:report
 
 It scans documentation and UI/AI/chart component files, compares them with the indexed memory sources and writes `.planning/memory-index-candidates.md`.
 
-The first promoted batch covers project overview, multibrand/modes, Figma-to-deploy pipeline, design-code sync, component API quality, semantic iconography, brand assets and this Memory/Ollama guide. The second batch covers color scale, Supabase, secrets, project links, ADRs, roadmap, public experience and README. The first component batch covers Alert, InlineNotification, Avatar, BrandMark, Badge, ButtonGroup, Card, CodeBlock, Combobox, DataList, DatePicker, Dialog, DropdownMenu, EmptyState and FileUpload. The second component batch covers the remaining core navigation, form, layout, overlay, AI streaming and structural primitives such as Accordion, CommandMenu, Form, Layout, MediaCard, PlayerControls, Select, Sheet and Sidebar. The report now shows 0 directly unindexed docs and a shrinking UI/AI/chart backlog.
+The first promoted batch covers project overview, multibrand/modes, Figma-to-deploy pipeline, design-code sync, component API quality, semantic iconography, brand assets and this Memory/Ollama guide. The second batch covers color scale, Supabase, secrets, project links, ADRs, roadmap, public experience and README. The first component batch covers Alert, InlineNotification, Avatar, BrandMark, Badge, ButtonGroup, Card, CodeBlock, Combobox, DataList, DatePicker, Dialog, DropdownMenu, EmptyState and FileUpload. The second component batch covers the remaining core navigation, form, layout, overlay, AI streaming and structural primitives such as Accordion, CommandMenu, Form, Layout, MediaCard, PlayerControls, Select, Sheet and Sidebar. The final batch covers Skeleton, Slider, SmartDataTable, Spinner, StatusIndicator, Switch, Tabs, Textarea, Timeline, Toast, TokenSwatch, Tooltip, TreeView, AI primitives and Chart. The report now shows 0 directly unindexed docs and 0 directly unindexed UI/AI/chart sources.
 
 ## Next improvements
 
 - Add local embeddings for semantic ranking.
-- Promote the remaining high-value component candidates from `.planning/memory-index-candidates.md` into individual component documentation sources.
+- Move from manual memory entries toward generated semantic chunks from docs and component metadata.
