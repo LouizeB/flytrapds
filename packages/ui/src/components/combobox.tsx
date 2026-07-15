@@ -3,16 +3,24 @@ import { ChevronDownIcon, ConfirmIcon, FlytrapIcon } from "../icons";
 import { cn } from "../lib/utils";
 
 export interface ComboboxOption {
+  /** Stable option value committed when the option is selected. */
   value: string;
+  /** Visible label used for filtering and display. */
   label: string;
+  /** Prevents selecting this option while keeping it visible. */
   disabled?: boolean;
 }
 
 export interface ComboboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange" | "value"> {
+  /** Options shown in the listbox and filtered by label as the user types. */
   options: ComboboxOption[];
+  /** Controlled selected option value. */
   value?: string;
+  /** Initial selected option value for uncontrolled usage. */
   defaultValue?: string;
+  /** Empty state message shown when filtering returns no options. */
   emptyMessage?: string;
+  /** Called with the committed option value after click or keyboard selection. */
   onValueChange?: (value: string) => void;
 }
 

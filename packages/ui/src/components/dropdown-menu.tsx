@@ -10,9 +10,16 @@ export const DropdownMenuPortal = DropdownMenuPrimitive.Portal;
 export const DropdownMenuSub = DropdownMenuPrimitive.Sub;
 export const DropdownMenuRadioGroup = DropdownMenuPrimitive.RadioGroup;
 
+export interface DropdownMenuContentProps extends React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Content> {
+  /** Offset between the trigger and menu content. */
+  sideOffset?: number;
+  /** Menu items, groups, labels, separators or submenus rendered in the portal. */
+  children?: React.ReactNode;
+}
+
 export const DropdownMenuContent = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Content>
+  DropdownMenuContentProps
 >(({ className, sideOffset = 6, ...props }, ref) => <DropdownMenuPrimitive.Portal>
   <DropdownMenuPrimitive.Content
     ref={ref}
@@ -24,9 +31,16 @@ export const DropdownMenuContent = React.forwardRef<
 </DropdownMenuPrimitive.Portal>);
 DropdownMenuContent.displayName = DropdownMenuPrimitive.Content.displayName;
 
+export interface DropdownMenuItemProps extends React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Item> {
+  /** Action label or item content. */
+  children?: React.ReactNode;
+  /** Prevents pointer and keyboard selection while keeping the item visible. */
+  disabled?: boolean;
+}
+
 export const DropdownMenuItem = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.Item>,
-  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Item>
+  DropdownMenuItemProps
 >(({ className, ...props }, ref) => <DropdownMenuPrimitive.Item
   ref={ref}
   className={cn("relative flex min-h-9 cursor-default select-none items-center gap-2 rounded-md px-2 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50", className)}
@@ -35,9 +49,18 @@ export const DropdownMenuItem = React.forwardRef<
 />);
 DropdownMenuItem.displayName = DropdownMenuPrimitive.Item.displayName;
 
+export interface DropdownMenuCheckboxItemProps extends React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.CheckboxItem> {
+  /** Checked state for multi-select menu options. */
+  checked?: boolean | "indeterminate";
+  /** Checkbox item label or content. */
+  children?: React.ReactNode;
+  /** Prevents interaction while preserving visible context. */
+  disabled?: boolean;
+}
+
 export const DropdownMenuCheckboxItem = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.CheckboxItem>,
-  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.CheckboxItem>
+  DropdownMenuCheckboxItemProps
 >(({ checked, children, className, ...props }, ref) => <DropdownMenuPrimitive.CheckboxItem
   ref={ref}
   checked={checked}
@@ -52,9 +75,18 @@ export const DropdownMenuCheckboxItem = React.forwardRef<
 </DropdownMenuPrimitive.CheckboxItem>);
 DropdownMenuCheckboxItem.displayName = DropdownMenuPrimitive.CheckboxItem.displayName;
 
+export interface DropdownMenuRadioItemProps extends React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.RadioItem> {
+  /** Radio value controlled by the parent DropdownMenuRadioGroup. */
+  value: string;
+  /** Radio item label or content. */
+  children?: React.ReactNode;
+  /** Prevents selection while preserving the option in the menu. */
+  disabled?: boolean;
+}
+
 export const DropdownMenuRadioItem = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.RadioItem>,
-  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.RadioItem>
+  DropdownMenuRadioItemProps
 >(({ children, className, ...props }, ref) => <DropdownMenuPrimitive.RadioItem
   ref={ref}
   className={cn("relative flex min-h-9 cursor-default select-none items-center gap-2 rounded-md py-2 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50", className)}
@@ -80,6 +112,11 @@ export const DropdownMenuSeparator = React.forwardRef<
 >(({ className, ...props }, ref) => <DropdownMenuPrimitive.Separator ref={ref} className={cn("-mx-1 my-1 h-px bg-border", className)} data-slot="dropdown-menu-separator" {...props} />);
 DropdownMenuSeparator.displayName = DropdownMenuPrimitive.Separator.displayName;
 
-export function DropdownMenuShortcut({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>) {
+export interface DropdownMenuShortcutProps extends React.HTMLAttributes<HTMLSpanElement> {
+  /** Keyboard shortcut text displayed at the far edge of a menu item. */
+  children?: React.ReactNode;
+}
+
+export function DropdownMenuShortcut({ className, ...props }: DropdownMenuShortcutProps) {
   return <span className={cn("ml-auto text-xs tracking-widest text-muted-foreground", className)} data-slot="dropdown-menu-shortcut" {...props} />;
 }

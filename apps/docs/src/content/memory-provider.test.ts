@@ -191,6 +191,13 @@ describe("Flytrap memory search", () => {
     expect(generated.some(item => item.id === "generated-ai-chat-thread-props")).toBe(true);
     expect(generated.some(item => item.id === "generated-ai-prompt-input-props")).toBe(true);
     expect(generated.some(item => item.id === "generated-ui-recommendation-rail-props")).toBe(true);
+    expect(generated.some(item => item.id === "generated-ui-dropdown-menu-props")).toBe(true);
+    expect(generated.some(item => item.id === "generated-ui-combobox-props")).toBe(true);
+    expect(generated.some(item => item.id === "generated-ui-command-menu-props")).toBe(true);
+    expect(generated.some(item => item.id === "generated-ui-tabs-props")).toBe(true);
+    expect(generated.some(item => item.id === "generated-ui-popover-props")).toBe(true);
+    expect(generated.some(item => item.id === "generated-ui-sheet-props")).toBe(true);
+    expect(generated.some(item => item.id === "generated-ui-tooltip-props")).toBe(true);
   });
 
   it("finds generated documentation section chunks", () => {
@@ -235,6 +242,24 @@ describe("Flytrap memory search", () => {
     expect(selectIds).toContain("generated-ui-select-props");
     expect(aiIds).toContain("generated-ai-chat-thread-props");
     expect(aiIds).toContain("generated-ai-prompt-input-props");
+  });
+
+  it("finds generated prop comments for navigation and overlay components", () => {
+    const menuIds = searchFlytrapMemory("DropdownMenu checked indeterminate disabled radio value sideOffset", 12)
+      .map(result => result.id);
+    const commandIds = searchFlytrapMemory("CommandMenu visually hidden title description CommandItem value disabled", 12)
+      .map(result => result.id);
+    const comboboxIds = searchFlytrapMemory("Combobox options defaultValue emptyMessage ArrowDown Escape listbox", 12)
+      .map(result => result.id);
+    const overlayIds = searchFlytrapMemory("Popover align sideOffset Sheet side top bottom Tooltip non-essential helper text", 18)
+      .map(result => result.id);
+
+    expect(menuIds).toContain("generated-ui-dropdown-menu-props");
+    expect(commandIds).toContain("generated-ui-command-menu-props");
+    expect(comboboxIds).toContain("generated-ui-combobox-props");
+    expect(overlayIds).toContain("generated-ui-popover-props");
+    expect(overlayIds).toContain("generated-ui-sheet-props");
+    expect(overlayIds).toContain("generated-ui-tooltip-props");
   });
 
   it("expands semantic loading intent into relevant components", () => {

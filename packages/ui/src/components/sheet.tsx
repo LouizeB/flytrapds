@@ -20,7 +20,12 @@ const sheetVariants = cva("fixed z-50 grid gap-4 overflow-y-auto bg-background p
   defaultVariants: { side: "right" },
 });
 
-export interface SheetContentProps extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>, VariantProps<typeof sheetVariants> {}
+export interface SheetContentProps extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>, VariantProps<typeof sheetVariants> {
+  /** Edge where the sheet enters from. Defaults to right. */
+  side?: "top" | "bottom" | "left" | "right";
+  /** Sheet body. Include SheetTitle and SheetDescription for accessible naming. */
+  children?: React.ReactNode;
+}
 
 export const SheetContent = React.forwardRef<React.ElementRef<typeof DialogPrimitive.Content>, SheetContentProps>(
   ({ side, className, children, ...props }, ref) => <DialogPrimitive.Portal>
@@ -33,8 +38,19 @@ export const SheetContent = React.forwardRef<React.ElementRef<typeof DialogPrimi
 );
 SheetContent.displayName = DialogPrimitive.Content.displayName;
 
-export function SheetHeader({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) { return <div className={cn("grid gap-2 text-left", className)} {...props} />; }
-export function SheetFooter({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) { return <div className={cn("mt-auto flex flex-col-reverse gap-2 sm:flex-row sm:justify-end", className)} {...props} />; }
+export interface SheetHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Header content, usually SheetTitle followed by SheetDescription. */
+  children?: React.ReactNode;
+}
+
+export function SheetHeader({ className, ...props }: SheetHeaderProps) { return <div className={cn("grid gap-2 text-left", className)} {...props} />; }
+
+export interface SheetFooterProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Footer actions for the sheet flow. */
+  children?: React.ReactNode;
+}
+
+export function SheetFooter({ className, ...props }: SheetFooterProps) { return <div className={cn("mt-auto flex flex-col-reverse gap-2 sm:flex-row sm:justify-end", className)} {...props} />; }
 export const SheetTitle = React.forwardRef<React.ElementRef<typeof DialogPrimitive.Title>, React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title>>(({ className, ...props }, ref) => <DialogPrimitive.Title ref={ref} className={cn("font-display text-lg font-semibold", className)} {...props} />);
 SheetTitle.displayName = DialogPrimitive.Title.displayName;
 export const SheetDescription = React.forwardRef<React.ElementRef<typeof DialogPrimitive.Description>, React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description>>(({ className, ...props }, ref) => <DialogPrimitive.Description ref={ref} className={cn("text-sm leading-6 text-muted-foreground", className)} {...props} />);

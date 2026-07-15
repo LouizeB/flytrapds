@@ -426,9 +426,7 @@ function componentInventory(folder, kind) {
       const sourceCode = readFileSync(join(repoRoot, source), "utf8");
       const exports = exportNames(sourceCode);
       const preferredTitle = titleCaseSlug(fileSlug);
-      const title = exports.includes(preferredTitle)
-        ? preferredTitle
-        : exports.find(name => !name.endsWith("Props")) ?? preferredTitle;
+      const title = preferredTitle;
       const intentTags = kind === "ai"
         ? aiIntentTags[fileSlug] ?? []
         : componentIntentTags[fileSlug] ?? [];

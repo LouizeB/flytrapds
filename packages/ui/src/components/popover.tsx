@@ -7,9 +7,18 @@ export const PopoverTrigger = PopoverPrimitive.Trigger;
 export const PopoverAnchor = PopoverPrimitive.Anchor;
 export const PopoverClose = PopoverPrimitive.Close;
 
+export interface PopoverContentProps extends React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content> {
+  /** Horizontal alignment relative to the trigger or anchor. */
+  align?: "start" | "center" | "end";
+  /** Offset between the trigger/anchor and floating content. */
+  sideOffset?: number;
+  /** Contextual content, controls or help text rendered in the portal. */
+  children?: React.ReactNode;
+}
+
 export const PopoverContent = React.forwardRef<
   React.ElementRef<typeof PopoverPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content>
+  PopoverContentProps
 >(({ className, align = "center", sideOffset = 6, ...props }, ref) => <PopoverPrimitive.Portal>
   <PopoverPrimitive.Content
     ref={ref}
