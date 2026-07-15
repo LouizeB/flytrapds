@@ -21,6 +21,12 @@ export interface FlytrapMemoryResult extends FlytrapMemoryItem {
   score: number;
 }
 
+export interface FlytrapMemoryAnswer {
+  confidence: "high" | "medium" | "low";
+  response: string;
+  sources: FlytrapMemoryResult[];
+}
+
 export const flytrapMemoryIndex = [
   {
     answer: "Install `@flytrap/ui`, import the component from the package barrel, and load `@flytrap/ui/styles` once in the app entry.",
@@ -159,4 +165,27 @@ export function searchFlytrapMemory(query: string, limit = 6): FlytrapMemoryResu
     .filter(item => item.score > 0)
     .sort((left, right) => right.score - left.score || left.title.localeCompare(right.title))
     .slice(0, limit);
+}
+
+export function answerFlytrapMemoryQuestion(question: string): FlytrapMemoryAnswer {
+  const sources = searchFlytrapMemory(question, 3);
+
+  if (sources.length === 0) {
+    return {
+      confidence: "low",
+      response: "I could not find a reliable Flytrap source for that yet. Try asking about installation, Button, SearchField, APCA, patterns, release readiness, or component improvements.",
+      sources,
+    };
+  }
+
+  const [primary, ...supporting] = sources;
+  const supportingText = supporting.length > 0
+    ? ` Related sources: ${supporting.map(source => source.title).join(", ")}.`
+    : "";
+
+  return {
+    confidence: primary.score >= 12 ? "high" : "medium",
+    response: `${primary.answer} ${primary.summary}${supportingText}`,
+    sources,
+  };
 }

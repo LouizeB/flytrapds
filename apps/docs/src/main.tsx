@@ -15,6 +15,8 @@ import {
   CardHeader,
   CardTitle,
   ChartIcon,
+  ChatThread,
+  CitationChip,
   Combobox,
   DashboardIcon,
   DataList,
@@ -45,11 +47,13 @@ import {
   InteractiveCard,
   MenuIcon,
   MediaCard,
+  MessageBubble,
   ModelConfidence,
   MoodSelector,
   MoodSignal,
   PersonalizationPanel,
   PlayerControls,
+  PromptInput,
   Progress,
   RecommendationRail,
   SearchIcon,
@@ -78,7 +82,7 @@ import { CharacterLayer } from "./living/character";
 import { Sidebar } from "./living/sidebar";
 import { Hero } from "./living/hero";
 import { TokenSystemGuide } from "./living/token-system-guide";
-import { flytrapMemoryIndex, searchFlytrapMemory } from "./content/search-index";
+import { answerFlytrapMemoryQuestion, flytrapMemoryIndex, searchFlytrapMemory, type FlytrapMemoryResult } from "./content/search-index";
 import {
   CodeBlock,
   ComponentPreview,
@@ -238,6 +242,13 @@ const patternLibrary = [
 function codeLines(code: string) {
   return code.split("\n").map(line => [{ kind: "plain" as const, text: line }]);
 }
+
+type MemoryChatMessage = {
+  content: string;
+  id: number;
+  role: "assistant" | "user";
+  sources?: FlytrapMemoryResult[];
+};
 
 const comboboxOptions: React.ComponentProps<typeof Combobox>["options"] = [
   { value: "foundation", label: "Foundations" },
@@ -406,11 +417,31 @@ const componentDocumentationGroups = [
 
 function App() {
   const [bootComplete, setBootComplete] = useState(false);
+  const [memoryChatInput, setMemoryChatInput] = useState("");
+  const [memoryChatMessages, setMemoryChatMessages] = useState<MemoryChatMessage[]>([
+    {
+      content: "Ask me how to install Flytrap, use a component, choose a pattern, validate APCA, or request a component improvement. I only answer from the local memory index and I show sources.",
+      id: 1,
+      role: "assistant",
+      sources: [],
+    },
+  ]);
   const [memoryQuery, setMemoryQuery] = useState("install components");
   const [selectedAnatomyLayer, setSelectedAnatomyLayer] = useState(0);
   const handleBootComplete = React.useCallback(() => setBootComplete(true), []);
   const memoryResults = React.useMemo(() => searchFlytrapMemory(memoryQuery), [memoryQuery]);
   const selectedAnatomyLayerDetail = anatomyLayerDetails[selectedAnatomyLayer] ?? anatomyLayerDetails[0];
+
+  function submitMemoryQuestion(question: string) {
+    const answer = answerFlytrapMemoryQuestion(question);
+    const nextMessages: MemoryChatMessage[] = [
+      { content: question, id: Date.now(), role: "user" },
+      { content: answer.response, id: Date.now() + 1, role: "assistant", sources: answer.sources },
+    ];
+    setMemoryQuery(question);
+    setMemoryChatMessages(messages => [...messages, ...nextMessages].slice(-8));
+    setMemoryChatInput("");
+  }
 
   React.useEffect(() => {
     document.documentElement.dataset.theme = "dark";
@@ -1229,19 +1260,29 @@ function App() {
                       </div>}
                   </div>
                 </SectionCard>
-                <SectionCard meta="Chat-ready" title="Next intelligence layer">
-                  <DataList>
-                    <DataListItem className="sm:grid-cols-1 xl:grid-cols-[8rem_1fr]">
-                      <DataListTerm>Now</DataListTerm>
-                      <DataListDescription>Local ranked search with explicit sources and no model dependency.</DataListDescription>
-                    </DataListItem>
-                    <DataListItem className="sm:grid-cols-1 xl:grid-cols-[8rem_1fr]">
-                      <DataListTerm>Next</DataListTerm>
-                      <DataListDescription>Chat UI that answers from this index and cites every source before suggesting code.</DataListDescription>
-                    </DataListItem>
+                <SectionCard meta="Source-backed" title="Memory chat">
+                  <ChatThread className="max-h-[32rem] border-white/10 bg-black/35">
+                    {memoryChatMessages.map(message => <MessageBubble className={message.role === "assistant" ? "max-w-full border-white/10 bg-white/[.045] text-white/72" : "bg-[#ff4fbd] text-white"} key={message.id} role={message.role}>
+                      <p>{message.content}</p>
+                      {message.sources && message.sources.length > 0 ? <div className="mt-3 flex flex-wrap gap-2">
+                        {message.sources.map((source, index) => <CitationChip className="border-white/10 bg-black/35 text-white/72 hover:bg-[#ff4fbd]/10" href={source.href} index={index + 1} key={source.id} source={source.source} />)}
+                      </div> : null}
+                    </MessageBubble>)}
+                  </ChatThread>
+                  <PromptInput
+                    className="mt-4 border-white/10 bg-black/35 text-white"
+                    footer={<span className="font-mono text-[0.58rem] uppercase tracking-[0.14em] text-white/45">Local memory · no model call</span>}
+                    label="Ask Flytrap memory"
+                    maxLength={220}
+                    onSubmitPrompt={submitMemoryQuestion}
+                    onValueChange={setMemoryChatInput}
+                    placeholder="Ask: how do I install Flytrap?"
+                    value={memoryChatInput}
+                  />
+                  <DataList className="mt-4">
                     <DataListItem className="sm:grid-cols-1 xl:grid-cols-[8rem_1fr]">
                       <DataListTerm>Ollama</DataListTerm>
-                      <DataListDescription>Optional local provider for development using embeddings/chat, while the public page keeps this fallback.</DataListDescription>
+                      <DataListDescription>Next provider: optional local embeddings/chat. This fallback keeps the public page source-backed.</DataListDescription>
                     </DataListItem>
                   </DataList>
                 </SectionCard>
