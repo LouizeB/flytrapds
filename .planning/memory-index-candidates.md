@@ -1,42 +1,24 @@
 # Memory index candidates
 
-Generated: 2026-07-15T04:52:44.720Z
+Generated: 2026-07-15T05:28:41.459Z
 
 ## Summary
 
-- Indexed sources: 10
-- Indexed IDs: 16
+- Indexed sources: 18
+- Indexed IDs: 24
 - Duplicate IDs: none
 - Docs discovered: 23
-- Docs not directly indexed: 16
+- Docs not directly indexed: 8
 - UI/AI/chart files discovered: 77
 - UI/AI/chart files not directly indexed: 75
 
 ## Suggested documentation candidates
-
-### 1. Visão geral
-
-- Source: `docs/00-overview.md`
-- Suggested id: `1-visao-geral`
-- Headings: `Conceito`, `Objetivos`, `Stack`, `Marca`, `Status`
 
 ### 3. Escala de cores
 
 - Source: `docs/02-color-scale.md`
 - Suggested id: `3-escala-de-cores`
 - Headings: `Categorias`, `Paleta`, `Notas`
-
-### 6. Multibrand · modes · themes
-
-- Source: `docs/05-multibrand.md`
-- Suggested id: `6-multibrand-modes-themes`
-- Headings: `Adicionar brand`, `Modes`, `Themes`, `Viewport`, `Pipeline multibrand`
-
-### 7. Pipeline Figma → Deploy
-
-- Source: `docs/06-pipeline.md`
-- Suggested id: `7-pipeline-figma-deploy`
-- Headings: `Fases`
 
 ### 8. Backend Supabase
 
@@ -68,41 +50,11 @@ Generated: 2026-07-15T04:52:44.720Z
 - Suggested id: `12-roadmap`
 - Headings: `Próximas frentes recomendadas`
 
-### 14. Iconografia semântica
-
-- Source: `docs/13-iconography.md`
-- Suggested id: `14-iconografia-semantica`
-- Headings: `Contrato`, `Tamanhos`, `Vocabulário inicial`, `Design e handoff`
-
 ### 16. Experiência pública — Release 1
 
 - Source: `docs/15-public-experience-release-1.md`
 - Suggested id: `16-experiencia-publica-release-1`
 - Headings: `Objetivo`, `Contrato do projeto`, `Direção criativa`, `Metáfora compartilhada`, `Escopo da Release 1`, `Fora do escopo original`, `Arquitetura de conteúdo`, `Contrato visual da entidade`
-
-### 17. Assets de marca e avatar
-
-- Source: `docs/16-brand-assets.md`
-- Suggested id: `17-assets-de-marca-e-avatar`
-- Headings: `Componentes`, `Acessibilidade`, `Restrições`
-
-### 18. API e qualidade dos componentes
-
-- Source: `docs/17-component-api-quality.md`
-- Suggested id: `18-api-e-qualidade-dos-componentes`
-- Headings: `Contratos principais`, `Antipadrões`, `Matriz de validação`
-
-### 20. Sincronização design → código
-
-- Source: `docs/19-design-code-sync.md`
-- Suggested id: `20-sincronizacao-design-codigo`
-- Headings: `Fonte de verdade atual`, `Processo manual aceito`, `O que ainda não existe`, `Critério para automatizar`
-
-### Memory Chat and Ollama
-
-- Source: `docs/21-memory-ollama.md`
-- Suggested id: `memory-chat-and-ollama`
-- Headings: `Local setup`, `Rules`, `Visible answer states`, `Missing source flow`, `Next improvements`
 
 ### Flytrap DS — Documentação
 

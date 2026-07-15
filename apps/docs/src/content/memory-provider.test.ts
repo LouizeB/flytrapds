@@ -25,6 +25,35 @@ describe("Flytrap memory search", () => {
     expect(first?.type).toBe("component");
   });
 
+  it("finds design-to-code sync guidance from Figma questions", () => {
+    const [first] = searchFlytrapMemory("Figma Tokens Studio drift DTCG");
+
+    expect(first?.id).toBe("design-code-sync");
+    expect(first?.source).toBe("docs/19-design-code-sync.md");
+  });
+
+  it("finds multibrand mode and theme guidance", () => {
+    const [first] = searchFlytrapMemory("new brand mode theme vibrant");
+
+    expect(first?.id).toBe("multibrand-modes-themes");
+    expect(first?.type).toBe("token");
+  });
+
+  it("finds brand asset and iconography governance", () => {
+    const results = searchFlytrapMemory("logo avatar icon handoff", 4);
+    const ids = results.map(result => result.id);
+
+    expect(ids).toContain("brand-assets-avatar");
+    expect(ids).toContain("semantic-iconography");
+  });
+
+  it("finds Memory Chat and Ollama setup", () => {
+    const [first] = searchFlytrapMemory("Ollama fallback missing source memory chat");
+
+    expect(first?.id).toBe("memory-chat-ollama");
+    expect(first?.source).toBe("docs/21-memory-ollama.md");
+  });
+
   it("returns a safe low-confidence answer when no source matches", () => {
     const answer = answerFlytrapMemoryQuestion("quantum banana routing");
 
