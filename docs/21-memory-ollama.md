@@ -63,9 +63,9 @@ pnpm memory:report
 
 It scans documentation and UI/AI/chart component files, compares them with the indexed memory sources and writes `.planning/memory-index-candidates.md`.
 
-The first promoted batch covers project overview, multibrand/modes, Figma-to-deploy pipeline, design-code sync, component API quality, semantic iconography, brand assets and this Memory/Ollama guide. That reduced directly unindexed docs from 16 to 8 in the report.
+The first promoted batch covers project overview, multibrand/modes, Figma-to-deploy pipeline, design-code sync, component API quality, semantic iconography, brand assets and this Memory/Ollama guide. The second batch covers color scale, Supabase, secrets, project links, ADRs, roadmap, public experience and README. The report now shows 0 directly unindexed docs.
 
 ## Next improvements
 
 - Add local embeddings for semantic ranking.
-- Promote high-value candidates from `.planning/memory-index-candidates.md` into the indexed memory sources.
+- Promote high-value component candidates from `.planning/memory-index-candidates.md` into individual component documentation sources.

@@ -53,3 +53,4 @@ Fonte de verdade para retomar a evolução pós-auditoria.
 - [x] Tornar estados do Memory Chat visíveis: confiança, provider, fonte ausente, fallback Ollama e prompts sugeridos.
 - [x] Fechar ciclo de fonte ausente com request template/issue e relatório automatizado `pnpm memory:report` para candidatos do índice.
 - [x] Promover primeiro lote de candidatos do `memory:report` para o índice real: overview, multibrand, pipeline, design-code sync, API quality, iconografia, brand assets e Memory/Ollama.
+- [x] Promover docs restantes do `memory:report` para o índice real: color scale, Supabase, secrets, links do projeto, ADRs, roadmap, experiência pública e README; docs não indexadas agora são 0.

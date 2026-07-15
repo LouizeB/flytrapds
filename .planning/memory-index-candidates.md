@@ -1,66 +1,18 @@
 # Memory index candidates
 
-Generated: 2026-07-15T05:28:41.459Z
+Generated: 2026-07-15T05:49:36.875Z
 
 ## Summary
 
-- Indexed sources: 18
-- Indexed IDs: 24
+- Indexed sources: 26
+- Indexed IDs: 32
 - Duplicate IDs: none
 - Docs discovered: 23
-- Docs not directly indexed: 8
+- Docs not directly indexed: 0
 - UI/AI/chart files discovered: 77
 - UI/AI/chart files not directly indexed: 75
 
 ## Suggested documentation candidates
-
-### 3. Escala de cores
-
-- Source: `docs/02-color-scale.md`
-- Suggested id: `3-escala-de-cores`
-- Headings: `Categorias`, `Paleta`, `Notas`
-
-### 8. Backend Supabase
-
-- Source: `docs/07-supabase.md`
-- Suggested id: `8-backend-supabase`
-- Headings: `Schema (migrations aplicadas)`, `RLS`, `Edge Functions`, `Deploy`, `Pendências`
-
-### 9. Secrets
-
-- Source: `docs/08-secrets.md`
-- Suggested id: `9-secrets`
-- Headings: `GitHub Actions`, `Vercel (público, prefixo `NEXT_PUBLIC_`)`, `Supabase Edge (server-only)`, `Regra`
-
-### 10. Recursos do projeto
-
-- Source: `docs/09-project-links.md`
-- Suggested id: `10-recursos-do-projeto`
-- Headings: none
-
-### 11. Decisões (ADR)
-
-- Source: `docs/10-decisions.md`
-- Suggested id: `11-decisoes-adr`
-- Headings: none
-
-### 12. Roadmap
-
-- Source: `docs/11-roadmap.md`
-- Suggested id: `12-roadmap`
-- Headings: `Próximas frentes recomendadas`
-
-### 16. Experiência pública — Release 1
-
-- Source: `docs/15-public-experience-release-1.md`
-- Suggested id: `16-experiencia-publica-release-1`
-- Headings: `Objetivo`, `Contrato do projeto`, `Direção criativa`, `Metáfora compartilhada`, `Escopo da Release 1`, `Fora do escopo original`, `Arquitetura de conteúdo`, `Contrato visual da entidade`
-
-### Flytrap DS — Documentação
-
-- Source: `docs/README.md`
-- Suggested id: `flytrap-ds-documentacao`
-- Headings: `Comece por aqui`, `Referência completa`
 
 ## Suggested component candidates
 
