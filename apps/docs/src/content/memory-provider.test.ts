@@ -178,10 +178,12 @@ describe("Flytrap memory search", () => {
   it("includes generated memory chunks alongside curated sources", () => {
     const generated = flytrapMemoryIndex.filter(item => item.id.startsWith("generated-"));
 
-    expect(generated.length).toBeGreaterThanOrEqual(300);
+    expect(generated.length).toBeGreaterThanOrEqual(385);
     expect(generated.some(item => item.id.includes("-section-") && item.source === "docs/04-components.md")).toBe(true);
     expect(generated.some(item => item.id === "generated-ui-button-api")).toBe(true);
     expect(generated.some(item => item.id === "generated-ui-button-behavior")).toBe(true);
+    expect(generated.some(item => item.id === "generated-ui-button-props")).toBe(true);
+    expect(generated.some(item => item.id === "generated-ui-button-example-1")).toBe(true);
   });
 
   it("finds generated documentation section chunks", () => {
@@ -199,6 +201,16 @@ describe("Flytrap memory search", () => {
 
     expect(apiIds).toContain("generated-ui-button-api");
     expect(behaviorIds).toContain("generated-ui-button-behavior");
+  });
+
+  it("finds generated prop comments and usage snippets", () => {
+    const propIds = searchFlytrapMemory("Button loadingAnnouncement screen reader status announcement", 8)
+      .map(result => result.id);
+    const exampleIds = searchFlytrapMemory("Button loading SavingAction Save changes snippet", 8)
+      .map(result => result.id);
+
+    expect(propIds).toContain("generated-ui-button-props");
+    expect(exampleIds).toContain("generated-ui-button-example-1");
   });
 
   it("expands semantic loading intent into relevant components", () => {

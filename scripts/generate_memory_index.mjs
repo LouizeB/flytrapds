@@ -125,6 +125,36 @@ function cleanMarkdown(markdown) {
     .trim();
 }
 
+function cleanComment(comment) {
+  return comment
+    .replace(/^\/\*\*?/, "")
+    .replace(/\*\/$/, "")
+    .split("\n")
+    .map(line => line.replace(/^\s*\*\s?/, "").trim())
+    .filter(line => line.length > 0 && !line.startsWith("@"))
+    .join(" ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function codePreview(code) {
+  return code
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 260);
+}
+
+function markdownCodeExamples(markdown) {
+  return [...markdown.matchAll(/```([A-Za-z0-9_-]*)\n([\s\S]*?)```/g)]
+    .map((match, index) => ({
+      code: match[2].trim(),
+      index: index + 1,
+      language: match[1]?.trim() || "text",
+    }))
+    .filter(example => example.code.length > 0)
+    .slice(0, 12);
+}
+
 function markdownSections(markdown) {
   const title = markdownTitle(markdown);
   const headings = [...markdown.matchAll(/^##\s+(.+)$/gm)].map(match => match[1].trim());
@@ -158,15 +188,54 @@ function interfaceBlocks(sourceCode) {
   const pattern = /export\s+interface\s+([A-Za-z0-9_]+)[^{]*\{([\s\S]*?)\n\}/g;
 
   for (const match of sourceCode.matchAll(pattern)) {
-    const props = [...match[2].matchAll(/^\s*([A-Za-z0-9_]+)\??:/gm)]
-      .map(propMatch => propMatch[1])
-      .filter(prop => prop !== "children")
-      .slice(0, 16);
+    const props = [];
+    let pendingComment = "";
+
+    for (const line of match[2].split("\n")) {
+      const trimmed = line.trim();
+
+      if (trimmed.startsWith("/**")) {
+        pendingComment = trimmed.includes("*/") ? cleanComment(trimmed) : `${trimmed}\n`;
+        continue;
+      }
+
+      if (pendingComment && !pendingComment.endsWith("*/") && trimmed.startsWith("*")) {
+        pendingComment += `${trimmed}\n`;
+        if (trimmed.endsWith("*/")) pendingComment = cleanComment(pendingComment);
+        continue;
+      }
+
+      const propMatch = trimmed.match(/^([A-Za-z0-9_]+)\??:\s*([^;]+);?/);
+      if (!propMatch) continue;
+
+      const [, name, type] = propMatch;
+      if (name === "children") {
+        pendingComment = "";
+        continue;
+      }
+
+      props.push({
+        description: pendingComment && !pendingComment.includes("/**") ? pendingComment : "",
+        name,
+        type: type.trim(),
+      });
+      pendingComment = "";
+    }
 
     blocks.push({ name: match[1], props });
   }
 
   return blocks;
+}
+
+function propNames(interfaces) {
+  return interfaces.flatMap(block => block.props.map(prop => prop.name));
+}
+
+function describedProps(interfaces) {
+  return interfaces.flatMap(block => block.props
+    .filter(prop => prop.description)
+    .map(prop => ({ ...prop, interfaceName: block.name })));
 }
 
 function exportedTypeValues(sourceCode) {
@@ -223,6 +292,42 @@ function tokenTerms(sourceCode) {
     .slice(0, 18);
 }
 
+function componentUsageExamples(title, fileSlug, interfaces, typeValues, variantKeys) {
+  const props = new Set(propNames(interfaces));
+  const examples = [];
+  const variantValues = typeValues
+    .flatMap(typeValue => typeValue.values)
+    .filter(value => ["default", "secondary", "outline", "ghost", "link", "destructive"].includes(value));
+
+  if (props.has("loading") && props.has("loadingAnnouncement")) {
+    examples.push({
+      code: `import { ${title} } from "@flytrap/ui";\n\nexport function SavingAction() {\n  return <${title} loading loadingAnnouncement="Saving changes">Save changes</${title}>;\n}`,
+      label: "loading state",
+      tags: ["loading", "loadingAnnouncement", "aria-busy", "status", "example", "snippet"],
+    });
+  }
+
+  if (title === "Button" && (props.has("variant") || variantKeys.includes("variant") || variantValues.includes("secondary"))) {
+    examples.push({
+      code: `import { ${title} } from "@flytrap/ui";\n\nexport function ActionRow() {\n  return <${title} variant="secondary">Open details</${title}>;\n}`,
+      label: "variant",
+      tags: ["variant", "secondary", "states", "example", "snippet"],
+    });
+  }
+
+  const iconButtonInterface = interfaces.find(block => block.props.some(prop => prop.name === "icon") && block.props.some(prop => prop.name === "label"));
+  if (iconButtonInterface) {
+    const iconButtonComponent = iconButtonInterface.name.replace(/Props$/, "") || titleCaseSlug(fileSlug);
+    examples.push({
+      code: `import { ${iconButtonComponent}, AiAccentIcon } from "@flytrap/ui";\n\nexport function IconOnlyAction() {\n  return <${iconButtonComponent} icon={AiAccentIcon} label="Create item" />;\n}`,
+      label: "accessible icon action",
+      tags: ["icon", "label", "aria-label", "accessibility", "example", "snippet"],
+    });
+  }
+
+  return examples.slice(0, 3);
+}
+
 function item(source, id, title, summary, answer, tags, type) {
   return {
     answer,
@@ -267,6 +372,7 @@ function docsInventory() {
       const fileSlug = basename(file, ".md");
       const markdown = readFileSync(join(repoRoot, source), "utf8");
       const { body, headings, sections, title } = markdownSections(markdown);
+      const codeExamples = markdownCodeExamples(markdown);
       const baseTags = [
         "generated",
         "documentation",
@@ -293,8 +399,17 @@ function docsInventory() {
         [...baseTags, "section", ...wordsFromName(section.heading)],
         docType(source, `${title} ${section.heading}`, [section.heading]),
       ));
+      const exampleItems = codeExamples.map(example => item(
+        source,
+        `generated-doc-${fileSlug}-example-${example.index}`,
+        `${title}: code example ${example.index}`,
+        `Code example (${example.language}): ${codePreview(example.code)}`,
+        `Generated code example from ${title}.\n\n\`\`\`${example.language}\n${example.code.slice(0, 900)}\n\`\`\``,
+        [...baseTags, "example", "snippet", "code", example.language],
+        type,
+      ));
 
-      return [overview, ...sectionItems];
+      return [overview, ...sectionItems, ...exampleItems];
     });
 }
 
@@ -319,6 +434,8 @@ function componentInventory(folder, kind) {
       const variantKeys = cvaVariantKeys(sourceCode);
       const behaviors = behaviorTerms(sourceCode);
       const tokens = tokenTerms(sourceCode);
+      const propsWithDescriptions = describedProps(interfaces);
+      const usageExamples = componentUsageExamples(title, fileSlug, interfaces, typeValues, variantKeys);
       const baseTags = [
         "generated",
         kind,
@@ -342,7 +459,7 @@ function componentInventory(folder, kind) {
 
       if (exports.length > 0 || interfaces.length > 0 || typeValues.length > 0) {
         const propText = interfaces
-          .map(block => `${block.name}${block.props.length > 0 ? ` props: ${block.props.join(", ")}` : ""}`)
+          .map(block => `${block.name}${block.props.length > 0 ? ` props: ${block.props.map(prop => prop.name).join(", ")}` : ""}`)
           .join("; ");
         const typeText = typeValues
           .map(typeValue => `${typeValue.name}: ${typeValue.values.join(", ")}`)
@@ -358,7 +475,21 @@ function componentInventory(folder, kind) {
             typeText ? `Types: ${typeText}.` : "",
           ].filter(Boolean).join(" "),
           `Generated API chunk for ${title}, including exports, props and literal state/type values detected in source.`,
-          [...baseTags, "api", "props", "exports", ...interfaces.flatMap(block => block.props), ...typeValues.flatMap(typeValue => typeValue.values)],
+          [...baseTags, "api", "props", "exports", ...propNames(interfaces), ...typeValues.flatMap(typeValue => typeValue.values)],
+          "component",
+        ));
+      }
+
+      if (propsWithDescriptions.length > 0) {
+        chunks.push(item(
+          source,
+          `generated-${kind}-${fileSlug}-props`,
+          `${title} — generated prop descriptions`,
+          propsWithDescriptions
+            .map(prop => `${prop.interfaceName}.${prop.name}: ${prop.description}`)
+            .join(" "),
+          `Generated prop documentation for ${title}. ${propsWithDescriptions.map(prop => `\`${prop.name}\` (${prop.type}) — ${prop.description}`).join(" ")}`,
+          [...baseTags, "props", "prop descriptions", "typescript comments", ...propsWithDescriptions.map(prop => prop.name)],
           "component",
         ));
       }
@@ -378,6 +509,18 @@ function componentInventory(folder, kind) {
           "component",
         ));
       }
+
+      usageExamples.forEach((example, index) => {
+        chunks.push(item(
+          source,
+          `generated-${kind}-${fileSlug}-example-${index + 1}`,
+          `${title} — ${example.label} example`,
+          `${title} ${example.label} usage example: ${codePreview(example.code)}`,
+          `Generated usage example for ${title}, based on props detected in source.\n\n\`\`\`tsx\n${example.code}\n\`\`\``,
+          [...baseTags, ...example.tags],
+          "component",
+        ));
+      });
 
       return chunks;
     });
