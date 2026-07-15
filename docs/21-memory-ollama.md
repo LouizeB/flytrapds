@@ -37,6 +37,5 @@ If Ollama is unavailable, blocked by the browser, or returns an empty response, 
 ## Next improvements
 
 - Add local embeddings for semantic ranking.
-- Add an explicit provider switch for development builds.
-- Expand the memory index from docs and component metadata.
-- Add tests for provider fallback behavior.
+- Continue expanding the memory index from docs and component metadata.
+- Add visual states for confidence, missing source and fallback reason.

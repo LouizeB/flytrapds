@@ -10,6 +10,21 @@ describe("Flytrap memory search", () => {
     expect(first?.score).toBeGreaterThan(0);
   });
 
+  it("finds token category documentation by decision type", () => {
+    const [first] = searchFlytrapMemory("motion elevation tokens");
+
+    expect(first?.id).toBe("token-categories");
+    expect(first?.tags).toContain("motion");
+    expect(first?.tags).toContain("elevation");
+  });
+
+  it("finds AI streaming components as component guidance", () => {
+    const [first] = searchFlytrapMemory("mood recommendations player");
+
+    expect(first?.id).toBe("ai-streaming-components");
+    expect(first?.type).toBe("component");
+  });
+
   it("returns a safe low-confidence answer when no source matches", () => {
     const answer = answerFlytrapMemoryQuestion("quantum banana routing");
 
@@ -57,6 +72,21 @@ describe("Flytrap memory provider", () => {
     expect(answer.provider).toBe("ollama");
     expect(answer.model).toBe("llama3.2");
     expect(answer.response).toContain("@flytrap/ui");
+    expect(answer.sources[0]?.id).toBe("install-ui");
+  });
+
+  it("allows an explicit Ollama provider override for development controls", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => ({
+      ok: true,
+      json: async () => ({ message: { content: "Use the cited Flytrap source-backed answer." } }),
+    })));
+
+    const { answerFlytrapMemoryWithProvider, memoryProviderConfig } = await import("./memory-provider");
+    const answer = await answerFlytrapMemoryWithProvider("install Flytrap", { provider: "ollama" });
+
+    expect(memoryProviderConfig.provider).toBe("source");
+    expect(answer.provider).toBe("ollama");
+    expect(answer.response).toContain("cited Flytrap");
     expect(answer.sources[0]?.id).toBe("install-ui");
   });
 
