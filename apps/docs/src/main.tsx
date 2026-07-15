@@ -174,6 +174,17 @@ const patternLibrary = [
     evidence: "Implemented by apps/studio.",
     maturity: "Production candidate",
     problem: "AI streaming experiences often feel magical but opaque. This pattern keeps the user in control while the system adapts.",
+    snippet: `function StreamingMoodSurface() {
+  return (
+    <PersonalizationPanel title="Mood engine">
+      <MoodSelector options={moods} value={mood} onValueChange={setMood} />
+      <RecommendationRail title="Recommended next">
+        <MediaCard title="Neon garden" badge="Calm" active />
+      </RecommendationRail>
+      <PlayerControls state="playing" progress={64} />
+    </PersonalizationPanel>
+  );
+}`,
     title: "AI-managed streaming flow",
   },
   {
@@ -185,6 +196,18 @@ const patternLibrary = [
     evidence: "Implemented by apps/dashboard.",
     maturity: "Stable",
     problem: "Operational surfaces need dense information without becoming a wall of cards. This pattern gives status, priority and history clear places to live.",
+    snippet: `function OperationsDashboard() {
+  return (
+    <Page>
+      <Sidebar aria-label="Dashboard navigation" />
+      <Section title="Release health">
+        <KpiStatCard label="Token adoption" value="87%" />
+        <SmartDataTable columns={columns} data={rows} />
+        <Timeline aria-label="Recent release activity" />
+      </Section>
+    </Page>
+  );
+}`,
     title: "Dashboard layout",
   },
   {
@@ -196,9 +219,24 @@ const patternLibrary = [
     evidence: "Used by CI, adoption report and visual audit reports.",
     maturity: "Governance",
     problem: "A DS release needs traceable proof, not vibes. This pattern turns quality gates into a repeatable release contract.",
+    snippet: `function ReleaseReadiness() {
+  return (
+    <DataList>
+      <DataListItem>
+        <DataListTerm>Gate</DataListTerm>
+        <DataListDescription>Tests, build, adoption and visual audit passed.</DataListDescription>
+      </DataListItem>
+      <StatusIndicator tone="success">Ready to ship</StatusIndicator>
+    </DataList>
+  );
+}`,
     title: "Release readiness flow",
   },
 ] as const;
+
+function codeLines(code: string) {
+  return code.split("\n").map(line => [{ kind: "plain" as const, text: line }]);
+}
 
 const comboboxOptions: React.ComponentProps<typeof Combobox>["options"] = [
   { value: "foundation", label: "Foundations" },
@@ -950,6 +988,27 @@ function App() {
                         </span>)}
                       </span>
                     </a>)}
+                  </div>
+                </SectionCard>
+
+                <SectionCard meta="Examples" title="Implementation examples">
+                  <p className="max-w-3xl text-sm leading-6 text-white/66">
+                    Use these examples as starting points. They are intentionally compact: the full pattern contract lives in the guide, while this page shows how the composition starts to look in code.
+                  </p>
+                  <div className="mt-4 grid gap-4 xl:grid-cols-3">
+                    {patternLibrary.map(pattern => <article className="grid min-h-full gap-4 rounded-2xl border border-white/10 bg-black/35 p-4" key={pattern.title}>
+                      <div>
+                        <p className="font-display text-base font-bold text-white/90">{pattern.title}</p>
+                        <p className="mt-1 text-sm leading-6 text-white/62">{pattern.evidence}</p>
+                      </div>
+                      <div className="grid gap-2">
+                        {pattern.accessibility.map(item => <div className="flex gap-2 rounded-xl border border-white/8 bg-white/[.035] p-3 text-sm leading-6 text-white/66" key={item}>
+                          <span aria-hidden="true" className="mt-2 size-1.5 shrink-0 rounded-full bg-[#b8ff35]" />
+                          <span>{item}</span>
+                        </div>)}
+                      </div>
+                      <CodeBlock copyText={pattern.snippet} lines={codeLines(pattern.snippet)} />
+                    </article>)}
                   </div>
                 </SectionCard>
 
