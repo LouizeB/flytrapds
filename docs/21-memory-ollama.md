@@ -34,8 +34,19 @@ If Ollama is unavailable, blocked by the browser, or returns an empty response, 
 - No public build should require a local model.
 - No secrets or hosted provider keys are required.
 
+## Visible answer states
+
+The Memory Chat exposes its retrieval state in the UI:
+
+- **High confidence** — the local index found a strong source match.
+- **Medium confidence** — the index found sources, but the match is weaker.
+- **Needs source** — no reliable indexed source was found; the answer should not be treated as guidance yet.
+- **Fallback used** — Ollama was requested but skipped or failed, so the cited source-backed answer was returned.
+
+The suggested prompt chips are intentionally curated. They help users discover supported questions without implying that the chat can answer from undocumented knowledge.
+
 ## Next improvements
 
 - Add local embeddings for semantic ranking.
 - Continue expanding the memory index from docs and component metadata.
-- Add visual states for confidence, missing source and fallback reason.
+- Add source contribution flow for missing answers.
