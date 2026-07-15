@@ -1,11 +1,11 @@
 # Memory index candidates
 
-Generated: 2026-07-15T15:04:23.218Z
+Generated: 2026-07-15T16:03:12.431Z
 
 ## Summary
 
 - Indexed sources: 101
-- Indexed IDs: 107
+- Indexed IDs: 207
 - Duplicate IDs: none
 - Docs discovered: 23
 - Docs not directly indexed: 0
