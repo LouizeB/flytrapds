@@ -28,8 +28,11 @@ export const buttonVariants = cva(
 );
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
+  /** Render the Button styles onto a child element while preserving disabled and loading behavior. */
   asChild?: boolean;
+  /** Show the running icon, set busy/disabled state, and expose a screen-reader status announcement. */
   loading?: boolean;
+  /** Screen-reader announcement used while the loading state is active. */
   loadingAnnouncement?: string;
 }
 
@@ -84,7 +87,9 @@ export function Button({
 }
 
 export interface IconButtonProps extends Omit<ButtonProps, "aria-label" | "children" | "loading" | "size"> {
+  /** Icon component rendered inside the button. */
   icon: FlytrapIconComponent;
+  /** Accessible label applied to the icon-only button. */
   label: string;
 }
 
