@@ -121,6 +121,60 @@ describe("Flytrap memory search", () => {
     expect(ids).toContain("personalization-panel-component");
   });
 
+  it("finds final utility and status components", () => {
+    const loadingIds = searchFlytrapMemory("skeleton placeholder spinner loading", 6)
+      .map(result => result.id);
+    const inputIds = searchFlytrapMemory("switch toggle slider range textarea multiline tabs panel", 10)
+      .map(result => result.id);
+    const feedbackIds = searchFlytrapMemory("status indicator timeline toast notification activity events", 10)
+      .map(result => result.id);
+    const structureIds = searchFlytrapMemory("tooltip contextual help tree view hierarchy token swatch documentation", 10)
+      .map(result => result.id);
+
+    expect(loadingIds).toContain("skeleton-component");
+    expect(loadingIds).toContain("spinner-component");
+    expect(inputIds).toContain("switch-component");
+    expect(inputIds).toContain("slider-component");
+    expect(inputIds).toContain("tabs-component");
+    expect(inputIds).toContain("textarea-component");
+    expect(feedbackIds).toContain("status-indicator-component");
+    expect(feedbackIds).toContain("timeline-component");
+    expect(feedbackIds).toContain("toast-component");
+    expect(structureIds).toContain("tooltip-component");
+    expect(structureIds).toContain("tree-view-component");
+    expect(structureIds).toContain("token-swatch-component");
+  });
+
+  it("finds table and chart primitives", () => {
+    const ids = searchFlytrapMemory("smart data table rows columns caption chart line area bar visualization empty loading error", 8)
+      .map(result => result.id);
+
+    expect(ids).toContain("smart-data-table-component");
+    expect(ids).toContain("chart-component");
+  });
+
+  it("finds AI assistant primitive components", () => {
+    const ids = searchFlytrapMemory("agent card status chat thread citation chip token meter approval prompt insight kpi message prompt reasoning trace tool call", 24)
+      .map(result => result.id);
+
+    expect(ids).toContain("agent-card-component");
+    expect(ids).toContain("agent-status-component");
+    expect(ids).toContain("chat-thread-component");
+    expect(ids).toContain("citation-chip-component");
+    expect(ids).toContain("cost-token-meter-component");
+    expect(ids).toContain("human-approval-prompt-component");
+    expect(ids).toContain("insight-callout-component");
+    expect(ids).toContain("kpi-stat-card-component");
+    expect(ids).toContain("message-actions-component");
+    expect(ids).toContain("message-bubble-component");
+    expect(ids).toContain("prompt-input-component");
+    expect(ids).toContain("reasoning-stream-component");
+    expect(ids).toContain("run-trace-timeline-component");
+    expect(ids).toContain("streaming-message-component");
+    expect(ids).toContain("suggested-prompts-component");
+    expect(ids).toContain("tool-call-block-component");
+  });
+
   it("finds design-to-code sync guidance from Figma questions", () => {
     const [first] = searchFlytrapMemory("Figma Tokens Studio drift DTCG");
 
