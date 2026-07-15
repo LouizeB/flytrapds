@@ -21,6 +21,10 @@ export const memoryProviderConfig = {
   provider: configuredProvider,
 } as const;
 
+export interface FlytrapMemoryProviderOptions {
+  provider?: FlytrapMemoryProvider;
+}
+
 function sourceContext(answer: FlytrapMemoryAnswer) {
   return answer.sources
     .map((source, index) => [
@@ -32,10 +36,11 @@ function sourceContext(answer: FlytrapMemoryAnswer) {
     .join("\n\n");
 }
 
-export async function answerFlytrapMemoryWithProvider(question: string): Promise<FlytrapProviderAnswer> {
+export async function answerFlytrapMemoryWithProvider(question: string, options: FlytrapMemoryProviderOptions = {}): Promise<FlytrapProviderAnswer> {
   const sourceAnswer = answerFlytrapMemoryQuestion(question);
+  const requestedProvider = options.provider ?? configuredProvider;
 
-  if (configuredProvider !== "ollama") {
+  if (requestedProvider !== "ollama") {
     return { ...sourceAnswer, provider: "source" };
   }
 

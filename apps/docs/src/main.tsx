@@ -82,7 +82,7 @@ import { CharacterLayer } from "./living/character";
 import { Sidebar } from "./living/sidebar";
 import { Hero } from "./living/hero";
 import { TokenSystemGuide } from "./living/token-system-guide";
-import { answerFlytrapMemoryWithProvider, memoryProviderConfig, type FlytrapProviderAnswer } from "./content/memory-provider";
+import { answerFlytrapMemoryWithProvider, memoryProviderConfig, type FlytrapMemoryProvider, type FlytrapProviderAnswer } from "./content/memory-provider";
 import { flytrapMemoryIndex, searchFlytrapMemory, type FlytrapMemoryResult } from "./content/search-index";
 import {
   CodeBlock,
@@ -420,6 +420,7 @@ const componentDocumentationGroups = [
 function App() {
   const [bootComplete, setBootComplete] = useState(false);
   const [memoryChatInput, setMemoryChatInput] = useState("");
+  const [memoryProvider, setMemoryProvider] = useState<FlytrapMemoryProvider>(memoryProviderConfig.provider);
   const [memoryChatSubmitting, setMemoryChatSubmitting] = useState(false);
   const [memoryChatMessages, setMemoryChatMessages] = useState<MemoryChatMessage[]>([
     {
@@ -432,13 +433,14 @@ function App() {
   ]);
   const [memoryQuery, setMemoryQuery] = useState("install components");
   const [selectedAnatomyLayer, setSelectedAnatomyLayer] = useState(0);
+  const canSwitchMemoryProvider = memoryProviderConfig.provider === "ollama" || import.meta.env.DEV;
   const handleBootComplete = React.useCallback(() => setBootComplete(true), []);
   const memoryResults = React.useMemo(() => searchFlytrapMemory(memoryQuery), [memoryQuery]);
   const selectedAnatomyLayerDetail = anatomyLayerDetails[selectedAnatomyLayer] ?? anatomyLayerDetails[0];
 
   async function submitMemoryQuestion(question: string) {
     setMemoryChatSubmitting(true);
-    const answer: FlytrapProviderAnswer = await answerFlytrapMemoryWithProvider(question);
+    const answer: FlytrapProviderAnswer = await answerFlytrapMemoryWithProvider(question, { provider: memoryProvider });
     const providerMeta = answer.provider === "ollama"
       ? `Provider: Ollama · ${answer.model}`
       : `Provider: source-backed memory${answer.fallbackReason ? ` · fallback: ${answer.fallbackReason}` : ""}`;
@@ -1269,7 +1271,38 @@ function App() {
                       </div>}
                   </div>
                 </SectionCard>
-                <SectionCard meta={memoryProviderConfig.provider === "ollama" ? "Ollama optional" : "Source-backed"} title="Memory chat">
+                <SectionCard meta={memoryProvider === "ollama" ? "Ollama optional" : "Source-backed"} title="Memory chat">
+                  <div className="mb-4 rounded-2xl border border-white/10 bg-black/35 p-4">
+                    <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                      <div>
+                        <p className="font-display text-sm font-bold text-white/86">Provider mode</p>
+                        <p className="mt-1 text-sm leading-6 text-white/58">
+                          Source-backed memory is always safe for the public site. Ollama is optional for local development and still keeps Flytrap citations.
+                        </p>
+                      </div>
+                      {canSwitchMemoryProvider
+                        ? <ButtonGroup aria-label="Choose memory provider" className="shrink-0 border-white/10 bg-white/[.035]">
+                          <ButtonGroupItem
+                            className="text-white/78 data-[selected]:bg-[#ff4fbd] data-[selected]:text-white"
+                            onClick={() => setMemoryProvider("source")}
+                            selected={memoryProvider === "source"}
+                          >
+                            Source
+                          </ButtonGroupItem>
+                          <ButtonGroupItem
+                            className="text-white/78 data-[selected]:bg-[#ff4fbd] data-[selected]:text-white"
+                            onClick={() => setMemoryProvider("ollama")}
+                            selected={memoryProvider === "ollama"}
+                          >
+                            Ollama
+                          </ButtonGroupItem>
+                        </ButtonGroup>
+                        : <Badge className="border-white/10 bg-white/[.035] text-white/72" variant="outline">Source only</Badge>}
+                    </div>
+                    {memoryProvider === "ollama" ? <p className="mt-3 rounded-xl border border-[#b8ff35]/25 bg-[#b8ff35]/8 px-3 py-2 text-xs leading-5 text-white/68">
+                      Local mode will call <code>{memoryProviderConfig.model}</code> at <code>{memoryProviderConfig.baseUrl}</code>. If it fails, the answer falls back to cited source-backed memory.
+                    </p> : null}
+                  </div>
                   <ChatThread className="max-h-[32rem] border-white/10 bg-black/35">
                     {memoryChatMessages.map(message => <MessageBubble className={message.role === "assistant" ? "max-w-full border-white/10 bg-white/[.045] text-white/72" : "bg-[#ff4fbd] text-white"} key={message.id} role={message.role}>
                       <p>{message.content}</p>
@@ -1281,7 +1314,7 @@ function App() {
                   </ChatThread>
                   <PromptInput
                     className="mt-4 border-white/10 bg-black/35 text-white"
-                    footer={<span className="font-mono text-[0.58rem] uppercase tracking-[0.14em] text-white/45">Local memory · no model call</span>}
+                    footer={<span className="font-mono text-[0.58rem] uppercase tracking-[0.14em] text-white/45">{memoryProvider === "ollama" ? "Local Ollama when available · citations stay source-backed" : "Source-backed · no model call"}</span>}
                     label="Ask Flytrap memory"
                     maxLength={220}
                     onSubmitPrompt={submitMemoryQuestion}

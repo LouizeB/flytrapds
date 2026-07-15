@@ -49,3 +49,4 @@ Fonte de verdade para retomar a evolução pós-auditoria.
 - [x] Adicionar provider opcional para Ollama atrás de env flag, preservando fallback source-backed no site público.
 - [x] Documentar configuração local do Memory Chat com Ollama e regras de fallback.
 - [x] Adicionar testes do Memory Search/Chat cobrindo ranking, resposta source-backed, provider Ollama e fallback.
+- [x] Adicionar controle explícito de provider em dev/Ollama e expandir o índice de memória com categorias de tokens, forms, navegação, dados, overlays e AI/Streaming.
