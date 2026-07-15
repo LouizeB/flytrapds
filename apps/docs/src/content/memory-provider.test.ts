@@ -54,6 +54,44 @@ describe("Flytrap memory search", () => {
     expect(first?.source).toBe("docs/21-memory-ollama.md");
   });
 
+  it("finds color scale guidance for ramp questions", () => {
+    const [first] = searchFlytrapMemory("HCT magenta acid neutral color scale");
+
+    expect(first?.id).toBe("color-scale");
+    expect(first?.type).toBe("token");
+  });
+
+  it("finds backend and secrets boundaries", () => {
+    const backend = searchFlytrapMemory("Supabase RLS Edge RAG ds_context")[0];
+    const secrets = searchFlytrapMemory("service role Anthropic Voyage server-only secrets")[0];
+
+    expect(backend?.id).toBe("supabase-backend");
+    expect(secrets?.id).toBe("secrets-boundary");
+  });
+
+  it("finds project links and roadmap references", () => {
+    const links = searchFlytrapMemory("canonical Figma Vercel Supabase GitHub project links")[0];
+    const roadmap = searchFlytrapMemory("milestone critical path memory release adoption roadmap")[0];
+
+    expect(links?.id).toBe("project-links");
+    expect(roadmap?.id).toBe("roadmap");
+  });
+
+  it("finds ADR and public experience guidance", () => {
+    const decisions = searchFlytrapMemory("ADR decisions APCA HCT changesets")[0];
+    const publicExperience = searchFlytrapMemory("public experience organism character release scope")[0];
+
+    expect(decisions?.id).toBe("adr-decisions");
+    expect(publicExperience?.id).toBe("public-experience-release");
+  });
+
+  it("finds the documentation index", () => {
+    const [first] = searchFlytrapMemory("documentation README table of contents");
+
+    expect(first?.id).toBe("documentation-index");
+    expect(first?.source).toBe("docs/README.md");
+  });
+
   it("returns a safe low-confidence answer when no source matches", () => {
     const answer = answerFlytrapMemoryQuestion("quantum banana routing");
 
