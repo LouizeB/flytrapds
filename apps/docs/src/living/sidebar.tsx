@@ -24,9 +24,7 @@ export const navSections: readonly [string, string, FlytrapIconComponent][] = [
   ["Patterns", "patterns", InsightIcon],
   ["Accessibility", "accessibility", ApprovalIcon],
   ["Guidelines", "guidelines", InfoIcon],
-  ["Memory Search", "memory", AiAccentIcon],
   ["Code / Develop", "code", ChartIcon],
-  ["AI Workflows", "ai-workflows", AgentIcon],
 ] as const;
 
 function StatusWave() {

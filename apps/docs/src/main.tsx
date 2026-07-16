@@ -1278,7 +1278,7 @@ function App() {
           </section>
 
           {/* 07 · Memory Search */}
-          <section aria-label="Memory Search" className="relative border-b border-[#ff4fbd]/14 px-6 py-8 md:px-8">
+          <section aria-label="Memory Search" className="hidden">
             <div aria-hidden="true" className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-[#7cecff]/35 to-transparent" />
             <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-12">
               <SectionHeader
@@ -1510,7 +1510,7 @@ function App() {
           </section>
 
           {/* 09 · AI Workflows */}
-          <section aria-label="AI Workflows" className="relative px-6 py-8 md:px-8">
+          <section aria-label="AI Workflows" className="hidden">
             <img alt="" aria-hidden="true" className="pointer-events-none absolute bottom-[-2rem] right-[-1rem] z-0 hidden w-72 opacity-95 mix-blend-screen saturate-125 lg:block" draggable={false} src={organismBr} />
             <img alt="" aria-hidden="true" className="pointer-events-none absolute left-[-5rem] top-[-6rem] z-0 hidden w-72 rotate-[160deg] opacity-70 lg:block" draggable={false} src={spriteCorner} />
             <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:gap-12">
@@ -1527,6 +1527,54 @@ function App() {
               </div>
             </div>
           </section>
+
+          <div className="fixed bottom-5 right-5 z-[100] md:bottom-8 md:right-8">
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button className="h-12 rounded-full bg-[#ff4fbd] px-5 text-white shadow-[0_12px_40px_rgba(241,0,129,.4)] hover:bg-[#d90074]">
+                  <FlytrapIcon icon={AiAccentIcon} /> Ask Flytrap
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-h-[88vh] max-w-2xl overflow-y-auto border-white/10 bg-[#090b12] text-white shadow-[0_28px_100px_rgba(0,0,0,.8)]">
+                <DialogHeader>
+                  <DialogTitle>Ask Flytrap</DialogTitle>
+                  <DialogDescription className="text-white/60">
+                    Ask about installation, components, patterns, tokens, or accessibility. Answers include their Flytrap sources.
+                  </DialogDescription>
+                </DialogHeader>
+                <ChatThread className="max-h-[52vh] border-white/10 bg-black/35">
+                  {memoryChatMessages.map(message => <MessageBubble className={message.role === "assistant" ? "max-w-full border-white/10 bg-white/[.045] text-white/72" : "bg-[#ff4fbd] text-white"} key={message.id} role={message.role}>
+                    <p>{message.content}</p>
+                    {message.sources && message.sources.length > 0 ? <div className="mt-3 flex flex-wrap gap-2">
+                      {message.sources.map((source, index) => <CitationChip className="border-white/10 bg-black/35 text-white/72 hover:bg-[#ff4fbd]/10" href={source.href} index={index + 1} key={source.id} source={source.source} />)}
+                    </div> : null}
+                  </MessageBubble>)}
+                </ChatThread>
+                <div aria-label="Suggested questions" className="flex flex-wrap gap-2">
+                  {memoryQuickPrompts.slice(0, 3).map(prompt => <button
+                    className="rounded-full border border-white/10 bg-white/[.035] px-3 py-2 text-left text-xs text-white/66 hover:border-[#ff4fbd]/45 hover:bg-[#ff4fbd]/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b8ff35]"
+                    disabled={memoryChatSubmitting}
+                    key={prompt}
+                    onClick={() => submitMemoryQuestion(prompt)}
+                    type="button"
+                  >
+                    {prompt}
+                  </button>)}
+                </div>
+                <PromptInput
+                  className="border-white/10 bg-black/35 text-white"
+                  footer={<span className="text-xs text-white/45">Answers use documented Flytrap sources.</span>}
+                  label="Ask Flytrap"
+                  maxLength={220}
+                  onSubmitPrompt={submitMemoryQuestion}
+                  onValueChange={setMemoryChatInput}
+                  placeholder="How do I use this component?"
+                  submitting={memoryChatSubmitting}
+                  value={memoryChatInput}
+                />
+              </DialogContent>
+            </Dialog>
+          </div>
 
           <footer aria-label="Flytrap Design System footer" className="relative border-t border-white/10 px-6 py-8 text-white/65 md:px-10">
             <div className="flex flex-wrap items-center justify-between gap-4 text-sm">
