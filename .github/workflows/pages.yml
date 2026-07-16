@@ -39,7 +39,7 @@ jobs:
         run: pnpm tokens
 
       - name: Build UI package
-        run: pnpm --filter @flytrap/ui build
+        run: pnpm --filter @louizeb/flytrap-ui build
 
       - name: Build documentation
         run: pnpm --filter @flytrap/docs build:pages
