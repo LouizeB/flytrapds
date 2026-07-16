@@ -1,7 +1,14 @@
 {
-  "name": "@flytrap/tokens", "version": "0.1.0", "type": "module",
-  "files": ["dist"],
-  "exports": { "./css": "./dist/flytrap-globals.css", "./ts": "./dist/tokens.ts" },
+  "name": "@flytrap/tokens",
+  "version": "0.2.0",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    "./css": "./dist/flytrap-globals.css",
+    "./ts": "./dist/tokens.ts"
+  },
   "scripts": {
     "build": "node build.mjs",
     "test:contract": "python3 ../../scripts/token_contract.py src/flytrap.tokens.json",
