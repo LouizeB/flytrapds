@@ -1051,7 +1051,7 @@ function App() {
           {/* 04 · Patterns */}
           <section aria-label="Patterns" className="relative border-b border-[#ff4fbd]/14 px-6 py-8 md:px-8">
             <img alt="" aria-hidden="true" className="pointer-events-none absolute bottom-[-5rem] left-[-8rem] z-0 hidden w-[38rem] opacity-90 mix-blend-screen saturate-150 lg:block" draggable={false} src={spriteWideB} />
-            <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:gap-12">
+            <div className="relative z-10 flex flex-col gap-8">
               <SectionHeader
                 id="patterns"
                 index="04"
@@ -1065,7 +1065,7 @@ function App() {
                   <p className="max-w-3xl text-sm leading-6 text-white/66">
                     Patterns are reusable product compositions. Each one documents the problem, core anatomy, accessibility contract, and the components expected to work together.
                   </p>
-                  <div className="mt-4 grid gap-4 xl:grid-cols-2 2xl:grid-cols-3">
+                  <div className="mt-4 grid gap-4 xl:grid-cols-2">
                     {patternLibrary.map(pattern => <a
                       className="group flex min-h-full flex-col rounded-2xl border border-white/10 bg-black/35 p-4 outline-none transition-colors hover:border-[#ff4fbd]/55 hover:bg-[#ff4fbd]/8 focus-visible:ring-2 focus-visible:ring-[#b8ff35] focus-visible:ring-offset-2 focus-visible:ring-offset-[#05060a]"
                       href={pattern.anchor}
@@ -1096,7 +1096,7 @@ function App() {
                   <p className="max-w-3xl text-sm leading-6 text-white/66">
                     Use these examples as starting points. They are intentionally compact: the full pattern contract lives in the guide, while this page shows how the composition starts to look in code.
                   </p>
-                  <div className="mt-4 grid gap-4 xl:grid-cols-2 2xl:grid-cols-3">
+                  <div className="mt-4 grid gap-4 xl:grid-cols-2">
                     {patternLibrary.map(pattern => <article className="grid min-h-full gap-4 rounded-2xl border border-white/10 bg-black/35 p-4" key={pattern.title}>
                       <div>
                         <p className="font-display text-base font-bold text-white/90">{pattern.title}</p>
