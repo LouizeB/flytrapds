@@ -4,8 +4,8 @@ Static scan of `@flytrap/ui` named imports in `apps/**`.
 
 ## Summary
 
-- Total named imports: 198
-- Unique exports adopted: 100
+- Total named imports: 196
+- Unique exports adopted: 98
 - Files importing UI: 6
 - Files importing styles: 3
 
@@ -109,8 +109,6 @@ Static scan of `@flytrap/ui` named imports in `apps/**`.
 | `SuccessIcon` | 1 | `apps/docs/src/main.tsx` |
 | `SuggestedPrompts` | 1 | `apps/studio/src/main.tsx` |
 | `SwitchField` | 1 | `apps/docs/src/main.tsx` |
-| `ThemeDarkIcon` | 1 | `apps/dashboard/src/main.tsx` |
-| `ThemeLightIcon` | 1 | `apps/dashboard/src/main.tsx` |
 | `ToolCallBlock` | 1 | `apps/studio/src/main.tsx` |
 | `Toolbar` | 1 | `apps/dashboard/src/main.tsx` |
 
@@ -118,7 +116,7 @@ Static scan of `@flytrap/ui` named imports in `apps/**`.
 
 | File | Exports |
 |--|--|
-| `apps/dashboard/src/main.tsx` | `AgentCard`, `AgentIcon`, `Badge`, `BrandLockup`, `Button`, `ButtonGroup`, `ButtonGroupItem`, `Card`, `CardContent`, `CardDescription`, `CardHeader`, `CardTitle`, `ChartIcon`, `DashboardIcon`, `DataList`, `DataListDescription`, `DataListItem`, `DataListTerm`, `FilterBar`, `FlytrapIcon`, `InlineNotification`, `InsightCallout`, `InteractiveCard`, `KpiStatCard`, `MediaCard`, `MessageBubble`, `ModelConfidence`, `MoodSelector`, `Page`, `PageDescription`, `PageHeader`, `PageTitle`, `PersonalizationPanel`, `PlayerControls`, `Progress`, `RecommendationRail`, `Section`, `SectionDescription`, `SectionHeader`, `SectionTitle`, `SendIcon`, `SmartDataTable`, `StatusIndicator`, `ThemeDarkIcon`, `ThemeLightIcon`, `Timeline`, `TimelineItem`, `Toolbar`, `TreeItem`, `TreeView` |
+| `apps/dashboard/src/main.tsx` | `AgentCard`, `AgentIcon`, `Badge`, `BrandLockup`, `Button`, `ButtonGroup`, `ButtonGroupItem`, `Card`, `CardContent`, `CardDescription`, `CardHeader`, `CardTitle`, `ChartIcon`, `DashboardIcon`, `DataList`, `DataListDescription`, `DataListItem`, `DataListTerm`, `FilterBar`, `FlytrapIcon`, `InlineNotification`, `InsightCallout`, `InteractiveCard`, `KpiStatCard`, `MediaCard`, `MessageBubble`, `ModelConfidence`, `MoodSelector`, `Page`, `PageDescription`, `PageHeader`, `PageTitle`, `PersonalizationPanel`, `PlayerControls`, `Progress`, `RecommendationRail`, `Section`, `SectionDescription`, `SectionHeader`, `SectionTitle`, `SendIcon`, `SmartDataTable`, `StatusIndicator`, `Timeline`, `TimelineItem`, `Toolbar`, `TreeItem`, `TreeView` |
 | `apps/docs/src/living/hero.tsx` | `AiAccentIcon`, `BrandIcon`, `Button`, `ExternalLinkIcon`, `FlytrapIcon`, `FlytrapIconComponent`, `SendIcon` |
 | `apps/docs/src/living/panels.tsx` | `Button`, `ConfirmIcon`, `CopyIcon`, `FlytrapIcon`, `FlytrapIconComponent` |
 | `apps/docs/src/living/sidebar.tsx` | `AgentIcon`, `AiAccentIcon`, `ApprovalIcon`, `BrandIcon`, `BrandMark`, `ChartIcon`, `DashboardIcon`, `FlytrapIcon`, `FlytrapIconComponent`, `InfoIcon`, `InsightIcon`, `ToolIcon` |

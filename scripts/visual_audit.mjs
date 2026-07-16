@@ -47,18 +47,16 @@ const profiles = {
     mainSelector: 'main[data-slot="page"]',
     loaderSelector: '[aria-label="Loading Flytrap Stream Studio"]',
     expectedSections: [
-      "AI-managed streaming studio",
-      "Mood-shaped experience",
-      "Adaptive queue",
-      "Viewer signals",
-      "AI workflow",
-      "Assistant console",
+      "Personalized experience preview",
+      "Choose the experience",
+      "Recommendations",
     ],
     expectedComponentAnchors: [],
     expectedPatternAnchors: [],
     humanReviewNotes: [
-      "Desktop: the product consumer renders a complete streaming workflow with mood controls, queue, signals, agent trace and assistant console.",
-      "Mobile: content should remain stacked and navigable without horizontal overflow.",
+      "Desktop: the initial Experience view keeps mood controls and recommendations visible without exposing advanced details.",
+      "Mobile: the initial view remains stacked and navigable without horizontal overflow.",
+      "Results and AI details are available through explicit navigation controls and are intentionally hidden from the initial view.",
       "Automated DOM checks cover duplicate IDs, broken hash links, unnamed buttons/links and horizontal overflow.",
       "Known non-blocking observation: Studio intentionally uses the dark-only Flytrap product shell until a deliberate light mode is designed.",
     ],
@@ -144,8 +142,8 @@ function markdown(results) {
     if (result.requiredSections.missing.length > 0) {
       lines.push(`Missing: ${result.requiredSections.missing.map((item) => `\`${item}\``).join(", ")}`);
     }
-    lines.push(`Component docs: ${result.domAudit.componentAnchors.present.map((item) => `\`${item}\``).join(", ")}`);
-    lines.push(`Pattern docs: ${result.domAudit.patternAnchors.present.map((item) => `\`${item}\``).join(", ")}`);
+    lines.push(`Component docs: ${result.domAudit.componentAnchors.present.map((item) => `\`${item}\``).join(", ") || "None required"}`);
+    lines.push(`Pattern docs: ${result.domAudit.patternAnchors.present.map((item) => `\`${item}\``).join(", ") || "None required"}`);
     if (result.domAudit.componentAnchors.missing.length > 0) {
       lines.push(`Missing component docs: ${result.domAudit.componentAnchors.missing.map((item) => `\`${item}\``).join(", ")}`);
     }

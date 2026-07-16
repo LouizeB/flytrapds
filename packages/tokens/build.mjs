@@ -64,10 +64,14 @@ ${declarations(componentEntries)}
 }
 
 .dark {
+${declarations(semanticEntries)}
+${declarations(componentEntries)}
 ${declarations(semanticEntries, "dark")}
 }
 
 .vibrant {
+${declarations(semanticEntries)}
+${declarations(componentEntries)}
 ${declarations(semanticEntries, "vibrant")}
 }`;
 
