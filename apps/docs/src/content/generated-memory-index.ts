@@ -2509,7 +2509,7 @@ export const generatedFlytrapMemoryIndex = [
     "href": "https://github.com/LouizeB/flytrapds/blob/main/docs/11-roadmap.md",
     "id": "generated-doc-11-roadmap-overview",
     "source": "docs/11-roadmap.md",
-    "summary": "Milestone Escopo Status -- -- -- M0 Scaffold monorepo (pnpm+Turborepo, config, CI) ✅ M1 @louizeb/flytrap-tokens (HCT 50–950, build, apca gate) ✅ M3 Supabase schema (tabelas, RLS, pgvector, RPC, edge ai-chat) ✅ (deploy da função pendente) M2a Fundação @louizeb/flytrap-ui (React, base + composições AI) ✅ M2a.1 Fonte única DTCG, estados de componente e matriz light/dark/vibrant ✅ M2b Executar ondas P0 do inventário: fou",
+    "summary": "Milestone Escopo Status -- -- -- M0 Scaffold monorepo (pnpm+Turborepo, config, CI) ✅ M1 @louizeb/flytrap-tokens (HCT 50–950, build, apca gate) ✅ M3 Supabase schema (tabelas, RLS, pgvector, RPC, edge ai-chat) ✅ schema; Edge Function adiada por ADR 19 M2a Fundação @louizeb/flytrap-ui (React, base + composições AI) ✅ M2a.1 Fonte única DTCG, estados de componente e matriz light/dark/vibrant ✅ M2b Executar ondas P0 do inv",
     "tags": [
       "generated",
       "documentation",
@@ -2528,7 +2528,7 @@ export const generatedFlytrapMemoryIndex = [
     "href": "https://github.com/LouizeB/flytrapds/blob/main/docs/11-roadmap.md",
     "id": "generated-doc-11-roadmap-section-proximas-frentes-recomendadas",
     "source": "docs/11-roadmap.md",
-    "summary": "1. Release candidate: manter todos os gates verdes e concluir a revisão visual e editorial dos três apps. 2. Release: definir owner npm e publicar @louizeb/flytrap-tokens e @louizeb/flytrap-ui com changeset. 3. Adoção externa: conectar um produto fora deste monorepo para provar instalação, theming e estabilidade das APIs publicadas. 4. RAG avançado: decidir se embeddings locais, ingestão ds context e deploy da Edge Function pertencem à primeira versão estável ou a uma fase posterior.",
+    "summary": "1. Adoção externa real: conectar um produto mantido fora deste monorepo e acompanhar o uso contínuo. 2. Feedback de integração: registrar dificuldades de instalação, theming, acessibilidade e estabilidade das APIs. 3. Próxima release: priorizar correções e melhorias a partir dessas evidências. 4. RAG avançado: reavaliar embeddings, ingestão ds context e Edge Function apenas se a busca local falhar em um caso mensurável.",
     "tags": [
       "generated",
       "documentation",
@@ -4431,7 +4431,7 @@ export const generatedFlytrapMemoryIndex = [
     "href": "https://github.com/LouizeB/flytrapds/blob/main/docs/18-distribution.md",
     "id": "generated-doc-18-distribution-section-estado-atual",
     "source": "docs/18-distribution.md",
-    "summary": "@louizeb/flytrap-ui é publish-ready, mas a publicação continua manual até existir um release owner. - Entrada pública: @louizeb/flytrap-ui - CSS: @louizeb/flytrap-ui/styles - Assets oficiais: @louizeb/flytrap-ui/assets/ - Build: pnpm --filter @louizeb/flytrap-ui build - Versionamento: Changesets Durante desenvolvimento local, apps/docs e apps/dashboard usam aliases Vite para packages/ui/src . Isso preserva hot reload e evita exigir dist antes de rodar pnpm dev .",
+    "summary": "Os pacotes públicos são mantidos pela conta npm louizeb . A primeira release foi publicada e validada em uma instalação limpa fora do monorepo. - UI: @louizeb/flytrap-ui@0.5.0 - Tokens: @louizeb/flytrap-tokens@0.2.0 - Entrada pública: @louizeb/flytrap-ui - CSS: @louizeb/flytrap-ui/styles - Assets oficiais: @louizeb/flytrap-ui/assets/ - Build: pnpm --filter @louizeb/flytrap-ui build - Versionamento: Changesets Durante desenvolvimento local, apps/docs e apps/dashboard usam aliases Vite para packages/ui/src . Isso pre",
     "tags": [
       "generated",
       "documentation",
@@ -4487,7 +4487,7 @@ export const generatedFlytrapMemoryIndex = [
     "href": "https://github.com/LouizeB/flytrapds/blob/main/docs/18-distribution.md",
     "id": "generated-doc-18-distribution-section-release",
     "source": "docs/18-distribution.md",
-    "summary": "Toda alteração que mude tokens, API pública ou comportamento visual relevante deve criar um changeset: Até a primeira publicação npm real, pnpm release deve ser executado apenas por quem tiver permissão de publicação e depois de CI verde em main .",
+    "summary": "Toda alteração que mude tokens, API pública ou comportamento visual relevante deve criar um changeset: pnpm release deve ser executado pela conta owner, com 2FA, depois de CI verde em main . A primeira publicação pública e o consumo dos exports do registry foram validados; a adoção contínua em um produto real permanece como próxima etapa.",
     "tags": [
       "generated",
       "documentation",

@@ -4,8 +4,10 @@ Este documento fecha a decisão da Fase 2 da auditoria: o Flytrap DS deve poder 
 
 ## Estado atual
 
-`@louizeb/flytrap-ui` é publish-ready, mas a publicação continua manual até existir um release owner.
+Os pacotes públicos são mantidos pela conta npm `louizeb`. A primeira release foi publicada e validada em uma instalação limpa fora do monorepo.
 
+- UI: `@louizeb/flytrap-ui@0.5.0`
+- Tokens: `@louizeb/flytrap-tokens@0.2.0`
 - Entrada pública: `@louizeb/flytrap-ui`
 - CSS: `@louizeb/flytrap-ui/styles`
 - Assets oficiais: `@louizeb/flytrap-ui/assets/*`
@@ -40,7 +42,7 @@ pnpm version-packages
 pnpm release
 ```
 
-Até a primeira publicação npm real, `pnpm release` deve ser executado apenas por quem tiver permissão de publicação e depois de CI verde em `main`.
+`pnpm release` deve ser executado pela conta owner, com 2FA, depois de CI verde em `main`. A primeira publicação pública e o consumo dos exports do registry foram validados; a adoção contínua em um produto real permanece como próxima etapa.
 
 ## Relação tokens/UI
 
