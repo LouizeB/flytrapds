@@ -2528,7 +2528,7 @@ export const generatedFlytrapMemoryIndex = [
     "href": "https://github.com/LouizeB/flytrapds/blob/main/docs/11-roadmap.md",
     "id": "generated-doc-11-roadmap-section-proximas-frentes-recomendadas",
     "source": "docs/11-roadmap.md",
-    "summary": "1. Pattern library: transformar os patterns iniciais em páginas/âncoras mais completas com problema, anatomia, acessibilidade, componentes usados e exemplos. 2. Adoção externa: conectar um produto fora da vitrine/docs para provar estabilidade das APIs. 3. Memory: iniciar índice allowlist e busca local sem simular IA conversacional. 4. Release: definir owner npm e rodar publicação real quando a governança estiver aprovada.",
+    "summary": "1. Release candidate: manter todos os gates verdes e concluir a revisão visual e editorial dos três apps. 2. Release: definir owner npm e publicar @flytrap/tokens e @flytrap/ui com changeset. 3. Adoção externa: conectar um produto fora deste monorepo para provar instalação, theming e estabilidade das APIs publicadas. 4. RAG avançado: decidir se embeddings locais, ingestão ds context e deploy da Edge Function pertencem à primeira versão estável ou a uma fase posterior.",
     "tags": [
       "generated",
       "documentation",
@@ -5133,7 +5133,7 @@ export const generatedFlytrapMemoryIndex = [
     "href": "https://github.com/LouizeB/flytrapds/blob/main/docs/21-memory-ollama.md",
     "id": "generated-doc-21-memory-ollama-section-next-improvements",
     "source": "docs/21-memory-ollama.md",
-    "summary": "- Add local embeddings for semantic ranking. - Expand TypeScript prop comments across the next component wave so every public component can answer prop-level questions with source-backed descriptions. - Add authored example blocks to more component docs so generated snippets are less synthetic and more product-like.",
+    "summary": "- Add local embeddings for semantic ranking. - Expand TypeScript prop comments across the remaining component waves so every public component can answer prop-level questions with source-backed descriptions. - Add authored example blocks to more component docs so generated snippets are less synthetic and more product-like.",
     "tags": [
       "generated",
       "documentation",

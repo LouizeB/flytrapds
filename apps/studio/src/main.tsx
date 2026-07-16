@@ -183,6 +183,7 @@ function App() {
   const [queueFilter, setQueueFilter] = useState("");
   const [sessionStarted, setSessionStarted] = useState(false);
   const [segment, setSegment] = useState("recommended");
+  const [studioView, setStudioView] = useState<"experience" | "signals" | "agent">("experience");
 
   const currentMood = moodCopy[mood];
   const activeItem = catalogRows.find((row) => row.title === activeTitle) ?? catalogRows[0];
@@ -227,25 +228,24 @@ function App() {
     setSessionStarted(true);
   }
 
-  return <div className="dark min-h-screen bg-background text-foreground">
+  return <div className="dark min-h-screen bg-background text-foreground" style={{ colorScheme: "dark" }}>
     <div className="min-h-screen lg:grid lg:grid-cols-[264px_1fr]">
       <aside className="border-b bg-sidebar p-5 lg:sticky lg:top-0 lg:h-screen lg:border-b-0 lg:border-r">
-        <BrandLockup descriptor="Stream Studio" />
+        <BrandLockup descriptor="Experience Studio" />
         <nav aria-label="Studio sections" className="mt-8 grid gap-1 text-sm">
-          <a className="flex min-h-10 items-center gap-3 rounded-md bg-sidebar-accent px-3 py-2 font-medium" href="#experience">
+          <button className="flex min-h-10 items-center gap-3 rounded-md bg-sidebar-accent px-3 py-2 text-left font-medium" onClick={() => setStudioView("experience")}>
             <FlytrapIcon icon={BrandIcon} /> Experience
-          </a>
-          <a className="flex min-h-10 items-center gap-3 rounded-md px-3 py-2 font-medium hover:bg-sidebar-accent" href="#signals">
-            <FlytrapIcon icon={ChartIcon} /> Signals
-          </a>
-          <a className="flex min-h-10 items-center gap-3 rounded-md px-3 py-2 font-medium hover:bg-sidebar-accent" href="#agent">
-            <FlytrapIcon icon={AgentIcon} /> AI agent
-          </a>
+          </button>
+          <button className="flex min-h-10 items-center gap-3 rounded-md px-3 py-2 text-left font-medium hover:bg-sidebar-accent" onClick={() => setStudioView("signals")}>
+            <FlytrapIcon icon={ChartIcon} /> Results
+          </button>
+          <button className="flex min-h-10 items-center gap-3 rounded-md px-3 py-2 text-left font-medium hover:bg-sidebar-accent" onClick={() => setStudioView("agent")}>
+            <FlytrapIcon icon={AgentIcon} /> AI details
+          </button>
         </nav>
         <div className="mt-8 grid gap-3 rounded-xl border bg-background/50 p-4">
-          <StatusIndicator tone="success">Studio online</StatusIndicator>
-          <StatusIndicator tone="info">Mood model active</StatusIndicator>
-          <StatusIndicator tone="warning">Sensitive shift approval required</StatusIndicator>
+          <StatusIndicator tone="success">Studio available</StatusIndicator>
+          <StatusIndicator tone="info">Personalization active</StatusIndicator>
         </div>
       </aside>
 
@@ -253,17 +253,17 @@ function App() {
         <PageHeader>
           <div className="grid gap-6 xl:grid-cols-[1.1fr_.9fr]">
             <div>
-              <PageDescription>Flytrap Design System · product consumer</PageDescription>
-              <PageTitle>AI-managed streaming studio</PageTitle>
+              <PageDescription>Flytrap Design System</PageDescription>
+              <PageTitle>Personalized experience preview</PageTitle>
               <PageDescription>
-                A product-facing surface that proves Flytrap UI outside docs and operations. The interface adapts recommendations, pacing and review actions from the selected viewer mood.
+                Choose a mood and see how the experience responds. You stay in control of every change.
               </PageDescription>
               <div className="mt-5 flex flex-wrap gap-3">
                 <Button onClick={() => {
                   setSessionStarted(true);
                   setPlaying(true);
-                }}>{sessionStarted ? "Session running" : "Start adaptive session"}</Button>
-                <Button onClick={() => document.getElementById("signals")?.scrollIntoView({ behavior: "smooth", block: "start" })} variant="outline">Review model signals</Button>
+                }}>{sessionStarted ? "Session active" : "Start preview"}</Button>
+                <Button onClick={() => setStudioView("signals")} variant="outline">View results</Button>
               </div>
             </div>
             <PersonalizationPanel
@@ -282,10 +282,10 @@ function App() {
           </div>
         </PageHeader>
 
-        <Section aria-labelledby="experience-title" id="experience">
+        <Section aria-labelledby="experience-title" id="experience" style={{ display: studioView === "experience" ? undefined : "none" }}>
           <SectionHeader>
-            <SectionTitle id="experience-title">Mood-shaped experience</SectionTitle>
-            <SectionDescription>Select a mood to reshape the queue, confidence model and agent prompt.</SectionDescription>
+            <SectionTitle id="experience-title">Choose the experience</SectionTitle>
+            <SectionDescription>Select a mood to update the recommendations.</SectionDescription>
           </SectionHeader>
           <MoodSelector
             options={moodOptions}
@@ -300,10 +300,10 @@ function App() {
           </div>
         </Section>
 
-        <Section aria-labelledby="queue-title">
+        <Section aria-labelledby="queue-title" style={{ display: studioView === "experience" ? undefined : "none" }}>
           <SectionHeader>
-            <SectionTitle id="queue-title">Adaptive queue</SectionTitle>
-            <SectionDescription>Content cards, filters and tables use the same DS primitives that power the documentation.</SectionDescription>
+            <SectionTitle id="queue-title">Recommendations</SectionTitle>
+            <SectionDescription>Choose what to play or filter the list.</SectionDescription>
           </SectionHeader>
           <FilterBar onValueChange={setQueueFilter} placeholder="Search queue, signals or episodes…" value={queueFilter}>
             <ButtonGroup aria-label="Queue segment">
@@ -345,13 +345,13 @@ function App() {
           />
         </Section>
 
-        <Section aria-labelledby="signals-title" id="signals">
+        <Section aria-labelledby="signals-title" id="signals" style={{ display: studioView === "signals" ? undefined : "none" }}>
           <SectionHeader>
-            <SectionTitle id="signals-title">Viewer signals</SectionTitle>
-            <SectionDescription>Observable metrics stay readable and available as data tables for assistive technology.</SectionDescription>
+            <SectionTitle id="signals-title">Results</SectionTitle>
+            <SectionDescription>See the information used to shape the recommendations.</SectionDescription>
           </SectionHeader>
           <div className="grid gap-4 xl:grid-cols-[1.3fr_.7fr]">
-            <Chart
+            {studioView === "signals" && <Chart
               data={signalData}
               description="Attention and affinity are monitored as transparent signals, not hidden manipulation."
               series={[
@@ -362,7 +362,7 @@ function App() {
               type="area"
               valueFormatter={(value) => `${value}%`}
               xKey="minute"
-            />
+            />}
             <Card>
               <CardHeader>
                 <CardTitle>Session contract</CardTitle>
@@ -388,10 +388,10 @@ function App() {
           </div>
         </Section>
 
-        <Section aria-labelledby="agent-title" id="agent">
+        <Section aria-labelledby="agent-title" id="agent" style={{ display: studioView === "agent" ? undefined : "none" }}>
           <SectionHeader>
-            <SectionTitle id="agent-title">AI workflow</SectionTitle>
-            <SectionDescription>The agent layer uses DS components for traceability, consent and prompt-driven curation.</SectionDescription>
+            <SectionTitle id="agent-title">How the AI works</SectionTitle>
+            <SectionDescription>Review the AI's reasoning, actions, and approval requests.</SectionDescription>
           </SectionHeader>
           <div className="grid gap-4 xl:grid-cols-[.9fr_1.1fr]">
             <div className="grid gap-4">
@@ -458,10 +458,10 @@ function App() {
           </div>
         </Section>
 
-        <Section aria-labelledby="assistant-title">
+        <Section aria-labelledby="assistant-title" style={{ display: studioView === "agent" ? undefined : "none" }}>
           <SectionHeader>
-            <SectionTitle id="assistant-title">Assistant console</SectionTitle>
-            <SectionDescription>Prompt, streaming and suggested-action primitives composed into a product workflow.</SectionDescription>
+            <SectionTitle id="assistant-title">Ask the assistant</SectionTitle>
+            <SectionDescription>Describe what you want to change in the experience.</SectionDescription>
           </SectionHeader>
           <div className="grid gap-4 xl:grid-cols-[1.1fr_.9fr]">
             <Card>

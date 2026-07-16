@@ -44,8 +44,6 @@ import {
   SendIcon,
   SmartDataTable,
   StatusIndicator,
-  ThemeDarkIcon,
-  ThemeLightIcon,
   Timeline,
   TimelineItem,
   Toolbar,
@@ -99,7 +97,6 @@ const releaseRows: ReleaseRow[] = [
 ];
 
 function App() {
-  const [dark, setDark] = useState(true);
   const [filter, setFilter] = useState("");
   const [view, setView] = useState("health");
 
@@ -110,19 +107,18 @@ function App() {
     return releaseRows.filter((row) => String(row.item).toLowerCase().includes(query) || String(row.owner).toLowerCase().includes(query));
   }, [filter]);
 
-  return <div className={dark ? "dark" : ""}>
+  return <div className="dark" style={{ colorScheme: "dark" }}>
     <div className="min-h-screen bg-background text-foreground lg:grid lg:grid-cols-[248px_1fr]">
       <aside className="border-b bg-sidebar p-5 lg:sticky lg:top-0 lg:h-screen lg:border-b-0 lg:border-r">
-        <BrandLockup descriptor="Operations" />
+        <BrandLockup descriptor="System overview" />
         <nav aria-label="Dashboard sections" className="mt-8 grid gap-1 text-sm">
-          <a className="flex min-h-10 items-center gap-3 rounded-md bg-sidebar-accent px-3 py-2 font-medium" href="#health"><FlytrapIcon icon={DashboardIcon} />Health</a>
-          <a className="flex min-h-10 items-center gap-3 rounded-md px-3 py-2 font-medium hover:bg-sidebar-accent" href="#adoption"><FlytrapIcon icon={ChartIcon} />Adoption</a>
-          <a className="flex min-h-10 items-center gap-3 rounded-md px-3 py-2 font-medium hover:bg-sidebar-accent" href="#agents"><FlytrapIcon icon={AgentIcon} />Agents</a>
+          <button className="flex min-h-10 items-center gap-3 rounded-md bg-sidebar-accent px-3 py-2 text-left font-medium" onClick={() => setView("health")}><FlytrapIcon icon={DashboardIcon} />Overview</button>
+          <button className="flex min-h-10 items-center gap-3 rounded-md px-3 py-2 text-left font-medium hover:bg-sidebar-accent" onClick={() => setView("release")}><FlytrapIcon icon={ChartIcon} />Releases</button>
+          <button className="flex min-h-10 items-center gap-3 rounded-md px-3 py-2 text-left font-medium hover:bg-sidebar-accent" onClick={() => setView("ai")}><FlytrapIcon icon={AgentIcon} />AI tools</button>
         </nav>
         <div className="mt-8 grid gap-3 rounded-xl border bg-background/50 p-4">
-          <StatusIndicator tone="success">Design system online</StatusIndicator>
-          <StatusIndicator tone="info">230 tokens synced</StatusIndicator>
-          <StatusIndicator tone="warning">External consumer pending</StatusIndicator>
+          <StatusIndicator tone="success">System available</StatusIndicator>
+          <StatusIndicator tone="info">230 tokens updated</StatusIndicator>
         </div>
       </aside>
 
@@ -130,31 +126,28 @@ function App() {
         <PageHeader className="gap-4">
           <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
             <div>
-              <PageDescription>Flytrap Design System · internal product consumer</PageDescription>
-              <PageTitle>Design system operations</PageTitle>
+              <PageDescription>Flytrap Design System</PageDescription>
+              <PageTitle>System overview</PageTitle>
               <PageDescription>
-                A real dashboard surface using Flytrap UI components to monitor tokens, release quality, adoption and AI-assisted workflows.
+                Check system quality, releases, and AI tools in one place.
               </PageDescription>
             </div>
-            <Button aria-label={dark ? "Switch to light preview" : "Switch to dark preview"} onClick={() => setDark((value) => !value)} size="icon" variant="outline">
-              <FlytrapIcon icon={dark ? ThemeLightIcon : ThemeDarkIcon} />
-            </Button>
           </div>
           <Toolbar>
             <FilterBar onValueChange={setFilter} placeholder="Filter release items…" value={filter}>
               <ButtonGroup aria-label="Dashboard view">
-                <ButtonGroupItem onClick={() => setView("health")} selected={view === "health"}>Health</ButtonGroupItem>
-                <ButtonGroupItem onClick={() => setView("release")} selected={view === "release"}>Release</ButtonGroupItem>
-                <ButtonGroupItem onClick={() => setView("ai")} selected={view === "ai"}>AI</ButtonGroupItem>
+                <ButtonGroupItem onClick={() => setView("health")} selected={view === "health"}>Overview</ButtonGroupItem>
+                <ButtonGroupItem onClick={() => setView("release")} selected={view === "release"}>Releases</ButtonGroupItem>
+                <ButtonGroupItem onClick={() => setView("ai")} selected={view === "ai"}>AI tools</ButtonGroupItem>
               </ButtonGroup>
             </FilterBar>
           </Toolbar>
         </PageHeader>
 
-        <Section aria-labelledby="health-title" id="health">
+        <Section aria-labelledby="health-title" id="health" style={{ display: view === "health" ? undefined : "none" }}>
           <SectionHeader>
-            <SectionTitle id="health-title">System health</SectionTitle>
-            <SectionDescription>Operational indicators that exercise cards, status, table, progress and notification components.</SectionDescription>
+            <SectionTitle id="health-title">How the system is doing</SectionTitle>
+            <SectionDescription>A quick view of the most important checks.</SectionDescription>
           </SectionHeader>
           <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
             <KpiStatCard delta={12} description="semantic usage" label="Token adoption" value="87%" />
@@ -162,15 +155,15 @@ function App() {
             <KpiStatCard delta={7} description="documented groups" label="Component docs" value="7/7" />
             <KpiStatCard delta={-18} description="remaining in public art" label="Hardcoded values" value="14" />
           </div>
-          <InlineNotification action={<Badge variant="success">Live</Badge>} title="Experience QA is active" variant="success">
-            Visual audit now checks internal anchors, duplicate IDs, accessible names and horizontal overflow.
+          <InlineNotification action={<Badge variant="success">Active</Badge>} title="Automatic checks are running" variant="success">
+            Navigation, labels, and screen overflow are checked automatically.
           </InlineNotification>
         </Section>
 
-        <Section aria-labelledby="adoption-title" id="adoption">
+        <Section aria-labelledby="adoption-title" id="adoption" style={{ display: view === "release" ? undefined : "none" }}>
           <SectionHeader>
-            <SectionTitle id="adoption-title">Adoption and release readiness</SectionTitle>
-            <SectionDescription>Release status rendered as reusable DS primitives instead of bespoke dashboard markup.</SectionDescription>
+            <SectionTitle id="adoption-title">Release readiness</SectionTitle>
+            <SectionDescription>See what is ready and what still needs attention.</SectionDescription>
           </SectionHeader>
           <div className="grid gap-4 xl:grid-cols-[1.25fr_.75fr]">
             <Card>
@@ -226,10 +219,10 @@ function App() {
           />
         </Section>
 
-        <Section aria-labelledby="agents-title" id="agents">
+        <Section aria-labelledby="agents-title" id="agents" style={{ display: view === "ai" ? undefined : "none" }}>
           <SectionHeader>
-            <SectionTitle id="agents-title">Agents and AI workflow</SectionTitle>
-            <SectionDescription>Streaming and AI components used in a realistic design-system operations flow.</SectionDescription>
+            <SectionTitle id="agents-title">AI tools</SectionTitle>
+            <SectionDescription>Review what each agent is doing and why.</SectionDescription>
           </SectionHeader>
           <div className="grid gap-4 xl:grid-cols-[.85fr_1.15fr]">
             <div className="grid gap-4">
@@ -278,10 +271,10 @@ function App() {
           </RecommendationRail>
         </Section>
 
-        <Section aria-labelledby="structure-title">
+        <Section aria-labelledby="structure-title" style={{ display: view === "release" ? undefined : "none" }}>
           <SectionHeader>
-            <SectionTitle id="structure-title">Component structure</SectionTitle>
-            <SectionDescription>A compact view of ownership, release phases and composition hierarchy.</SectionDescription>
+            <SectionTitle id="structure-title">Delivery steps</SectionTitle>
+            <SectionDescription>Follow the work from validation to product use.</SectionDescription>
           </SectionHeader>
           <div className="grid gap-4 xl:grid-cols-[1fr_1fr]">
             <Timeline aria-label="Design system delivery timeline">
@@ -307,10 +300,10 @@ function App() {
           </div>
         </Section>
 
-        <Card>
+        <Card style={{ display: view === "ai" ? undefined : "none" }}>
           <CardHeader>
-            <CardTitle>Ask the design system</CardTitle>
-            <CardDescription>Prepared interaction model for future AI assistance.</CardDescription>
+            <CardTitle>Ask about the system</CardTitle>
+            <CardDescription>Get help choosing components and release checks.</CardDescription>
           </CardHeader>
           <CardContent className="grid gap-3">
             <MessageBubble role="user">Which component should I use for a release decision?</MessageBubble>

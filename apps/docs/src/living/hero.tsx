@@ -8,10 +8,10 @@ import spriteWideA from "../assets/flytrap-sprite-wide-a.webp";
 const syncRows = ["Tokens", "Components", "Patterns", "Documentation"] as const;
 
 const heroStrip: readonly [string, string, FlytrapIconComponent | null][] = [
-  ["What's new", "v1.0.0", AiAccentIcon],
-  ["Design principles", "How the system thinks", BrandIcon],
-  ["Contribute", "Join the ecosystem", SendIcon],
-  ["System health", "All systems nominal", null],
+  ["What's new", "Version 1.0.0", AiAccentIcon],
+  ["Principles", "How Flytrap works", BrandIcon],
+  ["Contribute", "Join the project", SendIcon],
+  ["Status", "Everything is working", null],
 ] as const;
 
 function WireframeMoon({ className }: { className?: string }) {
@@ -42,7 +42,7 @@ export function Hero() {
     <img alt="" aria-hidden="true" className="pointer-events-none absolute bottom-[-5rem] left-[-4rem] z-0 hidden w-[70%] opacity-90 lg:block" draggable={false} src={spriteWideA} />
 
     <CharacterLayer
-      alt="Flytrap alien standing on a holographic platform while reading a translucent Design System panel."
+      alt="Flytrap character reading a Design System panel."
       className="absolute right-[-35vw] top-2 z-10 hidden h-[min(78vw,800px)] w-[min(78vw,800px)] sm:block lg:right-[-18vw] xl:right-[3rem] 2xl:right-[10rem]"
       pose="standing"
     />
@@ -50,18 +50,18 @@ export function Hero() {
     <div className="relative z-30 max-w-[30rem]">
       <p className="font-mono text-xs uppercase tracking-[0.34em] text-[#ff4fbd]">Design System</p>
       <h1 className="mt-5 font-display text-4xl font-bold leading-[1.08] tracking-tight md:text-5xl xl:text-[4.65rem]" id="living-hero-title">
-        A living language
-        <span className="block">for <span className="text-[#ff4fbd] drop-shadow-[0_0_24px_rgba(255,79,189,.5)]">future</span> interfaces.</span>
+        Consistent interfaces,
+        <span className="block">from design to <span className="text-[#ff4fbd] drop-shadow-[0_0_24px_rgba(255,79,189,.5)]">code.</span></span>
       </h1>
       <p className="mt-6 max-w-md text-base leading-7 text-white/65">
-        An organic, adaptive design system for expressive product interfaces. Biomorphic by nature. Cybernetic by design.
+        Find components, styles, and guidance for building products with Flytrap.
       </p>
       <div className="mt-8 flex flex-wrap gap-3">
         <Button asChild className="rounded-full bg-[#F10081] px-6 text-white shadow-[0_0_28px_rgba(241,0,129,.45)] hover:bg-[#CF006A]" size="lg">
-          <a href="#foundations">Get Started <span aria-hidden="true">→</span></a>
+          <a href="#foundations">Get started <span aria-hidden="true">→</span></a>
         </Button>
         <Button asChild className="rounded-full border-white/25 bg-white/5 px-6 text-white hover:bg-white/10" size="lg" variant="outline">
-          <a href="#tokens">Explore Tokens <span aria-hidden="true" className="ml-1 grid size-5 place-items-center rounded-full border border-white/30 text-[0.6rem]">→</span></a>
+          <a href="#tokens">View tokens <span aria-hidden="true" className="ml-1 grid size-5 place-items-center rounded-full border border-white/30 text-[0.6rem]">→</span></a>
         </Button>
       </div>
       <a
@@ -73,7 +73,7 @@ export function Hero() {
     </div>
 
     <div className="relative z-40 mt-10 hidden w-64 flex-col gap-4 xl:absolute xl:right-10 xl:top-16 xl:flex">
-      <FloatingPanel title="System synchronization">
+      <FloatingPanel title="System content">
         <div className="flex items-start gap-3">
           <ul className="grid flex-1 gap-2">
             {syncRows.map(row => <li className="flex items-center justify-between font-mono text-[0.68rem] uppercase tracking-[0.14em] text-white/70" key={row}>
@@ -94,12 +94,12 @@ export function Hero() {
           </svg>
         </div>
       </FloatingPanel>
-      <FloatingPanel className="relative" delay={-2.4} title="Bio-signal feed">
+      <FloatingPanel className="relative" delay={-2.4} title="System signal">
         <p className="absolute right-4 top-4 font-mono text-xs text-white/70">96%</p>
         <div aria-hidden="true" className="flytrap-motion flytrap-organic mx-auto h-16 w-32 animate-[flytrap-pulse_4.6s_ease-in-out_infinite] bg-[radial-gradient(ellipse_at_50%_45%,rgba(255,79,189,.9),rgba(241,0,129,.4)_55%,rgba(139,92,246,.18)_75%,transparent_85%)] blur-[1px]" style={{ borderRadius: "48% 52% 60% 40% / 62% 58% 42% 38%" }} />
         <div className="mt-3 flex items-center justify-between font-mono text-[0.62rem] uppercase tracking-[0.16em]">
           <span className="text-white/65">Stable</span>
-          <span className="text-[#00c970]">Enable</span>
+          <span className="text-[#00c970]">Active</span>
         </div>
       </FloatingPanel>
     </div>
