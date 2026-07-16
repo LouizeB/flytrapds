@@ -67,8 +67,9 @@ Fonte de verdade para retomar a evolução pós-auditoria.
 
 ## Fase 4 — Release e adoção externa
 
-- [ ] Concluir a validação da release candidate com gates, auditoria visual e revisão editorial.
-- [ ] Definir owner e acesso de publicação no npm.
-- [ ] Publicar versões coordenadas de `@flytrap/tokens` e `@flytrap/ui` via Changesets.
-- [ ] Instalar os pacotes publicados em um produto fora do monorepo e registrar problemas reais de integração.
-- [ ] Decidir se embeddings, ingestão `ds_context` e Edge Function entram na primeira versão estável ou em uma fase posterior.
+- [x] Concluir a validação da release candidate com gates, auditoria visual e revisão editorial.
+- [x] Definir `louizeb` como owner de publicação no npm, com 2FA para autenticação e escrita.
+- [x] Publicar `@louizeb/flytrap-tokens@0.2.0` e `@louizeb/flytrap-ui@0.5.0` via Changesets.
+- [x] Instalar os pacotes do registry em um consumidor limpo fora do monorepo e validar exports, CSS e tokens.
+- [x] Adiar embeddings, ingestão `ds_context` e Edge Function até existir evidência mensurável de produto (ADR 19).
+- [ ] Integrar os pacotes em um produto externo real e acompanhar problemas de adoção contínua.
