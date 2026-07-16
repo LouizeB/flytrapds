@@ -17,7 +17,7 @@ Esse arquivo alimenta:
 - `packages/tokens/dist/tokens.ts`
 - `pnpm tokens:contract`
 - `pnpm apca`
-- `@flytrap/ui`
+- `@louizeb/flytrap-ui`
 - `apps/docs` e `apps/dashboard`
 
 ## Processo manual aceito
@@ -29,7 +29,7 @@ Até existir export versionado do Tokens Studio, mudanças vindas do Figma segue
 3. Rodar `pnpm tokens`.
 4. Rodar `pnpm tokens:contract` e `pnpm apca`.
 5. Atualizar documentação/ADR quando o significado do token mudar.
-6. Se a mudança afetar componentes, adicionar changeset para `@flytrap/tokens` e `@flytrap/ui`.
+6. Se a mudança afetar componentes, adicionar changeset para `@louizeb/flytrap-tokens` e `@louizeb/flytrap-ui`.
 
 Esse processo é manual, mas rastreável: toda alteração passa por review Git, CI e histórico de decisão.
 

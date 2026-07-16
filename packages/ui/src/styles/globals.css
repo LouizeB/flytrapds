@@ -1,4 +1,4 @@
-@import "@flytrap/tokens/css";
+@import "@louizeb/flytrap-tokens/css";
 @source "../**/*.{ts,tsx}";
 @source "../../../../apps/**/*.{ts,tsx}";
 

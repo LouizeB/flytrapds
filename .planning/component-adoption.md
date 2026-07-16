@@ -1,6 +1,6 @@
 # Component adoption snapshot
 
-Static scan of `@flytrap/ui` named imports in `apps/**`.
+Static scan of `@louizeb/flytrap-ui` named imports in `apps/**`.
 
 ## Summary
 

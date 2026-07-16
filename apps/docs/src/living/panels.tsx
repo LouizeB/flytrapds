@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, CopyIcon, ConfirmIcon, FlytrapIcon, type FlytrapIconComponent } from "@flytrap/ui";
+import { Button, CopyIcon, ConfirmIcon, FlytrapIcon, type FlytrapIconComponent } from "@louizeb/flytrap-ui";
 
 export function FloatingPanel({ title, className, children, delay = 0 }: {
   title?: string;

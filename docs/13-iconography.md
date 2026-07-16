@@ -5,7 +5,7 @@ O Flytrap trata ícones como linguagem, não como catálogo visual. Produto, des
 ## Contrato
 
 - `FlytrapIcon` é o único wrapper de renderização da UI.
-- Aliases de domínio são importados de `@flytrap/ui`.
+- Aliases de domínio são importados de `@louizeb/flytrap-ui`.
 - O nome descreve intenção: `ApprovalIcon`, não forma ou fornecedor.
 - Ícone decorativo recebe `aria-hidden`.
 - Ícone que comunica sozinho exige `label` acessível.

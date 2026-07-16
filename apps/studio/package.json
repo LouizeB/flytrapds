@@ -10,8 +10,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@flytrap/tokens": "workspace:*",
-    "@flytrap/ui": "workspace:*",
+    "@louizeb/flytrap-tokens": "workspace:*",
+    "@louizeb/flytrap-ui": "workspace:*",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

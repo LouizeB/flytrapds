@@ -16,7 +16,7 @@ Plausível é usar `bg-magenta-500` em uma ação. Correto é usar `Button` ou `
 Forneça apenas o necessário, nesta ordem:
 
 1. **Objetivo e fluxo:** tarefa do usuário e estado esperado.
-2. **Componentes disponíveis:** exports reais de `@flytrap/ui`.
+2. **Componentes disponíveis:** exports reais de `@louizeb/flytrap-ui`.
 3. **Contrato semântico:** tokens e aliases permitidos.
 4. **Aparência:** brand, mode, theme e breakpoint relevantes.
 5. **Acessibilidade:** papel, teclado, foco, live region e pares APCA.

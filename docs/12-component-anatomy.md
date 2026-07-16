@@ -66,7 +66,7 @@ O foreground sempre usa o par `*-fg` correspondente. O componente não conhece m
 - Todos os aliases passam em `pnpm tokens:contract`.
 - Pares de conteúdo relevantes têm metadados APCA e passam em todos os modos registrados.
 - Estados interativos não dependem apenas de opacidade quando há mudança semântica de cor.
-- API pública está exportada por `@flytrap/ui`.
+- API pública está exportada por `@louizeb/flytrap-ui`.
 - Há exemplo real em `apps/docs` ou justificativa para não haver.
 - Lint, tipos e build passam.
 - A revisão cobre teclado, foco, ARIA, reduced motion e contraste.

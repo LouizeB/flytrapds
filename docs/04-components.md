@@ -9,7 +9,7 @@ Este inventário conecta estratégia, tokens, implementação e roadmap. Ele par
 | Prioridade `P0` | bloqueia a primeira experiência utilizável do DS |
 | Prioridade `P1` | completa os fluxos AI e dashboard prioritários |
 | Prioridade `P2` | expansão do sistema, sem bloquear o release inicial |
-| `✅` | implementado e exportado por `@flytrap/ui` |
+| `✅` | implementado e exportado por `@louizeb/flytrap-ui` |
 | `🟡` | implementação parcial; faltam estados, composição ou validação |
 | `⬜` | planejado |
 
@@ -219,7 +219,7 @@ Um componente só muda para `✅` quando atende à [Definition of Done](12-compo
 - [x] Fluxos atuais de docs, dashboard, agents e playground mapeados.
 - [x] Estados loading, empty e error identificados nos fluxos assíncronos.
 - [x] Componentes P0/P1/P2 separados.
-- [x] Itens já implementados confrontados com os exports reais de `@flytrap/ui`.
+- [x] Itens já implementados confrontados com os exports reais de `@louizeb/flytrap-ui`.
 - [ ] Inventário confrontado com os componentes e variables do Figma.
 - [ ] P0 validado com usuários/consumidores do design system.
 - [ ] Cada P0 transformado em issue com critérios da Definition of Done.

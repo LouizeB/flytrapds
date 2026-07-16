@@ -41,12 +41,12 @@ const curatedFlytrapMemoryIndex = [
     type: "governance",
   },
   {
-    answer: "Install `@flytrap/ui`, import the component from the package barrel, and load `@flytrap/ui/styles` once in the app entry.",
+    answer: "Install `@louizeb/flytrap-ui`, import the component from the package barrel, and load `@louizeb/flytrap-ui/styles` once in the app entry.",
     href: "https://github.com/LouizeB/flytrapds/blob/main/docs/18-distribution.md",
     id: "install-ui",
     source: "docs/18-distribution.md",
     summary: "Package installation, distribution and usage contract for product teams.",
-    tags: ["install", "package", "pnpm", "npm", "styles", "@flytrap/ui", "setup"],
+    tags: ["install", "package", "pnpm", "npm", "styles", "@louizeb/flytrap-ui", "setup"],
     title: "Install the Design System",
     type: "development",
   },
@@ -1159,8 +1159,8 @@ const semanticExpansions = [
     triggers: ["ai", "ia", "agent", "agente", "chat", "prompt", "reasoning", "raciocinio", "raciocínio", "tool", "approval", "aprovacao", "aprovação", "citation", "source", "fonte"],
   },
   {
-    terms: ["install", "package", "@flytrap/ui", "styles", "setup", "npm", "pnpm"],
-    triggers: ["install", "instalar", "setup", "package", "pacote", "@flytrap/ui", "npm", "pnpm"],
+    terms: ["install", "package", "@louizeb/flytrap-ui", "styles", "setup", "npm", "pnpm"],
+    triggers: ["install", "instalar", "setup", "package", "pacote", "@louizeb/flytrap-ui", "npm", "pnpm"],
   },
   {
     terms: ["accessibility", "apca", "contrast", "focus", "keyboard", "readability", "a11y"],
@@ -1235,7 +1235,7 @@ function scoreField(value: string, term: string, weight: number, fieldWeight: nu
 function intentBoost(item: FlytrapMemoryItem, query: string) {
   const has = (value: string) => query.includes(value);
 
-  if (item.id === "install-ui" && (has("install") || has("instalar") || has("@flytrap/ui") || has("package"))) return 45;
+  if (item.id === "install-ui" && (has("install") || has("instalar") || has("@louizeb/flytrap-ui") || has("package"))) return 45;
   if (item.id === "design-code-sync" && has("figma") && (has("dtcg") || has("tokens studio") || has("drift"))) return 45;
   if (item.id === "adr-decisions" && (has("adr") || has("decisions") || has("decisoes") || has("decisões"))) return 45;
   if (item.id === "documentation-index" && (has("readme") || has("table of contents") || has("toc"))) return 45;

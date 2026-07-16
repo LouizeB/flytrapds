@@ -8,8 +8,8 @@ Formato: Keep a Changelog · SemVer.
 - Estados disabled do Button agora usam tokens de opacidade rastreáveis em vez de valores utilitários fixos.
 - Variantes `ghost` e `link` do Button passam a ter tokens próprios de opacidade disabled.
 - CheckboxField, RadioGroupField e SwitchField reforçam alvo efetivo mínimo e estado disabled visual.
-- Foco visível global de `@flytrap/ui` passa a usar o token `--ring` (validado pelo gate APCA nas três aparências) em vez do valor fixo `#b8ff35` (ADR 16).
-- Estilos exclusivos do site público (tema `flytrap-light`, keyframes e texturas "living", fundo do body) migraram de `@flytrap/ui` para `apps/docs/src/site.css` — o pacote UI volta a conter apenas estilos do design system.
+- Foco visível global de `@louizeb/flytrap-ui` passa a usar o token `--ring` (validado pelo gate APCA nas três aparências) em vez do valor fixo `#b8ff35` (ADR 16).
+- Estilos exclusivos do site público (tema `flytrap-light`, keyframes e texturas "living", fundo do body) migraram de `@louizeb/flytrap-ui` para `apps/docs/src/site.css` — o pacote UI volta a conter apenas estilos do design system.
 
 ### Quality
 - CI passa a executar a suíte de testes com cobertura (`pnpm test:coverage`), alinhando o pipeline à matriz de validação documentada.
@@ -23,7 +23,7 @@ Formato: Keep a Changelog · SemVer.
 - Dados operacionais com FilterBar e SmartDataTable.
 
 ### Changed
-- `@flytrap/ui` atualizado para 0.4.0.
+- `@louizeb/flytrap-ui` atualizado para 0.4.0.
 - Progress passa a aceitar atributos HTML/ARIA para composições acessíveis.
 - Catálogo e inventário passam a documentar a onda P1.
 
@@ -41,7 +41,7 @@ Formato: Keep a Changelog · SemVer.
 - Tokens de componente para grid, eixos e tooltip de dataviz.
 
 ### Changed
-- `@flytrap/ui` atualizado para 0.3.0.
+- `@louizeb/flytrap-ui` atualizado para 0.3.0.
 - Catálogo e dashboard passam a consumir marca e avatar pelo pacote compartilhado.
 - Inventário, roadmap e documentação passam a refletir os componentes públicos reais.
 
@@ -55,7 +55,7 @@ Formato: Keep a Changelog · SemVer.
 ## [0.2.0] — 2026-06-22
 ### Changed
 - Migração da UI de Lit Web Components para React 19 e componentes locais orientados por tokens.
-- Docs e dashboard reescritos como apps React consumidores de `@flytrap/ui`.
+- Docs e dashboard reescritos como apps React consumidores de `@louizeb/flytrap-ui`.
 - Configuração do gerador de componentes adicionada aos workspaces.
 - GitHub Actions separado entre gates de qualidade e publicação do catálogo.
 
@@ -76,12 +76,12 @@ Formato: Keep a Changelog · SemVer.
 ### Fixed
 - Build de tokens volta a criar `dist/` em ambientes limpos.
 - Build e APCA agora consomem a mesma fonte DTCG, eliminando divergência entre arquivos.
-- Preview Vercel gera `@flytrap/tokens` antes de compilar o catálogo em clones limpos.
+- Preview Vercel gera `@louizeb/flytrap-tokens` antes de compilar o catálogo em clones limpos.
 
 ## [0.1.0] — 2026-06-21
 ### Added
 - Monorepo (pnpm + Turborepo), config compartilhada, CI com gate APCA.
-- `@flytrap/tokens`: primitives HCT (6 ramps, 50→950), build → `flytrap-globals.css` + `tokens.ts`.
+- `@louizeb/flytrap-tokens`: primitives HCT (6 ramps, 50→950), build → `flytrap-globals.css` + `tokens.ts`.
 - Arquitetura em camadas e dimensões no contrato CSS de runtime.
 - Ramps semânticas independentes (success/warning/error) + dataviz `--chart-1..5`.
 - Supabase (sa-east-1): tabelas, RLS, pgvector, RPC `match_ds_context`, edge `ai-chat` (RAG + Anthropic).
