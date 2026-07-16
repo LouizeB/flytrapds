@@ -4,12 +4,12 @@ Este documento fecha a decisão da Fase 2 da auditoria: o Flytrap DS deve poder 
 
 ## Estado atual
 
-`@flytrap/ui` é publish-ready, mas a publicação continua manual até existir um release owner.
+`@louizeb/flytrap-ui` é publish-ready, mas a publicação continua manual até existir um release owner.
 
-- Entrada pública: `@flytrap/ui`
-- CSS: `@flytrap/ui/styles`
-- Assets oficiais: `@flytrap/ui/assets/*`
-- Build: `pnpm --filter @flytrap/ui build`
+- Entrada pública: `@louizeb/flytrap-ui`
+- CSS: `@louizeb/flytrap-ui/styles`
+- Assets oficiais: `@louizeb/flytrap-ui/assets/*`
+- Build: `pnpm --filter @louizeb/flytrap-ui build`
 - Versionamento: Changesets
 
 Durante desenvolvimento local, `apps/docs` e `apps/dashboard` usam aliases Vite para `packages/ui/src`. Isso preserva hot reload e evita exigir `dist` antes de rodar `pnpm dev`.
@@ -44,4 +44,4 @@ Até a primeira publicação npm real, `pnpm release` deve ser executado apenas 
 
 ## Relação tokens/UI
 
-Quando um token de componente é adicionado, removido ou muda de intenção, `@flytrap/tokens` e `@flytrap/ui` devem receber changesets coordenados. Correções internas sem mudança de contrato podem versionar apenas o pacote afetado.
+Quando um token de componente é adicionado, removido ou muda de intenção, `@louizeb/flytrap-tokens` e `@louizeb/flytrap-ui` devem receber changesets coordenados. Correções internas sem mudança de contrato podem versionar apenas o pacote afetado.

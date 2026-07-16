@@ -12,7 +12,7 @@ import {
   InsightIcon,
   ToolIcon,
   type FlytrapIconComponent,
-} from "@flytrap/ui";
+} from "@louizeb/flytrap-ui";
 
 export type Appearance = "dark";
 

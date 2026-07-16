@@ -5,5 +5,5 @@
   "tsx": true,
   "tailwind": { "config": "", "css": "../../packages/ui/src/styles/globals.css", "baseColor": "neutral", "cssVariables": true },
   "iconLibrary": "lucide",
-  "aliases": { "components": "@/components", "hooks": "@/hooks", "lib": "@/lib", "utils": "@flytrap/ui/lib/utils", "ui": "@flytrap/ui/components" }
+  "aliases": { "components": "@/components", "hooks": "@/hooks", "lib": "@/lib", "utils": "@louizeb/flytrap-ui/lib/utils", "ui": "@louizeb/flytrap-ui/components" }
 }

@@ -1,6 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "pnpm tokens && pnpm --filter @flytrap/ui build && pnpm --filter @flytrap/docs build",
+  "buildCommand": "pnpm tokens && pnpm --filter @louizeb/flytrap-ui build && pnpm --filter @flytrap/docs build",
   "outputDirectory": "apps/docs/dist",
   "installCommand": "pnpm install --frozen-lockfile",
   "framework": "vite"

@@ -3,7 +3,7 @@ import { answerFlytrapMemoryQuestion, flytrapMemoryIndex, searchFlytrapMemory } 
 
 describe("Flytrap memory search", () => {
   it("ranks direct installation questions with source metadata", () => {
-    const [first] = searchFlytrapMemory("install @flytrap/ui");
+    const [first] = searchFlytrapMemory("install @louizeb/flytrap-ui");
 
     expect(first?.id).toBe("install-ui");
     expect(first?.source).toBe("docs/18-distribution.md");
@@ -381,7 +381,7 @@ describe("Flytrap memory provider", () => {
     vi.stubEnv("VITE_FLYTRAP_OLLAMA_MODEL", "llama3.2");
     vi.stubGlobal("fetch", vi.fn(async () => ({
       ok: true,
-      json: async () => ({ message: { content: "Install @flytrap/ui and import the styles once." } }),
+      json: async () => ({ message: { content: "Install @louizeb/flytrap-ui and import the styles once." } }),
     })));
 
     const { answerFlytrapMemoryWithProvider, memoryProviderConfig } = await import("./memory-provider");
@@ -390,7 +390,7 @@ describe("Flytrap memory provider", () => {
     expect(memoryProviderConfig.provider).toBe("ollama");
     expect(answer.provider).toBe("ollama");
     expect(answer.model).toBe("llama3.2");
-    expect(answer.response).toContain("@flytrap/ui");
+    expect(answer.response).toContain("@louizeb/flytrap-ui");
     expect(answer.sources[0]?.id).toBe("install-ui");
   });
 

@@ -1221,7 +1221,7 @@ export const generatedFlytrapMemoryIndex = [
     "href": "https://github.com/LouizeB/flytrapds/blob/main/docs/04-components.md",
     "id": "generated-doc-04-components-section-como-ler",
     "source": "docs/04-components.md",
-    "summary": "Campo Significado -- -- Prioridade P0 bloqueia a primeira experiência utilizável do DS Prioridade P1 completa os fluxos AI e dashboard prioritários Prioridade P2 expansão do sistema, sem bloquear o release inicial ✅ implementado e exportado por @flytrap/ui 🟡 implementação parcial; faltam estados, composição ou validação ⬜ planejado Um componente só muda para ✅ quando atende à Definition of Done, não apenas quando renderiza.",
+    "summary": "Campo Significado -- -- Prioridade P0 bloqueia a primeira experiência utilizável do DS Prioridade P1 completa os fluxos AI e dashboard prioritários Prioridade P2 expansão do sistema, sem bloquear o release inicial ✅ implementado e exportado por @louizeb/flytrap-ui 🟡 implementação parcial; faltam estados, composição ou validação ⬜ planejado Um componente só muda para ✅ quando atende à Definition of Done, não apenas quando renderiza.",
     "tags": [
       "generated",
       "documentation",
@@ -1926,7 +1926,7 @@ export const generatedFlytrapMemoryIndex = [
     "href": "https://github.com/LouizeB/flytrapds/blob/main/docs/04-components.md",
     "id": "generated-doc-04-components-section-checklist-de-validacao-do-inventario",
     "source": "docs/04-components.md",
-    "summary": "- [x] Fluxos atuais de docs, dashboard, agents e playground mapeados. - [x] Estados loading, empty e error identificados nos fluxos assíncronos. - [x] Componentes P0/P1/P2 separados. - [x] Itens já implementados confrontados com os exports reais de @flytrap/ui . - [ ] Inventário confrontado com os componentes e variables do Figma. - [ ] P0 validado com usuários/consumidores do design system. - [ ] Cada P0 transformado em issue com critérios da Definition of Done.",
+    "summary": "- [x] Fluxos atuais de docs, dashboard, agents e playground mapeados. - [x] Estados loading, empty e error identificados nos fluxos assíncronos. - [x] Componentes P0/P1/P2 separados. - [x] Itens já implementados confrontados com os exports reais de @louizeb/flytrap-ui . - [ ] Inventário confrontado com os componentes e variables do Figma. - [ ] P0 validado com usuários/consumidores do design system. - [ ] Cada P0 transformado em issue com critérios da Definition of Done.",
     "tags": [
       "generated",
       "documentation",
@@ -2129,7 +2129,7 @@ export const generatedFlytrapMemoryIndex = [
     "href": "https://github.com/LouizeB/flytrapds/blob/main/docs/06-pipeline.md",
     "id": "generated-doc-06-pipeline-section-fases",
     "source": "docs/06-pipeline.md",
-    "summary": "- F1 Design (Figma): Variables (primitive/semantic, modes por brand) + componentes. - F2 Tokenização : hoje é um processo manual de reconciliação para DTCG no repo; ver Sincronização design → código. - F3 Build tokens : gerador build.mjs → flytrap-globals.css + tokens.ts . - F4 Componentes : @flytrap/ui (base, charts e AI). - F5 Qualidade : token contract · APCA · art contract · lint · typecheck · coverage · build. - F6 Release : Changesets → SemVer → pacote npm/GitHub quando houver release owner. - F7 Docs : catál",
+    "summary": "- F1 Design (Figma): Variables (primitive/semantic, modes por brand) + componentes. - F2 Tokenização : hoje é um processo manual de reconciliação para DTCG no repo; ver Sincronização design → código. - F3 Build tokens : gerador build.mjs → flytrap-globals.css + tokens.ts . - F4 Componentes : @louizeb/flytrap-ui (base, charts e AI). - F5 Qualidade : token contract · APCA · art contract · lint · typecheck · coverage · build. - F6 Release : Changesets → SemVer → pacote npm/GitHub quando houver release owner. - F7 Docs",
     "tags": [
       "generated",
       "documentation",
@@ -2509,7 +2509,7 @@ export const generatedFlytrapMemoryIndex = [
     "href": "https://github.com/LouizeB/flytrapds/blob/main/docs/11-roadmap.md",
     "id": "generated-doc-11-roadmap-overview",
     "source": "docs/11-roadmap.md",
-    "summary": "Milestone Escopo Status -- -- -- M0 Scaffold monorepo (pnpm+Turborepo, config, CI) ✅ M1 @flytrap/tokens (HCT 50–950, build, apca gate) ✅ M3 Supabase schema (tabelas, RLS, pgvector, RPC, edge ai-chat) ✅ (deploy da função pendente) M2a Fundação @flytrap/ui (React, base + composições AI) ✅ M2a.1 Fonte única DTCG, estados de componente e matriz light/dark/vibrant ✅ M2b Executar ondas P0 do inventário: foundation + AI + c",
+    "summary": "Milestone Escopo Status -- -- -- M0 Scaffold monorepo (pnpm+Turborepo, config, CI) ✅ M1 @louizeb/flytrap-tokens (HCT 50–950, build, apca gate) ✅ M3 Supabase schema (tabelas, RLS, pgvector, RPC, edge ai-chat) ✅ (deploy da função pendente) M2a Fundação @louizeb/flytrap-ui (React, base + composições AI) ✅ M2a.1 Fonte única DTCG, estados de componente e matriz light/dark/vibrant ✅ M2b Executar ondas P0 do inventário: fou",
     "tags": [
       "generated",
       "documentation",
@@ -2528,7 +2528,7 @@ export const generatedFlytrapMemoryIndex = [
     "href": "https://github.com/LouizeB/flytrapds/blob/main/docs/11-roadmap.md",
     "id": "generated-doc-11-roadmap-section-proximas-frentes-recomendadas",
     "source": "docs/11-roadmap.md",
-    "summary": "1. Release candidate: manter todos os gates verdes e concluir a revisão visual e editorial dos três apps. 2. Release: definir owner npm e publicar @flytrap/tokens e @flytrap/ui com changeset. 3. Adoção externa: conectar um produto fora deste monorepo para provar instalação, theming e estabilidade das APIs publicadas. 4. RAG avançado: decidir se embeddings locais, ingestão ds context e deploy da Edge Function pertencem à primeira versão estável ou a uma fase posterior.",
+    "summary": "1. Release candidate: manter todos os gates verdes e concluir a revisão visual e editorial dos três apps. 2. Release: definir owner npm e publicar @louizeb/flytrap-tokens e @louizeb/flytrap-ui com changeset. 3. Adoção externa: conectar um produto fora deste monorepo para provar instalação, theming e estabilidade das APIs publicadas. 4. RAG avançado: decidir se embeddings locais, ingestão ds context e deploy da Edge Function pertencem à primeira versão estável ou a uma fase posterior.",
     "tags": [
       "generated",
       "documentation",
@@ -2628,7 +2628,7 @@ export const generatedFlytrapMemoryIndex = [
     "href": "https://github.com/LouizeB/flytrapds/blob/main/docs/12-component-anatomy.md",
     "id": "generated-doc-12-component-anatomy-section-definition-of-done",
     "source": "docs/12-component-anatomy.md",
-    "summary": "- Usa tokens de componente ou semânticos; nunca primitives diretamente. - Todos os aliases passam em pnpm tokens:contract . - Pares de conteúdo relevantes têm metadados APCA e passam em todos os modos registrados. - Estados interativos não dependem apenas de opacidade quando há mudança semântica de cor. - API pública está exportada por @flytrap/ui . - Há exemplo real em apps/docs ou justificativa para não haver. - Lint, tipos e build passam. - A revisão cobre teclado, foco, ARIA, reduced motion e contraste. - Ícone",
+    "summary": "- Usa tokens de componente ou semânticos; nunca primitives diretamente. - Todos os aliases passam em pnpm tokens:contract . - Pares de conteúdo relevantes têm metadados APCA e passam em todos os modos registrados. - Estados interativos não dependem apenas de opacidade quando há mudança semântica de cor. - API pública está exportada por @louizeb/flytrap-ui . - Há exemplo real em apps/docs ou justificativa para não haver. - Lint, tipos e build passam. - A revisão cobre teclado, foco, ARIA, reduced motion e contraste.",
     "tags": [
       "generated",
       "documentation",
@@ -2709,7 +2709,7 @@ export const generatedFlytrapMemoryIndex = [
     "href": "https://github.com/LouizeB/flytrapds/blob/main/docs/13-iconography.md",
     "id": "generated-doc-13-iconography-section-contrato",
     "source": "docs/13-iconography.md",
-    "summary": "- FlytrapIcon é o único wrapper de renderização da UI. - Aliases de domínio são importados de @flytrap/ui . - O nome descreve intenção: ApprovalIcon , não forma ou fornecedor. - Ícone decorativo recebe aria-hidden . - Ícone que comunica sozinho exige label acessível. - Cor nunca é o único meio de distinguir um estado.",
+    "summary": "- FlytrapIcon é o único wrapper de renderização da UI. - Aliases de domínio são importados de @louizeb/flytrap-ui . - O nome descreve intenção: ApprovalIcon , não forma ou fornecedor. - Ícone decorativo recebe aria-hidden . - Ícone que comunica sozinho exige label acessível. - Cor nunca é o único meio de distinguir um estado.",
     "tags": [
       "generated",
       "documentation",
@@ -2892,7 +2892,7 @@ export const generatedFlytrapMemoryIndex = [
     "href": "https://github.com/LouizeB/flytrapds/blob/main/docs/14-ai-context-contract.md",
     "id": "generated-doc-14-ai-context-contract-section-ordem-do-contexto",
     "source": "docs/14-ai-context-contract.md",
-    "summary": "Forneça apenas o necessário, nesta ordem: 1. Objetivo e fluxo: tarefa do usuário e estado esperado. 2. Componentes disponíveis: exports reais de @flytrap/ui . 3. Contrato semântico: tokens e aliases permitidos. 4. Aparência: brand, mode, theme e breakpoint relevantes. 5. Acessibilidade: papel, teclado, foco, live region e pares APCA. 6. Restrições: padrões proibidos e Definition of Done. Não injete o repositório inteiro. Contexto compacto, hierárquico e atual reduz custo e contradição.",
+    "summary": "Forneça apenas o necessário, nesta ordem: 1. Objetivo e fluxo: tarefa do usuário e estado esperado. 2. Componentes disponíveis: exports reais de @louizeb/flytrap-ui . 3. Contrato semântico: tokens e aliases permitidos. 4. Aparência: brand, mode, theme e breakpoint relevantes. 5. Acessibilidade: papel, teclado, foco, live region e pares APCA. 6. Restrições: padrões proibidos e Definition of Done. Não injete o repositório inteiro. Contexto compacto, hierárquico e atual reduz custo e contradição.",
     "tags": [
       "generated",
       "documentation",
@@ -3373,7 +3373,7 @@ export const generatedFlytrapMemoryIndex = [
     "href": "https://github.com/LouizeB/flytrapds/blob/main/docs/15-public-experience-release-1.md",
     "id": "generated-doc-15-public-experience-release-1-section-contrato-do-projeto",
     "source": "docs/15-public-experience-release-1.md",
-    "summary": "Antes de implementar: 1. Trabalhar no monorepo existente com React, Vite, TypeScript e pnpm. 2. Preservar apps/ , packages/ , docs/ , architecture/ e os workflows atuais. 3. Reutilizar componentes exportados por @flytrap/ui . 4. Consumir semantic ou component tokens gerados pelo DTCG. 5. Não copiar hexadecimais, primitives ou valores do briefing para a UI. 6. Não trocar framework, roteamento, deploy ou estratégia de estilos nesta release. 7. Não apagar a página atual antes de a nova experiência passar pelos gates. ",
+    "summary": "Antes de implementar: 1. Trabalhar no monorepo existente com React, Vite, TypeScript e pnpm. 2. Preservar apps/ , packages/ , docs/ , architecture/ e os workflows atuais. 3. Reutilizar componentes exportados por @louizeb/flytrap-ui . 4. Consumir semantic ou component tokens gerados pelo DTCG. 5. Não copiar hexadecimais, primitives ou valores do briefing para a UI. 6. Não trocar framework, roteamento, deploy ou estratégia de estilos nesta release. 7. Não apagar a página atual antes de a nova experiência passar pelos",
     "tags": [
       "generated",
       "documentation",
@@ -4431,7 +4431,7 @@ export const generatedFlytrapMemoryIndex = [
     "href": "https://github.com/LouizeB/flytrapds/blob/main/docs/18-distribution.md",
     "id": "generated-doc-18-distribution-section-estado-atual",
     "source": "docs/18-distribution.md",
-    "summary": "@flytrap/ui é publish-ready, mas a publicação continua manual até existir um release owner. - Entrada pública: @flytrap/ui - CSS: @flytrap/ui/styles - Assets oficiais: @flytrap/ui/assets/ - Build: pnpm --filter @flytrap/ui build - Versionamento: Changesets Durante desenvolvimento local, apps/docs e apps/dashboard usam aliases Vite para packages/ui/src . Isso preserva hot reload e evita exigir dist antes de rodar pnpm dev .",
+    "summary": "@louizeb/flytrap-ui é publish-ready, mas a publicação continua manual até existir um release owner. - Entrada pública: @louizeb/flytrap-ui - CSS: @louizeb/flytrap-ui/styles - Assets oficiais: @louizeb/flytrap-ui/assets/ - Build: pnpm --filter @louizeb/flytrap-ui build - Versionamento: Changesets Durante desenvolvimento local, apps/docs e apps/dashboard usam aliases Vite para packages/ui/src . Isso preserva hot reload e evita exigir dist antes de rodar pnpm dev .",
     "tags": [
       "generated",
       "documentation",
@@ -4515,7 +4515,7 @@ export const generatedFlytrapMemoryIndex = [
     "href": "https://github.com/LouizeB/flytrapds/blob/main/docs/18-distribution.md",
     "id": "generated-doc-18-distribution-section-relacao-tokens-ui",
     "source": "docs/18-distribution.md",
-    "summary": "Quando um token de componente é adicionado, removido ou muda de intenção, @flytrap/tokens e @flytrap/ui devem receber changesets coordenados. Correções internas sem mudança de contrato podem versionar apenas o pacote afetado.",
+    "summary": "Quando um token de componente é adicionado, removido ou muda de intenção, @louizeb/flytrap-tokens e @louizeb/flytrap-ui devem receber changesets coordenados. Correções internas sem mudança de contrato podem versionar apenas o pacote afetado.",
     "tags": [
       "generated",
       "documentation",
@@ -4638,7 +4638,7 @@ export const generatedFlytrapMemoryIndex = [
     "href": "https://github.com/LouizeB/flytrapds/blob/main/docs/19-design-code-sync.md",
     "id": "generated-doc-19-design-code-sync-section-fonte-de-verdade-atual",
     "source": "docs/19-design-code-sync.md",
-    "summary": "A fonte executável de verdade é: Esse arquivo alimenta: - packages/tokens/build.mjs - packages/tokens/dist/flytrap-globals.css - packages/tokens/dist/tokens.ts - pnpm tokens:contract - pnpm apca - @flytrap/ui - apps/docs e apps/dashboard",
+    "summary": "A fonte executável de verdade é: Esse arquivo alimenta: - packages/tokens/build.mjs - packages/tokens/dist/flytrap-globals.css - packages/tokens/dist/tokens.ts - pnpm tokens:contract - pnpm apca - @louizeb/flytrap-ui - apps/docs e apps/dashboard",
     "tags": [
       "generated",
       "documentation",
@@ -4672,7 +4672,7 @@ export const generatedFlytrapMemoryIndex = [
     "href": "https://github.com/LouizeB/flytrapds/blob/main/docs/19-design-code-sync.md",
     "id": "generated-doc-19-design-code-sync-section-processo-manual-aceito",
     "source": "docs/19-design-code-sync.md",
-    "summary": "Até existir export versionado do Tokens Studio, mudanças vindas do Figma seguem este ritual: 1. Registrar a intenção visual no Figma. 2. Atualizar o DTCG em packages/tokens/src/flytrap.tokens.json . 3. Rodar pnpm tokens . 4. Rodar pnpm tokens:contract e pnpm apca . 5. Atualizar documentação/ADR quando o significado do token mudar. 6. Se a mudança afetar componentes, adicionar changeset para @flytrap/tokens e @flytrap/ui . Esse processo é manual, mas rastreável: toda alteração passa por review Git, CI e histórico de",
+    "summary": "Até existir export versionado do Tokens Studio, mudanças vindas do Figma seguem este ritual: 1. Registrar a intenção visual no Figma. 2. Atualizar o DTCG em packages/tokens/src/flytrap.tokens.json . 3. Rodar pnpm tokens . 4. Rodar pnpm tokens:contract e pnpm apca . 5. Atualizar documentação/ADR quando o significado do token mudar. 6. Se a mudança afetar componentes, adicionar changeset para @louizeb/flytrap-tokens e @louizeb/flytrap-ui . Esse processo é manual, mas rastreável: toda alteração passa por review Git, C",
     "tags": [
       "generated",
       "documentation",
@@ -6114,11 +6114,11 @@ export const generatedFlytrapMemoryIndex = [
     "type": "component"
   },
   {
-    "answer": "Generated usage example for Button, based on props detected in source.\n\n```tsx\nimport { Button } from \"@flytrap/ui\";\n\nexport function SavingAction() {\n  return <Button loading loadingAnnouncement=\"Saving changes\">Save changes</Button>;\n}\n```",
+    "answer": "Generated usage example for Button, based on props detected in source.\n\n```tsx\nimport { Button } from \"@louizeb/flytrap-ui\";\n\nexport function SavingAction() {\n  return <Button loading loadingAnnouncement=\"Saving changes\">Save changes</Button>;\n}\n```",
     "href": "https://github.com/LouizeB/flytrapds/blob/main/packages/ui/src/components/button.tsx",
     "id": "generated-ui-button-example-1",
     "source": "packages/ui/src/components/button.tsx",
-    "summary": "Button loading state usage example: import { Button } from \"@flytrap/ui\"; export function SavingAction() { return <Button loading loadingAnnouncement=\"Saving changes\">Save changes</Button>; }",
+    "summary": "Button loading state usage example: import { Button } from \"@louizeb/flytrap-ui\"; export function SavingAction() { return <Button loading loadingAnnouncement=\"Saving changes\">Save changes</Button>; }",
     "tags": [
       "generated",
       "ui",
@@ -6143,11 +6143,11 @@ export const generatedFlytrapMemoryIndex = [
     "type": "component"
   },
   {
-    "answer": "Generated usage example for Button, based on props detected in source.\n\n```tsx\nimport { Button } from \"@flytrap/ui\";\n\nexport function ActionRow() {\n  return <Button variant=\"secondary\">Open details</Button>;\n}\n```",
+    "answer": "Generated usage example for Button, based on props detected in source.\n\n```tsx\nimport { Button } from \"@louizeb/flytrap-ui\";\n\nexport function ActionRow() {\n  return <Button variant=\"secondary\">Open details</Button>;\n}\n```",
     "href": "https://github.com/LouizeB/flytrapds/blob/main/packages/ui/src/components/button.tsx",
     "id": "generated-ui-button-example-2",
     "source": "packages/ui/src/components/button.tsx",
-    "summary": "Button variant usage example: import { Button } from \"@flytrap/ui\"; export function ActionRow() { return <Button variant=\"secondary\">Open details</Button>; }",
+    "summary": "Button variant usage example: import { Button } from \"@louizeb/flytrap-ui\"; export function ActionRow() { return <Button variant=\"secondary\">Open details</Button>; }",
     "tags": [
       "generated",
       "ui",
@@ -6172,11 +6172,11 @@ export const generatedFlytrapMemoryIndex = [
     "type": "component"
   },
   {
-    "answer": "Generated usage example for Button, based on props detected in source.\n\n```tsx\nimport { IconButton, AiAccentIcon } from \"@flytrap/ui\";\n\nexport function IconOnlyAction() {\n  return <IconButton icon={AiAccentIcon} label=\"Create item\" />;\n}\n```",
+    "answer": "Generated usage example for Button, based on props detected in source.\n\n```tsx\nimport { IconButton, AiAccentIcon } from \"@louizeb/flytrap-ui\";\n\nexport function IconOnlyAction() {\n  return <IconButton icon={AiAccentIcon} label=\"Create item\" />;\n}\n```",
     "href": "https://github.com/LouizeB/flytrapds/blob/main/packages/ui/src/components/button.tsx",
     "id": "generated-ui-button-example-3",
     "source": "packages/ui/src/components/button.tsx",
-    "summary": "Button accessible icon action usage example: import { IconButton, AiAccentIcon } from \"@flytrap/ui\"; export function IconOnlyAction() { return <IconButton icon={AiAccentIcon} label=\"Create item\" />; }",
+    "summary": "Button accessible icon action usage example: import { IconButton, AiAccentIcon } from \"@louizeb/flytrap-ui\"; export function IconOnlyAction() { return <IconButton icon={AiAccentIcon} label=\"Create item\" />; }",
     "tags": [
       "generated",
       "ui",

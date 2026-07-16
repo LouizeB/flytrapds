@@ -52,8 +52,8 @@ import {
   Timeline,
   TimelineItem,
   ToolCallBlock,
-} from "@flytrap/ui";
-import "@flytrap/ui/styles";
+} from "@louizeb/flytrap-ui";
+import "@louizeb/flytrap-ui/styles";
 
 type Mood = "calm" | "focus" | "energy" | "noir";
 type ApprovalState = "pending" | "approved" | "rejected";
@@ -505,7 +505,7 @@ function App() {
               <CardContent className="grid gap-5">
                 <RunTraceTimeline
                   steps={[
-                    { description: "The app imports components from @flytrap/ui.", duration: "done", id: "consumer", status: "completed", title: "Consumer connected" },
+                    { description: "The app imports components from @louizeb/flytrap-ui.", duration: "done", id: "consumer", status: "completed", title: "Consumer connected" },
                     { description: `Mood controls are shaping ${activeItem.title}.`, duration: sessionStarted ? "current" : "ready", id: "mood", status: sessionStarted ? "running" : "queued", title: "Behavior mapped" },
                     { description: "Visual audit targets this app in desktop and mobile.", duration: "done", id: "audit", status: "completed", title: "Audit extension" },
                   ]}

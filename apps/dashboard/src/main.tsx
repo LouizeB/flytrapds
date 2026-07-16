@@ -49,8 +49,8 @@ import {
   Toolbar,
   TreeItem,
   TreeView,
-} from "@flytrap/ui";
-import "@flytrap/ui/styles";
+} from "@louizeb/flytrap-ui";
+import "@louizeb/flytrap-ui/styles";
 
 const adoption = [44, 61, 54, 78, 68, 89, 83, 96, 72, 91, 100, 87];
 
@@ -58,7 +58,7 @@ const recommendationActions = [
   {
     active: true,
     badge: "P0",
-    subtitle: "Connect a non-docs product to @flytrap/ui.",
+    subtitle: "Connect a non-docs product to @louizeb/flytrap-ui.",
     title: "External app integration",
   },
   {
@@ -200,7 +200,7 @@ function App() {
                   </DataListItem>
                   <DataListItem>
                     <DataListTerm>Package</DataListTerm>
-                    <DataListDescription>@flytrap/ui · dist ready</DataListDescription>
+                    <DataListDescription>@louizeb/flytrap-ui · dist ready</DataListDescription>
                   </DataListItem>
                 </DataList>
               </CardContent>

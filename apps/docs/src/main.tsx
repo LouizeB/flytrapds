@@ -70,8 +70,8 @@ import {
   ToolIcon,
   TreeItem,
   TreeView,
-} from "@flytrap/ui";
-import "@flytrap/ui/styles";
+} from "@louizeb/flytrap-ui";
+import "@louizeb/flytrap-ui/styles";
 import "./site.css";
 import { AtmosphereLayer, OrganicBackground, TechFrame } from "./living/organic-background";
 import { BootLoader } from "./living/boot-loader";
@@ -767,7 +767,7 @@ function App() {
                       <DataList>
                         <DataListItem className="sm:grid-cols-1 xl:grid-cols-[9rem_1fr]">
                           <DataListTerm>Import</DataListTerm>
-                          <DataListDescription>@flytrap/ui</DataListDescription>
+                          <DataListDescription>@louizeb/flytrap-ui</DataListDescription>
                         </DataListItem>
                         <DataListItem className="sm:grid-cols-1 xl:grid-cols-[9rem_1fr]">
                           <DataListTerm>Styling</DataListTerm>
@@ -784,9 +784,9 @@ function App() {
                       </DataList>
                       <div className="mt-4">
                         <CodeBlock
-                          copyText={`import { Button, Field, Input } from '@flytrap/ui';\n\n<Field label=\"Signal name\">\n  <Input placeholder=\"Focus mode\" />\n</Field>\n<Button>Save signal</Button>`}
+                          copyText={`import { Button, Field, Input } from '@louizeb/flytrap-ui';\n\n<Field label=\"Signal name\">\n  <Input placeholder=\"Focus mode\" />\n</Field>\n<Button>Save signal</Button>`}
                           lines={[
-                            [{ text: "import", kind: "keyword" }, { text: " { " }, { text: "Button", kind: "component" }, { text: ", " }, { text: "Field", kind: "component" }, { text: ", " }, { text: "Input", kind: "component" }, { text: " } " }, { text: "from", kind: "keyword" }, { text: " " }, { text: "'@flytrap/ui'", kind: "string" }, { text: ";" }],
+                            [{ text: "import", kind: "keyword" }, { text: " { " }, { text: "Button", kind: "component" }, { text: ", " }, { text: "Field", kind: "component" }, { text: ", " }, { text: "Input", kind: "component" }, { text: " } " }, { text: "from", kind: "keyword" }, { text: " " }, { text: "'@louizeb/flytrap-ui'", kind: "string" }, { text: ";" }],
                             [{ text: "" }],
                             [{ text: "<" }, { text: "Field", kind: "component" }, { text: " label=" }, { text: "\"Signal name\"", kind: "string" }, { text: ">" }],
                             [{ text: "  <" }, { text: "Input", kind: "component" }, { text: " placeholder=" }, { text: "\"Focus mode\"", kind: "string" }, { text: " />" }],
@@ -965,7 +965,7 @@ function App() {
                         <DataList>
                           <DataListItem className="sm:grid-cols-1 xl:grid-cols-[8rem_1fr]">
                             <DataListTerm>Package</DataListTerm>
-                            <DataListDescription>@flytrap/ui</DataListDescription>
+                            <DataListDescription>@louizeb/flytrap-ui</DataListDescription>
                           </DataListItem>
                           <DataListItem className="sm:grid-cols-1 xl:grid-cols-[8rem_1fr]">
                             <DataListTerm>Coverage</DataListTerm>
@@ -1486,9 +1486,9 @@ function App() {
                   <PillTabs active={0} items={["React", "Vue", "Web components", "CSS"]} label="Supported platforms" />
                   <div className="mt-3">
                     <CodeBlock
-                      copyText={`import { Button } from '@flytrap/ui';\n\n<Button variant="primary" size="md">\n  Engage\n</Button>`}
+                      copyText={`import { Button } from '@louizeb/flytrap-ui';\n\n<Button variant="primary" size="md">\n  Engage\n</Button>`}
                       lines={[
-                        [{ text: "import", kind: "keyword" }, { text: " { " }, { text: "Button", kind: "component" }, { text: " } " }, { text: "from", kind: "keyword" }, { text: " " }, { text: "'@flytrap/ui'", kind: "string" }, { text: ";" }],
+                        [{ text: "import", kind: "keyword" }, { text: " { " }, { text: "Button", kind: "component" }, { text: " } " }, { text: "from", kind: "keyword" }, { text: " " }, { text: "'@louizeb/flytrap-ui'", kind: "string" }, { text: ";" }],
                         [{ text: "" }],
                         [{ text: "<" }, { text: "Button", kind: "component" }, { text: " variant=" }, { text: "\"primary\"", kind: "string" }, { text: " size=" }, { text: "\"md\"", kind: "string" }, { text: ">" }],
                         [{ text: "  Engage" }],
@@ -1499,11 +1499,11 @@ function App() {
                 </div>
                 <FloatingPanel className="self-start" title="NPM package">
                   <p className="flex items-baseline justify-between">
-                    <span className="font-display text-lg font-bold text-white/90">@flytrap/ui</span>
+                    <span className="font-display text-lg font-bold text-white/90">@louizeb/flytrap-ui</span>
                     <span className="font-mono text-xs text-white/60">1.0.0</span>
                   </p>
                   <p className="mt-3 font-mono text-[0.6rem] uppercase tracking-[0.18em] text-white/60">Install</p>
-                  <code className="mt-1.5 block rounded-lg border border-[#00c970]/30 bg-black/50 px-3 py-2 font-mono text-xs text-[#7de8b4]">pnpm add @flytrap/ui</code>
+                  <code className="mt-1.5 block rounded-lg border border-[#00c970]/30 bg-black/50 px-3 py-2 font-mono text-xs text-[#7de8b4]">pnpm add @louizeb/flytrap-ui</code>
                 </FloatingPanel>
               </div>
             </div>

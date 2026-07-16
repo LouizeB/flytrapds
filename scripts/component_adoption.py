@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Report static adoption of @flytrap/ui exports across product apps."""
+"""Report static adoption of @louizeb/flytrap-ui exports across product apps."""
 from __future__ import annotations
 
 from collections import Counter, defaultdict
@@ -13,8 +13,8 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_SCAN_ROOTS = [ROOT / "apps"]
-IMPORT_RE = re.compile(r'import\s*\{(?P<names>[^}]+)\}\s*from\s*["\']@flytrap/ui["\']', re.MULTILINE | re.DOTALL)
-SIDE_EFFECT_RE = re.compile(r'import\s*["\']@flytrap/ui/styles["\']')
+IMPORT_RE = re.compile(r'import\s*\{(?P<names>[^}]+)\}\s*from\s*["\']@louizeb/flytrap-ui["\']', re.MULTILINE | re.DOTALL)
+SIDE_EFFECT_RE = re.compile(r'import\s*["\']@louizeb/flytrap-ui/styles["\']')
 
 
 @dataclass(frozen=True)
@@ -108,7 +108,7 @@ def markdown(report: dict[str, object]) -> str:
     lines = [
         "# Component adoption snapshot",
         "",
-        "Static scan of `@flytrap/ui` named imports in `apps/**`.",
+        "Static scan of `@louizeb/flytrap-ui` named imports in `apps/**`.",
         "",
         "## Summary",
         "",

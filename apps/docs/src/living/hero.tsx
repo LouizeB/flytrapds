@@ -1,5 +1,5 @@
 import * as React from "react";
-import { AiAccentIcon, BrandIcon, Button, ExternalLinkIcon, FlytrapIcon, SendIcon, type FlytrapIconComponent } from "@flytrap/ui";
+import { AiAccentIcon, BrandIcon, Button, ExternalLinkIcon, FlytrapIcon, SendIcon, type FlytrapIconComponent } from "@louizeb/flytrap-ui";
 import { CharacterLayer } from "./character";
 import { FloatingPanel } from "./panels";
 import spriteCorner from "../assets/flytrap-sprite-corner.webp";

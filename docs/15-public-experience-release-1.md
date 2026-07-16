@@ -24,7 +24,7 @@ Antes de implementar:
 
 1. Trabalhar no monorepo existente com React, Vite, TypeScript e pnpm.
 2. Preservar `apps/`, `packages/`, `docs/`, `architecture/` e os workflows atuais.
-3. Reutilizar componentes exportados por `@flytrap/ui`.
+3. Reutilizar componentes exportados por `@louizeb/flytrap-ui`.
 4. Consumir semantic ou component tokens gerados pelo DTCG.
 5. Não copiar hexadecimais, primitives ou valores do briefing para a UI.
 6. Não trocar framework, roteamento, deploy ou estratégia de estilos nesta release.

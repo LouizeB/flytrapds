@@ -301,7 +301,7 @@ function componentUsageExamples(title, fileSlug, interfaces, typeValues, variant
 
   if (props.has("loading") && props.has("loadingAnnouncement")) {
     examples.push({
-      code: `import { ${title} } from "@flytrap/ui";\n\nexport function SavingAction() {\n  return <${title} loading loadingAnnouncement="Saving changes">Save changes</${title}>;\n}`,
+      code: `import { ${title} } from "@louizeb/flytrap-ui";\n\nexport function SavingAction() {\n  return <${title} loading loadingAnnouncement="Saving changes">Save changes</${title}>;\n}`,
       label: "loading state",
       tags: ["loading", "loadingAnnouncement", "aria-busy", "status", "example", "snippet"],
     });
@@ -309,7 +309,7 @@ function componentUsageExamples(title, fileSlug, interfaces, typeValues, variant
 
   if (title === "Button" && (props.has("variant") || variantKeys.includes("variant") || variantValues.includes("secondary"))) {
     examples.push({
-      code: `import { ${title} } from "@flytrap/ui";\n\nexport function ActionRow() {\n  return <${title} variant="secondary">Open details</${title}>;\n}`,
+      code: `import { ${title} } from "@louizeb/flytrap-ui";\n\nexport function ActionRow() {\n  return <${title} variant="secondary">Open details</${title}>;\n}`,
       label: "variant",
       tags: ["variant", "secondary", "states", "example", "snippet"],
     });
@@ -319,7 +319,7 @@ function componentUsageExamples(title, fileSlug, interfaces, typeValues, variant
   if (iconButtonInterface) {
     const iconButtonComponent = iconButtonInterface.name.replace(/Props$/, "") || titleCaseSlug(fileSlug);
     examples.push({
-      code: `import { ${iconButtonComponent}, AiAccentIcon } from "@flytrap/ui";\n\nexport function IconOnlyAction() {\n  return <${iconButtonComponent} icon={AiAccentIcon} label="Create item" />;\n}`,
+      code: `import { ${iconButtonComponent}, AiAccentIcon } from "@louizeb/flytrap-ui";\n\nexport function IconOnlyAction() {\n  return <${iconButtonComponent} icon={AiAccentIcon} label="Create item" />;\n}`,
       label: "accessible icon action",
       tags: ["icon", "label", "aria-label", "accessibility", "example", "snippet"],
     });

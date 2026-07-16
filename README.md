@@ -50,8 +50,8 @@ pnpm dev
 Consumindo componentes no monorepo:
 
 ```tsx
-import { Button, FlytrapIcon, SendIcon } from "@flytrap/ui";
-import "@flytrap/ui/styles";
+import { Button, FlytrapIcon, SendIcon } from "@louizeb/flytrap-ui";
+import "@louizeb/flytrap-ui/styles";
 
 <Button>
   Enviar
@@ -92,10 +92,10 @@ Pull requests executam todos os gates no workflow **Quality**. Merges em `main` 
 
 ## Distribuição
 
-`@flytrap/ui` é preparado para distribuição externa por `dist`: JavaScript compilado, declarações TypeScript, CSS global e assets oficiais. Durante desenvolvimento local, os apps usam aliases Vite para consumir `src` diretamente e manter hot reload rápido.
+`@louizeb/flytrap-ui` é preparado para distribuição externa por `dist`: JavaScript compilado, declarações TypeScript, CSS global e assets oficiais. Durante desenvolvimento local, os apps usam aliases Vite para consumir `src` diretamente e manter hot reload rápido.
 
 ```bash
-pnpm --filter @flytrap/ui build
+pnpm --filter @louizeb/flytrap-ui build
 pnpm changeset
 ```
 

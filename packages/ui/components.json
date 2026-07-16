@@ -11,10 +11,10 @@
   },
   "iconLibrary": "lucide",
   "aliases": {
-    "components": "@flytrap/ui/components",
-    "utils": "@flytrap/ui/lib/utils",
-    "hooks": "@flytrap/ui/hooks",
-    "lib": "@flytrap/ui/lib",
-    "ui": "@flytrap/ui/components"
+    "components": "@louizeb/flytrap-ui/components",
+    "utils": "@louizeb/flytrap-ui/lib/utils",
+    "hooks": "@louizeb/flytrap-ui/hooks",
+    "lib": "@louizeb/flytrap-ui/lib",
+    "ui": "@louizeb/flytrap-ui/components"
   }
 }
