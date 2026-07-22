@@ -1,6 +1,7 @@
 import * as React from "react";
 
-export function DeferredShowcase({ children, label, minHeight = "32rem" }: {
+export function DeferredShowcase({ anchorIds = [], children, label, minHeight = "32rem" }: {
+  anchorIds?: readonly string[];
   children: React.ReactNode;
   label: string;
   minHeight?: string;
@@ -11,6 +12,12 @@ export function DeferredShowcase({ children, label, minHeight = "32rem" }: {
   React.useEffect(() => {
     const root = rootRef.current;
     if (!root || visible) return;
+
+    const requestedAnchor = window.location.hash.slice(1);
+    if (anchorIds.includes(requestedAnchor)) {
+      setVisible(true);
+      return;
+    }
 
     if (!("IntersectionObserver" in window)) {
       setVisible(true);
@@ -25,7 +32,14 @@ export function DeferredShowcase({ children, label, minHeight = "32rem" }: {
 
     observer.observe(root);
     return () => observer.disconnect();
-  }, [visible]);
+  }, [anchorIds, visible]);
+
+  React.useEffect(() => {
+    if (!visible) return;
+    const requestedAnchor = window.location.hash.slice(1);
+    if (!anchorIds.includes(requestedAnchor)) return;
+    window.requestAnimationFrame(() => document.getElementById(requestedAnchor)?.scrollIntoView({ block: "start" }));
+  }, [anchorIds, visible]);
 
   return <div aria-busy={!visible || undefined} className="min-w-0" data-slot="deferred-showcase" ref={rootRef}>
     {visible ? children : <div className="grid place-items-center rounded-2xl border border-white/8 bg-black/20 p-6" style={{ minHeight }}>

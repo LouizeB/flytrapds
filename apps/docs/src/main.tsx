@@ -537,10 +537,10 @@ function App() {
                   ]}
                   label="Component groups"
                 />
-                <div aria-hidden="true" className="h-0 overflow-hidden">
-                  {componentDocumentationGroups.map(group => <span className="block scroll-mt-24" id={group.id} key={group.id} />)}
-                </div>
-                <DeferredShowcase label="Interactive component demonstrations" minHeight="40rem">
+                <nav aria-label="Component categories" className="sticky top-3 z-30 flex gap-2 overflow-x-auto rounded-2xl border border-white/10 bg-[#090b12]/95 p-2 shadow-[0_16px_40px_rgba(0,0,0,.45)] backdrop-blur-xl">
+                  {componentDocumentationGroups.map(group => <a className="shrink-0 rounded-full border border-white/10 bg-white/[.035] px-3 py-2 text-xs font-medium text-editorial-secondary hover:border-[#ff4fbd]/45 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b8ff35]" href={`#${group.id}`} key={group.id}>{group.title}</a>)}
+                </nav>
+                <DeferredShowcase anchorIds={componentDocumentationGroups.map(group => group.id)} label="Interactive component demonstrations" minHeight="40rem">
                   <div className="mt-4 grid gap-4">
                   <SectionCard meta="reference" title="Component system map">
                     <div className="grid gap-4 xl:grid-cols-[1fr_1.15fr]">
@@ -711,6 +711,7 @@ function App() {
                       <div className="mt-4 grid gap-3">
                         {componentDocumentationGroups.map((group, index) => <details
                           className="group scroll-mt-24 rounded-2xl border border-white/10 bg-black/35 p-3 open:border-[#ff4fbd]/45 open:bg-[#ff4fbd]/8"
+                          id={group.id}
                           key={group.id}
                           open={index === 0}
                         >
@@ -749,6 +750,10 @@ function App() {
                               </div>
                             </div>
                           </div>
+                          <nav aria-label={`${group.title} category navigation`} className="mt-4 flex items-center justify-between gap-3 border-t border-white/10 pt-3 text-xs">
+                            {index > 0 ? <a className="text-editorial-secondary hover:text-white" href={`#${componentDocumentationGroups[index - 1]?.id}`}>← {componentDocumentationGroups[index - 1]?.title}</a> : <span />}
+                            {index < componentDocumentationGroups.length - 1 ? <a className="text-[#ff9bdd] hover:text-white" href={`#${componentDocumentationGroups[index + 1]?.id}`}>{componentDocumentationGroups[index + 1]?.title} →</a> : <a className="text-[#ff9bdd] hover:text-white" href="#patterns">Continue to Patterns →</a>}
+                          </nav>
                         </details>)}
                       </div>
                     </SectionCard>
@@ -999,10 +1004,7 @@ function App() {
                   </div>
                 </SectionCard>
 
-                <div aria-hidden="true" className="h-0 overflow-hidden">
-                  {patternLibrary.map(pattern => <span className="block scroll-mt-24" id={pattern.anchor.slice(1)} key={pattern.anchor} />)}
-                </div>
-                <DeferredShowcase label="Detailed pattern demonstrations" minHeight="32rem">
+                <DeferredShowcase anchorIds={patternLibrary.map(pattern => pattern.anchor.slice(1))} label="Detailed pattern demonstrations" minHeight="32rem">
                 <SectionCard meta="Examples" title="Implementation examples">
                   <p className="max-w-3xl text-sm leading-6 text-editorial-secondary">
                     Use these examples as starting points. They are intentionally compact: the full pattern contract lives in the guide, while this page shows how the composition starts to look in code.
@@ -1024,7 +1026,7 @@ function App() {
                   </div>
                 </SectionCard>
 
-                <SectionCard meta="Product pattern" title="AI-managed streaming flow">
+                <SectionCard id="pattern-ai-managed-streaming" meta="Product pattern" title="AI-managed streaming flow">
                   <div className="grid gap-5 xl:grid-cols-[1.05fr_.95fr]">
                     <div className="grid gap-4">
                       <p className="max-w-3xl text-sm leading-6 text-editorial-secondary">
@@ -1082,7 +1084,7 @@ function App() {
                 </div>
 
                 <div className="grid gap-4 xl:grid-cols-2">
-                  <SectionCard className="flex-1" meta="Stable pattern" title="Dashboard layout">
+                  <SectionCard className="flex-1" id="pattern-dashboard-layout" meta="Stable pattern" title="Dashboard layout">
                     <div aria-hidden="true" className="grid h-36 grid-cols-[64px_1fr] gap-2 rounded-xl border border-white/10 bg-black/40 p-2">
                       <span className="rounded-md bg-[#ff4fbd]/20" />
                       <span className="grid grid-rows-[24px_1fr] gap-2">
@@ -1108,7 +1110,7 @@ function App() {
                       </DataListItem>
                     </DataList>
                   </SectionCard>
-                  <SectionCard meta="Governance pattern" title="Release readiness flow">
+                  <SectionCard id="pattern-release-readiness" meta="Governance pattern" title="Release readiness flow">
                     <DataList>
                       <DataListItem className="sm:grid-cols-1 xl:grid-cols-[8rem_1fr]">
                         <DataListTerm>Gate</DataListTerm>
