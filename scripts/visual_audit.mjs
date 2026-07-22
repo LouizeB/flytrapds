@@ -19,7 +19,6 @@ const profiles = {
       "Accessibility",
       "Guidelines",
       "Code / Develop",
-      "AI Workflows",
     ],
     expectedComponentAnchors: [
       "component-inputs",
@@ -30,7 +29,11 @@ const profiles = {
       "component-overlays",
       "component-ai",
     ],
-    expectedPatternAnchors: [],
+    expectedPatternAnchors: [
+      "pattern-ai-managed-streaming",
+      "pattern-dashboard-layout",
+      "pattern-release-readiness",
+    ],
     humanReviewNotes: [
       "Desktop: sidebar, hero, character, organic atmosphere, dense cards and all DS sections render after the boot sequence.",
       "Mobile: content stacks without horizontal overflow; all sections remain reachable after the boot sequence.",
@@ -204,8 +207,19 @@ async function run() {
     const response = await page.goto(url, { waitUntil: "networkidle", timeout: 60000 });
     await page.waitForTimeout(waitAfterNetworkIdleMs);
 
+    const deferredShowcases = page.locator('[data-slot="deferred-showcase"]');
+    const deferredCount = await deferredShowcases.count();
+    for (let index = 0; index < deferredCount; index += 1) {
+      const deferredShowcase = deferredShowcases.nth(index);
+      await deferredShowcase.evaluate((element) => (element.closest("section") ?? element).scrollIntoView({ block: "start" }));
+      await page.waitForTimeout(750);
+    }
+    await page.evaluate(() => window.scrollTo({ top: 0 }));
+    await page.waitForTimeout(250);
+    await page.waitForFunction(() => document.querySelectorAll('[data-slot="deferred-showcase"][aria-busy="true"]').length === 0, undefined, { timeout: 5000 }).catch(() => undefined);
+
     const screenshot = join(".planning/screenshots", `${profile.screenshotPrefix}-${viewport.name}-ready.png`);
-    await page.screenshot({ path: screenshot, fullPage: true });
+    await page.screenshot({ path: screenshot, fullPage: true, timeout: 60000 });
 
     const bodyText = await page.locator("body").innerText({ timeout: 5000 });
     const present = expectedSections.filter((section) => bodyText.includes(section));

@@ -89,6 +89,7 @@ import { CharacterLayer } from "./living/character";
 import { Sidebar } from "./living/sidebar";
 import { Hero } from "./living/hero";
 import { TokenSystemGuide } from "./living/token-system-guide";
+import { DeferredShowcase } from "./living/deferred-showcase";
 import { answerFlytrapMemoryWithProvider, memoryProviderConfig, type FlytrapMemoryProvider, type FlytrapProviderAnswer } from "./content/memory-provider";
 import { flytrapMemoryIndex, searchFlytrapMemory, type FlytrapMemoryResult } from "./content/search-index";
 import {
@@ -640,7 +641,11 @@ function App() {
                   ]}
                   label="Component groups"
                 />
-                <div className="mt-4 grid gap-4">
+                <div aria-hidden="true" className="h-0 overflow-hidden">
+                  {componentDocumentationGroups.map(group => <span className="block scroll-mt-24" id={group.id} key={group.id} />)}
+                </div>
+                <DeferredShowcase label="Interactive component demonstrations" minHeight="40rem">
+                  <div className="mt-4 grid gap-4">
                   <SectionCard meta="reference" title="Component system map">
                     <div className="grid gap-4 xl:grid-cols-[1fr_1.15fr]">
                       <div>
@@ -810,7 +815,6 @@ function App() {
                       <div className="mt-4 grid gap-3">
                         {componentDocumentationGroups.map((group, index) => <details
                           className="group scroll-mt-24 rounded-2xl border border-white/10 bg-black/35 p-3 open:border-[#ff4fbd]/45 open:bg-[#ff4fbd]/8"
-                          id={group.id}
                           key={group.id}
                           open={index === 0}
                         >
@@ -853,7 +857,7 @@ function App() {
                       </div>
                     </SectionCard>
                   </div>
-                </div>
+                  </div>
                 <div className="mt-3 grid gap-3 sm:grid-cols-2">
                   <ComponentPreview title="Button">
                     <div className="grid justify-items-start gap-2">
@@ -1050,6 +1054,7 @@ function App() {
                     </div>
                   </SectionCard>
                 </div>
+                </DeferredShowcase>
               </div>
             </div>
           </section>
@@ -1098,6 +1103,10 @@ function App() {
                   </div>
                 </SectionCard>
 
+                <div aria-hidden="true" className="h-0 overflow-hidden">
+                  {patternLibrary.map(pattern => <span className="block scroll-mt-24" id={pattern.anchor.slice(1)} key={pattern.anchor} />)}
+                </div>
+                <DeferredShowcase label="Detailed pattern demonstrations" minHeight="32rem">
                 <SectionCard meta="Examples" title="Implementation examples">
                   <p className="max-w-3xl text-sm leading-6 text-white/66">
                     Use these examples as starting points. They are intentionally compact: the full pattern contract lives in the guide, while this page shows how the composition starts to look in code.
@@ -1119,7 +1128,7 @@ function App() {
                   </div>
                 </SectionCard>
 
-                <SectionCard id="pattern-ai-managed-streaming" meta="Product pattern" title="AI-managed streaming flow">
+                <SectionCard meta="Product pattern" title="AI-managed streaming flow">
                   <div className="grid gap-5 xl:grid-cols-[1.05fr_.95fr]">
                     <div className="grid gap-4">
                       <p className="max-w-3xl text-sm leading-6 text-white/66">
@@ -1177,7 +1186,7 @@ function App() {
                 </div>
 
                 <div className="grid gap-4 xl:grid-cols-2">
-                  <SectionCard className="flex-1" id="pattern-dashboard-layout" meta="Stable pattern" title="Dashboard layout">
+                  <SectionCard className="flex-1" meta="Stable pattern" title="Dashboard layout">
                     <div aria-hidden="true" className="grid h-36 grid-cols-[64px_1fr] gap-2 rounded-xl border border-white/10 bg-black/40 p-2">
                       <span className="rounded-md bg-[#ff4fbd]/20" />
                       <span className="grid grid-rows-[24px_1fr] gap-2">
@@ -1203,7 +1212,7 @@ function App() {
                       </DataListItem>
                     </DataList>
                   </SectionCard>
-                  <SectionCard id="pattern-release-readiness" meta="Governance pattern" title="Release readiness flow">
+                  <SectionCard meta="Governance pattern" title="Release readiness flow">
                     <DataList>
                       <DataListItem className="sm:grid-cols-1 xl:grid-cols-[8rem_1fr]">
                         <DataListTerm>Gate</DataListTerm>
@@ -1224,6 +1233,7 @@ function App() {
                     </DataList>
                   </SectionCard>
                 </div>
+                </DeferredShowcase>
               </div>
             </div>
           </section>
