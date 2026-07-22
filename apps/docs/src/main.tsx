@@ -287,7 +287,7 @@ function memoryConfidenceClass(confidence?: FlytrapProviderAnswer["confidence"])
   if (confidence === "high") return "border-[#b8ff35]/30 bg-[#b8ff35]/10 text-[#d9ff8f]";
   if (confidence === "medium") return "border-[#ff4fbd]/30 bg-[#ff4fbd]/10 text-[#ffb7e5]";
   if (confidence === "low") return "border-[#ffaa00]/35 bg-[#ffaa00]/10 text-[#ffd27a]";
-  return "border-white/10 bg-white/[.035] text-white/58";
+  return "border-white/10 bg-white/[.035] text-editorial-muted";
 }
 
 const comboboxOptions: React.ComponentProps<typeof Combobox>["options"] = [
@@ -570,8 +570,8 @@ function App() {
                 </SectionCard>
                 <SectionCard meta="fluid" title="Typography">
                   <p className="font-display text-6xl font-bold text-[#ff4fbd]">Ag</p>
-                  <p className="mt-2 text-sm text-white/70">Satoshi Variable</p>
-                  <p className="mt-1 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-white/60">Fluid · Humanist · Technical</p>
+                  <p className="mt-2 text-sm text-editorial-secondary">Satoshi Variable</p>
+                  <p className="mt-1 font-mono text-xs uppercase tracking-[0.16em] text-editorial-muted">Fluid · Humanist · Technical</p>
                 </SectionCard>
                 <SectionCard meta="8pt" title="Grid & Layout">
                   <div aria-hidden="true" className="grid h-20 grid-cols-12 gap-1">
@@ -580,16 +580,16 @@ function App() {
                       key={index}
                     />)}
                   </div>
-                  <p className="mt-3 text-sm text-white/70">12 Column Grid</p>
-                  <p className="mt-1 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-white/60">8pt Baseline</p>
+                  <p className="mt-3 text-sm text-editorial-secondary">12 Column Grid</p>
+                  <p className="mt-1 font-mono text-xs uppercase tracking-[0.16em] text-editorial-muted">8pt Baseline</p>
                 </SectionCard>
                 <SectionCard meta="semantic" title="Iconography">
-                  <div className="grid grid-cols-4 gap-2 text-white/70">
+                  <div className="grid grid-cols-4 gap-2 text-editorial-secondary">
                     {iconographySet.map((icon, index) => <span className="grid aspect-square place-items-center rounded-lg border border-white/10 bg-black/30" key={index}>
                       <FlytrapIcon icon={icon} />
                     </span>)}
                   </div>
-                  <p className="mt-3 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-white/60">2px line · Rounded</p>
+                  <p className="mt-3 font-mono text-xs uppercase tracking-[0.16em] text-editorial-muted">2px line · Rounded</p>
                 </SectionCard>
               </div>
             </div>
@@ -623,7 +623,7 @@ function App() {
                 title="Components"
               />
               <div className="min-w-0 flex-1">
-                <p className="mb-2 max-w-2xl text-sm leading-6 text-white/62">
+                <p className="mb-2 max-w-2xl text-sm leading-6 text-editorial-secondary">
                   Component groups link to the documented examples below. Use them as section shortcuts, not filter controls.
                 </p>
                 <PillTabs
@@ -644,7 +644,7 @@ function App() {
                   <SectionCard meta="reference" title="Component system map">
                     <div className="grid gap-4 xl:grid-cols-[1fr_1.15fr]">
                       <div>
-                        <p className="max-w-2xl text-sm leading-6 text-white/64">
+                        <p className="max-w-2xl text-sm leading-6 text-editorial-secondary">
                           The package currently exposes 77 UI, AI, and chart modules. This map groups them by user intent so the documentation is easier to scan than a flat export list.
                         </p>
                         <div className="mt-4 grid grid-cols-3 gap-2">
@@ -654,14 +654,14 @@ function App() {
                             ["4", "quality gates"],
                           ].map(([value, label]) => <div className="rounded-xl border border-white/10 bg-black/35 p-3" key={label}>
                             <p className="font-display text-2xl font-bold text-white">{value}</p>
-                            <p className="mt-1 font-mono text-[0.56rem] uppercase tracking-[0.15em] text-white/55">{label}</p>
+                            <p className="mt-1 font-mono text-xs uppercase tracking-[0.15em] text-editorial-muted">{label}</p>
                           </div>)}
                         </div>
                       </div>
                       <div className="grid gap-2">
                         {componentQualityChecks.map(([label, description]) => <div className="rounded-xl border border-white/8 bg-white/[.035] p-3" key={label}>
                           <p className="font-display text-sm font-bold text-white/90">{label}</p>
-                          <p className="mt-1 text-xs leading-5 text-white/58">{description}</p>
+                          <p className="mt-1 text-xs leading-5 text-editorial-muted">{description}</p>
                         </div>)}
                       </div>
                     </div>
@@ -675,17 +675,17 @@ function App() {
                         <div aria-hidden="true" className="absolute bottom-0 left-8 h-40 w-80 rounded-full bg-[#b8ff35]/8 blur-3xl" />
                         <div className="relative z-10 flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
                           <div>
-                            <p className="font-mono text-[0.64rem] uppercase tracking-[0.22em] text-[#ff9bdd]">Layer inspection</p>
+                            <p className="font-mono text-xs uppercase tracking-[0.22em] text-[#ff9bdd]">Layer inspection</p>
                             <h4 className="mt-2 max-w-xl font-display text-2xl font-bold text-white md:text-3xl">
                               Six documented layers before a component ships.
                             </h4>
-                            <p className="mt-3 max-w-2xl text-sm leading-6 text-white/64">
+                            <p className="mt-3 max-w-2xl text-sm leading-6 text-editorial-secondary">
                               Each layer has a purpose, a token source, and an accessibility responsibility. The stack below shows how Flytrap components are assembled from surface to expressive bio-field.
                             </p>
                           </div>
                           <div className="rounded-2xl border border-white/10 bg-black/40 p-3 text-right">
                             <p className="font-display text-3xl font-bold text-white">{anatomyLayerDetails.length}</p>
-                            <p className="font-mono text-[0.58rem] uppercase tracking-[0.16em] text-white/55">visible layers</p>
+                            <p className="font-mono text-xs uppercase tracking-[0.16em] text-editorial-muted">visible layers</p>
                           </div>
                         </div>
                         <div className="relative z-20 mt-8 grid min-h-[28rem] place-items-center overflow-hidden rounded-[1.25rem] border border-white/8 bg-[radial-gradient(circle_at_50%_34%,rgba(184,255,53,.12),transparent_32%),radial-gradient(circle_at_52%_70%,rgba(255,79,189,.20),transparent_42%)]">
@@ -701,8 +701,8 @@ function App() {
                             tilt
                           />
                           <div className="absolute left-5 top-5 z-20 max-w-xs rounded-2xl border border-white/10 bg-black/45 p-4 backdrop-blur-xl">
-                            <p className="font-mono text-[0.6rem] uppercase tracking-[0.18em] text-[#b8ff35]">Layer controls moved right</p>
-                            <p className="mt-2 text-sm leading-6 text-white/62">
+                            <p className="font-mono text-xs uppercase tracking-[0.18em] text-[#b8ff35]">Layer controls moved right</p>
+                            <p className="mt-2 text-sm leading-6 text-editorial-secondary">
                               Select a layer in the inspector panel to update the documented anatomy without covering the character.
                             </p>
                           </div>
@@ -711,16 +711,16 @@ function App() {
                       </div>
                       <div className="grid content-start gap-3">
                         <div aria-live="polite" className="rounded-[1.35rem] border border-[#b8ff35]/26 bg-[linear-gradient(145deg,rgba(184,255,53,.10),rgba(255,79,189,.09)_44%,rgba(0,0,0,.46))] p-5 shadow-[0_20px_54px_rgba(0,0,0,.42)]">
-                          <p className="font-mono text-[0.62rem] uppercase tracking-[0.18em] text-[#b8ff35]">Selected layer</p>
+                          <p className="font-mono text-xs uppercase tracking-[0.18em] text-[#b8ff35]">Selected layer</p>
                           <h4 className="mt-2 font-display text-2xl font-bold text-white">{selectedAnatomyLayer + 1}. {selectedAnatomyLayerDetail.label}</h4>
-                          <p className="mt-3 text-sm leading-6 text-white/68">{selectedAnatomyLayerDetail.description}</p>
+                          <p className="mt-3 text-sm leading-6 text-editorial-secondary">{selectedAnatomyLayerDetail.description}</p>
                           <div className="mt-5 grid gap-3 rounded-2xl border border-white/8 bg-black/35 p-4 text-sm sm:grid-cols-[6rem_1fr]">
-                            <span className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-white/42">Example</span>
-                            <span className="text-white/72">{selectedAnatomyLayerDetail.example}</span>
-                            <span className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-white/42">Token</span>
+                            <span className="font-mono text-xs uppercase tracking-[0.14em] text-editorial-muted">Example</span>
+                            <span className="text-editorial-secondary">{selectedAnatomyLayerDetail.example}</span>
+                            <span className="font-mono text-xs uppercase tracking-[0.14em] text-editorial-muted">Token</span>
                             <code className="text-[#ff9bdd]">{selectedAnatomyLayerDetail.token}</code>
-                            <span className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-white/42">Ship check</span>
-                            <span className="text-white/72">Document behavior, states, token mapping, and keyboard expectations for this layer.</span>
+                            <span className="font-mono text-xs uppercase tracking-[0.14em] text-editorial-muted">Ship check</span>
+                            <span className="text-editorial-secondary">Document behavior, states, token mapping, and keyboard expectations for this layer.</span>
                           </div>
                         </div>
                         <div className="grid gap-2">
@@ -738,8 +738,8 @@ function App() {
                           >
                             <span className="grid size-8 shrink-0 place-items-center rounded-full bg-[#ff4fbd]/18 font-mono text-xs text-[#ff9bdd]">{index + 1}</span>
                             <span className="min-w-0 flex-1">
-                              <span className="block font-mono text-[0.68rem] uppercase tracking-[0.16em] text-white/78">{layer.label}</span>
-                              <span className="mt-1 block truncate text-xs text-white/44">{layer.token}</span>
+                              <span className="block font-mono text-xs uppercase tracking-[0.16em] text-editorial-secondary">{layer.label}</span>
+                              <span className="mt-1 block truncate text-xs text-editorial-muted">{layer.token}</span>
                             </span>
                             <span aria-hidden="true" className="text-[#ff4fbd] transition-transform group-hover:translate-x-1">→</span>
                           </button>)}
@@ -757,13 +757,13 @@ function App() {
                       <span className="flex items-start justify-between gap-3">
                         <span>
                           <span className="block font-display text-lg font-bold text-white">{group.name}</span>
-                          <span className="mt-1 block font-mono text-[0.58rem] uppercase tracking-[0.16em] text-[#ff9bdd]">{group.count} components · {group.status}</span>
+                          <span className="mt-1 block font-mono text-xs uppercase tracking-[0.16em] text-[#ff9bdd]">{group.count} components · {group.status}</span>
                         </span>
                         <span aria-hidden="true" className="text-[#ff4fbd] transition-transform group-hover:translate-x-1">→</span>
                       </span>
-                      <span className="mt-3 block text-sm leading-6 text-white/62">{group.description}</span>
+                      <span className="mt-3 block text-sm leading-6 text-editorial-secondary">{group.description}</span>
                       <span className="mt-3 flex flex-wrap gap-1.5">
-                        {group.examples.map(example => <code className="rounded-full border border-white/10 bg-black/35 px-2 py-1 font-mono text-[0.56rem] text-white/62" key={example}>{example}</code>)}
+                        {group.examples.map(example => <code className="rounded-full border border-white/10 bg-black/35 px-2 py-1 font-mono text-xs text-editorial-secondary" key={example}>{example}</code>)}
                       </span>
                     </a>)}
                   </div>
@@ -804,7 +804,7 @@ function App() {
                     </SectionCard>
 
                     <SectionCard meta="category docs" title="Component documentation guide">
-                      <p className="max-w-3xl text-sm leading-6 text-white/64">
+                      <p className="max-w-3xl text-sm leading-6 text-editorial-secondary">
                         Use these category notes as the minimum documentation contract for every component page. Each group defines when to use the pattern, which anatomy to document, which states to test, and which accessibility rule should never be skipped.
                       </p>
                       <div className="mt-4 grid gap-3">
@@ -818,33 +818,33 @@ function App() {
                             <span className="grid size-9 shrink-0 place-items-center rounded-full bg-[#ff4fbd]/16 font-mono text-xs text-[#ff9bdd]">{String(index + 1).padStart(2, "0")}</span>
                             <span className="min-w-0 flex-1">
                               <span className="block font-display text-base font-bold text-white/90">{group.title}</span>
-                              <span className="mt-1 block font-mono text-[0.58rem] uppercase tracking-[0.16em] text-white/45">{group.examples.join(" · ")}</span>
+                              <span className="mt-1 block font-mono text-xs uppercase tracking-[0.16em] text-editorial-muted">{group.examples.join(" · ")}</span>
                             </span>
                             <span aria-hidden="true" className="font-mono text-lg text-[#ff4fbd] transition-transform group-open:rotate-90">›</span>
                           </summary>
                           <div className="mt-4 grid gap-3 xl:grid-cols-[1fr_1fr]">
                             <div className="rounded-xl border border-white/8 bg-white/[.035] p-3">
-                              <h4 className="font-mono text-[0.62rem] uppercase tracking-[0.16em] text-[#ff9bdd]">Use when</h4>
-                              <ul className="mt-2 grid gap-1.5 text-sm leading-6 text-white/66">
+                              <h4 className="font-mono text-xs uppercase tracking-[0.16em] text-[#ff9bdd]">Use when</h4>
+                              <ul className="mt-2 grid gap-1.5 text-sm leading-6 text-editorial-secondary">
                                 {group.usage.map(item => <li className="flex gap-2" key={item}><span aria-hidden="true" className="mt-2 size-1.5 shrink-0 rounded-full bg-[#b8ff35]" />{item}</li>)}
                               </ul>
                             </div>
                             <div className="rounded-xl border border-white/8 bg-white/[.035] p-3">
-                              <h4 className="font-mono text-[0.62rem] uppercase tracking-[0.16em] text-[#ff9bdd]">Accessibility rule</h4>
-                              <p className="mt-2 text-sm leading-6 text-white/66">{group.accessibility}</p>
+                              <h4 className="font-mono text-xs uppercase tracking-[0.16em] text-[#ff9bdd]">Accessibility rule</h4>
+                              <p className="mt-2 text-sm leading-6 text-editorial-secondary">{group.accessibility}</p>
                             </div>
                             <div className="rounded-xl border border-white/8 bg-white/[.035] p-3">
-                              <h4 className="font-mono text-[0.62rem] uppercase tracking-[0.16em] text-[#ff9bdd]">Document anatomy</h4>
+                              <h4 className="font-mono text-xs uppercase tracking-[0.16em] text-[#ff9bdd]">Document anatomy</h4>
                               <div className="mt-2 flex flex-wrap gap-1.5">
-                                {group.anatomy.map(item => <span className="rounded-full border border-white/10 bg-black/35 px-2 py-1 font-mono text-[0.58rem] text-white/64" key={item}>{item}</span>)}
+                                {group.anatomy.map(item => <span className="rounded-full border border-white/10 bg-black/35 px-2 py-1 font-mono text-xs text-editorial-secondary" key={item}>{item}</span>)}
                               </div>
                             </div>
                             <div className="rounded-xl border border-white/8 bg-white/[.035] p-3">
-                              <h4 className="font-mono text-[0.62rem] uppercase tracking-[0.16em] text-[#ff9bdd]">States and tokens</h4>
+                              <h4 className="font-mono text-xs uppercase tracking-[0.16em] text-[#ff9bdd]">States and tokens</h4>
                               <div className="mt-2 grid gap-2">
-                                <p className="text-sm leading-6 text-white/66">{group.states.join(", ")}</p>
+                                <p className="text-sm leading-6 text-editorial-secondary">{group.states.join(", ")}</p>
                                 <div className="flex flex-wrap gap-1.5">
-                                  {group.tokens.map(token => <code className="rounded-full border border-[#b8ff35]/20 bg-[#b8ff35]/8 px-2 py-1 font-mono text-[0.58rem] text-[#d7ff88]" key={token}>{token}</code>)}
+                                  {group.tokens.map(token => <code className="rounded-full border border-[#b8ff35]/20 bg-[#b8ff35]/8 px-2 py-1 font-mono text-xs text-[#d7ff88]" key={token}>{token}</code>)}
                                 </div>
                               </div>
                             </div>
@@ -897,7 +897,7 @@ function App() {
                     </div>
                   </ComponentPreview>
                   <ComponentPreview title="Progress">
-                    <div className="mb-1.5 flex justify-between text-xs text-white/60"><span>72%</span></div>
+                    <div className="mb-1.5 flex justify-between text-xs text-editorial-muted"><span>72%</span></div>
                     <Progress value={72} />
                   </ComponentPreview>
                   <ComponentPreview title="Toggle">
@@ -910,11 +910,11 @@ function App() {
                         <button className="w-full rounded-xl border border-white/12 bg-black/50 p-3 text-left transition-colors hover:border-[#ff4fbd]/40" type="button">
                           <span className="flex items-center justify-between">
                             <span className="text-sm font-semibold text-white/90">Modal Title</span>
-                            <span aria-hidden="true" className="text-white/60">×</span>
+                            <span aria-hidden="true" className="text-editorial-muted">×</span>
                           </span>
-                          <span className="mt-1 block text-xs text-white/65">This is a modal.</span>
+                          <span className="mt-1 block text-xs text-editorial-secondary">This is a modal.</span>
                           <span className="mt-3 flex justify-end gap-2">
-                            <span className="rounded-full border border-white/15 px-3 py-1 text-xs text-white/70">Cancel</span>
+                            <span className="rounded-full border border-white/15 px-3 py-1 text-xs text-editorial-secondary">Cancel</span>
                             <span className="rounded-full bg-[#F10081] px-3 py-1 text-xs font-medium text-white shadow-[0_0_12px_rgba(241,0,129,.45)]">Confirm</span>
                           </span>
                         </button>
@@ -1068,7 +1068,7 @@ function App() {
               />
               <div className="grid min-w-0 flex-1 gap-4">
                 <SectionCard meta="Library index" title="Pattern library">
-                  <p className="max-w-3xl text-sm leading-6 text-white/66">
+                  <p className="max-w-3xl text-sm leading-6 text-editorial-secondary">
                     Patterns are reusable product compositions. Each one documents the problem, core anatomy, accessibility contract, and the components expected to work together.
                   </p>
                   <div className="mt-4 grid gap-4 xl:grid-cols-2">
@@ -1080,17 +1080,17 @@ function App() {
                       <span className="flex items-start justify-between gap-3">
                         <span>
                           <span className="block font-display text-base font-bold text-white/90">{pattern.title}</span>
-                          <span className="mt-1 block font-mono text-[0.58rem] uppercase tracking-[0.16em] text-[#ff9bdd]">{pattern.maturity}</span>
+                          <span className="mt-1 block font-mono text-xs uppercase tracking-[0.16em] text-[#ff9bdd]">{pattern.maturity}</span>
                         </span>
                         <span aria-hidden="true" className="text-[#ff4fbd] transition-transform group-hover:translate-x-1">→</span>
                       </span>
-                      <span className="mt-3 block text-sm leading-6 text-white/62">{pattern.description}</span>
+                      <span className="mt-3 block text-sm leading-6 text-editorial-secondary">{pattern.description}</span>
                       <span className="mt-4 block rounded-xl border border-white/8 bg-white/[.035] p-3">
-                        <span className="block font-mono text-[0.58rem] uppercase tracking-[0.16em] text-white/45">Problem</span>
-                        <span className="mt-1 block text-sm leading-6 text-white/66">{pattern.problem}</span>
+                        <span className="block font-mono text-xs uppercase tracking-[0.16em] text-editorial-muted">Problem</span>
+                        <span className="mt-1 block text-sm leading-6 text-editorial-secondary">{pattern.problem}</span>
                       </span>
                       <span className="mt-3 flex flex-wrap gap-2">
-                        {pattern.components.slice(0, 3).map(component => <span className="rounded-full border border-[#ff4fbd]/25 bg-[#ff4fbd]/10 px-2.5 py-1 font-mono text-[0.58rem] uppercase tracking-[0.14em] text-[#ff9bdd]" key={component}>
+                        {pattern.components.slice(0, 3).map(component => <span className="rounded-full border border-[#ff4fbd]/25 bg-[#ff4fbd]/10 px-2.5 py-1 font-mono text-xs uppercase tracking-[0.14em] text-[#ff9bdd]" key={component}>
                           {component}
                         </span>)}
                       </span>
@@ -1099,17 +1099,17 @@ function App() {
                 </SectionCard>
 
                 <SectionCard meta="Examples" title="Implementation examples">
-                  <p className="max-w-3xl text-sm leading-6 text-white/66">
+                  <p className="max-w-3xl text-sm leading-6 text-editorial-secondary">
                     Use these examples as starting points. They are intentionally compact: the full pattern contract lives in the guide, while this page shows how the composition starts to look in code.
                   </p>
                   <div className="mt-4 grid gap-4 xl:grid-cols-2">
                     {patternLibrary.map(pattern => <article className="grid min-h-full gap-4 rounded-2xl border border-white/10 bg-black/35 p-4" key={pattern.title}>
                       <div>
                         <p className="font-display text-base font-bold text-white/90">{pattern.title}</p>
-                        <p className="mt-1 text-sm leading-6 text-white/62">{pattern.evidence}</p>
+                        <p className="mt-1 text-sm leading-6 text-editorial-secondary">{pattern.evidence}</p>
                       </div>
                       <div className="grid gap-2">
-                        {pattern.accessibility.map(item => <div className="flex gap-2 rounded-xl border border-white/8 bg-white/[.035] p-3 text-sm leading-6 text-white/66" key={item}>
+                        {pattern.accessibility.map(item => <div className="flex gap-2 rounded-xl border border-white/8 bg-white/[.035] p-3 text-sm leading-6 text-editorial-secondary" key={item}>
                           <span aria-hidden="true" className="mt-2 size-1.5 shrink-0 rounded-full bg-[#b8ff35]" />
                           <span>{item}</span>
                         </div>)}
@@ -1122,7 +1122,7 @@ function App() {
                 <SectionCard id="pattern-ai-managed-streaming" meta="Product pattern" title="AI-managed streaming flow">
                   <div className="grid gap-5 xl:grid-cols-[1.05fr_.95fr]">
                     <div className="grid gap-4">
-                      <p className="max-w-3xl text-sm leading-6 text-white/66">
+                      <p className="max-w-3xl text-sm leading-6 text-editorial-secondary">
                         Use this pattern when an AI system adapts a media experience from an explicit mood or intent signal. The Studio consumer implements this as mood selection, adaptive recommendations, player state, human approval and assistant history.
                       </p>
                       <DataList>
@@ -1162,7 +1162,7 @@ function App() {
                         ["Assistant input", "PromptInput · StreamingMessage"],
                       ].map(([label, value]) => <div className="rounded-xl border border-white/10 bg-black/35 p-3" key={label}>
                         <p className="font-display text-sm font-bold text-white/90">{label}</p>
-                        <p className="mt-1 font-mono text-[0.6rem] uppercase tracking-[0.15em] text-[#ff9bdd]">{value}</p>
+                        <p className="mt-1 font-mono text-xs uppercase tracking-[0.15em] text-[#ff9bdd]">{value}</p>
                       </div>)}
                     </div>
                   </SectionCard>
@@ -1170,7 +1170,7 @@ function App() {
                     <div className="grid gap-2">
                       {streamingPatternChecklist.map(([label, description]) => <div className="rounded-xl border border-white/8 bg-white/[.035] p-3" key={label}>
                         <p className="font-display text-sm font-bold text-white/90">{label}</p>
-                        <p className="mt-1 text-sm leading-6 text-white/62">{description}</p>
+                        <p className="mt-1 text-sm leading-6 text-editorial-secondary">{description}</p>
                       </div>)}
                     </div>
                   </SectionCard>
@@ -1189,7 +1189,7 @@ function App() {
                         </span>
                       </span>
                     </div>
-                    <p className="mt-4 text-sm leading-6 text-white/64">
+                    <p className="mt-4 text-sm leading-6 text-editorial-secondary">
                       Use for operational surfaces that combine navigation, KPIs, tabular status, timelines and agent health.
                     </p>
                     <DataList className="mt-4">
@@ -1242,12 +1242,12 @@ function App() {
               />
               <div className="grid flex-1 gap-4 sm:grid-cols-2">
                 <SectionCard meta="APCA" title="Contrast">
-                  <p className="font-display text-3xl font-bold text-white/90">54 <span className="text-base font-medium text-white/65">approved pairs</span></p>
-                  <p className="mt-2 text-sm text-white/60">Text, actions, focus states, and data visualization are validated for the dark experience.</p>
+                  <p className="font-display text-3xl font-bold text-white/90">54 <span className="text-base font-medium text-editorial-secondary">approved pairs</span></p>
+                  <p className="mt-2 text-sm text-editorial-muted">Text, actions, focus states, and data visualization are validated for the dark experience.</p>
                 </SectionCard>
                 <SectionCard meta="focus" title="Visible focus">
                   <span className="inline-grid size-14 place-items-center rounded-lg border border-white/20 bg-black/40 font-display text-xl font-bold text-white outline outline-2 outline-offset-2 outline-[#ff4fbd]">Aa</span>
-                  <p className="mt-3 text-sm text-white/60">Visible focus rings and keyboard navigation are required for every component.</p>
+                  <p className="mt-3 text-sm text-editorial-muted">Visible focus rings and keyboard navigation are required for every component.</p>
                 </SectionCard>
               </div>
             </div>
@@ -1297,7 +1297,7 @@ function App() {
               />
               <div className="grid min-w-0 flex-1 gap-4 xl:grid-cols-[1.05fr_.95fr]">
                 <SectionCard meta={`${flytrapMemoryIndex.length} sources`} title="Ask the system memory">
-                  <p className="max-w-3xl text-sm leading-6 text-white/66">
+                  <p className="max-w-3xl text-sm leading-6 text-editorial-secondary">
                     This is the safe layer before chat: a local allowlist of Flytrap knowledge with direct sources. It can later power an Ollama or hosted model chat without losing traceability.
                   </p>
                   <div className="mt-4">
@@ -1319,16 +1319,16 @@ function App() {
                         <span className="flex flex-wrap items-start justify-between gap-3">
                           <span>
                             <span className="block font-display text-base font-bold text-white/90">{result.title}</span>
-                            <span className="mt-1 block font-mono text-[0.58rem] uppercase tracking-[0.16em] text-[#ff9bdd]">{result.type} · {result.source}</span>
+                            <span className="mt-1 block font-mono text-xs uppercase tracking-[0.16em] text-[#ff9bdd]">{result.type} · {result.source}</span>
                           </span>
                           <span aria-hidden="true" className="text-[#ff4fbd] transition-transform group-hover:translate-x-1">→</span>
                         </span>
-                        <span className="mt-3 block text-sm leading-6 text-white/66">{result.answer}</span>
+                        <span className="mt-3 block text-sm leading-6 text-editorial-secondary">{result.answer}</span>
                         <span className="mt-3 flex flex-wrap gap-1.5">
-                          {result.tags.slice(0, 5).map(tag => <span className="rounded-full border border-white/10 bg-white/[.035] px-2 py-1 font-mono text-[0.56rem] uppercase tracking-[0.12em] text-white/58" key={tag}>{tag}</span>)}
+                          {result.tags.slice(0, 5).map(tag => <span className="rounded-full border border-white/10 bg-white/[.035] px-2 py-1 font-mono text-xs uppercase tracking-[0.12em] text-editorial-muted" key={tag}>{tag}</span>)}
                         </span>
                       </a>)
-                      : <div className="rounded-2xl border border-white/10 bg-black/35 p-4 text-sm leading-6 text-white/62">
+                      : <div className="rounded-2xl border border-white/10 bg-black/35 p-4 text-sm leading-6 text-editorial-secondary">
                         <p>No memory result yet. Try a component name, pattern name, token, accessibility term, or setup question.</p>
                         {memoryQuery.trim() ? <Button className="mt-3 border-[#ffaa00]/35 bg-[#ffaa00]/10 text-[#ffd27a] hover:bg-[#ffaa00]/15" onClick={() => openSourceRequest(memoryQuery)} size="sm" type="button" variant="outline">
                           Request source
@@ -1341,40 +1341,40 @@ function App() {
                     <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                       <div>
                         <p className="font-display text-sm font-bold text-white/86">Provider mode</p>
-                        <p className="mt-1 text-sm leading-6 text-white/58">
+                        <p className="mt-1 text-sm leading-6 text-editorial-muted">
                           Source-backed memory is always safe for the public site. Ollama is optional for local development and still keeps Flytrap citations.
                         </p>
                       </div>
                       {canSwitchMemoryProvider
                         ? <ButtonGroup aria-label="Choose memory provider" className="shrink-0 border-white/10 bg-white/[.035]">
                           <ButtonGroupItem
-                            className="text-white/78 data-[selected]:bg-[#ff4fbd] data-[selected]:text-white"
+                            className="text-editorial-secondary data-[selected]:bg-[#ff4fbd] data-[selected]:text-white"
                             onClick={() => setMemoryProvider("source")}
                             selected={memoryProvider === "source"}
                           >
                             Source
                           </ButtonGroupItem>
                           <ButtonGroupItem
-                            className="text-white/78 data-[selected]:bg-[#ff4fbd] data-[selected]:text-white"
+                            className="text-editorial-secondary data-[selected]:bg-[#ff4fbd] data-[selected]:text-white"
                             onClick={() => setMemoryProvider("ollama")}
                             selected={memoryProvider === "ollama"}
                           >
                             Ollama
                           </ButtonGroupItem>
                         </ButtonGroup>
-                        : <Badge className="border-white/10 bg-white/[.035] text-white/72" variant="outline">Source only</Badge>}
+                        : <Badge className="border-white/10 bg-white/[.035] text-editorial-secondary" variant="outline">Source only</Badge>}
                     </div>
-                    {memoryProvider === "ollama" ? <p className="mt-3 rounded-xl border border-[#b8ff35]/25 bg-[#b8ff35]/8 px-3 py-2 text-xs leading-5 text-white/68">
+                    {memoryProvider === "ollama" ? <p className="mt-3 rounded-xl border border-[#b8ff35]/25 bg-[#b8ff35]/8 px-3 py-2 text-xs leading-5 text-editorial-secondary">
                       Local mode will call <code>{memoryProviderConfig.model}</code> at <code>{memoryProviderConfig.baseUrl}</code>. If it fails, the answer falls back to cited source-backed memory.
                     </p> : null}
                   </div>
                   <ChatThread className="max-h-[32rem] border-white/10 bg-black/35">
-                    {memoryChatMessages.map(message => <MessageBubble className={message.role === "assistant" ? "max-w-full border-white/10 bg-white/[.045] text-white/72" : "bg-[#ff4fbd] text-white"} key={message.id} role={message.role}>
+                    {memoryChatMessages.map(message => <MessageBubble className={message.role === "assistant" ? "max-w-full border-white/10 bg-white/[.045] text-editorial-secondary" : "bg-[#ff4fbd] text-white"} key={message.id} role={message.role}>
                       {message.role === "assistant" ? <div className="mb-3 flex flex-wrap gap-2">
-                        <span className={`inline-flex items-center rounded-full border px-2.5 py-1 font-mono text-[0.56rem] uppercase tracking-[0.12em] ${memoryConfidenceClass(message.confidence)}`}>
+                        <span className={`inline-flex items-center rounded-full border px-2.5 py-1 font-mono text-xs uppercase tracking-[0.12em] ${memoryConfidenceClass(message.confidence)}`}>
                           {memoryConfidenceLabel(message.confidence)}
                         </span>
-                        {message.provider ? <span className="inline-flex items-center rounded-full border border-white/10 bg-black/30 px-2.5 py-1 font-mono text-[0.56rem] uppercase tracking-[0.12em] text-white/52">
+                        {message.provider ? <span className="inline-flex items-center rounded-full border border-white/10 bg-black/30 px-2.5 py-1 font-mono text-xs uppercase tracking-[0.12em] text-editorial-muted">
                           {message.provider === "ollama" ? "Ollama assisted" : "Source-backed"}
                         </span> : null}
                       </div> : null}
@@ -1385,18 +1385,18 @@ function App() {
                           Request source
                         </Button>
                       </div> : null}
-                      {message.fallbackReason ? <div className="mt-3 rounded-xl border border-[#b8ff35]/25 bg-[#b8ff35]/8 p-3 text-sm leading-6 text-white/64">
+                      {message.fallbackReason ? <div className="mt-3 rounded-xl border border-[#b8ff35]/25 bg-[#b8ff35]/8 p-3 text-sm leading-6 text-editorial-secondary">
                         <span className="font-display font-bold text-[#d9ff8f]">Fallback used:</span> {message.fallbackReason}
                       </div> : null}
-                      {message.meta ? <p className="mt-2 font-mono text-[0.56rem] uppercase tracking-[0.12em] text-white/42">{message.meta}</p> : null}
+                      {message.meta ? <p className="mt-2 font-mono text-xs uppercase tracking-[0.12em] text-editorial-muted">{message.meta}</p> : null}
                       {message.sources && message.sources.length > 0 ? <div className="mt-3 flex flex-wrap gap-2">
-                        {message.sources.map((source, index) => <CitationChip className="border-white/10 bg-black/35 text-white/72 hover:bg-[#ff4fbd]/10" href={source.href} index={index + 1} key={source.id} source={source.source} />)}
+                        {message.sources.map((source, index) => <CitationChip className="border-white/10 bg-black/35 text-editorial-secondary hover:bg-[#ff4fbd]/10" href={source.href} index={index + 1} key={source.id} source={source.source} />)}
                       </div> : null}
                     </MessageBubble>)}
                   </ChatThread>
                   <div aria-label="Suggested memory prompts" className="mt-4 flex flex-wrap gap-2">
                     {memoryQuickPrompts.map(prompt => <button
-                      className="rounded-full border border-white/10 bg-white/[.035] px-3 py-2 text-left text-xs leading-5 text-white/66 outline-none transition-colors hover:border-[#ff4fbd]/45 hover:bg-[#ff4fbd]/10 focus-visible:ring-2 focus-visible:ring-[#b8ff35] disabled:cursor-not-allowed disabled:opacity-50"
+                      className="rounded-full border border-white/10 bg-white/[.035] px-3 py-2 text-left text-xs leading-5 text-editorial-secondary outline-none transition-colors hover:border-[#ff4fbd]/45 hover:bg-[#ff4fbd]/10 focus-visible:ring-2 focus-visible:ring-[#b8ff35] disabled:cursor-not-allowed disabled:opacity-50"
                       disabled={memoryChatSubmitting}
                       key={prompt}
                       onClick={() => submitMemoryQuestion(prompt)}
@@ -1407,7 +1407,7 @@ function App() {
                   </div>
                   <PromptInput
                     className="mt-4 border-white/10 bg-black/35 text-white"
-                    footer={<span className="font-mono text-[0.58rem] uppercase tracking-[0.14em] text-white/45">{memoryProvider === "ollama" ? "Local Ollama when available · citations stay source-backed" : "Source-backed · no model call"}</span>}
+                    footer={<span className="font-mono text-xs uppercase tracking-[0.14em] text-editorial-muted">{memoryProvider === "ollama" ? "Local Ollama when available · citations stay source-backed" : "Source-backed · no model call"}</span>}
                     label="Ask Flytrap memory"
                     maxLength={220}
                     onSubmitPrompt={submitMemoryQuestion}
@@ -1430,14 +1430,14 @@ function App() {
                     <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
                       <div>
                         <p className="font-display text-sm font-bold text-[#ffd27a]">Missing source request</p>
-                        <p className="mt-1 text-sm leading-6 text-white/62">
+                        <p className="mt-1 text-sm leading-6 text-editorial-secondary">
                           When the chat cannot cite a source, turn the gap into a documentation task instead of accepting an unsupported answer.
                         </p>
                       </div>
                       <Badge className="w-fit border-[#ffaa00]/30 bg-black/20 text-[#ffd27a]" variant="outline">Human review</Badge>
                     </div>
                     <div className="mt-4 grid gap-3 md:grid-cols-[11rem_1fr]">
-                      <label className="grid gap-1.5 text-xs font-medium uppercase tracking-[0.12em] text-white/50">
+                      <label className="grid gap-1.5 text-xs font-medium uppercase tracking-[0.12em] text-editorial-muted">
                         Source type
                         <select
                           className="h-10 rounded-xl border border-white/10 bg-black/45 px-3 text-sm normal-case tracking-normal text-white outline-none focus-visible:ring-2 focus-visible:ring-[#b8ff35]"
@@ -1447,7 +1447,7 @@ function App() {
                           {sourceRequestKinds.map(kind => <option className="bg-[#05060a] text-white" key={kind} value={kind}>{kind}</option>)}
                         </select>
                       </label>
-                      <label className="grid gap-1.5 text-xs font-medium uppercase tracking-[0.12em] text-white/50">
+                      <label className="grid gap-1.5 text-xs font-medium uppercase tracking-[0.12em] text-editorial-muted">
                         Missing question
                         <input
                           className="h-10 rounded-xl border border-white/10 bg-black/45 px-3 text-sm normal-case tracking-normal text-white outline-none placeholder:text-white/35 focus-visible:ring-2 focus-visible:ring-[#b8ff35]"
@@ -1459,12 +1459,12 @@ function App() {
                     </div>
                     <textarea
                       aria-label="Generated source request template"
-                      className="mt-3 min-h-48 w-full rounded-2xl border border-white/10 bg-black/45 p-3 font-mono text-xs leading-5 text-white/68 outline-none focus-visible:ring-2 focus-visible:ring-[#b8ff35]"
+                      className="mt-3 min-h-48 w-full rounded-2xl border border-white/10 bg-black/45 p-3 font-mono text-xs leading-5 text-editorial-secondary outline-none focus-visible:ring-2 focus-visible:ring-[#b8ff35]"
                       readOnly
                       value={sourceRequestBody}
                     />
                     <div className="mt-3 flex flex-wrap gap-2">
-                      <CopyButton className="border-white/10 bg-black/30 text-white/72 hover:bg-white/10" size="sm" value={sourceRequestBody} variant="outline" />
+                      <CopyButton className="border-white/10 bg-black/30 text-editorial-secondary hover:bg-white/10" size="sm" value={sourceRequestBody} variant="outline" />
                       <Button asChild className="border-[#ffaa00]/35 bg-[#ffaa00]/10 text-[#ffd27a] hover:bg-[#ffaa00]/15" size="sm" variant="outline">
                         <a href={sourceRequestUrl} rel="noreferrer" target="_blank">Open GitHub issue</a>
                       </Button>
@@ -1506,9 +1506,9 @@ function App() {
                 <FloatingPanel className="self-start" title="NPM package">
                   <p className="flex items-baseline justify-between">
                     <span className="font-display text-lg font-bold text-white/90">@louizeb/flytrap-ui</span>
-                    <span className="font-mono text-xs text-white/60">1.0.0</span>
+                    <span className="font-mono text-xs text-editorial-muted">1.0.0</span>
                   </p>
-                  <p className="mt-3 font-mono text-[0.6rem] uppercase tracking-[0.18em] text-white/60">Install</p>
+                  <p className="mt-3 font-mono text-xs uppercase tracking-[0.18em] text-editorial-muted">Install</p>
                   <code className="mt-1.5 block rounded-lg border border-[#00c970]/30 bg-black/50 px-3 py-2 font-mono text-xs text-[#7de8b4]">pnpm add @louizeb/flytrap-ui</code>
                 </FloatingPanel>
               </div>
@@ -1549,21 +1549,21 @@ function App() {
                     </span>
                     Ask Flytrap
                   </SheetTitle>
-                  <SheetDescription className="text-white/60">
+                  <SheetDescription className="text-editorial-muted">
                     Ask about installation, components, patterns, tokens, or accessibility. Answers include their Flytrap sources.
                   </SheetDescription>
                 </SheetHeader>
                 <ChatThread className="min-h-0 rounded-2xl border-white/10 bg-black/35">
-                  {memoryChatMessages.map(message => <MessageBubble className={message.role === "assistant" ? "max-w-full border-white/10 bg-white/[.045] text-white/72" : "bg-[#ff4fbd] text-white"} key={message.id} role={message.role}>
+                  {memoryChatMessages.map(message => <MessageBubble className={message.role === "assistant" ? "max-w-full border-white/10 bg-white/[.045] text-editorial-secondary" : "bg-[#ff4fbd] text-white"} key={message.id} role={message.role}>
                     <p>{message.content}</p>
                     {message.sources && message.sources.length > 0 ? <div className="mt-3 flex flex-wrap gap-2">
-                      {message.sources.map((source, index) => <CitationChip className="border-white/10 bg-black/35 text-white/72 hover:bg-[#ff4fbd]/10" href={source.href} index={index + 1} key={source.id} source={source.source} />)}
+                      {message.sources.map((source, index) => <CitationChip className="border-white/10 bg-black/35 text-editorial-secondary hover:bg-[#ff4fbd]/10" href={source.href} index={index + 1} key={source.id} source={source.source} />)}
                     </div> : null}
                   </MessageBubble>)}
                 </ChatThread>
                 <div aria-label="Suggested questions" className="flex flex-wrap gap-2">
                   {memoryQuickPrompts.slice(0, 3).map(prompt => <button
-                    className="rounded-full border border-white/10 bg-white/[.035] px-3 py-2 text-left text-xs text-white/66 hover:border-[#ff4fbd]/45 hover:bg-[#ff4fbd]/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b8ff35]"
+                    className="rounded-full border border-white/10 bg-white/[.035] px-3 py-2 text-left text-xs text-editorial-secondary hover:border-[#ff4fbd]/45 hover:bg-[#ff4fbd]/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b8ff35]"
                     disabled={memoryChatSubmitting}
                     key={prompt}
                     onClick={() => submitMemoryQuestion(prompt)}
@@ -1574,7 +1574,7 @@ function App() {
                 </div>
                 <PromptInput
                   className="border-white/10 bg-black/50 text-white shadow-[0_-16px_40px_rgba(0,0,0,.22)]"
-                  footer={<span className="text-xs text-white/45">Answers use documented Flytrap sources.</span>}
+                  footer={<span className="text-xs text-editorial-muted">Answers use documented Flytrap sources.</span>}
                   label="Ask Flytrap"
                   maxLength={220}
                   onSubmitPrompt={submitMemoryQuestion}
@@ -1587,7 +1587,7 @@ function App() {
             </Sheet>
           </div>
 
-          <footer aria-label="Flytrap Design System footer" className="relative border-t border-white/10 px-6 py-8 text-white/65 md:px-10">
+          <footer aria-label="Flytrap Design System footer" className="relative border-t border-white/10 px-6 py-8 text-editorial-secondary md:px-10">
             <div className="flex flex-wrap items-center justify-between gap-4 text-sm">
               <p className="inline-flex items-center gap-2">
                 <FlytrapIcon icon={InsightIcon} size="sm" />

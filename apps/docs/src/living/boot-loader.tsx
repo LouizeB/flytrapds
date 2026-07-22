@@ -88,8 +88,8 @@ export function BootLoader({ onComplete }: { onComplete: () => void }) {
       </div>
 
       <div className="mt-8">
-        <div className="mb-3 flex items-center justify-between font-mono text-[0.68rem] uppercase tracking-[0.2em]">
-          <span className="text-white/58">{getBootStep(progress)}</span>
+        <div className="mb-3 flex items-center justify-between font-mono text-xs uppercase tracking-[0.2em]">
+          <span className="text-editorial-muted">{getBootStep(progress)}</span>
           <span className="text-[#ff4fbd]">{progress}%</span>
         </div>
         <div
@@ -108,13 +108,13 @@ export function BootLoader({ onComplete }: { onComplete: () => void }) {
         </div>
       </div>
 
-      <div className="mt-6 grid gap-2 font-mono text-[0.66rem] uppercase tracking-[0.18em] text-white/48 sm:grid-cols-3">
+      <div className="mt-6 grid gap-2 font-mono text-xs uppercase tracking-[0.18em] text-editorial-muted sm:grid-cols-3">
         <span className="rounded-xl border border-white/10 bg-black/30 px-3 py-2">Tokens: synced</span>
         <span className="rounded-xl border border-white/10 bg-black/30 px-3 py-2">3D: deferred</span>
         <span className="rounded-xl border border-white/10 bg-black/30 px-3 py-2">A11y: active</span>
       </div>
       <button
-        className="mt-5 rounded-full border border-[#b8ff35]/45 bg-[#b8ff35]/10 px-4 py-2 font-mono text-[0.68rem] uppercase tracking-[0.18em] text-[#d8ff91] transition-colors hover:bg-[#b8ff35]/18 focus-visible:ring-2 focus-visible:ring-[#b8ff35]"
+        className="mt-5 rounded-full border border-[#b8ff35]/45 bg-[#b8ff35]/10 px-4 py-2 font-mono text-xs uppercase tracking-[0.18em] text-[#d8ff91] transition-colors hover:bg-[#b8ff35]/18 focus-visible:ring-2 focus-visible:ring-[#b8ff35]"
         onClick={complete}
         type="button"
       >

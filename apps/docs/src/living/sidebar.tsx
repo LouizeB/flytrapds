@@ -82,8 +82,8 @@ export function Sidebar() {
         <BrandMark className="relative scale-[.64]" label={null} size={32} />
       </span>
       <span className="min-w-0">
-        <span className="block font-display text-[0.72rem] font-bold uppercase leading-tight tracking-[0.12em]">Flytrap Design System</span>
-        <span className="block font-mono text-[0.58rem] uppercase tracking-[0.22em] text-white/60">Design · 1.0</span>
+        <span className="block font-display text-xs font-bold uppercase leading-tight tracking-[0.12em]">Flytrap Design System</span>
+        <span className="block font-mono text-xs uppercase tracking-[0.22em] text-editorial-muted">Design · 1.0</span>
       </span>
     </a>
 
@@ -95,14 +95,14 @@ export function Sidebar() {
             "group flex items-center gap-2.5 border-b border-white/7 px-3 py-2 font-medium outline-none transition-colors last:border-b-0 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#b8ff35]",
             isActive
               ? "border-[#ff64b4]/60 bg-gradient-to-r from-[#F10081] to-[#9b0059] text-white shadow-[0_0_26px_rgba(241,0,129,.55)]"
-              : "text-white/68 hover:bg-white/6 hover:text-white",
+              : "text-editorial-secondary hover:bg-white/6 hover:text-white",
           ].join(" ")}
           aria-current={isActive ? "page" : undefined}
           href={`#${id}`}
           key={id}
           onClick={() => setActive(id)}
         >
-          <span className={isActive ? "text-white" : "text-white/70"}><FlytrapIcon icon={icon} size="sm" /></span>
+          <span className={isActive ? "text-white" : "text-editorial-secondary"}><FlytrapIcon icon={icon} size="sm" /></span>
           <span className="flex-1">{label}</span>
           <span aria-hidden="true" className={["font-mono text-xs transition-transform", isActive ? "text-white" : "text-white/25 group-hover:translate-x-0.5"].join(" ")}>›</span>
         </a>;
@@ -110,17 +110,17 @@ export function Sidebar() {
     </nav>
 
     <div className="relative rounded-xl border border-[rgba(241,0,129,.18)] bg-[rgba(10,11,18,.8)] p-3 shadow-[0_0_22px_rgba(241,0,129,.08)]">
-      <span aria-hidden="true" className="absolute right-2.5 top-2.5 font-mono text-[0.6rem] text-white/30">×</span>
-      <p className="font-mono text-[0.58rem] uppercase tracking-[0.22em] text-white/60">System status</p>
-      <p className="mt-2 flex items-center gap-2 text-[0.68rem] text-white/75">
+      <span aria-hidden="true" className="absolute right-2.5 top-2.5 font-mono text-xs text-white/30">×</span>
+      <p className="font-mono text-xs uppercase tracking-[0.22em] text-editorial-muted">System status</p>
+      <p className="mt-2 flex items-center gap-2 text-xs text-editorial-secondary">
         <span className="size-1.5 rounded-full bg-[#00c970] shadow-[0_0_8px_rgba(0,201,112,.8)]" />
         Flytrap system online
       </p>
-      <p className="mt-1 flex items-center gap-2 text-[0.68rem] text-white/70">
+      <p className="mt-1 flex items-center gap-2 text-xs text-editorial-secondary">
         <span className="size-1.5 rounded-full bg-[#F10081]/90 shadow-[0_0_8px_rgba(241,0,129,.7)]" />
         Synced · 230 tokens
       </p>
-      <p className="mt-1 flex items-center gap-2 text-[0.68rem] text-white/60">
+      <p className="mt-1 flex items-center gap-2 text-xs text-editorial-muted">
         <span className="size-1.5 rounded-full bg-[#8b5cf6]/90" />
         v1.0.0
       </p>
@@ -128,19 +128,19 @@ export function Sidebar() {
     </div>
 
     <div className="rounded-xl border border-[rgba(241,0,129,.18)] bg-[rgba(10,11,18,.8)] p-3 shadow-[0_0_22px_rgba(241,0,129,.08)]">
-      <p className="font-mono text-[0.58rem] uppercase tracking-[0.22em] text-white/60">Display mode</p>
-      <p className="mt-2 rounded-lg border border-white/10 bg-black/35 px-3 py-2 text-xs text-white/75">
+      <p className="font-mono text-xs uppercase tracking-[0.22em] text-editorial-muted">Display mode</p>
+      <p className="mt-2 rounded-lg border border-white/10 bg-black/35 px-3 py-2 text-xs text-editorial-secondary">
         Dark experience only while the visual language for alternate themes is refined.
       </p>
     </div>
 
     <div className="rounded-xl border border-[rgba(241,0,129,.18)] bg-[rgba(10,11,18,.8)] p-3 shadow-[0_0_22px_rgba(241,0,129,.08)] lg:mt-auto">
-      <p className="font-mono text-[0.58rem] uppercase tracking-[0.22em] text-white/60">Version 1.0.0</p>
-      <p className="mt-0.5 font-mono text-[0.55rem] text-white/70">Updated: 2026-07-13</p>
-      <p className="mt-1 text-xs text-white/70">DTCG · React · APCA</p>
+      <p className="font-mono text-xs uppercase tracking-[0.22em] text-editorial-muted">Version 1.0.0</p>
+      <p className="mt-0.5 font-mono text-xs text-editorial-secondary">Updated: 2026-07-13</p>
+      <p className="mt-1 text-xs text-editorial-secondary">DTCG · React · APCA</p>
       <a
         aria-label="View changelog on GitHub"
-        className="mt-3 inline-flex rounded-full border border-[#ff4fbd]/45 bg-[#ff4fbd]/10 px-3 py-1 font-mono text-[0.6rem] uppercase tracking-[0.16em] text-[#ff9bdd] transition-colors hover:bg-[#ff4fbd]/20"
+        className="mt-3 inline-flex rounded-full border border-[#ff4fbd]/45 bg-[#ff4fbd]/10 px-3 py-1 font-mono text-xs uppercase tracking-[0.16em] text-[#ff9bdd] transition-colors hover:bg-[#ff4fbd]/20"
         href="https://github.com/LouizeB/flytrapds/blob/main/CHANGELOG.md"
       >View changelog</a>
     </div>
