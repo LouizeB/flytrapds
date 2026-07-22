@@ -16,7 +16,6 @@ import {
   CardTitle,
   ChartIcon,
   ChatThread,
-  CitationChip,
   Combobox,
   CopyButton,
   DashboardIcon,
@@ -48,7 +47,6 @@ import {
   InteractiveCard,
   MenuIcon,
   MediaCard,
-  MessageBubble,
   ModelConfidence,
   MoodSelector,
   MoodSignal,
@@ -61,10 +59,6 @@ import {
   SearchField,
   SendIcon,
   Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
   SheetTrigger,
   SliderField,
   SmartDataTable,
@@ -90,14 +84,6 @@ import { Sidebar } from "./living/sidebar";
 import { Hero } from "./living/hero";
 import { TokenSystemGuide } from "./living/token-system-guide";
 import { DeferredShowcase } from "./living/deferred-showcase";
-import { answerFlytrapMemoryWithProvider, memoryProviderConfig, type FlytrapMemoryProvider, type FlytrapProviderAnswer } from "./content/memory-provider";
-import { flytrapMemoryIndex, searchFlytrapMemory, type FlytrapMemoryResult } from "./content/search-index";
-import {
-  sourceRequestIssueUrl,
-  sourceRequestKinds,
-  sourceRequestMarkdown,
-  type FlytrapSourceRequestKind,
-} from "./content/source-request";
 import {
   CodeBlock,
   ComponentPreview,
@@ -105,8 +91,12 @@ import {
   PillTabs,
   SectionCard,
   SectionHeader,
-  WorkflowCard,
 } from "./living/panels";
+
+const AskFlytrap = React.lazy(async () => {
+  const module = await import("./living/ask-flytrap");
+  return { default: module.AskFlytrap };
+});
 
 const anatomyLayerDetails = [
   {
@@ -148,13 +138,6 @@ const anatomyLayerDetails = [
 ] as const;
 
 const iconographySet = [AiAccentIcon, ToolIcon, ApprovalIcon, AgentIcon, ChartIcon, DashboardIcon, SearchIcon, MenuIcon] as const;
-
-const workflowCards = [
-  { icon: AiAccentIcon, title: "Generate UI", description: "Describe the intent and assemble screens with the system components." },
-  { icon: ApprovalIcon, title: "Audit", description: "Check accessibility, APCA contrast, token usage, and component consistency." },
-  { icon: ToolIcon, title: "Refactor", description: "Improve structure without breaking semantic contracts or visual intent." },
-  { icon: BrandIcon, title: "Document", description: "Turn code and component states into clear system documentation." },
-] as const;
 
 const streamingPatternSteps = [
   {
@@ -256,39 +239,6 @@ const patternLibrary = [
 
 function codeLines(code: string) {
   return code.split("\n").map(line => [{ kind: "plain" as const, text: line }]);
-}
-
-type MemoryChatMessage = {
-  confidence?: FlytrapProviderAnswer["confidence"];
-  content: string;
-  fallbackReason?: string;
-  id: number;
-  meta?: string;
-  provider?: FlytrapProviderAnswer["provider"];
-  role: "assistant" | "user";
-  sourceQuestion?: string;
-  sources?: FlytrapMemoryResult[];
-};
-
-const memoryQuickPrompts = [
-  "How do I install Flytrap?",
-  "Which components support AI streaming?",
-  "What are the token categories?",
-  "How do I improve a component?",
-] as const;
-
-function memoryConfidenceLabel(confidence?: FlytrapProviderAnswer["confidence"]) {
-  if (!confidence) return "System note";
-  if (confidence === "high") return "High confidence";
-  if (confidence === "medium") return "Medium confidence";
-  return "Needs source";
-}
-
-function memoryConfidenceClass(confidence?: FlytrapProviderAnswer["confidence"]) {
-  if (confidence === "high") return "border-[#b8ff35]/30 bg-[#b8ff35]/10 text-[#d9ff8f]";
-  if (confidence === "medium") return "border-[#ff4fbd]/30 bg-[#ff4fbd]/10 text-[#ffb7e5]";
-  if (confidence === "low") return "border-[#ffaa00]/35 bg-[#ffaa00]/10 text-[#ffd27a]";
-  return "border-white/10 bg-white/[.035] text-editorial-muted";
 }
 
 const comboboxOptions: React.ComponentProps<typeof Combobox>["options"] = [
@@ -458,64 +408,10 @@ const componentDocumentationGroups = [
 
 function App() {
   const [bootComplete, setBootComplete] = useState(false);
-  const [memoryChatInput, setMemoryChatInput] = useState("");
-  const [memoryProvider, setMemoryProvider] = useState<FlytrapMemoryProvider>(memoryProviderConfig.provider);
-  const [sourceRequestKind, setSourceRequestKind] = useState<FlytrapSourceRequestKind>("component");
-  const [sourceRequestQuestion, setSourceRequestQuestion] = useState("");
-  const [memoryChatSubmitting, setMemoryChatSubmitting] = useState(false);
-  const [memoryChatMessages, setMemoryChatMessages] = useState<MemoryChatMessage[]>([
-    {
-      content: "Ask me how to install Flytrap, use a component, choose a pattern, validate APCA, or request a component improvement. I only answer from the local memory index and I show sources.",
-      id: 1,
-      meta: memoryProviderConfig.provider === "ollama" ? `Provider: Ollama · ${memoryProviderConfig.model}` : "Provider: source-backed memory",
-      role: "assistant",
-      sources: [],
-    },
-  ]);
-  const [memoryQuery, setMemoryQuery] = useState("install components");
+  const [askOpen, setAskOpen] = useState(false);
   const [selectedAnatomyLayer, setSelectedAnatomyLayer] = useState(0);
-  const canSwitchMemoryProvider = memoryProviderConfig.provider === "ollama" || import.meta.env.DEV;
   const handleBootComplete = React.useCallback(() => setBootComplete(true), []);
-  const memoryResults = React.useMemo(() => searchFlytrapMemory(memoryQuery), [memoryQuery]);
   const selectedAnatomyLayerDetail = anatomyLayerDetails[selectedAnatomyLayer] ?? anatomyLayerDetails[0];
-  const sourceRequest = React.useMemo(() => ({
-    context: "The Memory Chat could not find a reliable indexed source. Please add the canonical Flytrap guidance and connect it back to the memory index.",
-    kind: sourceRequestKind,
-    question: sourceRequestQuestion,
-  }), [sourceRequestKind, sourceRequestQuestion]);
-  const sourceRequestBody = React.useMemo(() => sourceRequestMarkdown(sourceRequest), [sourceRequest]);
-  const sourceRequestUrl = React.useMemo(() => sourceRequestIssueUrl(sourceRequest), [sourceRequest]);
-
-  function openSourceRequest(question: string, kind: FlytrapSourceRequestKind = "component") {
-    setSourceRequestQuestion(question);
-    setSourceRequestKind(kind);
-  }
-
-  async function submitMemoryQuestion(question: string) {
-    setMemoryChatSubmitting(true);
-    const answer: FlytrapProviderAnswer = await answerFlytrapMemoryWithProvider(question, { provider: memoryProvider });
-    const providerMeta = answer.provider === "ollama"
-      ? `Provider: Ollama · ${answer.model}`
-      : `Provider: source-backed memory${answer.fallbackReason ? ` · fallback: ${answer.fallbackReason}` : ""}`;
-    const nextMessages: MemoryChatMessage[] = [
-      { content: question, id: Date.now(), role: "user" },
-      {
-        confidence: answer.confidence,
-        content: answer.response,
-        fallbackReason: answer.fallbackReason,
-        id: Date.now() + 1,
-        meta: providerMeta,
-        provider: answer.provider,
-        role: "assistant",
-        sourceQuestion: question,
-        sources: answer.sources,
-      },
-    ];
-    setMemoryQuery(question);
-    setMemoryChatMessages(messages => [...messages, ...nextMessages].slice(-8));
-    setMemoryChatInput("");
-    setMemoryChatSubmitting(false);
-  }
 
   React.useEffect(() => {
     document.documentElement.dataset.theme = "dark";
@@ -1293,198 +1189,6 @@ function App() {
             </div>
           </section>
 
-          {/* 07 · Memory Search */}
-          <section aria-label="Memory Search" className="hidden">
-            <div aria-hidden="true" className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-[#7cecff]/35 to-transparent" />
-            <div className="relative z-10 flex flex-col gap-8">
-              <SectionHeader
-                id="memory"
-                index="07"
-                lead="Local, source-backed memory for components, patterns, tokens, setup and improvement requests."
-                linkHref="https://github.com/LouizeB/flytrapds/blob/main/apps/docs/src/content/search-index.ts"
-                linkLabel="View memory index"
-                title="Memory Search"
-              />
-              <div className="grid min-w-0 flex-1 gap-4 xl:grid-cols-[1.05fr_.95fr]">
-                <SectionCard meta={`${flytrapMemoryIndex.length} sources`} title="Ask the system memory">
-                  <p className="max-w-3xl text-sm leading-6 text-editorial-secondary">
-                    This is the safe layer before chat: a local allowlist of Flytrap knowledge with direct sources. It can later power an Ollama or hosted model chat without losing traceability.
-                  </p>
-                  <div className="mt-4">
-                    <SearchField
-                      aria-label="Search Flytrap memory"
-                      onChange={event => setMemoryQuery(event.target.value)}
-                      onClear={() => setMemoryQuery("")}
-                      placeholder="Try: install, Button, APCA, streaming, improve component"
-                      value={memoryQuery}
-                    />
-                  </div>
-                  <div aria-live="polite" className="mt-4 grid gap-3">
-                    {memoryResults.length > 0
-                      ? memoryResults.map(result => <a
-                        className="group rounded-2xl border border-white/10 bg-black/35 p-4 outline-none transition-colors hover:border-[#ff4fbd]/55 hover:bg-[#ff4fbd]/8 focus-visible:ring-2 focus-visible:ring-[#b8ff35] focus-visible:ring-offset-2 focus-visible:ring-offset-[#05060a]"
-                        href={result.href}
-                        key={result.id}
-                      >
-                        <span className="flex flex-wrap items-start justify-between gap-3">
-                          <span>
-                            <span className="block font-display text-base font-bold text-white/90">{result.title}</span>
-                            <span className="mt-1 block font-mono text-xs uppercase tracking-[0.16em] text-[#ff9bdd]">{result.type} · {result.source}</span>
-                          </span>
-                          <span aria-hidden="true" className="text-[#ff4fbd] transition-transform group-hover:translate-x-1">→</span>
-                        </span>
-                        <span className="mt-3 block text-sm leading-6 text-editorial-secondary">{result.answer}</span>
-                        <span className="mt-3 flex flex-wrap gap-1.5">
-                          {result.tags.slice(0, 5).map(tag => <span className="rounded-full border border-white/10 bg-white/[.035] px-2 py-1 font-mono text-xs uppercase tracking-[0.12em] text-editorial-muted" key={tag}>{tag}</span>)}
-                        </span>
-                      </a>)
-                      : <div className="rounded-2xl border border-white/10 bg-black/35 p-4 text-sm leading-6 text-editorial-secondary">
-                        <p>No memory result yet. Try a component name, pattern name, token, accessibility term, or setup question.</p>
-                        {memoryQuery.trim() ? <Button className="mt-3 border-[#ffaa00]/35 bg-[#ffaa00]/10 text-[#ffd27a] hover:bg-[#ffaa00]/15" onClick={() => openSourceRequest(memoryQuery)} size="sm" type="button" variant="outline">
-                          Request source
-                        </Button> : null}
-                      </div>}
-                  </div>
-                </SectionCard>
-                <SectionCard meta={memoryProvider === "ollama" ? "Ollama optional" : "Source-backed"} title="Memory chat">
-                  <div className="mb-4 rounded-2xl border border-white/10 bg-black/35 p-4">
-                    <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-                      <div>
-                        <p className="font-display text-sm font-bold text-white/86">Provider mode</p>
-                        <p className="mt-1 text-sm leading-6 text-editorial-muted">
-                          Source-backed memory is always safe for the public site. Ollama is optional for local development and still keeps Flytrap citations.
-                        </p>
-                      </div>
-                      {canSwitchMemoryProvider
-                        ? <ButtonGroup aria-label="Choose memory provider" className="shrink-0 border-white/10 bg-white/[.035]">
-                          <ButtonGroupItem
-                            className="text-editorial-secondary data-[selected]:bg-[#ff4fbd] data-[selected]:text-white"
-                            onClick={() => setMemoryProvider("source")}
-                            selected={memoryProvider === "source"}
-                          >
-                            Source
-                          </ButtonGroupItem>
-                          <ButtonGroupItem
-                            className="text-editorial-secondary data-[selected]:bg-[#ff4fbd] data-[selected]:text-white"
-                            onClick={() => setMemoryProvider("ollama")}
-                            selected={memoryProvider === "ollama"}
-                          >
-                            Ollama
-                          </ButtonGroupItem>
-                        </ButtonGroup>
-                        : <Badge className="border-white/10 bg-white/[.035] text-editorial-secondary" variant="outline">Source only</Badge>}
-                    </div>
-                    {memoryProvider === "ollama" ? <p className="mt-3 rounded-xl border border-[#b8ff35]/25 bg-[#b8ff35]/8 px-3 py-2 text-xs leading-5 text-editorial-secondary">
-                      Local mode will call <code>{memoryProviderConfig.model}</code> at <code>{memoryProviderConfig.baseUrl}</code>. If it fails, the answer falls back to cited source-backed memory.
-                    </p> : null}
-                  </div>
-                  <ChatThread className="max-h-[32rem] border-white/10 bg-black/35">
-                    {memoryChatMessages.map(message => <MessageBubble className={message.role === "assistant" ? "max-w-full border-white/10 bg-white/[.045] text-editorial-secondary" : "bg-[#ff4fbd] text-white"} key={message.id} role={message.role}>
-                      {message.role === "assistant" ? <div className="mb-3 flex flex-wrap gap-2">
-                        <span className={`inline-flex items-center rounded-full border px-2.5 py-1 font-mono text-xs uppercase tracking-[0.12em] ${memoryConfidenceClass(message.confidence)}`}>
-                          {memoryConfidenceLabel(message.confidence)}
-                        </span>
-                        {message.provider ? <span className="inline-flex items-center rounded-full border border-white/10 bg-black/30 px-2.5 py-1 font-mono text-xs uppercase tracking-[0.12em] text-editorial-muted">
-                          {message.provider === "ollama" ? "Ollama assisted" : "Source-backed"}
-                        </span> : null}
-                      </div> : null}
-                      <p>{message.content}</p>
-                      {message.role === "assistant" && message.sources?.length === 0 ? <div className="mt-3 rounded-xl border border-[#ffaa00]/30 bg-[#ffaa00]/10 p-3 text-sm leading-6 text-[#ffd27a]">
-                        <p>No reliable source was found in the Flytrap memory index. Use one of the suggested prompts below or add a new indexed source before treating this as guidance.</p>
-                        <Button className="mt-3 border-[#ffaa00]/35 bg-black/20 text-[#ffd27a] hover:bg-[#ffaa00]/15" onClick={() => openSourceRequest(message.sourceQuestion ?? message.content)} size="sm" type="button" variant="outline">
-                          Request source
-                        </Button>
-                      </div> : null}
-                      {message.fallbackReason ? <div className="mt-3 rounded-xl border border-[#b8ff35]/25 bg-[#b8ff35]/8 p-3 text-sm leading-6 text-editorial-secondary">
-                        <span className="font-display font-bold text-[#d9ff8f]">Fallback used:</span> {message.fallbackReason}
-                      </div> : null}
-                      {message.meta ? <p className="mt-2 font-mono text-xs uppercase tracking-[0.12em] text-editorial-muted">{message.meta}</p> : null}
-                      {message.sources && message.sources.length > 0 ? <div className="mt-3 flex flex-wrap gap-2">
-                        {message.sources.map((source, index) => <CitationChip className="border-white/10 bg-black/35 text-editorial-secondary hover:bg-[#ff4fbd]/10" href={source.href} index={index + 1} key={source.id} source={source.source} />)}
-                      </div> : null}
-                    </MessageBubble>)}
-                  </ChatThread>
-                  <div aria-label="Suggested memory prompts" className="mt-4 flex flex-wrap gap-2">
-                    {memoryQuickPrompts.map(prompt => <button
-                      className="rounded-full border border-white/10 bg-white/[.035] px-3 py-2 text-left text-xs leading-5 text-editorial-secondary outline-none transition-colors hover:border-[#ff4fbd]/45 hover:bg-[#ff4fbd]/10 focus-visible:ring-2 focus-visible:ring-[#b8ff35] disabled:cursor-not-allowed disabled:opacity-50"
-                      disabled={memoryChatSubmitting}
-                      key={prompt}
-                      onClick={() => submitMemoryQuestion(prompt)}
-                      type="button"
-                    >
-                      {prompt}
-                    </button>)}
-                  </div>
-                  <PromptInput
-                    className="mt-4 border-white/10 bg-black/35 text-white"
-                    footer={<span className="font-mono text-xs uppercase tracking-[0.14em] text-editorial-muted">{memoryProvider === "ollama" ? "Local Ollama when available · citations stay source-backed" : "Source-backed · no model call"}</span>}
-                    label="Ask Flytrap memory"
-                    maxLength={220}
-                    onSubmitPrompt={submitMemoryQuestion}
-                    onValueChange={setMemoryChatInput}
-                    placeholder="Ask: how do I install Flytrap?"
-                    submitting={memoryChatSubmitting}
-                    value={memoryChatInput}
-                  />
-                  <DataList className="mt-4">
-                    <DataListItem className="sm:grid-cols-1 xl:grid-cols-[8rem_1fr]">
-                      <DataListTerm>Ollama</DataListTerm>
-                      <DataListDescription>Set <code>VITE_FLYTRAP_MEMORY_PROVIDER=ollama</code> locally to try Ollama. Public builds keep the source-backed fallback.</DataListDescription>
-                    </DataListItem>
-                    <DataListItem className="sm:grid-cols-1 xl:grid-cols-[8rem_1fr]">
-                      <DataListTerm>Fallback</DataListTerm>
-                      <DataListDescription>If Ollama is unavailable, the chat returns the same cited memory answer.</DataListDescription>
-                    </DataListItem>
-                  </DataList>
-                  <div className="mt-4 rounded-2xl border border-[#ffaa00]/25 bg-[#ffaa00]/8 p-4">
-                    <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
-                      <div>
-                        <p className="font-display text-sm font-bold text-[#ffd27a]">Missing source request</p>
-                        <p className="mt-1 text-sm leading-6 text-editorial-secondary">
-                          When the chat cannot cite a source, turn the gap into a documentation task instead of accepting an unsupported answer.
-                        </p>
-                      </div>
-                      <Badge className="w-fit border-[#ffaa00]/30 bg-black/20 text-[#ffd27a]" variant="outline">Human review</Badge>
-                    </div>
-                    <div className="mt-4 grid gap-3 md:grid-cols-[11rem_1fr]">
-                      <label className="grid gap-1.5 text-xs font-medium uppercase tracking-[0.12em] text-editorial-muted">
-                        Source type
-                        <select
-                          className="h-10 rounded-xl border border-white/10 bg-black/45 px-3 text-sm normal-case tracking-normal text-white outline-none focus-visible:ring-2 focus-visible:ring-[#b8ff35]"
-                          onChange={event => setSourceRequestKind(event.target.value as FlytrapSourceRequestKind)}
-                          value={sourceRequestKind}
-                        >
-                          {sourceRequestKinds.map(kind => <option className="bg-[#05060a] text-white" key={kind} value={kind}>{kind}</option>)}
-                        </select>
-                      </label>
-                      <label className="grid gap-1.5 text-xs font-medium uppercase tracking-[0.12em] text-editorial-muted">
-                        Missing question
-                        <input
-                          className="h-10 rounded-xl border border-white/10 bg-black/45 px-3 text-sm normal-case tracking-normal text-white outline-none placeholder:text-white/35 focus-visible:ring-2 focus-visible:ring-[#b8ff35]"
-                          onChange={event => setSourceRequestQuestion(event.target.value)}
-                          placeholder="Ask something unsupported, then request a source"
-                          value={sourceRequestQuestion}
-                        />
-                      </label>
-                    </div>
-                    <textarea
-                      aria-label="Generated source request template"
-                      className="mt-3 min-h-48 w-full rounded-2xl border border-white/10 bg-black/45 p-3 font-mono text-xs leading-5 text-editorial-secondary outline-none focus-visible:ring-2 focus-visible:ring-[#b8ff35]"
-                      readOnly
-                      value={sourceRequestBody}
-                    />
-                    <div className="mt-3 flex flex-wrap gap-2">
-                      <CopyButton className="border-white/10 bg-black/30 text-editorial-secondary hover:bg-white/10" size="sm" value={sourceRequestBody} variant="outline" />
-                      <Button asChild className="border-[#ffaa00]/35 bg-[#ffaa00]/10 text-[#ffd27a] hover:bg-[#ffaa00]/15" size="sm" variant="outline">
-                        <a href={sourceRequestUrl} rel="noreferrer" target="_blank">Open GitHub issue</a>
-                      </Button>
-                    </div>
-                  </div>
-                </SectionCard>
-              </div>
-            </div>
-          </section>
-
           {/* 08 · Code / Develop */}
           <section aria-label="Code / Develop" className="relative border-b border-[#ff4fbd]/14 px-6 py-8 md:px-8">
             <img alt="" aria-hidden="true" className="pointer-events-none absolute bottom-[-7rem] right-[8rem] z-0 hidden w-80 opacity-70 mix-blend-screen saturate-150 lg:block" draggable={false} src={organismBr} />
@@ -1525,78 +1229,12 @@ function App() {
             </div>
           </section>
 
-          {/* 09 · AI Workflows */}
-          <section aria-label="AI Workflows" className="hidden">
-            <img alt="" aria-hidden="true" className="pointer-events-none absolute bottom-[-2rem] right-[-1rem] z-0 hidden w-72 opacity-95 mix-blend-screen saturate-125 lg:block" draggable={false} src={organismBr} />
-            <img alt="" aria-hidden="true" className="pointer-events-none absolute left-[-5rem] top-[-6rem] z-0 hidden w-72 rotate-[160deg] opacity-70 lg:block" draggable={false} src={spriteCorner} />
-            <div className="relative z-10 flex flex-col gap-8">
-              <SectionHeader
-                id="ai-workflows"
-                index="09"
-                lead="AI-assisted workflows for generation, review, refactoring, and documentation."
-                linkHref="https://github.com/LouizeB/flytrapds/blob/main/docs/README.md"
-                linkLabel="Explore workflows"
-                title="AI Workflows"
-              />
-              <div className="grid flex-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-                {workflowCards.map(card => <WorkflowCard description={card.description} icon={card.icon} key={card.title} title={card.title} />)}
-              </div>
-            </div>
-          </section>
-
           <div className="fixed bottom-5 right-5 z-[100] md:bottom-8 md:right-8">
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button className="h-12 rounded-full bg-[#ff4fbd] px-5 text-white shadow-[0_12px_40px_rgba(241,0,129,.4)] hover:bg-[#d90074]">
-                  <FlytrapIcon icon={AiAccentIcon} /> Ask Flytrap
-                </Button>
-              </SheetTrigger>
-              <SheetContent className="h-dvh w-full max-w-none grid-rows-[auto_minmax(0,1fr)_auto_auto] gap-4 overflow-hidden border-white/10 bg-[#090b12] p-5 text-white shadow-[-28px_0_100px_rgba(0,0,0,.8)] sm:w-[30rem] sm:max-w-[30rem] md:p-6" side="right">
-                <SheetHeader className="border-b border-white/10 pb-4 pr-10">
-                  <SheetTitle className="flex items-center gap-2 text-xl text-white">
-                    <span className="grid size-9 place-items-center rounded-full bg-[#ff4fbd]/15 text-[#ff4fbd]">
-                      <FlytrapIcon icon={AiAccentIcon} />
-                    </span>
-                    Ask Flytrap
-                  </SheetTitle>
-                  <SheetDescription className="text-editorial-muted">
-                    Ask about installation, components, patterns, tokens, or accessibility. Answers include their Flytrap sources.
-                  </SheetDescription>
-                </SheetHeader>
-                <ChatThread className="min-h-0 rounded-2xl border-white/10 bg-black/35">
-                  {memoryChatMessages.map(message => <MessageBubble className={message.role === "assistant" ? "max-w-full border-white/10 bg-white/[.045] text-editorial-secondary" : "bg-[#ff4fbd] text-white"} key={message.id} role={message.role}>
-                    <p>{message.content}</p>
-                    {message.sources && message.sources.length > 0 ? <div className="mt-3 flex flex-wrap gap-2">
-                      {message.sources.map((source, index) => <CitationChip className="border-white/10 bg-black/35 text-editorial-secondary hover:bg-[#ff4fbd]/10" href={source.href} index={index + 1} key={source.id} source={source.source} />)}
-                    </div> : null}
-                  </MessageBubble>)}
-                </ChatThread>
-                <div aria-label="Suggested questions" className="flex flex-wrap gap-2">
-                  {memoryQuickPrompts.slice(0, 3).map(prompt => <button
-                    className="rounded-full border border-white/10 bg-white/[.035] px-3 py-2 text-left text-xs text-editorial-secondary hover:border-[#ff4fbd]/45 hover:bg-[#ff4fbd]/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b8ff35]"
-                    disabled={memoryChatSubmitting}
-                    key={prompt}
-                    onClick={() => submitMemoryQuestion(prompt)}
-                    type="button"
-                  >
-                    {prompt}
-                  </button>)}
-                </div>
-                <PromptInput
-                  className="border-white/10 bg-black/50 text-white shadow-[0_-16px_40px_rgba(0,0,0,.22)]"
-                  footer={<span className="text-xs text-editorial-muted">Answers use documented Flytrap sources.</span>}
-                  label="Ask Flytrap"
-                  maxLength={220}
-                  onSubmitPrompt={submitMemoryQuestion}
-                  onValueChange={setMemoryChatInput}
-                  placeholder="How do I use this component?"
-                  submitting={memoryChatSubmitting}
-                  value={memoryChatInput}
-                />
-              </SheetContent>
-            </Sheet>
+            <Button className="h-12 rounded-full bg-[#ff4fbd] px-5 text-white shadow-[0_12px_40px_rgba(241,0,129,.4)] hover:bg-[#d90074]" onClick={() => setAskOpen(true)}>
+              <FlytrapIcon icon={AiAccentIcon} /> Ask Flytrap
+            </Button>
           </div>
-
+          {askOpen ? <React.Suspense fallback={null}><AskFlytrap onClose={() => setAskOpen(false)} /></React.Suspense> : null}
           <footer aria-label="Flytrap Design System footer" className="relative border-t border-white/10 px-6 py-8 text-editorial-secondary md:px-10">
             <div className="flex flex-wrap items-center justify-between gap-4 text-sm">
               <p className="inline-flex items-center gap-2">
