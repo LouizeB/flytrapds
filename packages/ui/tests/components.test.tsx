@@ -323,10 +323,12 @@ describe("componentes Onda 1", () => {
     const { rerender } = render(<CodeBlock code="<Button />" filename="button.tsx" language="tsx" />);
     expect(screen.getByText("button.tsx")).toBeVisible();
     expect(screen.getByText("<Button />")).toBeVisible();
+    expect(screen.getByLabelText("Code example: button.tsx")).toHaveAttribute("tabindex", "0");
 
     rerender(<CodeBlock code="plain" language="" />);
     expect(screen.queryByText("Snippet")).not.toBeInTheDocument();
     expect(screen.getByText("plain")).toBeVisible();
+    expect(screen.getByLabelText("Code example")).toHaveAttribute("tabindex", "0");
   });
 
   it("documenta tokens com swatch, valor e descrição opcional", () => {
@@ -405,12 +407,16 @@ describe("componentes Onda 2", () => {
     const user = userEvent.setup();
     const onValueChange = vi.fn();
     const { container } = render(<Combobox aria-label="Humor" defaultValue="focus" onValueChange={onValueChange} options={moodOptions} />);
+    const combobox = screen.getByRole("combobox", { name: "Humor" });
 
-    expect(screen.getByRole("combobox", { name: "Humor" })).toHaveValue("Foco");
+    expect(combobox).toHaveValue("Foco");
+    expect(combobox).not.toHaveAttribute("aria-controls");
     await user.click(screen.getByRole("button", { name: "Open options" }));
+    expect(combobox).toHaveAttribute("aria-controls", screen.getByRole("listbox").id);
     await user.click(screen.getByRole("option", { name: "Calmo" }));
     expect(onValueChange).toHaveBeenCalledWith("calm");
-    expect(screen.getByRole("combobox", { name: "Humor" })).toHaveValue("Calmo");
+    expect(combobox).toHaveValue("Calmo");
+    expect(combobox).not.toHaveAttribute("aria-controls");
     expect((await axe(container, { rules: { "color-contrast": { enabled: false } } })).violations).toHaveLength(0);
   });
 
@@ -727,7 +733,7 @@ describe("componentes Flytrap streaming", () => {
     </RecommendationRail>);
 
     expect(screen.getByRole("heading", { name: "Para agora" })).toBeVisible();
-    expect(screen.getByRole("list")).toBeVisible();
+    expect(screen.getByRole("list", { name: "Para agora" })).toHaveAttribute("tabindex", "0");
 
     rerender(<RecommendationRail empty="Nada por enquanto" title="Sem trilhas" />);
     expect(screen.getByText("Nada por enquanto")).toBeVisible();

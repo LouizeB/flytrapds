@@ -898,7 +898,7 @@ function App() {
                   </ComponentPreview>
                   <ComponentPreview title="Progress">
                     <div className="mb-1.5 flex justify-between text-xs text-white/60"><span>72%</span></div>
-                    <Progress value={72} />
+                    <Progress aria-label="Example progress" value={72} />
                   </ComponentPreview>
                   <ComponentPreview title="Toggle">
                     <SwitchField label="On" switchProps={{ "aria-label": "Example switch on", defaultChecked: true }} />
@@ -1587,7 +1587,7 @@ function App() {
             </Sheet>
           </div>
 
-          <footer aria-label="Flytrap Design System footer" className="relative border-t border-white/10 px-6 py-8 text-white/65 md:px-10">
+          <footer className="relative border-t border-white/10 px-6 py-8 text-white/65 md:px-10">
             <div className="flex flex-wrap items-center justify-between gap-4 text-sm">
               <p className="inline-flex items-center gap-2">
                 <FlytrapIcon icon={InsightIcon} size="sm" />
