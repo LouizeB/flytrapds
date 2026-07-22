@@ -133,7 +133,7 @@ export function CodeBlock({ lines, copyText }: { lines: CodeToken[][]; copyText:
       <span className="size-2 rounded-full bg-[#b8ff35]/50" />
       <span className="size-2 rounded-full bg-white/20" />
     </div>
-    <pre className="overflow-x-auto p-5 font-mono text-sm leading-7">
+    <pre aria-label="Code example" className="overflow-x-auto p-5 font-mono text-sm leading-7" role="region" tabIndex={0}>
       {lines.map((line, lineIndex) => <div key={lineIndex}>
         {line.map((token, tokenIndex) => <span className={codeTokenStyles[token.kind ?? "plain"]} key={tokenIndex}>{token.text}</span>)}
       </div>)}

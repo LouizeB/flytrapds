@@ -73,7 +73,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(({
   return <div className="relative" data-slot="combobox">
     <input
       ref={ref}
-      aria-controls={listboxId}
+      aria-controls={open ? listboxId : undefined}
       aria-expanded={open}
       aria-haspopup="listbox"
       className={cn("flex h-10 w-full rounded-md border border-input-border bg-input-bg px-3 py-2 pr-9 text-sm outline-none placeholder:text-input-placeholder focus-visible:border-input-border-focus focus-visible:ring-2 focus-visible:ring-input-border-focus disabled:cursor-not-allowed disabled:opacity-50", className)}

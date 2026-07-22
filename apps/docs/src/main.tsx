@@ -898,7 +898,7 @@ function App() {
                   </ComponentPreview>
                   <ComponentPreview title="Progress">
                     <div className="mb-1.5 flex justify-between text-xs text-editorial-muted"><span>72%</span></div>
-                    <Progress value={72} />
+                    <Progress aria-label="Example progress" value={72} />
                   </ComponentPreview>
                   <ComponentPreview title="Toggle">
                     <SwitchField label="On" switchProps={{ "aria-label": "Example switch on", defaultChecked: true }} />

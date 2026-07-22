@@ -32,7 +32,7 @@ function WireframeMoon({ className }: { className?: string }) {
 }
 
 export function Hero() {
-  return <section aria-labelledby="living-hero-title" className="relative isolate overflow-hidden border-b border-[#ff4fbd]/20 px-6 pb-9 pt-12 text-white md:px-10 lg:min-h-[510px] xl:min-h-[560px]" id="overview">
+  return <header className="relative isolate overflow-hidden border-b border-[#ff4fbd]/20 px-6 pb-9 pt-12 text-white md:px-10 lg:min-h-[510px] xl:min-h-[560px]" id="overview">
     <div aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#ff4fbd]/60 to-transparent" />
     <div aria-hidden="true" className="flytrap-motion absolute right-[4vw] top-[6%] hidden h-[80vh] w-px animate-[flytrap-scan_5.2s_linear_infinite] bg-gradient-to-b from-transparent via-[#b8ff35]/70 to-transparent md:block" />
     <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(circle_at_63%_24%,rgba(241,0,129,.2),transparent_24rem),radial-gradient(circle_at_80%_4%,rgba(139,92,246,.2),transparent_18rem)]" />
@@ -117,5 +117,5 @@ export function Hero() {
         </span>
       </div>)}
     </div>
-  </section>;
+  </header>;
 }
