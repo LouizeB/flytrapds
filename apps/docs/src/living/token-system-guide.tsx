@@ -101,7 +101,7 @@ function TokenList({ items }: { items: TokenLeaf[] }) {
 export function TokenSystemGuide() {
   return <section aria-label="Tokens" className="relative border-b border-[#ff4fbd]/14 px-6 py-9 md:px-8">
     <img alt="" aria-hidden="true" className="pointer-events-none absolute left-[-9rem] top-[-6rem] z-0 hidden w-64 opacity-90 lg:block" draggable={false} src={spriteVertical} />
-    <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:gap-12">
+    <div className="relative z-10 flex flex-col gap-8">
       <SectionHeader
         id="tokens"
         index="02"

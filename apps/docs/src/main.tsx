@@ -60,6 +60,12 @@ import {
   SearchIcon,
   SearchField,
   SendIcon,
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
   SliderField,
   SmartDataTable,
   StatusIndicator,
@@ -544,7 +550,7 @@ function App() {
 
           {/* 01 · Foundations */}
           <section aria-label="Foundations" className="relative border-b border-[#ff4fbd]/14 px-6 py-9 md:px-8">
-            <div className="flex flex-col gap-8 lg:flex-row lg:gap-12">
+            <div className="flex flex-col gap-8">
               <SectionHeader
                 id="foundations"
                 index="01"
@@ -607,7 +613,7 @@ function App() {
               src={spritePlatform}
             />
             <img alt="" aria-hidden="true" className="pointer-events-none absolute bottom-[-5rem] right-0 z-0 hidden w-[54rem] opacity-95 lg:block" draggable={false} src={spriteWideB} />
-            <div className="relative z-20 flex flex-col gap-8 lg:flex-row lg:gap-12">
+            <div className="relative z-20 flex flex-col gap-8">
               <SectionHeader
                 id="components"
                 index="03"
@@ -1225,7 +1231,7 @@ function App() {
           {/* 05 · Accessibility */}
           <section aria-label="Accessibility" className="relative border-b border-[#ff4fbd]/14 px-6 py-8 md:px-8 lg:pr-[24vw] xl:pr-[20vw]">
             <img alt="" aria-hidden="true" className="pointer-events-none absolute right-[-6rem] top-[-8rem] z-0 hidden w-72 -scale-x-100 rotate-12 opacity-80 mix-blend-screen lg:block" draggable={false} src={spriteCorner} />
-            <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-12">
+            <div className="relative z-10 flex flex-col gap-8">
               <SectionHeader
                 id="accessibility"
                 index="05"
@@ -1250,7 +1256,7 @@ function App() {
           {/* 06 · Guidelines */}
           <section aria-label="Guidelines" className="relative border-b border-[#ff4fbd]/14 px-6 py-8 md:px-8">
             <div aria-hidden="true" className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-[#b8ff35]/40 to-transparent" />
-            <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-12">
+            <div className="relative z-10 flex flex-col gap-8">
               <SectionHeader
                 id="guidelines"
                 index="06"
@@ -1280,7 +1286,7 @@ function App() {
           {/* 07 · Memory Search */}
           <section aria-label="Memory Search" className="hidden">
             <div aria-hidden="true" className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-[#7cecff]/35 to-transparent" />
-            <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-12">
+            <div className="relative z-10 flex flex-col gap-8">
               <SectionHeader
                 id="memory"
                 index="07"
@@ -1472,7 +1478,7 @@ function App() {
           {/* 08 · Code / Develop */}
           <section aria-label="Code / Develop" className="relative border-b border-[#ff4fbd]/14 px-6 py-8 md:px-8">
             <img alt="" aria-hidden="true" className="pointer-events-none absolute bottom-[-7rem] right-[8rem] z-0 hidden w-80 opacity-70 mix-blend-screen saturate-150 lg:block" draggable={false} src={organismBr} />
-            <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:gap-12">
+            <div className="relative z-10 flex flex-col gap-8">
               <SectionHeader
                 id="code"
                 index="08"
@@ -1513,7 +1519,7 @@ function App() {
           <section aria-label="AI Workflows" className="hidden">
             <img alt="" aria-hidden="true" className="pointer-events-none absolute bottom-[-2rem] right-[-1rem] z-0 hidden w-72 opacity-95 mix-blend-screen saturate-125 lg:block" draggable={false} src={organismBr} />
             <img alt="" aria-hidden="true" className="pointer-events-none absolute left-[-5rem] top-[-6rem] z-0 hidden w-72 rotate-[160deg] opacity-70 lg:block" draggable={false} src={spriteCorner} />
-            <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:gap-12">
+            <div className="relative z-10 flex flex-col gap-8">
               <SectionHeader
                 id="ai-workflows"
                 index="09"
@@ -1529,20 +1535,25 @@ function App() {
           </section>
 
           <div className="fixed bottom-5 right-5 z-[100] md:bottom-8 md:right-8">
-            <Dialog>
-              <DialogTrigger asChild>
+            <Sheet>
+              <SheetTrigger asChild>
                 <Button className="h-12 rounded-full bg-[#ff4fbd] px-5 text-white shadow-[0_12px_40px_rgba(241,0,129,.4)] hover:bg-[#d90074]">
                   <FlytrapIcon icon={AiAccentIcon} /> Ask Flytrap
                 </Button>
-              </DialogTrigger>
-              <DialogContent className="max-h-[88vh] max-w-2xl overflow-y-auto border-white/10 bg-[#090b12] text-white shadow-[0_28px_100px_rgba(0,0,0,.8)]">
-                <DialogHeader>
-                  <DialogTitle>Ask Flytrap</DialogTitle>
-                  <DialogDescription className="text-white/60">
+              </SheetTrigger>
+              <SheetContent className="h-dvh w-full max-w-none grid-rows-[auto_minmax(0,1fr)_auto_auto] gap-4 overflow-hidden border-white/10 bg-[#090b12] p-5 text-white shadow-[-28px_0_100px_rgba(0,0,0,.8)] sm:w-[30rem] sm:max-w-[30rem] md:p-6" side="right">
+                <SheetHeader className="border-b border-white/10 pb-4 pr-10">
+                  <SheetTitle className="flex items-center gap-2 text-xl text-white">
+                    <span className="grid size-9 place-items-center rounded-full bg-[#ff4fbd]/15 text-[#ff4fbd]">
+                      <FlytrapIcon icon={AiAccentIcon} />
+                    </span>
+                    Ask Flytrap
+                  </SheetTitle>
+                  <SheetDescription className="text-white/60">
                     Ask about installation, components, patterns, tokens, or accessibility. Answers include their Flytrap sources.
-                  </DialogDescription>
-                </DialogHeader>
-                <ChatThread className="max-h-[52vh] border-white/10 bg-black/35">
+                  </SheetDescription>
+                </SheetHeader>
+                <ChatThread className="min-h-0 rounded-2xl border-white/10 bg-black/35">
                   {memoryChatMessages.map(message => <MessageBubble className={message.role === "assistant" ? "max-w-full border-white/10 bg-white/[.045] text-white/72" : "bg-[#ff4fbd] text-white"} key={message.id} role={message.role}>
                     <p>{message.content}</p>
                     {message.sources && message.sources.length > 0 ? <div className="mt-3 flex flex-wrap gap-2">
@@ -1562,7 +1573,7 @@ function App() {
                   </button>)}
                 </div>
                 <PromptInput
-                  className="border-white/10 bg-black/35 text-white"
+                  className="border-white/10 bg-black/50 text-white shadow-[0_-16px_40px_rgba(0,0,0,.22)]"
                   footer={<span className="text-xs text-white/45">Answers use documented Flytrap sources.</span>}
                   label="Ask Flytrap"
                   maxLength={220}
@@ -1572,8 +1583,8 @@ function App() {
                   submitting={memoryChatSubmitting}
                   value={memoryChatInput}
                 />
-              </DialogContent>
-            </Dialog>
+              </SheetContent>
+            </Sheet>
           </div>
 
           <footer aria-label="Flytrap Design System footer" className="relative border-t border-white/10 px-6 py-8 text-white/65 md:px-10">

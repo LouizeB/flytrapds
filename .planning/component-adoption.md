@@ -4,8 +4,8 @@ Static scan of `@louizeb/flytrap-ui` named imports in `apps/**`.
 
 ## Summary
 
-- Total named imports: 196
-- Unique exports adopted: 98
+- Total named imports: 202
+- Unique exports adopted: 104
 - Files importing UI: 6
 - Files importing styles: 3
 
@@ -104,6 +104,12 @@ Static scan of `@louizeb/flytrap-ui` named imports in `apps/**`.
 | `RunTraceTimeline` | 1 | `apps/studio/src/main.tsx` |
 | `SearchField` | 1 | `apps/docs/src/main.tsx` |
 | `SearchIcon` | 1 | `apps/docs/src/main.tsx` |
+| `Sheet` | 1 | `apps/docs/src/main.tsx` |
+| `SheetContent` | 1 | `apps/docs/src/main.tsx` |
+| `SheetDescription` | 1 | `apps/docs/src/main.tsx` |
+| `SheetHeader` | 1 | `apps/docs/src/main.tsx` |
+| `SheetTitle` | 1 | `apps/docs/src/main.tsx` |
+| `SheetTrigger` | 1 | `apps/docs/src/main.tsx` |
 | `SliderField` | 1 | `apps/docs/src/main.tsx` |
 | `StreamingMessage` | 1 | `apps/studio/src/main.tsx` |
 | `SuccessIcon` | 1 | `apps/docs/src/main.tsx` |
@@ -120,5 +126,5 @@ Static scan of `@louizeb/flytrap-ui` named imports in `apps/**`.
 | `apps/docs/src/living/hero.tsx` | `AiAccentIcon`, `BrandIcon`, `Button`, `ExternalLinkIcon`, `FlytrapIcon`, `FlytrapIconComponent`, `SendIcon` |
 | `apps/docs/src/living/panels.tsx` | `Button`, `ConfirmIcon`, `CopyIcon`, `FlytrapIcon`, `FlytrapIconComponent` |
 | `apps/docs/src/living/sidebar.tsx` | `AgentIcon`, `AiAccentIcon`, `ApprovalIcon`, `BrandIcon`, `BrandMark`, `ChartIcon`, `DashboardIcon`, `FlytrapIcon`, `FlytrapIconComponent`, `InfoIcon`, `InsightIcon`, `ToolIcon` |
-| `apps/docs/src/main.tsx` | `AgentIcon`, `AiAccentIcon`, `ApprovalIcon`, `Badge`, `BrandIcon`, `Button`, `ButtonGroup`, `ButtonGroupItem`, `Card`, `CardContent`, `CardDescription`, `CardHeader`, `CardTitle`, `ChartIcon`, `ChatThread`, `CitationChip`, `Combobox`, `CopyButton`, `DashboardIcon`, `DataList`, `DataListDescription`, `DataListItem`, `DataListTerm`, `DatePickerField`, `Dialog`, `DialogContent`, `DialogDescription`, `DialogFooter`, `DialogHeader`, `DialogTitle`, `DialogTrigger`, `DropdownMenu`, `DropdownMenuContent`, `DropdownMenuItem`, `DropdownMenuLabel`, `DropdownMenuSeparator`, `DropdownMenuTrigger`, `ErrorIcon`, `Field`, `FileUpload`, `FlytrapIcon`, `InlineNotification`, `Input`, `InsightIcon`, `InteractiveCard`, `MediaCard`, `MenuIcon`, `MessageBubble`, `ModelConfidence`, `MoodSelector`, `MoodSignal`, `PersonalizationPanel`, `PlayerControls`, `Progress`, `PromptInput`, `RecommendationRail`, `SearchField`, `SearchIcon`, `SendIcon`, `SliderField`, `SmartDataTable`, `StatusIndicator`, `SuccessIcon`, `SwitchField`, `Timeline`, `TimelineItem`, `ToolIcon`, `TreeItem`, `TreeView` |
+| `apps/docs/src/main.tsx` | `AgentIcon`, `AiAccentIcon`, `ApprovalIcon`, `Badge`, `BrandIcon`, `Button`, `ButtonGroup`, `ButtonGroupItem`, `Card`, `CardContent`, `CardDescription`, `CardHeader`, `CardTitle`, `ChartIcon`, `ChatThread`, `CitationChip`, `Combobox`, `CopyButton`, `DashboardIcon`, `DataList`, `DataListDescription`, `DataListItem`, `DataListTerm`, `DatePickerField`, `Dialog`, `DialogContent`, `DialogDescription`, `DialogFooter`, `DialogHeader`, `DialogTitle`, `DialogTrigger`, `DropdownMenu`, `DropdownMenuContent`, `DropdownMenuItem`, `DropdownMenuLabel`, `DropdownMenuSeparator`, `DropdownMenuTrigger`, `ErrorIcon`, `Field`, `FileUpload`, `FlytrapIcon`, `InlineNotification`, `Input`, `InsightIcon`, `InteractiveCard`, `MediaCard`, `MenuIcon`, `MessageBubble`, `ModelConfidence`, `MoodSelector`, `MoodSignal`, `PersonalizationPanel`, `PlayerControls`, `Progress`, `PromptInput`, `RecommendationRail`, `SearchField`, `SearchIcon`, `SendIcon`, `Sheet`, `SheetContent`, `SheetDescription`, `SheetHeader`, `SheetTitle`, `SheetTrigger`, `SliderField`, `SmartDataTable`, `StatusIndicator`, `SuccessIcon`, `SwitchField`, `Timeline`, `TimelineItem`, `ToolIcon`, `TreeItem`, `TreeView` |
 | `apps/studio/src/main.tsx` | `AgentCard`, `AgentIcon`, `Badge`, `BrandIcon`, `BrandLockup`, `Button`, `ButtonGroup`, `ButtonGroupItem`, `Card`, `CardContent`, `CardDescription`, `CardHeader`, `CardTitle`, `Chart`, `ChartIcon`, `CostTokenMeter`, `DataList`, `DataListDescription`, `DataListItem`, `DataListTerm`, `FilterBar`, `FlytrapIcon`, `HumanApprovalPrompt`, `InlineNotification`, `InsightCallout`, `KpiStatCard`, `MediaCard`, `ModelConfidence`, `MoodSelector`, `MoodSelectorOption`, `Page`, `PageDescription`, `PageHeader`, `PageTitle`, `PersonalizationPanel`, `PlayerControls`, `PromptInput`, `ReasoningStream`, `RecommendationRail`, `RunTraceTimeline`, `Section`, `SectionDescription`, `SectionHeader`, `SectionTitle`, `SmartDataTable`, `StatusIndicator`, `StreamingMessage`, `SuggestedPrompts`, `Timeline`, `TimelineItem`, `ToolCallBlock` |
