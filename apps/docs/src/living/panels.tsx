@@ -11,8 +11,6 @@ export function FloatingPanel({ title, className, children, delay = 0 }: {
     className={["flytrap-panel flytrap-motion relative overflow-hidden animate-[flytrap-panel-float_6.8s_ease-in-out_infinite] rounded-2xl border border-[rgba(241,0,129,.34)] bg-[linear-gradient(145deg,rgba(16,18,30,.9),rgba(3,5,10,.74))] p-4 text-white shadow-[0_22px_65px_rgba(0,0,0,.72),0_0_36px_rgba(241,0,129,.18),inset_0_0_24px_rgba(139,92,246,.08)] backdrop-blur-[22px]", className].filter(Boolean).join(" ")}
     style={{ animationDelay: `${delay}s` }}
   >
-    <span aria-hidden="true" className="pointer-events-none absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-[#ff4fbd]/70 to-transparent" />
-    <span aria-hidden="true" className="pointer-events-none absolute -right-8 -top-8 size-24 rounded-full bg-[#ff4fbd]/10 blur-2xl" />
     {title && <p className="mb-3 font-mono text-xs uppercase tracking-[0.24em] text-editorial-muted">{title}</p>}
     {children}
   </div>;
@@ -45,9 +43,6 @@ export function SectionCard({ title, meta, className, children, id }: {
   id?: string;
 }) {
   return <article className={["flytrap-card relative scroll-mt-24 overflow-hidden rounded-[1.15rem] border border-[rgba(241,0,129,.22)] bg-[linear-gradient(145deg,rgba(14,18,28,.84),rgba(2,5,10,.72))] p-4 shadow-[0_18px_52px_rgba(0,0,0,.62),0_0_30px_rgba(139,92,246,.1),inset_0_0_18px_rgba(255,255,255,.025)] backdrop-blur-[20px]", className].filter(Boolean).join(" ")} id={id}>
-    <span aria-hidden="true" className="pointer-events-none absolute inset-x-3 top-0 h-px bg-gradient-to-r from-transparent via-[#ff4fbd]/65 to-transparent" />
-    <span aria-hidden="true" className="pointer-events-none absolute left-0 top-0 h-full w-px bg-gradient-to-b from-[#ff4fbd]/50 via-transparent to-[#8b5cf6]/40" />
-    <span aria-hidden="true" className="pointer-events-none absolute -right-8 -top-8 size-24 rounded-full bg-[#ff4fbd]/8 blur-2xl" />
     <div className="flex items-baseline justify-between gap-3">
       <h3 className="font-display text-lg font-bold text-white/90">{title}</h3>
       {meta && <p className="font-mono text-xs uppercase tracking-[0.18em] text-editorial-muted">{meta}</p>}
@@ -88,7 +83,6 @@ export function ComponentPreview({ title, className, children, id }: {
   id?: string;
 }) {
   return <article className={["flytrap-preview relative scroll-mt-24 overflow-hidden rounded-[1rem] border border-[rgba(241,0,129,.2)] bg-[rgba(5,8,14,.78)] p-3 shadow-[0_14px_38px_rgba(0,0,0,.62),0_0_24px_rgba(139,92,246,.11)] backdrop-blur-[18px]", className].filter(Boolean).join(" ")} id={id}>
-    <span aria-hidden="true" className="pointer-events-none absolute inset-x-3 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
     <p className="font-mono text-xs uppercase tracking-[0.2em] text-editorial-muted">{title}</p>
     <div className="mt-3 grid gap-3">{children}</div>
   </article>;
