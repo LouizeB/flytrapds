@@ -13,7 +13,7 @@ export function FloatingPanel({ title, className, children, delay = 0 }: {
   >
     <span aria-hidden="true" className="pointer-events-none absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-[#ff4fbd]/70 to-transparent" />
     <span aria-hidden="true" className="pointer-events-none absolute -right-8 -top-8 size-24 rounded-full bg-[#ff4fbd]/10 blur-2xl" />
-    {title && <p className="mb-3 font-mono text-[0.6rem] uppercase tracking-[0.24em] text-white/60">{title}</p>}
+    {title && <p className="mb-3 font-mono text-xs uppercase tracking-[0.24em] text-editorial-muted">{title}</p>}
     {children}
   </div>;
 }
@@ -29,7 +29,7 @@ export function SectionHeader({ index, id, title, lead, linkLabel, linkHref }: {
   return <div className="max-w-[14.5rem] shrink-0" id={id}>
     <span className="grid size-9 place-items-center rounded-full border border-[#ff4fbd]/45 bg-black/60 font-mono text-sm text-white shadow-[0_0_18px_rgba(241,0,129,.35)]">{index}</span>
     <h2 className="mt-3 font-display text-2xl font-bold uppercase tracking-[0.08em] text-[#ff4fbd]">{title}</h2>
-    <p className="mt-3 text-sm leading-6 text-white/60">{lead}</p>
+    <p className="mt-3 text-sm leading-6 text-editorial-muted">{lead}</p>
     <a className="group mt-4 inline-flex items-center gap-2 text-sm font-medium text-[#ff4fbd] underline-offset-4 hover:underline" href={linkHref}>
       {linkLabel}
       <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">→</span>
@@ -50,7 +50,7 @@ export function SectionCard({ title, meta, className, children, id }: {
     <span aria-hidden="true" className="pointer-events-none absolute -right-8 -top-8 size-24 rounded-full bg-[#ff4fbd]/8 blur-2xl" />
     <div className="flex items-baseline justify-between gap-3">
       <h3 className="font-display text-lg font-bold text-white/90">{title}</h3>
-      {meta && <p className="font-mono text-[0.6rem] uppercase tracking-[0.18em] text-white/60">{meta}</p>}
+      {meta && <p className="font-mono text-xs uppercase tracking-[0.18em] text-editorial-muted">{meta}</p>}
     </div>
     <div className="mt-4">{children}</div>
   </article>;
@@ -66,9 +66,9 @@ export function PillTabs({ items, active = 0, label }: { items: readonly PillTab
     {items.map((item, index) => {
       const tab = typeof item === "string" ? { label: item } : item;
       const tabClassName = [
-        "whitespace-nowrap rounded-md border px-2.5 py-1.5 font-mono text-[0.58rem] uppercase tracking-[0.1em]",
+        "whitespace-nowrap rounded-md border px-2.5 py-1.5 font-mono text-xs uppercase tracking-[0.1em]",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#b8ff35] focus-visible:ring-offset-2 focus-visible:ring-offset-[#05060a]",
-        index === active ? "border-[#ff4fbd]/45 bg-[#ff4fbd]/12 text-[#ffd2ef]" : "border-white/8 bg-white/[.03] text-white/62",
+        index === active ? "border-[#ff4fbd]/45 bg-[#ff4fbd]/12 text-[#ffd2ef]" : "border-white/8 bg-white/[.03] text-editorial-secondary",
         tab.href ? "transition-colors hover:border-[#ff4fbd]/50 hover:bg-[#ff4fbd]/10 hover:text-white" : "",
       ].join(" ");
 
@@ -89,7 +89,7 @@ export function ComponentPreview({ title, className, children, id }: {
 }) {
   return <article className={["flytrap-preview relative scroll-mt-24 overflow-hidden rounded-[1rem] border border-[rgba(241,0,129,.2)] bg-[rgba(5,8,14,.78)] p-3 shadow-[0_14px_38px_rgba(0,0,0,.62),0_0_24px_rgba(139,92,246,.11)] backdrop-blur-[18px]", className].filter(Boolean).join(" ")} id={id}>
     <span aria-hidden="true" className="pointer-events-none absolute inset-x-3 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-    <p className="font-mono text-[0.6rem] uppercase tracking-[0.2em] text-white/60">{title}</p>
+    <p className="font-mono text-xs uppercase tracking-[0.2em] text-editorial-muted">{title}</p>
     <div className="mt-3 grid gap-3">{children}</div>
   </article>;
 }
@@ -99,7 +99,7 @@ export function TokenRow({ name, value, swatch }: { name: string; value: string;
     <code className="font-mono text-xs text-[#ff9bdd]">{name}</code>
     <span className="flex items-center gap-2">
       <span className="size-4 rounded-sm border border-white/20" style={{ background: swatch }} />
-      <code className="font-mono text-xs text-white/70">{value}</code>
+      <code className="font-mono text-xs text-editorial-secondary">{value}</code>
     </span>
   </div>;
 }
@@ -108,8 +108,8 @@ const codeTokenStyles: Record<string, string> = {
   keyword: "text-[#ff4fbd]",
   string: "text-[#b8ff35]",
   component: "text-[#7cecff]",
-  plain: "text-white/80",
-  comment: "text-white/70",
+  plain: "text-editorial-secondary",
+  comment: "text-editorial-secondary",
 };
 
 export type CodeToken = { text: string; kind?: keyof typeof codeTokenStyles };
@@ -152,7 +152,7 @@ export function WorkflowCard({ icon, title, description }: {
 }) {
   return <article className="flytrap-workflow-card rounded-2xl border border-white/10 bg-white/[.04] p-5 text-center shadow-2xl shadow-black/25 backdrop-blur-xl">
     <h3 className="font-display text-base font-bold text-white/90">{title}</h3>
-    <p className="mt-2 text-xs leading-5 text-white/70">{description}</p>
+    <p className="mt-2 text-xs leading-5 text-editorial-secondary">{description}</p>
     <span className="mx-auto mt-5 grid size-12 place-items-center rounded-xl border border-[#ff4fbd]/30 bg-[#ff4fbd]/10 text-[#ff9bdd] shadow-[0_0_22px_rgba(255,79,189,.25)]">
       <FlytrapIcon icon={icon} size="lg" />
     </span>

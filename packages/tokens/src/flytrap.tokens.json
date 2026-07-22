@@ -271,6 +271,11 @@
         "tight": { "$type": "number", "$value": 1.2 },
         "normal": { "$type": "number", "$value": 1.5 },
         "relaxed": { "$type": "number", "$value": 1.75 }
+      },
+      "editorial": {
+        "body": { "$type": "dimension", "$value": "1rem" },
+        "supporting": { "$type": "dimension", "$value": "0.875rem" },
+        "metadata": { "$type": "dimension", "$value": "0.75rem" }
       }
     },
     "icon": {
@@ -327,6 +332,9 @@
     "secondary-foreground": { "$value": "{primitive.neutral.900}", "$extensions": { "modes": { "dark": "{primitive.neutral.950}", "vibrant": "{primitive.neutral.950}" } } },
     "muted": { "$value": "{primitive.neutral.100}", "$extensions": { "modes": { "dark": "{primitive.neutral.800}", "vibrant": "{primitive.magenta.900}" } } },
     "muted-foreground": { "$value": "{primitive.neutral.600}", "$extensions": { "modes": { "dark": "{primitive.neutral.300}", "vibrant": "{primitive.magenta.200}" } } },
+    "editorial-text-primary": { "$value": "{primitive.neutral.900}", "$extensions": { "modes": { "dark": "{primitive.neutral.100}", "vibrant": "{primitive.magenta.50}" } } },
+    "editorial-text-secondary": { "$value": "{primitive.neutral.700}", "$extensions": { "modes": { "dark": "{primitive.neutral.200}", "vibrant": "{primitive.magenta.100}" } } },
+    "editorial-text-muted": { "$value": "{primitive.neutral.600}", "$extensions": { "modes": { "dark": "{primitive.neutral.300}", "vibrant": "{primitive.magenta.200}" } } },
     "accent": { "$value": "{primitive.magenta.100}", "$extensions": { "modes": { "dark": "{primitive.magenta.900}", "vibrant": "{primitive.magenta.800}" } } },
     "accent-foreground": { "$value": "{primitive.magenta.700}", "$extensions": { "modes": { "dark": "{primitive.magenta.300}", "vibrant": "{primitive.magenta.50}" } } },
     "destructive": { "$value": "{primitive.error.600}", "$extensions": { "modes": { "dark": "{primitive.error.600}", "vibrant": "{primitive.error.600}" } } },
@@ -468,6 +476,18 @@
             "on": "color.surface.default"
           }
         }
+      },
+      "editorial-primary": {
+        "$value": "{semantic.editorial-text-primary}",
+        "$extensions": { "apca": { "role": "body", "on": "color.surface.default" } }
+      },
+      "editorial-secondary": {
+        "$value": "{semantic.editorial-text-secondary}",
+        "$extensions": { "apca": { "role": "body", "on": "color.surface.default" } }
+      },
+      "editorial-muted": {
+        "$value": "{semantic.editorial-text-muted}",
+        "$extensions": { "apca": { "role": "ui", "on": "color.surface.default" } }
       },
       "link": {
         "$value": "{semantic.ai-citation}",
