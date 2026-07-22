@@ -32,7 +32,7 @@ function WireframeMoon({ className }: { className?: string }) {
 }
 
 export function Hero() {
-  return <section aria-labelledby="living-hero-title" className="relative isolate overflow-hidden border-b border-[#ff4fbd]/20 px-6 pb-9 pt-12 text-white md:px-10 lg:min-h-[510px] xl:min-h-[560px]" id="overview">
+  return <header className="relative isolate overflow-hidden border-b border-[#ff4fbd]/20 px-6 pb-9 pt-12 text-white md:px-10 lg:min-h-[510px] xl:min-h-[560px]" id="overview">
     <div aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#ff4fbd]/60 to-transparent" />
     <div aria-hidden="true" className="flytrap-motion absolute right-[4vw] top-[6%] hidden h-[80vh] w-px animate-[flytrap-scan_5.2s_linear_infinite] bg-gradient-to-b from-transparent via-[#b8ff35]/70 to-transparent md:block" />
     <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(circle_at_63%_24%,rgba(241,0,129,.2),transparent_24rem),radial-gradient(circle_at_80%_4%,rgba(139,92,246,.2),transparent_18rem)]" />
@@ -53,7 +53,7 @@ export function Hero() {
         Consistent interfaces,
         <span className="block">from design to <span className="text-[#ff4fbd] drop-shadow-[0_0_24px_rgba(255,79,189,.5)]">code.</span></span>
       </h1>
-      <p className="mt-6 max-w-md text-base leading-7 text-white/65">
+      <p className="mt-6 max-w-md text-base leading-7 text-editorial-secondary">
         Find components, styles, and guidance for building products with Flytrap.
       </p>
       <div className="mt-8 flex flex-wrap gap-3">
@@ -61,7 +61,7 @@ export function Hero() {
           <a href="#foundations">Get started <span aria-hidden="true">→</span></a>
         </Button>
         <Button asChild className="rounded-full border-white/25 bg-white/5 px-6 text-white hover:bg-white/10" size="lg" variant="outline">
-          <a href="#tokens">View tokens <span aria-hidden="true" className="ml-1 grid size-5 place-items-center rounded-full border border-white/30 text-[0.6rem]">→</span></a>
+          <a href="#tokens">View tokens <span aria-hidden="true" className="ml-1 grid size-5 place-items-center rounded-full border border-white/30 text-xs">→</span></a>
         </Button>
       </div>
       <a
@@ -76,7 +76,7 @@ export function Hero() {
       <FloatingPanel title="System content">
         <div className="flex items-start gap-3">
           <ul className="grid flex-1 gap-2">
-            {syncRows.map(row => <li className="flex items-center justify-between font-mono text-[0.68rem] uppercase tracking-[0.14em] text-white/70" key={row}>
+            {syncRows.map(row => <li className="flex items-center justify-between font-mono text-xs uppercase tracking-[0.14em] text-editorial-secondary" key={row}>
               {row}
               <span className="size-1.5 rounded-full bg-[#00c970] shadow-[0_0_8px_rgba(0,201,112,.8)]" />
             </li>)}
@@ -95,10 +95,10 @@ export function Hero() {
         </div>
       </FloatingPanel>
       <FloatingPanel className="relative" delay={-2.4} title="System signal">
-        <p className="absolute right-4 top-4 font-mono text-xs text-white/70">96%</p>
+        <p className="absolute right-4 top-4 font-mono text-xs text-editorial-secondary">96%</p>
         <div aria-hidden="true" className="flytrap-motion flytrap-organic mx-auto h-16 w-32 animate-[flytrap-pulse_4.6s_ease-in-out_infinite] bg-[radial-gradient(ellipse_at_50%_45%,rgba(255,79,189,.9),rgba(241,0,129,.4)_55%,rgba(139,92,246,.18)_75%,transparent_85%)] blur-[1px]" style={{ borderRadius: "48% 52% 60% 40% / 62% 58% 42% 38%" }} />
-        <div className="mt-3 flex items-center justify-between font-mono text-[0.62rem] uppercase tracking-[0.16em]">
-          <span className="text-white/65">Stable</span>
+        <div className="mt-3 flex items-center justify-between font-mono text-xs uppercase tracking-[0.16em]">
+          <span className="text-editorial-secondary">Stable</span>
           <span className="text-[#00c970]">Active</span>
         </div>
       </FloatingPanel>
@@ -106,16 +106,16 @@ export function Hero() {
 
     <div className="relative z-40 mt-10 grid gap-px overflow-hidden rounded-2xl border border-[#ff4fbd]/20 bg-white/8 shadow-[0_0_38px_rgba(241,0,129,.15)] backdrop-blur-xl sm:grid-cols-2 lg:mt-12 lg:max-w-4xl xl:grid-cols-4">
       {heroStrip.map(([title, detail, icon]) => <div className="flex items-center gap-3 bg-[#0a0c14]/85 px-4 py-3" key={title}>
-        <span className="grid size-8 shrink-0 place-items-center rounded-full border border-white/15 bg-white/5 text-white/60">
+        <span className="grid size-8 shrink-0 place-items-center rounded-full border border-white/15 bg-white/5 text-editorial-muted">
           {icon
             ? <FlytrapIcon icon={icon} size="sm" />
             : <span className="size-2 rounded-full bg-[#b8ff35] shadow-[0_0_10px_rgba(184,255,53,.9)]" />}
         </span>
         <span>
           <span className="block text-sm font-medium text-white/85">{title}</span>
-          <span className="block text-xs text-white/60">{detail}</span>
+          <span className="block text-xs text-editorial-muted">{detail}</span>
         </span>
       </div>)}
     </div>
-  </section>;
+  </header>;
 }

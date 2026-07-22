@@ -29,7 +29,7 @@ export function DeferredShowcase({ children, label, minHeight = "32rem" }: {
 
   return <div aria-busy={!visible || undefined} className="min-w-0" data-slot="deferred-showcase" ref={rootRef}>
     {visible ? children : <div className="grid place-items-center rounded-2xl border border-white/8 bg-black/20 p-6" style={{ minHeight }}>
-      <p className="text-sm text-white/60" role="status">{label} loads as you approach this section.</p>
+      <p className="text-sm text-editorial-muted" role="status">{label} loads as you approach this section.</p>
     </div>}
   </div>;
 }

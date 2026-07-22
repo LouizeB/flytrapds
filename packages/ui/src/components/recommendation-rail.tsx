@@ -19,6 +19,6 @@ export function RecommendationRail({ children, className, description, empty = "
       <h2 className="font-display text-xl font-semibold" id={titleId}>{title}</h2>
       {description ? <p className="text-sm leading-6 text-muted-foreground">{description}</p> : null}
     </div>
-    {hasChildren ? <div className="flex gap-4 overflow-x-auto pb-2" role="list">{children}</div> : <p className="rounded-xl border bg-card p-4 text-sm text-muted-foreground">{empty}</p>}
+    {hasChildren ? <div aria-labelledby={titleId} className="flex gap-4 overflow-x-auto pb-2" role="list" tabIndex={0}>{children}</div> : <p className="rounded-xl border bg-card p-4 text-sm text-muted-foreground">{empty}</p>}
   </section>;
 }
