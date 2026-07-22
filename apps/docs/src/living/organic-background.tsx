@@ -63,18 +63,29 @@ function useDeferredSceneMount(enabled: boolean) {
       return undefined;
     }
 
-    let timeoutHandle: ReturnType<typeof globalThis.setTimeout> | undefined;
     let idleHandle = 0;
+    let timeoutHandle: ReturnType<typeof globalThis.setTimeout> | undefined;
+    const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
+    if (connection?.saveData) return undefined;
 
-    const mount = () => setReady(true);
+    const mountWhenIdle = () => {
+      cleanupSignals();
+      const mount = () => setReady(true);
+      if ("requestIdleCallback" in window) idleHandle = window.requestIdleCallback(mount, { timeout: 2400 });
+      else timeoutHandle = globalThis.setTimeout(mount, 900);
+    };
+    const cleanupSignals = () => {
+      window.removeEventListener("pointerdown", mountWhenIdle);
+      window.removeEventListener("keydown", mountWhenIdle);
+      window.removeEventListener("scroll", mountWhenIdle);
+    };
 
-    if ("requestIdleCallback" in window) {
-      idleHandle = window.requestIdleCallback(mount, { timeout: 1400 });
-    } else {
-      timeoutHandle = globalThis.setTimeout(mount, 720);
-    }
+    window.addEventListener("pointerdown", mountWhenIdle, { once: true, passive: true });
+    window.addEventListener("keydown", mountWhenIdle, { once: true });
+    window.addEventListener("scroll", mountWhenIdle, { once: true, passive: true });
 
     return () => {
+      cleanupSignals();
       if (idleHandle && "cancelIdleCallback" in window) window.cancelIdleCallback(idleHandle);
       if (timeoutHandle) globalThis.clearTimeout(timeoutHandle);
     };
