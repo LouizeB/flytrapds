@@ -23,9 +23,11 @@
     "memory:generate": "node scripts/generate_memory_index.mjs",
     "memory:report": "pnpm memory:generate && node scripts/memory_index_report.mjs --output .planning/memory-index-candidates.md",
     "visual:audit": "node scripts/visual_audit.mjs",
+    "accessibility:audit": "node scripts/accessibility_audit.mjs",
     "apca": "python3 scripts/apca_gate.py packages/tokens/src/flytrap.tokens.json"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.12.1",
     "@changesets/cli": "^2.31.0",
     "@playwright/test": "^1.61.1",
     "turbo": "^2.10.5"

@@ -411,6 +411,10 @@ function App() {
   const [askOpen, setAskOpen] = useState(false);
   const [selectedAnatomyLayer, setSelectedAnatomyLayer] = useState(0);
   const handleBootComplete = React.useCallback(() => setBootComplete(true), []);
+  const handleAskClose = React.useCallback(() => {
+    setAskOpen(false);
+    window.requestAnimationFrame(() => document.getElementById("ask-flytrap-trigger")?.focus());
+  }, []);
   const selectedAnatomyLayerDetail = anatomyLayerDetails[selectedAnatomyLayer] ?? anatomyLayerDetails[0];
 
   React.useEffect(() => {
@@ -1232,11 +1236,11 @@ function App() {
           </section>
 
           <div className="fixed bottom-5 right-5 z-[100] md:bottom-8 md:right-8">
-            <Button className="h-12 rounded-full bg-[#ff4fbd] px-5 text-white shadow-[0_12px_40px_rgba(241,0,129,.4)] hover:bg-[#d90074]" onClick={() => setAskOpen(true)}>
+            <Button className="h-12 rounded-full bg-[#CF006A] px-5 text-white shadow-[0_12px_40px_rgba(241,0,129,.4)] hover:bg-[#A90058]" id="ask-flytrap-trigger" onClick={() => setAskOpen(true)}>
               <FlytrapIcon icon={AiAccentIcon} /> Ask Flytrap
             </Button>
           </div>
-          {askOpen ? <React.Suspense fallback={null}><AskFlytrap onClose={() => setAskOpen(false)} /></React.Suspense> : null}
+          {askOpen ? <React.Suspense fallback={null}><AskFlytrap onClose={handleAskClose} /></React.Suspense> : null}
           <footer aria-label="Flytrap Design System footer" className="relative border-t border-white/10 px-6 py-8 text-editorial-secondary md:px-10">
             <div className="flex flex-wrap items-center justify-between gap-4 text-sm">
               <p className="inline-flex items-center gap-2">

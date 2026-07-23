@@ -64,7 +64,7 @@ export function AskFlytrap({ onClose }: { onClose: () => void }) {
         <SheetDescription className="text-editorial-muted">Contextual guidance with links to the Flytrap sources used.</SheetDescription>
       </SheetHeader>
       <ChatThread className="min-h-0 rounded-2xl border-white/10 bg-black/35">
-        {messages.map(message => <MessageBubble className={message.role === "assistant" ? "max-w-full border-white/10 bg-white/[.045] text-editorial-secondary" : "bg-[#ff4fbd] text-white"} key={message.id} role={message.role}>
+        {messages.map(message => <MessageBubble className={message.role === "assistant" ? "max-w-full border-white/10 bg-white/[.045] text-editorial-secondary" : "bg-[#CF006A] text-white"} key={message.id} role={message.role}>
           <p>{message.content}</p>
           {message.sources?.length ? <div className="mt-3 flex flex-wrap gap-2">{message.sources.map((source, index) => <CitationChip className="border-white/10 bg-black/35 text-editorial-secondary" href={source.href} index={index + 1} key={source.id} source={source.source} />)}</div> : null}
         </MessageBubble>)}
