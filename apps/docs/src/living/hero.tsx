@@ -57,7 +57,7 @@ export function Hero() {
         Find components, styles, and guidance for building products with Flytrap.
       </p>
       <div className="mt-8 flex flex-wrap gap-3">
-        <Button asChild className="rounded-full bg-[#F10081] px-6 text-white shadow-[0_0_28px_rgba(241,0,129,.45)] hover:bg-[#CF006A]" size="lg">
+        <Button asChild className="rounded-full bg-[#CF006A] px-6 text-white shadow-[0_0_28px_rgba(241,0,129,.45)] hover:bg-[#A90058]" size="lg">
           <a href="#foundations">Get started <span aria-hidden="true">→</span></a>
         </Button>
         <Button asChild className="rounded-full border-white/25 bg-white/5 px-6 text-white hover:bg-white/10" size="lg" variant="outline">
